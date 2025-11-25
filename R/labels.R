@@ -246,14 +246,14 @@ xlab <- function(label) {
 #' @rdname labs
 #' @export
 ylab <- function(label) {
-  upersede("2026", "ylab()", "labs(y)")
+  supersede("2026", "ylab()", "labs(y)")
   labs(y = label)
 }
 
 #' @rdname labs
 #' @export
 ggtitle <- function(label, subtitle = waiver()) {
-  upersede("2026", "ggtitle()", I("labs(title, subtitle)"))
+  supersede("2026", "ggtitle()", I("labs(title, subtitle)"))
   labs(title = label, subtitle = subtitle)
 }
 
