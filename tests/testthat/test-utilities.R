@@ -197,3 +197,13 @@ test_that("fallback_palette finds palettes", {
   pal <- fallback_palette(sc)
   expect_true(is_discrete_pal(pal))
 })
+
+test_that("compute_data_size handles gnarly cases", {
+  # Test missing levels
+  df <- data_frame0(
+    x = seq(0, 20, by = 2),
+    PANEL = factor(rep("B", 11), levels = c("A", "B"))
+  )
+  new <- compute_data_size(df, size = NULL, target = "width", default = 1)
+  expect_all_equal(new$width, 2)
+})
