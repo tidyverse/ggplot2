@@ -20,6 +20,10 @@ arguments. Setting a recent edition opens up the latest features but also
 closes down deprecated and superseded functionality.
 }
 \examples{
+# Setting an edition
 set_edition(2026)
+
+# Unsetting an edition
+set_edition()
 }
 \keyword{internal}

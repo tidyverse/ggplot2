@@ -13,7 +13,11 @@
 #' @keywords internal
 #'
 #' @examples
+#' # Setting an edition
 #' set_edition(2026)
+#'
+#' # Unsetting an edition
+#' set_edition()
 set_edition <- function(edition = NULL) {
   old <- ggplot_global$edition
   ggplot_global$edition <- validate_edition(edition)
