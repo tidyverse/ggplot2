@@ -26,7 +26,7 @@
       foo()
     Condition
       Error:
-      ! `foo()` was deprecated in <NA> edition 2025 and is now defunct.
+      ! `foo()` was deprecated in ggplot2 edition 2025 and is now defunct.
       i Please use `bar()` instead.
 
 # edition requirements work
