@@ -16,12 +16,16 @@ test_that("editions can be set and unset", {
 })
 
 test_that("edition deprecation works", {
+  local_mocked_bindings(
+    edition_versions = c("foo" = "999.9.9")
+  )
+
   foo <- function() {
     deprecate("4.0.0", what = "foo()", with = "bar()")
   }
   expect_snapshot_warning(foo())
 
-  set_edition(2025)
+  set_edition("foo")
   withr::defer(set_edition())
 
   expect_snapshot(foo(), error = TRUE)
