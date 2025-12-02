@@ -43,8 +43,7 @@ StatEllipse <- ggproto(
 #'   representing the euclidean distance from the center.
 #'   This ellipse probably won't appear circular unless `coord_fixed()` is applied.
 #' @param segments The number of segments to be used in drawing the ellipse.
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @aesthetics StatEllipse
 #' @export
 #' @examples

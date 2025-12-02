@@ -139,7 +139,7 @@ guide_colourbar <- function(
   ...
 ) {
   if (lifecycle::is_present(raster)) {
-    deprecate_soft0("3.5.0", "guide_colourbar(raster)", "guide_colourbar(display)")
+    deprecate("3.5.0", "guide_colourbar(raster)", "guide_colourbar(display)")
     check_bool(raster)
     display <- if (raster) "raster" else "rectangles"
   }

@@ -65,13 +65,7 @@ GeomSegment <- ggproto(
 #' need to connect points across multiple cases.
 #'
 #' @aesthetics GeomSegment
-#' @inheritParams layer
-#' @inheritParams geom_point
-#' @param arrow specification for arrow heads, as created by [grid::arrow()].
-#' @param arrow.fill fill colour to use for the arrow head (if closed). `NULL`
-#'        means use `colour` aesthetic.
-#' @param lineend Line end style (round, butt, square).
-#' @param linejoin Line join style (round, mitre, bevel).
+#' @inheritParams shared_layer_parameters
 #' @seealso [geom_path()] and [geom_line()] for multi-
 #'   segment lines and paths.
 #' @seealso [geom_spoke()] for a segment parameterised by a location

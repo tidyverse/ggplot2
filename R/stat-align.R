@@ -77,14 +77,13 @@ StatAlign <- ggproto(
 
   finish_layer = function(data, params) {
     # Silently remove out-of-bounds padding vertices
-    var <- flipped_names(params$flipped_aes)$x
+    var <- flipped_names(params$flipped_aes %||% FALSE)$x
     remove <- is.na(data[[var]]) & (data$align_padding %||% FALSE)
     vec_slice(data, !remove)
   }
 )
 
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @export
 #' @rdname geom_ribbon
 stat_align <- make_constructor(

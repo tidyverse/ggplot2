@@ -175,7 +175,13 @@ make_labels <- function(mapping) {
 #'        See [get_alt_text] for examples. `alt` can also be a function that
 #'        takes the plot as input and returns text as output. `alt` also accepts
 #'        rlang [lambda][rlang::as_function()] function notation.
-#' @param ... A list of new name-value pairs. The name should be an aesthetic.
+#' @param ...
+#' New name-value pairs. The name should be an aesthetic. The values can be
+#' one of the following:
+#' * A string or expression to set a label verbatim.
+#' * A function to use as formatter for the default label.
+#' * `NULL` to remove a label.
+#' * A [`waiver()`] to use the default label.
 #' @export
 #'
 #' @seealso
@@ -186,7 +192,7 @@ make_labels <- function(mapping) {
 #' p + labs(x = "New x label")
 #'
 #' # Set labels by variable name instead of aesthetic
-#' p + labs(dict = c(
+#' p + labs(dictionary = c(
 #'   disp = "Displacment", # Not in use
 #'   cyl  = "Number of cylinders",
 #'   mpg  = "Miles per gallon",

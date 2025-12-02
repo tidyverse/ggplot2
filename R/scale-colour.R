@@ -285,7 +285,8 @@ check_scale_type <- function(scale, name, aesthetic, scale_is_discrete = FALSE, 
 scale_backward_compatibility <- function(..., scale, aesthetic, type) {
   aesthetic <- standardise_aes_names(aesthetic[1])
 
-  args <- list2(...)
+  # input ... may have trailing args, which then get stuck in the middle #6710
+  args <- dots_list(..., .ignore_empty = "all")
   args$call <- args$call %||% caller_call() %||% current_call()
 
   if (type == "binned") {
