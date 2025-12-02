@@ -107,6 +107,7 @@ control the curve.</p>
 <span>  curvature <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>  angle <span class="op">=</span> <span class="fl">90</span>,</span>
 <span>  ncp <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>  shape <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>  arrow <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  arrow.fill <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  lineend <span class="op">=</span> <span class="st">"butt"</span>,</span>
@@ -248,6 +249,12 @@ specification, e.g. <code><a href="annotation_borders.html">annotation_borders()
 <dd><p>The number of control points used to draw the curve.
     More control points creates a smoother curve.</p></dd>
 
+
+<dt id="arg-shape">shape<a class="anchor" aria-label="anchor" href="#arg-shape"></a></dt>
+<dd><p>A numeric vector of values between -1 and 1, which
+    control the shape of the curve relative to its control points.
+    See <code>grid.xspline</code> for more details.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -290,13 +297,31 @@ segment lines and paths.</p>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_segment-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># The `shape` and `ncp` arguments of geom_curve control the sharpness of the spline</span></span></span>
+<span class="r-in"><span><span class="va">b</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">geom_curve</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x1</span>, y <span class="op">=</span> <span class="va">y1</span>, xend <span class="op">=</span> <span class="va">x2</span>, yend <span class="op">=</span> <span class="va">y2</span>, colour <span class="op">=</span> <span class="st">"ncp = 5"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    data <span class="op">=</span> <span class="va">df</span>,</span></span>
+<span class="r-in"><span>    curvature <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>    shape <span class="op">=</span> <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>    ncp <span class="op">=</span> <span class="fl">5</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">geom_curve</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x1</span>, y <span class="op">=</span> <span class="va">y1</span>, xend <span class="op">=</span> <span class="va">x2</span>, yend <span class="op">=</span> <span class="va">y2</span>, colour <span class="op">=</span> <span class="st">"ncp = 1"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    data <span class="op">=</span> <span class="va">df</span>,</span></span>
+<span class="r-in"><span>    curvature <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>    shape <span class="op">=</span> <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>    ncp <span class="op">=</span> <span class="fl">1</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-plt img"><img src="geom_segment-5.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">'maps'</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">seals</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">long</span>, <span class="va">lat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_segment</span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>xend <span class="op">=</span> <span class="va">long</span> <span class="op">+</span> <span class="va">delta_long</span>, yend <span class="op">=</span> <span class="va">lat</span> <span class="op">+</span> <span class="va">delta_lat</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    arrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">arrow</a></span><span class="op">(</span>length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">0.1</span>,<span class="st">"cm"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="annotation_borders.html">annotation_borders</a></span><span class="op">(</span><span class="st">"state"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-plt img"><img src="geom_segment-5.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="geom_segment-6.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Use lineend and linejoin to change the style of the segments</span></span></span>
 <span class="r-in"><span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span></span></span>
@@ -312,18 +337,18 @@ segment lines and paths.</p>
 <span class="r-in"><span>  <span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="geom_text.html">geom_text</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="st">'outside'</span>, nudge_x <span class="op">=</span> <span class="op">-</span><span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="lims.html">xlim</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="geom_segment-6.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="geom_segment-7.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># You can also use geom_segment to recreate plot(type = "h") :</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">counts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span><span class="fl">100</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">counts</span><span class="op">$</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">counts</span><span class="op">$</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">counts</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">Freq</span>, type <span class="op">=</span> <span class="st">"h"</span>, lwd <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="geom_segment-7.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="geom_segment-8.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">counts</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">Freq</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu">geom_segment</span><span class="op">(</span><span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span>xend <span class="op">=</span> <span class="va">x</span>, yend <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>, linewidth <span class="op">=</span> <span class="fl">10</span>, lineend <span class="op">=</span> <span class="st">"butt"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="geom_segment-8.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="geom_segment-9.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

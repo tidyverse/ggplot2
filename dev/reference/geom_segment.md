@@ -32,6 +32,7 @@ geom_curve(
   curvature = 0.5,
   angle = 90,
   ncp = 5,
+  shape = 0.5,
   arrow = NULL,
   arrow.fill = NULL,
   lineend = "butt",
@@ -206,6 +207,12 @@ geom_curve(
   The number of control points used to draw the curve. More control
   points creates a smoother curve.
 
+- shape:
+
+  A numeric vector of values between -1 and 1, which control the shape
+  of the curve relative to its control points. See `grid.xspline` for
+  more details.
+
 ## Details
 
 Both geoms draw a single segment/curve per case. See
@@ -264,6 +271,24 @@ b + geom_curve(
   data = df,
   arrow = arrow(length = unit(0.03, "npc"))
 )
+
+
+# The `shape` and `ncp` arguments of geom_curve control the sharpness of the spline
+b +
+  geom_curve(
+    aes(x = x1, y = y1, xend = x2, yend = y2, colour = "ncp = 5"),
+    data = df,
+    curvature = 1,
+    shape = 0,
+    ncp = 5
+  ) +
+  geom_curve(
+    aes(x = x1, y = y1, xend = x2, yend = y2, colour = "ncp = 1"),
+    data = df,
+    curvature = 1,
+    shape = 0,
+    ncp = 1
+  )
 
 
 if (requireNamespace('maps', quietly = TRUE)) {

@@ -8,6 +8,10 @@
   now accept layer names as index
   ([@lgaborini](https://github.com/lgaborini),
   [\#6724](https://github.com/tidyverse/ggplot2/issues/6724))
+- Added new argument `geom_curve(shape)` that will be passed down to
+  [`grid::curveGrob()`](https://rdrr.io/r/grid/grid.curve.html)
+  ([@fmarotta](https://github.com/fmarotta),
+  [\#5998](https://github.com/tidyverse/ggplot2/issues/5998)).
 
 ## ggplot2 4.0.1
 
