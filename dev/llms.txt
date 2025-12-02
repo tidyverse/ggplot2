@@ -61,7 +61,7 @@ correlated.](reference/figures/README-example-1.png)
 
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 
-ggplot2 is now over 10 years old and is used by hundreds of thousands of
+ggplot2 is now 18 years old and is used by hundreds of thousands of
 people to make millions of plots. That means, by-and-large, ggplot2
 itself changes relatively little. When we do make changes, they will be
 generally to add new functions or arguments rather than changing the
