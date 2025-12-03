@@ -34,6 +34,33 @@ test_that("guide specifications are properly checked", {
   expect_snapshot_error(ggplotGrob(p))
 })
 
+test_that("validate_guide finds guides with namespace prefixes", {
+
+  # Mock foo::bar as namespace
+  fake_namespace <- new_environment()
+  env_bind(
+    fake_namespace,
+    guide_bar = function(...) guide_legend(title = "bar", ...)
+  )
+
+  local_mocked_bindings(
+    as_namespace = function(ns, ...) {
+      if (identical(ns, "foo")) {
+        return(fake_namespace)
+      } else {
+        base::asNamespace(ns, ...)
+      }
+    }
+  )
+
+  # Without prefix, we don't know here to look for guide_bar
+  expect_snapshot_error(validate_guide("bar"))
+  # With prefix, we know the namespace where to look for guide_bar
+  g <- validate_guide("foo::bar")
+  expect_true(is_guide(g))
+  expect_equal(g$params$title, "bar")
+})
+
 test_that("get_guide_data retrieves keys appropriately", {
 
   p <- ggplot(mtcars, aes(mpg, disp, colour = drat, size = drat, fill = wt)) +
