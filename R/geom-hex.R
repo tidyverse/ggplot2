@@ -80,11 +80,7 @@ GeomHex <- ggproto("GeomHex", Geom,
 #'   `stat_bin_hex()`. For more information about overriding these connections,
 #'   see how the [stat][layer_stats] and [geom][layer_geoms] arguments work.
 #' @export
-#' @inheritParams layer
-#' @inheritParams geom_point
-#' @param lineend Line end style (round, butt, square).
-#' @param linejoin Line join style (round, mitre, bevel).
-#' @param linemitre Line mitre limit (number greater than 1).
+#' @inheritParams shared_layer_parameters
 #' @export
 #' @examples
 #' d <- ggplot(diamonds, aes(carat, price))

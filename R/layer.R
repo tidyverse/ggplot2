@@ -5,66 +5,7 @@
 #' calls but it can also be created directly using this function.
 #'
 #' @export
-#' @param mapping Set of aesthetic mappings created by [aes()]. If specified and
-#'   `inherit.aes = TRUE` (the default), it is combined with the default mapping
-#'   at the top level of the plot. You must supply `mapping` if there is no plot
-#'   mapping.
-#' @param data The data to be displayed in this layer. There are three
-#'    options:
-#'
-#'    If `NULL`, the default, the data is inherited from the plot
-#'    data as specified in the call to [ggplot()].
-#'
-#'    A `data.frame`, or other object, will override the plot
-#'    data. All objects will be fortified to produce a data frame. See
-#'    [fortify()] for which variables will be created.
-#'
-#'    A `function` will be called with a single argument,
-#'    the plot data. The return value must be a `data.frame`, and
-#'    will be used as the layer data. A `function` can be created
-#'    from a `formula` (e.g. `~ head(.x, 10)`).
-#'
-#' @param geom The geometric object to use to display the data for this layer.
-#'   When using a `stat_*()` function to construct a layer, the `geom` argument
-#'   can be used to override the default coupling between stats and geoms. The
-#'   `geom` argument accepts the following:
-#'   * A `Geom` ggproto subclass, for example `GeomPoint`.
-#'   * A string naming the geom. To give the geom as a string, strip the
-#'     function name of the `geom_` prefix. For example, to use `geom_point()`,
-#'     give the geom as `"point"`.
-#'   * For more information and other ways to specify the geom, see the
-#'     [layer geom][layer_geoms] documentation.
-#' @param stat The statistical transformation to use on the data for this layer.
-#'   When using a `geom_*()` function to construct a layer, the `stat`
-#'   argument can be used to override the default coupling between geoms and
-#'   stats. The `stat` argument accepts the following:
-#'   * A `Stat` ggproto subclass, for example `StatCount`.
-#'   * A string naming the stat. To give the stat as a string, strip the
-#'     function name of the `stat_` prefix. For example, to use `stat_count()`,
-#'     give the stat as `"count"`.
-#'   * For more information and other ways to specify the stat, see the
-#'     [layer stat][layer_stats] documentation.
-#' @param position A position adjustment to use on the data for this layer. This
-#'   can be used in various ways, including to prevent overplotting and
-#'   improving the display. The `position` argument accepts the following:
-#'   * The result of calling a position function, such as `position_jitter()`.
-#'     This method allows for passing extra arguments to the position.
-#'   * A string naming the position adjustment. To give the position as a
-#'     string, strip the function name of the `position_` prefix. For example,
-#'     to use `position_jitter()`, give the position as `"jitter"`.
-#'   * For more information and other ways to specify the position, see the
-#'     [layer position][layer_positions] documentation.
-#' @param show.legend logical. Should this layer be included in the legends?
-#'   `NA`, the default, includes if any aesthetics are mapped.
-#'   `FALSE` never includes, and `TRUE` always includes.
-#'   It can also be a named logical vector to finely select the aesthetics to
-#'   display. To include legend keys for all levels, even
-#'   when no data exists, use `TRUE`.  If `NA`, all levels are shown in legend,
-#'   but unobserved levels are omitted.
-#' @param inherit.aes If `FALSE`, overrides the default aesthetics,
-#'   rather than combining with them. This is most useful for helper functions
-#'   that define both data and aesthetics and shouldn't inherit behaviour from
-#'   the default plot specification, e.g. [annotation_borders()].
+#' @inheritParams shared_layer_parameters
 #' @param check.aes,check.param If `TRUE`, the default, will check that
 #'   supplied parameters and aesthetics are understood by the `geom` or
 #'   `stat`. Use `FALSE` to suppress the checks.
@@ -106,7 +47,7 @@ layer <- function(geom = NULL, stat = NULL,
 
   # Handle show_guide/show.legend
   if (!is.null(params$show_guide)) {
-    lifecycle::deprecate_stop(
+    deprecate(
       "2.0.0", "layer(show_guide)", "layer(show.legend)"
     )
   }
@@ -149,7 +90,7 @@ layer <- function(geom = NULL, stat = NULL,
   if (geom$rename_size && "size" %in% extra_param && !"linewidth" %in% mapped_aesthetics(mapping)) {
     aes_params <- c(aes_params, params["size"])
     extra_param <- setdiff(extra_param, "size")
-    deprecate_warn0("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"), user_env = user_env)
+    deprecate("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"), user_env = user_env)
   }
   if (check.param && length(extra_param) > 0) {
     cli::cli_warn("Ignoring unknown parameters: {.arg {extra_param}}", call = call_env)
@@ -162,7 +103,7 @@ layer <- function(geom = NULL, stat = NULL,
   # Take care of size->linewidth aes renaming
   if (geom$rename_size && "size" %in% extra_aes && !"linewidth" %in% mapped_aesthetics(mapping)) {
     extra_aes <- setdiff(extra_aes, "size")
-    deprecate_warn0("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"), user_env = user_env)
+    deprecate("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"), user_env = user_env)
   }
   if (check.aes && length(extra_aes) > 0) {
     cli::cli_warn("Ignoring unknown aesthetics: {.field {extra_aes}}", call = call_env)
@@ -495,7 +436,7 @@ Layer <- ggproto("Layer", NULL,
           !"linewidth" %in% names(self$computed_mapping) &&
           "linewidth" %in% self$geom$aesthetics()) {
         self$computed_mapping$size <- plot@mapping$size
-        deprecate_warn0("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"))
+        deprecate("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"))
       }
     } else {
       self$computed_mapping <- self$mapping
@@ -877,7 +818,7 @@ Layer <- ggproto("Layer", NULL,
 #' @export
 #' @rdname is_tests
 is_layer <- function(x) inherits(x, "Layer")
-is.layer <- function(x) lifecycle::deprecate_stop("3.5.2", "is.layer()", "is_layer()")
+is.layer <- function(x) deprecate("3.5.2", "is.layer()", "is_layer()", escalate = "abort")
 
 validate_subclass <- function(x, subclass,
                               argname = to_lower_ascii(subclass),
@@ -972,10 +913,8 @@ normalise_label <- function(label) {
     return(NULL)
   }
   if (obj_is_list(label)) {
-    # Ensure that each element in the list has length 1
+    # Ensure no elements are empty
     label[lengths(label) == 0] <- ""
-    truncate <- !vapply(label, is.call, logical(1)) # Don't mess with call/formula
-    label[truncate] <- lapply(label[truncate], `[`, 1)
   }
   if (is.expression(label)) {
     # Classed expressions, when converted to lists, retain their class.

@@ -162,7 +162,7 @@ is_ggplot <- function(x) S7::S7_inherits(x, class_ggplot)
 #' @rdname is_tests
 #' @usage is.ggplot(x) # Deprecated
 is.ggplot <- function(x) {
-  deprecate_soft0("3.5.2", "is.ggplot()", "is_ggplot()")
+  deprecate("3.5.2", "is.ggplot()", "is_ggplot()")
   is_ggplot(x)
 }
 

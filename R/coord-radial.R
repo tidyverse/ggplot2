@@ -123,20 +123,23 @@ coord_radial <- function(theta = "x",
                          rotate_angle = deprecated()) {
 
   if (lifecycle::is_present(r_axis_inside)) {
-    deprecate_warn0(
-      "3.5.1", "coord_radial(r_axis_inside)", "coord_radial(r.axis.inside)"
+    deprecate(
+      "coord_radial(r_axis_inside)", "coord_radial(r.axis.inside)",
+      when = "3.5.1", escalate = "warn"
     )
     r.axis.inside <- r_axis_inside
   }
   if (lifecycle::is_present(rotate_angle)) {
-    deprecate_warn0(
-      "3.5.1", "coord_radial(rotate_angle)", "coord_radial(rotate.angle)"
+    deprecate(
+      "coord_radial(rotate_angle)", "coord_radial(rotate.angle)",
+      when = "3.5.1", escalate = "warn"
     )
     rotate.angle <- rotate_angle
   }
   if (lifecycle::is_present(direction)) {
-    deprecate_warn0(
-      "4.0.0", "coord_radial(direction)", "coord_radial(reverse)"
+    deprecate(
+      "4.0.0", "coord_radial(direction)", "coord_radial(reverse)",
+      when = "4.0.0", escalate = "warn"
     )
     reverse <- switch(reverse, "r" = "thetar", "theta")
   }

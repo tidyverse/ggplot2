@@ -5,11 +5,10 @@
 #' violin plot is a mirrored density plot displayed in the same way as a
 #' boxplot.
 #'
-#' @eval rd_orientation()
+#' @inheritSection shared_layer_parameters Orientation
 #'
 #' @aesthetics GeomViolin
-#' @inheritParams layer
-#' @inheritParams geom_bar
+#' @inheritParams shared_layer_parameters
 #' @param trim If `TRUE` (default), trim the tails of the violins
 #'   to the range of the data. If `FALSE`, don't trim the tails.
 #' @param geom,stat Use to override the default connection between
@@ -111,7 +110,7 @@ geom_violin <- function(mapping = NULL, data = NULL,
 
   extra <- list()
   if (lifecycle::is_present(draw_quantiles)) {
-    deprecate_soft0(
+    deprecate(
       "4.0.0",
       what = "geom_violin(draw_quantiles)",
       with = "geom_violin(quantiles.linetype)"

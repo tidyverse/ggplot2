@@ -178,17 +178,10 @@ GeomStep <- ggproto(
 #' An alternative parameterisation is [geom_segment()], where each line
 #' corresponds to a single case which provides the start and end coordinates.
 #'
-#' @eval rd_orientation()
+#' @inheritSection shared_layer_parameters Orientation
 #'
 #' @aesthetics GeomPath
-#' @inheritParams layer
-#' @inheritParams geom_bar
-#' @param lineend Line end style (round, butt, square).
-#' @param linejoin Line join style (round, mitre, bevel).
-#' @param linemitre Line mitre limit (number greater than 1).
-#' @param arrow Arrow specification, as created by [grid::arrow()].
-#' @param arrow.fill fill colour to use for the arrow head (if closed). `NULL`
-#'        means use `colour` aesthetic.
+#' @inheritParams shared_layer_parameters
 #' @seealso
 #'  [geom_polygon()]: Filled paths (polygons);
 #'  [geom_segment()]: Line segments

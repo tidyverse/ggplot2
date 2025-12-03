@@ -247,12 +247,6 @@ bin_loc <- function(x, id) {
 
 fix_bin_params <- function(params, fun, version) {
 
-  if (package_version(version) < "3.0.0") {
-    deprecate <- lifecycle::deprecate_stop
-  } else {
-    deprecate <- deprecate_warn0
-  }
-
   if (!is.null(params$origin)) {
     args <- paste0(fun, c("(origin)", "(boundary)"))
     deprecate(version, args[1], args[2])

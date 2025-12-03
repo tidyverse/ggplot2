@@ -5,8 +5,7 @@
 #' more details.
 #'
 #' @export
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @examples
 #' ggplot(mtcars, aes(wt, mpg))
 #' # Nothing to see here!
