@@ -12,6 +12,9 @@
   [`grid::curveGrob()`](https://rdrr.io/r/grid/grid.curve.html)
   ([@fmarotta](https://github.com/fmarotta),
   [\#5998](https://github.com/tidyverse/ggplot2/issues/5998)).
+- Fixed a regression where default `width` was miscalculated when some
+  panels are empty ([@teunbrand](https://github.com/teunbrand),
+  [\#6758](https://github.com/tidyverse/ggplot2/issues/6758))
 
 ## ggplot2 4.0.1
 
