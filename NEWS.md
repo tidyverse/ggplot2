@@ -4,6 +4,8 @@
   (@lgaborini, #6724)
 * Added new argument `geom_curve(shape)` that will be passed down to 
   `grid::curveGrob()` (@fmarotta, #5998).
+* Fixed a regression where default `width` was miscalculated when some panels
+  are empty (@teunbrand, #6758)
 
 # ggplot2 4.0.1
 

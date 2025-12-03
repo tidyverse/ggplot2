@@ -927,7 +927,7 @@ compute_data_size <- function(data, size, default = 0.9,
   panels <- arg_match0(panels, c("across", "by", "ignore"))
 
   if (panels == "across") {
-    res <- split(data[[var]], data$PANEL, drop = FALSE)
+    res <- split(data[[var]], data$PANEL, drop = TRUE)
     res <- vapply(res, resolution, FUN.VALUE = numeric(1), ...)
     res <- min(res, na.rm = TRUE)
   } else if (panels == "by") {
