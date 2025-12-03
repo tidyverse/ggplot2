@@ -72,3 +72,15 @@ test_that("`name` is directed correctly (#6623)", {
 test_that("backwards compatibility allows trailing args (#6710)", {
   expect_no_error(scale_fill_discrete(breaks = 1:2, direction = -1L, ))
 })
+
+test_that("All scale_colour_*() have their American versions", {
+  # In testthat, the package env contains non-exported functions as well so we
+  # need to parse NAMESPACE file by ourselves
+  exports <- readLines(system.file("NAMESPACE", package = "ggplot2"))
+  colour_scale_exports <- grep("export\\(scale_colour_.*\\)", exports, value = TRUE)
+  color_scale_exports <- grep("export\\(scale_color_.*\\)", exports, value = TRUE)
+  expect_equal(
+    colour_scale_exports,
+    sub("color", "colour", color_scale_exports)
+  )
+})

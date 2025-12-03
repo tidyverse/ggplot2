@@ -1,22 +1,5 @@
 skip_on_cran() # This test suite is long-running (on cran) and is skipped
 
-test_that("guide_none() can be used in non-position scales", {
-  p <- ggplot(mpg, aes(cty, hwy, colour = class)) +
-    geom_point() +
-    scale_color_discrete(guide = guide_none())
-
-  built <- ggplot_build(p)
-  plot <- built@plot
-  guides <- guides_list(plot@guides)
-  guides <- guides$build(
-    plot@scales,
-    plot@layers,
-    plot@labels
-  )
-
-  expect_length(guides$guides, 0)
-})
-
 test_that("guide specifications are properly checked", {
   expect_snapshot_error(validate_guide("test"))
   expect_snapshot_error(validate_guide(1))
@@ -51,7 +34,6 @@ test_that("guide specifications are properly checked", {
   expect_snapshot_error(ggplotGrob(p))
 })
 
-
 test_that("validate_guide finds guides with namespace prefixes", {
 
   # Mock foo::bar as namespace
@@ -77,44 +59,6 @@ test_that("validate_guide finds guides with namespace prefixes", {
   g <- validate_guide("foo::bar")
   expect_true(is_guide(g))
   expect_equal(g$params$title, "bar")
-})
-
-test_that("guide_coloursteps and guide_bins return ordered breaks", {
-  scale <- scale_colour_viridis_c(breaks = c(2, 3, 1))
-  scale$train(c(0, 4))
-
-  # Coloursteps guide is increasing order
-  g <- guide_colorsteps()
-  key <- g$train(scale = scale, aesthetic = "colour")$key
-  expect_true(all(diff(key$.value) > 0))
-
-  # Bins guide is increasing order
-  g <- guide_bins()
-  key <- g$train(scale = scale, aesthetics = "colour")$key
-  expect_true(all(diff(key$.value) > 0))
-
-  # Out of bound breaks are removed
-  scale <- scale_colour_viridis_c(breaks = c(10, 20, 30, 40, 50), na.value = "grey50")
-  scale$train(c(15, 45))
-
-  g <- guide_colorsteps()
-  key <- g$train(scale = scale, aesthetic = "colour")$key
-  expect_equal(sum(key$colour == "grey50"), 0)
-})
-
-test_that("guide_coloursteps can parse (un)even steps from discrete scales", {
-
-  val <- cut(1:10, breaks = c(0, 3, 5, 10), include.lowest = TRUE)
-  scale <- scale_colour_viridis_d()
-  scale$train(val)
-
-  g <- guide_coloursteps(even.steps = TRUE)
-  decor <- g$train(scale = scale, aesthetics = "colour")$decor
-  expect_equal(decor$max - decor$min, rep(1/3, 3))
-
-  g <- guide_coloursteps(even.steps = FALSE)
-  decor <- g$train(scale = scale, aesthetics = "colour")$decor
-  expect_equal(decor$max - decor$min, c(0.3, 0.2, 0.5))
 })
 
 test_that("get_guide_data retrieves keys appropriately", {
@@ -190,46 +134,23 @@ test_that("empty guides are dropped", {
   expect_true(is_zero(guides))
 })
 
-test_that("bins can be parsed by guides for all scale types", {
-
-  breaks <- c(90, 100, 200, 300)
-  limits <- c(0, 1000)
-
-  sc <- scale_colour_continuous(breaks = breaks)
-  sc$train(limits)
-
-  expect_equal(parse_binned_breaks(sc)$breaks, breaks)
-
-  sc <- scale_colour_binned(breaks = breaks)
-  sc$train(limits)
-
-  expect_equal(parse_binned_breaks(sc)$breaks, breaks)
-
-  # Note: discrete binned breaks treats outer breaks as limits
-  cut <- cut(c(0, 95, 150, 250, 1000), breaks = breaks)
-
-  sc <- scale_colour_discrete()
-  sc$train(cut)
-
-  parsed <- parse_binned_breaks(sc)
-  expect_equal(
-    sort(c(parsed$limits, parsed$breaks)),
-    breaks
-  )
+test_that("guides() warns if unnamed guides are provided", {
+  expect_snapshot_warning(guides("axis"))
+  expect_snapshot_warning(guides(x = "axis", "axis"))
+  expect_null(guides())
 })
 
-test_that("binned breaks can have hardcoded labels when oob", {
+test_that("a warning is generated when guides(<scale> = FALSE) is specified", {
+  df <- data_frame(x = c(1, 2, 4),
+                   y = c(6, 5, 7))
 
-  sc <- scale_colour_steps(breaks = 1:3, labels = as.character(1:3))
-  sc$train(c(1, 2))
+  # warn on guide(<scale> = FALSE)
+  lifecycle::expect_deprecated(g <- guides(colour = FALSE))
+  expect_equal(g$guides[["colour"]], "none")
 
-  g <- guide_bins()
-  key <- g$train(scale = sc, aesthetic = "colour")$key
-  expect_equal(key$.label, c("1", "2"))
-
-  g <- guide_coloursteps()
-  key <- g$train(scale = sc, aesthetic = "colour")$key
-  expect_equal(key$.label, c("1", "2"))
+  # warn on scale_*(guide = FALSE)
+  p <- ggplot(df, aes(x, y, colour = x)) + scale_colour_continuous(guide = FALSE)
+  lifecycle::expect_deprecated(ggplot_build(p))
 })
 
 # Visual tests ------------------------------------------------------------
@@ -437,220 +358,4 @@ test_that("guides title and text are positioned correctly", {
       )
     )
   expect_doppelganger("legends with all title justifications", p)
-})
-
-test_that("bin guide can be reversed", {
-
-  p <- ggplot(data.frame(x = c(0, 100)), aes(x, x, colour = x, fill = x)) +
-    geom_point() +
-    guides(
-      colour = guide_bins(reverse = TRUE, show.limits = TRUE,  order = 1),
-      fill   = guide_bins(
-        reverse = TRUE, show.limits = FALSE, order = 2,
-        override.aes = list(shape = 21)
-      )
-    )
-
-  expect_doppelganger("reversed guide_bins", p)
-
-})
-
-test_that("bin guide can be styled correctly", {
-  df <- data_frame(x = c(1, 2, 3),
-                   y = c(6, 5, 7))
-
-  p <- ggplot(df, aes(x, y, size = x)) +
-    geom_point() +
-    scale_size_binned()
-
-  expect_doppelganger("guide_bins looks as it should", p)
-  expect_doppelganger("guide_bins can show limits",
-    p + guides(size = guide_bins(show.limits = TRUE))
-  )
-  expect_doppelganger("guide_bins can show arrows",
-    p + guides(size = guide_bins()) +
-      theme_test() +
-      theme(
-        legend.axis.line = element_line(
-          linewidth = 0.5 / .pt,
-          arrow = arrow(length = unit(1.5, "mm"), ends = "both")
-        )
-      )
-  )
-  expect_doppelganger("guide_bins can remove axis",
-    p + guides(size = guide_bins()) +
-      theme_test() +
-      theme(
-        legend.axis.line = element_blank()
-      )
-  )
-  expect_doppelganger("guide_bins work horizontally",
-    p + guides(size = guide_bins(direction = "horizontal"))
-  )
-})
-
-test_that("coloursteps guide can be styled correctly", {
-  df <- data_frame(x = c(1, 2, 4),
-                   y = c(6, 5, 7))
-
-  p <- ggplot(df, aes(x, y, colour = x)) +
-    geom_point() +
-    scale_colour_binned(breaks = c(1.5, 2, 3))
-
-  expect_doppelganger("guide_coloursteps looks as it should", p)
-  expect_doppelganger("guide_coloursteps can show limits",
-    p + guides(colour = guide_coloursteps(show.limits = TRUE))
-  )
-  expect_doppelganger("guide_coloursteps can have bins relative to binsize",
-    p + guides(colour = guide_coloursteps(even.steps = FALSE))
-  )
-  expect_doppelganger("guide_bins can show ticks and transparancy",
-    p + guides(colour = guide_coloursteps(
-      alpha = 0.75,
-      theme = theme(legend.ticks = element_line(linewidth = 0.5 / .pt, colour = "white"))
-    ))
-  )
-})
-
-test_that("binning scales understand the different combinations of limits, breaks, labels, and show.limits", {
-  p <- ggplot(mpg, aes(cty, hwy, color = year)) +
-    geom_point()
-
-  expect_doppelganger("guide_bins understands coinciding limits and bins",
-    p + scale_color_binned(limits = c(1999, 2008),
-                           breaks = c(1999, 2000, 2002, 2004, 2006),
-                           guide = 'bins')
-  )
-  expect_doppelganger("guide_bins understands coinciding limits and bins 2",
-    p + scale_color_binned(limits = c(1999, 2008),
-                           breaks = c(2000, 2002, 2004, 2006, 2008),
-                           guide = 'bins')
-  )
-  expect_doppelganger("guide_bins understands coinciding limits and bins 3",
-    p + scale_color_binned(limits = c(1999, 2008),
-                           breaks = c(1999, 2000, 2002, 2004, 2006),
-                           guide = 'bins', show.limits = TRUE)
-  )
-  expect_doppelganger("guide_bins sets labels when limits is in breaks",
-    p + scale_color_binned(limits = c(1999, 2008),
-                           breaks = c(1999, 2000, 2002, 2004, 2006),
-                           labels = 1:5, guide = 'bins')
-  )
-  expect_snapshot_warning(ggplotGrob(p + scale_color_binned(labels = 1:4, show.limits = TRUE, guide = "bins")))
-
-  expect_doppelganger("guide_colorsteps understands coinciding limits and bins",
-    p + scale_color_binned(limits = c(1999, 2008),
-                           breaks = c(1999, 2000, 2002, 2004, 2006))
-  )
-  expect_doppelganger("guide_colorsteps understands coinciding limits and bins 2",
-    p + scale_color_binned(limits = c(1999, 2008),
-                           breaks = c(2000, 2002, 2004, 2006, 2008))
-  )
-  expect_doppelganger("guide_colorsteps understands coinciding limits and bins 3",
-    p + scale_color_binned(limits = c(1999, 2008),
-                           breaks = c(1999, 2000, 2002, 2004, 2006),
-                           show.limits = TRUE)
-  )
-  expect_doppelganger("guide_colorsteps sets labels when limits is in breaks",
-    p + scale_color_binned(limits = c(1999, 2008),
-                           breaks = c(1999, 2000, 2002, 2004, 2006),
-                           labels = 1:5)
-  )
-  expect_snapshot_warning(ggplotGrob(p + scale_color_binned(labels = 1:4, show.limits = TRUE)))
-})
-
-test_that("a warning is generated when guides(<scale> = FALSE) is specified", {
-  df <- data_frame(x = c(1, 2, 4),
-                   y = c(6, 5, 7))
-
-  # warn on guide(<scale> = FALSE)
-  lifecycle::expect_deprecated(g <- guides(colour = FALSE))
-  expect_equal(g$guides[["colour"]], "none")
-
-  # warn on scale_*(guide = FALSE)
-  p <- ggplot(df, aes(x, y, colour = x)) + scale_colour_continuous(guide = FALSE)
-  lifecycle::expect_deprecated(ggplot_build(p))
-})
-
-test_that("guides() warns if unnamed guides are provided", {
-  expect_snapshot_warning(guides("axis"))
-  expect_snapshot_warning(guides(x = "axis", "axis"))
-  expect_null(guides())
-})
-
-test_that("old S3 guides can be implemented", {
-
-  my_env <- env()
-  my_env$guide_circle <- function() {
-    structure(
-      list(available_aes = c("x", "y"), position = "bottom"),
-      class = c("guide", "circle")
-    )
-  }
-
-  registerS3method(
-    "guide_train", "circle",
-    function(guide, ...) guide,
-    envir = my_env
-  )
-  registerS3method(
-    "guide_transform", "circle",
-    function(guide, ...) guide,
-    envir = my_env
-  )
-  registerS3method(
-    "guide_merge", "circle",
-    function(guide, ...) guide,
-    envir = my_env
-  )
-  registerS3method(
-    "guide_geom", "circle",
-    function(guide, ...) guide,
-    envir = my_env
-  )
-  registerS3method(
-    "guide_gengrob", "circle",
-    function(guide, ...) {
-      absoluteGrob(
-        gList(circleGrob()),
-        height = unit(1, "cm"), width = unit(1, "cm")
-      )
-    },
-    envir = my_env
-  )
-
-  withr::local_environment(my_env)
-
-  my_guides <- guides(x = guide_circle())
-  expect_length(my_guides$guides, 1)
-  expect_s3_class(my_guides$guides[[1]], "guide")
-
-  expect_snapshot_warning(
-    expect_doppelganger(
-      "old S3 guide drawing a circle",
-      ggplot(mtcars, aes(disp, mpg)) +
-        geom_point() +
-        my_guides
-    )
-  )
-})
-
-test_that("guide_custom can be drawn and styled", {
-
-  p <- ggplot() + guides(custom = guide_custom(
-    circleGrob(r = unit(1, "cm")),
-    title = "custom guide"
-  ))
-
-  expect_doppelganger(
-    "stylised guide_custom",
-    p + theme(legend.background = element_rect(fill = "grey50"),
-              legend.title.position = "left",
-              legend.title = element_text(angle = 90, hjust = 0.5))
-  )
-
-  expect_doppelganger(
-    "guide_custom with void theme",
-    p + theme_void()
-  )
 })

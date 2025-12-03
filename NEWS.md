@@ -2,6 +2,8 @@
 
 * `get_layer_data()` and `get_layer_grob()` now accept layer names as index 
   (@lgaborini, #6724)
+* Added new argument `geom_curve(shape)` that will be passed down to 
+  `grid::curveGrob()` (@fmarotta, #5998).
 
 # ggplot2 4.0.1
 
