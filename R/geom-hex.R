@@ -5,10 +5,10 @@
 GeomHex <- ggproto("GeomHex", Geom,
   draw_group = function(self, data, panel_params, coord, lineend = "butt",
                         linejoin = "mitre", linemitre = 10) {
-    data <- fix_linewidth(data, snake_class(self))
     if (empty(data)) {
       return(zeroGrob())
     }
+    data <- fix_linewidth(data, snake_class(self))
 
     # Get hex sizes
     if (!is.null(data$width)) {
@@ -25,13 +25,12 @@ GeomHex <- ggproto("GeomHex", Geom,
       dy <- resolution(data$y, FALSE, TRUE) / sqrt(3) / 2 * 1.15
     }
 
-    hexC <- hexbin::hexcoords(dx, dy, n = 1)
-
     n <- nrow(data)
+    hexC <- hexbin::hexcoords(dx, dy, n = n)
 
-    hexdata <- data[rep(seq_len(n), each = 6), c("x", "y")]
-    hexdata$x <- rep.int(hexC$x, n) + hexdata$x
-    hexdata$y <- rep.int(hexC$y, n) + hexdata$y
+    hexdata <- vec_rep_each(data[c("x", "y", "radius")], times = 6L)
+    hexdata$x <- hexC$x * hexdata$radius + hexdata$x
+    hexdata$y <- hexC$y * hexdata$radius + hexdata$y
 
     coords <- coord$transform(hexdata, panel_params)
 
@@ -58,6 +57,7 @@ GeomHex <- ggproto("GeomHex", Geom,
     fill = from_theme(fill %||% col_mix(ink, paper)),
     linewidth = from_theme(borderwidth),
     linetype = from_theme(bordertype),
+    radius = 1,
     alpha = NA
   ),
 
@@ -95,5 +95,8 @@ GeomHex <- ggproto("GeomHex", Geom,
 #' # Or by specifying the width of the bins
 #' d + geom_hex(binwidth = c(1, 1000))
 #' d + geom_hex(binwidth = c(.1, 500))
+#'
+#' # The hexagons can be scaled by tuning the radius aesthetic
+#' d + geom_hex(aes(radius = after_stat(ncount)))
 #' }
 geom_hex <- make_constructor(GeomHex, stat = 'binhex')

@@ -9,6 +9,8 @@
   `grid::curveGrob()` (@fmarotta, #5998).
 * Fixed a regression where default `width` was miscalculated when some panels
   are empty (@teunbrand, #6758)
+* `geom_hex()` has a new `radius` aesthetic, representing the relative size of
+  the hexagons (@teunbrand, #6727)
 
 # ggplot2 4.0.1
 
