@@ -29,9 +29,9 @@ layer_grob(plot = get_last_plot(), i = 1L)
 
 \item{...}{Not currently in use.}
 
-\item{i}{An integer. In \code{get_layer_data()}, the data to return (in the order added to the
+\item{i}{An integer or a name of a layer. In \code{get_layer_data()}, the data to return (in the order added to the
 plot). In \code{get_layer_grob()}, the grob to return (in the order added to the
-plot). In \code{get_panel_scales()}, the row of a facet to return scales for.}
+plot). In \code{get_panel_scales()} (only integers allowed), the row of a facet to return scales for.}
 
 \item{j}{An integer. In \code{get_panel_scales()}, the column of a facet to return
 scales for.}

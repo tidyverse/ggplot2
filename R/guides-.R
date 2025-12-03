@@ -78,7 +78,7 @@ guides <- function(...) {
 
   idx_false <- vapply(args, isFALSE, FUN.VALUE = logical(1L))
   if (isTRUE(any(idx_false))) {
-    deprecate_warn0("3.3.4", "guides(`<scale>` = 'cannot be `FALSE`. Use \"none\" instead')")
+    deprecate("3.3.4", "guides(`<scale>` = 'cannot be `FALSE`. Use \"none\" instead')")
     args[idx_false] <- "none"
   }
 
@@ -345,7 +345,7 @@ Guides <- ggproto(
         default %||% missing
 
       if (isFALSE(guide)) {
-        deprecate_warn0("3.3.4", I("The `guide` argument in `scale_*()` cannot be `FALSE`. This "), I('"none"'))
+        deprecate("3.3.4", I("The `guide` argument in `scale_*()` cannot be `FALSE`. This "), I('"none"'))
         guide <- "none"
       }
 
@@ -915,8 +915,19 @@ include_layer_in_guide <- function(layer, matched) {
 validate_guide <- function(guide) {
   # if guide is specified by character, then find the corresponding guide
   if (is.character(guide)) {
-    fun <- find_global(paste0("guide_", guide), env = global_env(),
-                       mode = "function")
+    check_string(guide, allow_empty = FALSE)
+    search_env <- list(global_env())
+    if (isTRUE(grepl("::", guide))) {
+      guide <- strsplit(guide, "::", fixed = TRUE)[[1]]
+      # Append prefix as namespaces to search environments
+      search_env <- c(search_env, list(as_namespace(guide[[1]])))
+      # Remove prefix from guide name
+      guide <- guide[[2]]
+    }
+    fun <- find_global(
+      paste0("guide_", guide),
+      env = search_env, mode = "function"
+    )
     if (is.function(fun)) {
       guide <- fun()
     }

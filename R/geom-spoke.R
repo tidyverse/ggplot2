@@ -27,8 +27,7 @@ GeomSpoke <- ggproto(
 #' The angles start from east and increase counterclockwise.
 #'
 #' @aesthetics GeomSpoke
-#' @inheritParams layer
-#' @inheritParams geom_segment
+#' @inheritParams shared_layer_parameters
 #' @export
 #' @examples
 #' df <- expand.grid(x = 1:10, y=1:10)
@@ -50,5 +49,5 @@ geom_spoke <- make_constructor(GeomSpoke)
 #' @rdname geom_spoke
 #' @usage NULL
 stat_spoke <- function(...) {
-  lifecycle::deprecate_stop("2.0.0", "stat_spoke()", "geom_spoke()")
+  deprecate("2.0.0", "stat_spoke()", "geom_spoke()")
 }
