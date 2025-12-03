@@ -11,11 +11,11 @@ find_scale <- function(aes, x, env = parent.frame()) {
   for (scale in type) {
     search_env <- list(env)
     if (isTRUE(grepl("::", scale))) {
+      scale <- strsplit(scale, "::", fixed = TRUE)[[1]]
       # Append prefix as namepaces to search environments
-      prefix <- sub("::.*", "", scale)
-      search_env <- c(search_env, list(as_namespace(prefix)))
+      search_env <- c(search_env, list(as_namespace(scale[[1]])))
       # Remove prefix from scale name
-      scale <- sub(".*::", "", scale)
+      scale <- scale[[2]]
     }
     scale <- paste("scale", aes, scale, sep = "_")
     scale_f <- find_global(scale, search_env, mode = "function")

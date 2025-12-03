@@ -918,11 +918,11 @@ validate_guide <- function(guide) {
     check_string(guide, allow_empty = FALSE)
     search_env <- list(global_env())
     if (isTRUE(grepl("::", guide))) {
+      guide <- strsplit(guide, "::", fixed = TRUE)[[1]]
       # Append prefix as namespaces to search environments
-      prefix <- sub("::.*", "", guide)
-      search_env <- c(search_env, list(as_namespace(prefix)))
+      search_env <- c(search_env, list(as_namespace(guide[[1]])))
       # Remove prefix from guide name
-      guide <- sub(".*::", "", guide)
+      guide <- guide[[2]]
     }
     fun <- find_global(
       paste0("guide_", guide),
