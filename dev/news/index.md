@@ -2,6 +2,12 @@
 
 ## ggplot2 (development version)
 
+- Scales and guides specified by a string can now use package name
+  prefixes to indicate a namespace wherein to look for the scale/guide.
+  For example, one can use
+  `scale_x_continuous(guide = "legendry::axis_base")`
+  ([@teunbrand](https://github.com/teunbrand),
+  [\#4705](https://github.com/tidyverse/ggplot2/issues/4705)).
 - [`get_layer_data()`](https://ggplot2.tidyverse.org/dev/reference/ggplot_build.md)
   and
   [`get_layer_grob()`](https://ggplot2.tidyverse.org/dev/reference/ggplot_build.md)
