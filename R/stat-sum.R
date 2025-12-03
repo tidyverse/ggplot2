@@ -15,7 +15,7 @@ StatSum <- ggproto(
 
     counts <- count(data, group_by, wt_var = "weight")
     counts <- rename(counts, c(freq = "n"))
-    counts$prop <- stats::ave(counts$n, counts$group, FUN = prop.table)
+    counts$prop <- vec_ave(counts$n, counts$group, prop.table)
     counts
   }
 )
