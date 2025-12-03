@@ -44,8 +44,9 @@ find_global <- function(name, env, mode = "any") {
   env <- c(env, list(as_namespace("ggplot2")))
 
   for (e in env) {
-    if (exists(name, envir = e, mode = mode)) {
-      return(get(name, envir = e, mode = mode))
+    found <- get0(name, envir = e, mode = mode)
+    if (!is.null(found)) {
+      return(found)
     }
   }
 
