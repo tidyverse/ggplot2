@@ -232,6 +232,7 @@ aesthetics:
 | •   | [`group`](https://ggplot2.tidyverse.org/dev/reference/aes_group_order.md)             | → inferred                                                              |
 | •   | [`linetype`](https://ggplot2.tidyverse.org/dev/reference/aes_linetype_size_shape.md)  | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
 | •   | [`linewidth`](https://ggplot2.tidyverse.org/dev/reference/aes_linetype_size_shape.md) | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
+| •   | `radius`                                                                              | → `1`                                                                   |
 
 `stat_binhex()` understands the following aesthetics. Required
 aesthetics are displayed in bold and defaults are displayed for optional
@@ -267,6 +268,10 @@ d + geom_hex(bins = 30)
 d + geom_hex(binwidth = c(1, 1000))
 
 d + geom_hex(binwidth = c(.1, 500))
+
+
+# The hexagons can be scaled by tuning the radius aesthetic
+d + geom_hex(aes(radius = after_stat(ncount)))
 
 # }
 ```

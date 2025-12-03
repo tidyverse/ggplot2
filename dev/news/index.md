@@ -21,6 +21,10 @@
 - Fixed a regression where default `width` was miscalculated when some
   panels are empty ([@teunbrand](https://github.com/teunbrand),
   [\#6758](https://github.com/tidyverse/ggplot2/issues/6758))
+- [`geom_hex()`](https://ggplot2.tidyverse.org/dev/reference/geom_hex.md)
+  has a new `radius` aesthetic, representing the relative size of the
+  hexagons ([@teunbrand](https://github.com/teunbrand),
+  [\#6727](https://github.com/tidyverse/ggplot2/issues/6727))
 
 ## ggplot2 4.0.1
 
