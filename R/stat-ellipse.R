@@ -36,12 +36,14 @@ StatEllipse <- ggproto(
 #'
 #' @param level The level at which to draw an ellipse,
 #'   or, if `type="euclid"`, the radius of the circle to be drawn.
-#' @param type The type of ellipse.
-#'   The default `"t"` assumes a multivariate t-distribution, and
-#'   `"norm"` assumes a multivariate normal distribution.
-#'   `"euclid"` draws a circle with the radius equal to `level`,
-#'   representing the euclidean distance from the center.
-#'   This ellipse probably won't appear circular unless `coord_fixed()` is applied.
+#' @param type The type of ellipse. One of the following:
+#'   * `"t"` assuming a multivariate t-distribution based on [MASS::cov.trob()].
+#'   * `"norm"` assuming a multivariate normal distribution.
+#'   * `"euclid"` drawing a circle with the radius equal to `level`,
+#'     representing the euclidean distance from the center. This ellipse
+#'     probably won't appear circular unless `coord_fixed()` is applied.
+#'
+#'   The `"norm"` and `"euclid"` options are based on [stats::cov.wt()].
 #' @param segments The number of segments to be used in drawing the ellipse.
 #' @inheritParams shared_layer_parameters
 #' @aesthetics StatEllipse
