@@ -1,9 +1,9 @@
 # editions can be set and unset
 
     Code
-      set_edition("nonsense")
+      set_ggplot2_edition("nonsense")
     Condition
-      Error in `set_edition()`:
+      Error in `set_ggplot2_edition()`:
       ! `edition` must be one of "2025" or "2026", not "nonsense".
 
 # edition deprecation works

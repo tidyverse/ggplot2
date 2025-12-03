@@ -1,16 +1,16 @@
 test_that("editions can be set and unset", {
 
-  x <- set_edition(2026)
+  x <- set_ggplot2_edition(2026)
   expect_null(x) # Set edition returns old value
   expect_equal(get_edition(), "2026")
 
-  x <- set_edition(NULL)
+  x <- set_ggplot2_edition(NULL)
   expect_equal(x, "2026")
   expect_equal(get_edition(), NULL)
 
   # Test invalid values
   expect_snapshot(
-    set_edition("nonsense"),
+    set_ggplot2_edition("nonsense"),
     error = TRUE
   )
 })
@@ -25,8 +25,8 @@ test_that("edition deprecation works", {
   }
   expect_snapshot_warning(foo())
 
-  set_edition("foo")
-  withr::defer(set_edition())
+  set_ggplot2_edition("foo")
+  withr::defer(set_ggplot2_edition())
 
   expect_snapshot(foo(), error = TRUE)
 })
@@ -38,8 +38,8 @@ test_that("edition supersession works", {
   }
   expect_silent(foo())
 
-  set_edition(2025)
-  withr::defer(set_edition())
+  set_ggplot2_edition(2025)
+  withr::defer(set_ggplot2_edition())
 
   expect_snapshot(foo(), error = TRUE)
 })
@@ -53,8 +53,8 @@ test_that("edition requirements work", {
 
   expect_snapshot(foo(), error = TRUE)
 
-  set_edition(2025)
-  withr::defer(set_edition())
+  set_ggplot2_edition(2025)
+  withr::defer(set_ggplot2_edition())
 
   expect_silent(foo())
 })
