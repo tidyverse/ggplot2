@@ -2,6 +2,10 @@
 
 ## ggplot2 (development version)
 
+- Using infinite `radius` aesthetic in
+  [`geom_spoke()`](https://ggplot2.tidyverse.org/dev/reference/geom_spoke.md)
+  now throws a warning
+  ([\#6671](https://github.com/tidyverse/ggplot2/issues/6671))
 - Scales and guides specified by a string can now use package name
   prefixes to indicate a namespace wherein to look for the scale/guide.
   For example, one can use
