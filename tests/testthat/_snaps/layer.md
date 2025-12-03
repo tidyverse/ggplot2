@@ -47,6 +47,11 @@
 
     Ignoring empty aesthetics: `fill` and `shape`.
 
+# aesthetics defined twice create warning
+
+    The size aesthetic is defined twice: once in `mapping` and once as a static aesthetic.
+    i The static aesthetic overrules the mapped aesthetic.
+
 # invalid aesthetics throws errors
 
     Problem while computing aesthetics.
