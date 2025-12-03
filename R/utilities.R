@@ -931,7 +931,7 @@ compute_data_size <- function(data, size, default = 0.9,
     res <- vapply(res, resolution, FUN.VALUE = numeric(1), ...)
     res <- min(res, na.rm = TRUE)
   } else if (panels == "by") {
-    res <- stats::ave(data[[var]], data$PANEL, FUN = function(x) resolution(x, ...))
+    res <- vec_ave(data[[var]], data$PANEL, function(x) resolution(x, ...))
   } else {
     res <- resolution(data[[var]], ...)
   }
@@ -950,4 +950,15 @@ try_prop <- function(object, name, default = NULL) {
     return(default)
   }
   S7::prop(object, name)
+}
+
+vec_ave <- function(x, by, fn, ...) {
+  idx <- vec_group_loc(by)$loc
+  list_unchop(
+    lapply(
+      vec_chop(x, indices = idx),
+      FUN = fn, ...
+    ),
+    indices = idx
+  )
 }
