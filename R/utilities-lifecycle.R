@@ -34,7 +34,7 @@ with_ggplot2_edition <- function(edition, code) {
   code
 }
 
-get_edition <- function() {
+get_ggplot2_edition <- function() {
   ggplot_global$edition[[1]]
 }
 
@@ -55,7 +55,7 @@ validate_edition <- function(edition, allow_null = TRUE, call = caller_env()) {
 
 edition_require <- function(edition = NULL, what, call = caller_env()) {
   edition <- validate_edition(edition)
-  current_edition <- get_edition()
+  current_edition <- get_ggplot2_edition()
   if (
     !is.null(current_edition) &&
     as.numeric(current_edition) >= as.numeric(edition)
@@ -81,7 +81,7 @@ deprecate <- function(when, ..., id = NULL, always = FALSE, user_env = NULL,
     defunct <- "0.0.0"
   }
 
-  edition <- get_edition()
+  edition <- get_ggplot2_edition()
   if (!is.null(edition) && edition %in% names(edition_versions)) {
     soft <- full <- defunct <- edition_versions[[edition]]
   }
@@ -100,7 +100,7 @@ deprecate <- function(when, ..., id = NULL, always = FALSE, user_env = NULL,
 }
 
 supersede <- function(edition, what, with = NULL, ..., env = caller_env()) {
-  current_edition <- get_edition()
+  current_edition <- get_ggplot2_edition()
   if (
     !is.null(current_edition) &&
     current_edition %in% names(edition_versions) &&

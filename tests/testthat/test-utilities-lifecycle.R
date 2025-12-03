@@ -2,11 +2,11 @@ test_that("editions can be set and unset", {
 
   x <- set_ggplot2_edition(2026)
   expect_null(x) # Set edition returns old value
-  expect_equal(get_edition(), "2026")
+  expect_equal(get_ggplot2_edition(), "2026")
 
   x <- set_ggplot2_edition(NULL)
   expect_equal(x, "2026")
-  expect_equal(get_edition(), NULL)
+  expect_equal(get_ggplot2_edition(), NULL)
 
   # Test invalid values
   expect_snapshot(
