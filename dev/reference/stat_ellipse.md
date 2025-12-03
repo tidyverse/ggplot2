@@ -129,13 +129,21 @@ stat_ellipse(
 
 - type:
 
-  The type of ellipse. The default `"t"` assumes a multivariate
-  t-distribution, and `"norm"` assumes a multivariate normal
-  distribution. `"euclid"` draws a circle with the radius equal to
-  `level`, representing the euclidean distance from the center. This
-  ellipse probably won't appear circular unless
-  [`coord_fixed()`](https://ggplot2.tidyverse.org/dev/reference/coord_fixed.md)
-  is applied.
+  The type of ellipse. One of the following:
+
+  - `"t"` assuming a multivariate t-distribution based on
+    [`MASS::cov.trob()`](https://rdrr.io/pkg/MASS/man/cov.trob.html).
+
+  - `"norm"` assuming a multivariate normal distribution.
+
+  - `"euclid"` drawing a circle with the radius equal to `level`,
+    representing the euclidean distance from the center. This ellipse
+    probably won't appear circular unless
+    [`coord_fixed()`](https://ggplot2.tidyverse.org/dev/reference/coord_fixed.md)
+    is applied.
+
+  The `"norm"` and `"euclid"` options are based on
+  [`stats::cov.wt()`](https://rdrr.io/r/stats/cov.wt.html).
 
 - level:
 

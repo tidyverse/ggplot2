@@ -168,12 +168,12 @@ which parameters it can accept.</p></li>
 
 
 <dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
-<dd><p>The type of ellipse.
-The default <code>"t"</code> assumes a multivariate t-distribution, and
-<code>"norm"</code> assumes a multivariate normal distribution.
-<code>"euclid"</code> draws a circle with the radius equal to <code>level</code>,
-representing the euclidean distance from the center.
-This ellipse probably won't appear circular unless <code><a href="coord_fixed.html">coord_fixed()</a></code> is applied.</p></dd>
+<dd><p>The type of ellipse. One of the following:</p><ul><li><p><code>"t"</code> assuming a multivariate t-distribution based on <code><a href="https://rdrr.io/pkg/MASS/man/cov.trob.html" class="external-link">MASS::cov.trob()</a></code>.</p></li>
+<li><p><code>"norm"</code> assuming a multivariate normal distribution.</p></li>
+<li><p><code>"euclid"</code> drawing a circle with the radius equal to <code>level</code>,
+representing the euclidean distance from the center. This ellipse
+probably won't appear circular unless <code><a href="coord_fixed.html">coord_fixed()</a></code> is applied.</p></li>
+</ul><p>The <code>"norm"</code> and <code>"euclid"</code> options are based on <code><a href="https://rdrr.io/r/stats/cov.wt.html" class="external-link">stats::cov.wt()</a></code>.</p></dd>
 
 
 <dt id="arg-level">level<a class="anchor" aria-label="anchor" href="#arg-level"></a></dt>
