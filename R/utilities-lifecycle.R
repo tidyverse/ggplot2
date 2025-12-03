@@ -24,6 +24,16 @@ set_ggplot2_edition <- function(edition = NULL) {
   invisible(old)
 }
 
+local_ggplot2_edition <- function(edition, env = parent.frame()) {
+  old <- set_ggplot2_edition(edition)
+  withr::defer(set_ggplot2_edition(old), envir = env)
+}
+
+with_ggplot2_edition <- function(edition, code) {
+  local_ggplot2_edition(edition)
+  code
+}
+
 get_edition <- function() {
   ggplot_global$edition[[1]]
 }

@@ -25,8 +25,7 @@ test_that("edition deprecation works", {
   }
   expect_snapshot_warning(foo())
 
-  set_ggplot2_edition("foo")
-  withr::defer(set_ggplot2_edition())
+  local_ggplot2_edition("foo")
 
   expect_snapshot(foo(), error = TRUE)
 })
@@ -38,8 +37,7 @@ test_that("edition supersession works", {
   }
   expect_silent(foo())
 
-  set_ggplot2_edition(2025)
-  withr::defer(set_ggplot2_edition())
+  local_ggplot2_edition(2025)
 
   expect_snapshot(foo(), error = TRUE)
 })
@@ -53,8 +51,7 @@ test_that("edition requirements work", {
 
   expect_snapshot(foo(), error = TRUE)
 
-  set_ggplot2_edition(2025)
-  withr::defer(set_ggplot2_edition())
+  local_ggplot2_edition(2025)
 
   expect_silent(foo())
 })
