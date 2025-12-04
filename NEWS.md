@@ -13,6 +13,9 @@
   are empty (@teunbrand, #6758)
 * `geom_hex()` has a new `radius` aesthetic, representing the relative size of
   the hexagons (@teunbrand, #6727)
+* Added `preserve` argument to `position_jitterdodge()` (@teunbrand, #6584).
+* Fixed `position_jitterdodge(jitter.height, jitter.width)` applying to the 
+  wrong dimension with flipped geoms (@teunbrand, #6535).
 
 # ggplot2 4.0.1
 
