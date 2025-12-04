@@ -33,9 +33,9 @@ GeomSmooth <- ggproto(
                         linemitre = 10, se = FALSE, band_gp = list(), flipped_aes = FALSE) {
     ribbon <- transform(
       data,
-      colour    = band_gp$colour    %||% NA,
-      linetype  = band_gp$linetype  %||% 1L,
-      linewidth = band_gp$linewidth %||% 0.5
+      colour    = band_gp$colour    %||% data$colour    %||% NA,
+      linetype  = band_gp$linetype  %||% data$linetype  %||% 1L,
+      linewidth = band_gp$linewidth %||% data$linewidth %||% 0.5
     )
     path <- transform(data, alpha = NA)
 
@@ -160,7 +160,7 @@ geom_smooth <- function(mapping = NULL, data = NULL,
                         se = TRUE,
                         band.colour = NULL,
                         band.color = NULL,
-                        band.linetype = NULL,
+                        band.linetype = "blank",
                         band.linewidth = NULL,
                         na.rm = FALSE,
                         orientation = NA,
