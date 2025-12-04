@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* The `arrow` and `arrow.fill` arguments are now available in 
+  `geom_linerange()` and `geom_pointrange()` layers (@teunbrand, #6481).
 * (internal) `zeroGrob()` now returns a `grid::nullGrob()` (#6390).
 * `stat_ydensity()` now only requires the `x` or `y` aesthetic. The other will
   be populated with 0, similar to `stat_boxplot()` (@teunbrand, #6600)
