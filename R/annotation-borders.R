@@ -46,6 +46,6 @@ annotation_borders <- function(database = "world", regions = ".", fill = NA,
 #' @rdname annotation_borders
 #' @usage borders(...) # Deprecated
 borders <- function(...) {
-  deprecate_soft0("4.0.0", "borders()", "annotation_borders()")
+  deprecate("4.0.0", "borders()", "annotation_borders()")
   annotation_borders(...)
 }
