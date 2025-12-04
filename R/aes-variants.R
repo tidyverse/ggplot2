@@ -113,8 +113,7 @@ aes_all <- function(vars) {
   # Quosure the symbols in the empty environment because they can only
   # refer to the data mask
   x <- class_mapping(lapply(vars, function(x) new_quosure(as.name(x), emptyenv())))
-  class(x) <- union("unlabelled", class(x))
-  x
+  add_class(x, "unlabelled")
 }
 
 #' Automatic aesthetic mapping

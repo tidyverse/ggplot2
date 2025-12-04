@@ -501,7 +501,7 @@ theme <- function(...,
   }
 
   t <- class_theme(elements, complete = complete, validate = validate)
-  class(t) <- union("theme", class(t))
+  t <- add_class(t, "theme")
   t
 }
 

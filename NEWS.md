@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* (internal) `zeroGrob()` now returns a `grid::nullGrob()` (#6390).
 * `stat_ydensity()` now only requires the `x` or `y` aesthetic. The other will
   be populated with 0, similar to `stat_boxplot()` (@teunbrand, #6600)
 * Implemented `as.list()` and `S7::convert()` methods for lists and classes in ggplot2 
