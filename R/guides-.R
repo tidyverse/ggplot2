@@ -78,7 +78,7 @@ guides <- function(...) {
 
   idx_false <- vapply(args, isFALSE, FUN.VALUE = logical(1L))
   if (isTRUE(any(idx_false))) {
-    deprecate_warn0("3.3.4", "guides(`<scale>` = 'cannot be `FALSE`. Use \"none\" instead')")
+    deprecate("3.3.4", "guides(`<scale>` = 'cannot be `FALSE`. Use \"none\" instead')")
     args[idx_false] <- "none"
   }
 
@@ -109,7 +109,7 @@ guides <- function(...) {
 
 #' @export
 #' @rdname is_tests
-is.guides <- function(x) inherits(x, "Guides")
+is_guides <- function(x) inherits(x, "Guides")
 
 # Class -------------------------------------------------------------------
 
@@ -140,7 +140,7 @@ Guides <- ggproto(
     if (is.null(guides)) {
       return(invisible())
     }
-    if (is.guides(guides)) {
+    if (is_guides(guides)) {
       guides <- guides$guides
     }
     self$guides <- defaults(guides, self$guides)
@@ -274,7 +274,7 @@ Guides <- ggproto(
   #
   # The resulting guide is then drawn in ggplot_gtable
 
-  build = function(self, scales, layers, labels, layer_data, theme = theme()) {
+  build = function(self, scales, layers, labels, layer_data, theme = NULL) {
 
     # Empty guides list
     custom <- self$get_custom()
@@ -300,6 +300,7 @@ Guides <- ggproto(
     }
 
     # Merge and process layers
+    theme <- theme %||% theme()
     guides$merge()
     guides$process_layers(layers, layer_data, theme)
     if (length(guides$guides) == 0) {
@@ -344,7 +345,7 @@ Guides <- ggproto(
         default %||% missing
 
       if (isFALSE(guide)) {
-        deprecate_warn0("3.3.4", I("The `guide` argument in `scale_*()` cannot be `FALSE`. This "), I('"none"'))
+        deprecate("3.3.4", I("The `guide` argument in `scale_*()` cannot be `FALSE`. This "), I('"none"'))
         guide <- "none"
       }
 
@@ -492,7 +493,7 @@ Guides <- ggproto(
     )
 
     grobs <- self$draw(theme, positions, theme$legend.direction)
-    keep <- !vapply(grobs, is.zero, logical(1), USE.NAMES = FALSE)
+    keep <- !vapply(grobs, is_zero, logical(1), USE.NAMES = FALSE)
     grobs <- grobs[keep]
     if (length(grobs) < 1) {
       return(zeroGrob())
@@ -590,7 +591,7 @@ Guides <- ggproto(
   # arguments to collect guides
   package_box = function(grobs, position, theme) {
 
-    if (is.zero(grobs) || length(grobs) == 0) {
+    if (is_zero(grobs) || length(grobs) == 0) {
       return(zeroGrob())
     }
 
@@ -653,11 +654,15 @@ Guides <- ggproto(
                         height = heightDetails(grobs[[i]]))
         )
       }
+      spacing <- theme$legend.spacing.x
+      stretch_spacing <- any(unitType(spacing) == "null")
+      if (!stretch_spacing) {
+        spacing <- convertWidth(spacing, "cm")
+      }
 
-      spacing <- convertWidth(theme$legend.spacing.x, "cm")
-      heights <- unit(height_cm(lapply(heights, sum)), "cm")
+      total_height <- max(inject(unit.c(!!!lapply(heights, sum))))
 
-      if (stretch_x) {
+      if (stretch_x || stretch_spacing) {
         widths   <- redistribute_null_units(widths, spacing, margin, "width")
         vp_width <- unit(1, "npc")
       } else {
@@ -668,14 +673,14 @@ Guides <- ggproto(
       # Set global justification
       vp <- viewport(
         x = global_xjust, y = global_yjust, just = global_just,
-        height = max(heights),
+        height = total_height,
         width  = vp_width
       )
 
       # Initialise gtable as legends in a row
       guides <- gtable_row(
         name = "guides", grobs = grobs,
-        widths = widths, height = max(heights),
+        widths = widths, height = total_height,
         vp = vp
       )
 
@@ -692,10 +697,14 @@ Guides <- ggproto(
         )
       }
 
-      spacing <- convertHeight(theme$legend.spacing.y, "cm")
-      widths  <- unit(width_cm(lapply(widths, sum)), "cm")
+      spacing <- theme$legend.spacing.y
+      stretch_spacing <- any(unitType(spacing) == "null")
+      if (!stretch_spacing) {
+        spacing <- convertWidth(spacing, "cm")
+      }
+      total_width <- max(inject(unit.c(!!!lapply(widths, sum))))
 
-      if (stretch_y) {
+      if (stretch_y || stretch_spacing) {
         heights   <- redistribute_null_units(heights, spacing, margin, "height")
         vp_height <- unit(1, "npc")
       } else {
@@ -707,13 +716,13 @@ Guides <- ggproto(
       vp <- viewport(
         x = global_xjust, y = global_yjust, just = global_just,
         height = vp_height,
-        width =  max(widths)
+        width =  total_width
       )
 
       # Initialise gtable as legends in a column
       guides <- gtable_col(
         name = "guides", grobs = grobs,
-        width = max(widths), heights = heights,
+        width = total_width, heights = heights,
         vp = vp
       )
 
@@ -735,10 +744,10 @@ Guides <- ggproto(
     )
 
     # Set global margin
-    if (stretch_x) {
+    if (stretch_x || stretch_spacing) {
       global_margin[c(2, 4)] <- unit(0, "cm")
     }
-    if (stretch_y) {
+    if (stretch_y || stretch_spacing) {
       global_margin[c(1, 3)] <- unit(0, "cm")
     }
     guides <- gtable_add_padding(guides, global_margin)
@@ -828,7 +837,7 @@ get_guide_data <- function(plot = get_last_plot(), aesthetic, panel = 1L) {
 
   if (!aesthetic %in% c("x", "y", "x.sec", "y.sec", "theta", "r")) {
     # Non position guides: check if aesthetic in colnames of key
-    keys <- lapply(plot$plot$guides$params, `[[`, "key")
+    keys <- lapply(plot@plot@guides$params, `[[`, "key")
     keep <- vapply(keys, function(x) any(colnames(x) %in% aesthetic), logical(1))
     keys <- switch(sum(keep) + 1, NULL, keys[[which(keep)]], keys[keep])
     return(keys)
@@ -836,12 +845,12 @@ get_guide_data <- function(plot = get_last_plot(), aesthetic, panel = 1L) {
 
   # Position guides: find the right layout entry
   check_number_whole(panel)
-  layout <- plot$layout$layout
+  layout <- plot@layout$layout
   select <- layout[layout$PANEL == panel, , drop = FALSE]
   if (nrow(select) == 0) {
     return(NULL)
   }
-  params <- plot$layout$panel_params[select$PANEL][[1]]
+  params <- plot@layout$panel_params[select$PANEL][[1]]
 
   # If panel params don't have guides, we probably have old coord system
   # that doesn't use the guide system.
@@ -906,13 +915,24 @@ include_layer_in_guide <- function(layer, matched) {
 validate_guide <- function(guide) {
   # if guide is specified by character, then find the corresponding guide
   if (is.character(guide)) {
-    fun <- find_global(paste0("guide_", guide), env = global_env(),
-                       mode = "function")
+    check_string(guide, allow_empty = FALSE)
+    search_env <- list(global_env())
+    if (isTRUE(grepl("::", guide))) {
+      guide <- strsplit(guide, "::", fixed = TRUE)[[1]]
+      # Append prefix as namespaces to search environments
+      search_env <- c(search_env, list(as_namespace(guide[[1]])))
+      # Remove prefix from guide name
+      guide <- guide[[2]]
+    }
+    fun <- find_global(
+      paste0("guide_", guide),
+      env = search_env, mode = "function"
+    )
     if (is.function(fun)) {
       guide <- fun()
     }
   }
-  if (is.guide(guide)) {
+  if (is_guide(guide)) {
     return(guide)
   }
   if (inherits(guide, "guide") && is.list(guide)) {
@@ -933,26 +953,26 @@ redistribute_null_units <- function(units, spacing, margin, type = "width") {
   }
 
   # Get spacing between guides and margins in absolute units
-  size    <- switch(type, width = convertWidth, height = convertHeight)
-  spacing <- size(spacing, "cm", valueOnly = TRUE)
-  spacing <- sum(rep(spacing, length(units) - 1))
+  size    <- switch(type, width = width_cm, height = height_cm)
+  if (length(units) < 2) {
+    # When we have 1 guide, we don't need any spacing
+    spacing <- unit(0, "cm")
+  } else {
+    spacing <- sum(rep(spacing, length.out = length(units) - 1))
+  }
+
   margin  <- switch(type, width = margin[c(2, 4)], height = margin[c(1, 3)])
-  margin  <- sum(size(margin, "cm", valueOnly = TRUE))
+  margin  <- sum(size(margin))
 
   # Get the absolute parts of the unit
-  absolute <- vapply(units, function(u) {
-    u <- absolute.size(u)
-    u <- size(u, "cm", valueOnly = TRUE)
-    sum(u)
-  }, numeric(1))
-  absolute_sum <- sum(absolute) + spacing + margin
+  absolute <- vapply(units, function(u) sum(size(absolute.size(u))), numeric(1))
+  absolute_sum <- sum(absolute) + sum(size(spacing)) + margin
 
   # Get the null parts of the unit
+  num_null <- function(x) sum(as.numeric(x)[unitType(x) == "null"])
   relative <- rep(0, length(units))
-  relative[has_null] <- vapply(units[has_null], function(u) {
-    sum(as.numeric(u)[unitType(u) == "null"])
-  }, numeric(1))
-  relative_sum <- sum(relative)
+  relative[has_null] <- vapply(units[has_null], num_null, numeric(1))
+  relative_sum <- sum(relative) + num_null(spacing)
 
   if (relative_sum == 0) {
     return(unit(absolute, "cm"))

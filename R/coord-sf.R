@@ -86,7 +86,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     target_crs <- panel_params$crs
 
     # CoordSf doesn't use the viewscale rescaling, so we just flip ranges
-    reverse <- self$reverse %||% "none"
+    reverse <- panel_params$reverse %||% "none"
     x_range <- switch(reverse, xy = , x = rev, identity)(panel_params$x_range)
     y_range <- switch(reverse, xy = , y = rev, identity)(panel_params$y_range)
 
@@ -116,7 +116,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     x_breaks <- graticule$degree[graticule$type == "E"]
     if (is.null(scale_x$labels)) {
       x_labels <- rep(NA, length(x_breaks))
-    } else if (is.waiver(scale_x$labels)) {
+    } else if (is_waiver(scale_x$labels)) {
       x_labels <- graticule$degree_label[graticule$type == "E"]
       needs_autoparsing[graticule$type == "E"] <- TRUE
     } else {
@@ -141,7 +141,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     y_breaks <- graticule$degree[graticule$type == "N"]
     if (is.null(scale_y$labels)) {
       y_labels <- rep(NA, length(y_breaks))
-    } else if (is.waiver(scale_y$labels)) {
+    } else if (is_waiver(scale_y$labels)) {
       y_labels <- graticule$degree_label[graticule$type == "N"]
       needs_autoparsing[graticule$type == "N"] <- TRUE
     } else {
@@ -268,7 +268,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       y_range = y_range,
       crs = params$crs,
       default_crs = params$default_crs,
-      !!!viewscales
+      !!!viewscales,
+      reverse = self$reverse %||% "none"
     )
 
     # Rescale graticule for panel grid
@@ -302,11 +303,15 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
   },
 
   # CoordSf enforces a fixed aspect ratio -> axes cannot be changed freely under faceting
-  is_free = function() FALSE,
+  is_free = function() {
+    FALSE
+  },
 
   # for regular geoms (such as geom_path, geom_polygon, etc.), CoordSf is non-linear
   # if the default_crs option is being used, i.e., not set to NULL
-  is_linear = function(self) is.null(self$get_default_crs()),
+  is_linear = function(self) {
+    is.null(self$get_default_crs())
+  },
 
   distance = function(self, x, y, panel_params) {
     d <- self$backtransform_range(panel_params)
@@ -327,20 +332,22 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     diff(panel_params$y_range) / diff(panel_params$x_range) / ratio
   },
 
-  labels = function(labels, panel_params) labels,
+  labels = function(labels, panel_params) {
+    labels
+  },
 
   render_bg = function(self, panel_params, theme) {
     el <- calc_element("panel.grid.major", theme)
 
     # we don't draw the graticules if the major panel grid is
     # turned off
-    if (inherits(el, "element_blank")) {
+    if (is_theme_element(el, "blank")) {
       grobs <- list(element_render(theme, "panel.background"))
     } else {
       line_gp <- gg_par(
-        col = el$colour,
-        lwd = el$linewidth,
-        lty = el$linetype
+        col = el@colour,
+        lwd = el@linewidth,
+        lty = el@linetype
       )
       grobs <- c(
         list(element_render(theme, "panel.background")),
@@ -553,7 +560,7 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
                      ndiscr = 100, default = FALSE, clip = "on",
                      reverse = "none") {
 
-  if (is.waiver(label_graticule) && is.waiver(label_axes)) {
+  if (is_waiver(label_graticule) && is_waiver(label_axes)) {
     # if both `label_graticule` and `label_axes` are set to waive then we
     # use the default of labels on the left and at the bottom
     label_graticule <- ""
@@ -640,13 +647,13 @@ sf_breaks <- function(scale_x, scale_y, bbox, crs) {
       bbox[is.na(bbox)] <- c(-180, -90, 180, 90)[is.na(bbox)]
     }
 
-    if (!(is.waiver(scale_x$breaks) && is.null(scale_x$n.breaks))) {
+    if (!(is_waiver(scale_x$breaks) && is.null(scale_x$n.breaks))) {
       x_breaks <- scale_x$get_breaks(limits = bbox[c(1, 3)])
       finite <- is.finite(x_breaks)
       x_breaks <- if (any(finite)) x_breaks[finite] else NULL
     }
 
-    if (!(is.waiver(scale_y$breaks) && is.null(scale_y$n.breaks))) {
+    if (!(is_waiver(scale_y$breaks) && is.null(scale_y$n.breaks))) {
       y_breaks <- scale_y$get_breaks(limits = bbox[c(2, 4)])
       finite <- is.finite(y_breaks)
       y_breaks <- if (any(finite)) y_breaks[finite] else NULL
@@ -769,7 +776,7 @@ view_scales_from_graticule <- function(graticule, scale, aesthetic,
   if (scale$position != position) {
     # Try to use secondary axis' guide
     guide <- scale$secondary.axis$guide %||% waiver()
-    if (is.derived(guide)) {
+    if (is_derived(guide)) {
       guide <- scale$guide
     }
   } else {

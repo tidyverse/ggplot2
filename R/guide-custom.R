@@ -64,7 +64,7 @@ guide_custom <- function(
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Guide
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -96,7 +96,7 @@ GuideCustom <- ggproto(
     # Render title
     params <- replace_null(params, position = position, direction = direction)
     elems <- GuideLegend$setup_elements(params, self$elements, theme)
-    if (!is.waiver(params$title) && !is.null(params$title)) {
+    if (!is_waiver(params$title) && !is.null(params$title)) {
       title <- self$build_title(params$title, elems, params)
     } else {
       title <- zeroGrob()
@@ -113,7 +113,7 @@ GuideCustom <- ggproto(
 
     gt <- self$add_title(
       gt, title, title_position,
-      with(elems$title, rotate_just(angle, hjust, vjust))
+      rotate_just(element = elems$title)
     )
 
     # Add padding and background

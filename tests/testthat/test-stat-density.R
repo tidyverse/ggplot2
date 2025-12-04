@@ -21,7 +21,7 @@ test_that("stat_density can make weighted density estimation", {
 
   dens <- stats::density(
     df$mpg, weights = df$weight / sum(df$weight),
-    bw = bw.nrd0(df$mpg)
+    bw = stats::bw.nrd0(df$mpg)
   )
   expected_density_fun <- stats::approxfun(data.frame(x = dens$x, y = dens$y))
 

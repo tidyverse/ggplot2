@@ -1,9 +1,21 @@
-
-#' @rdname coord_polar
+#' Polar coordinates
 #'
+#' The polar coordinate system is most commonly used for pie charts, which
+#' are a stacked bar chart in polar coordinates. \cr
+#' `r lifecycle::badge("superseded")`: `coord_polar()` has been in favour of
+#' `coord_radial()`.
+#'
+#' @param theta variable to map angle to (`x` or `y`)
+#' @param start Offset of starting point from 12 o'clock in radians. Offset
+#'   is applied clockwise or anticlockwise depending on value of `direction`.
+#' @param direction 1, clockwise; -1, anticlockwise
+#' @param clip Should drawing be clipped to the extent of the plot panel? A
+#'   setting of `"on"` (the default) means yes, and a setting of `"off"`
+#'   means no. For details, please see [`coord_cartesian()`].
 #' @param end Position from 12 o'clock in radians where plot ends, to allow
 #'   for partial polar coordinates. The default, `NULL`, is set to
 #'   `start + 2 * pi`.
+#' @param thetalim,rlim Limits for the theta and r axes.
 #' @param expand If `TRUE`, the default, adds a small expansion factor to
 #'   the limits to prevent overlap between data and axes. If `FALSE`, limits
 #'   are taken directly from the scale.
@@ -25,7 +37,7 @@
 #'   (default) keep directions as is. `"theta"` reverses the angle and `"r"`
 #'   reverses the radius. `"thetar"` reverses both the angle and the radius.
 #' @param r_axis_inside,rotate_angle `r lifecycle::badge("deprecated")`
-#'
+#' @export
 #' @note
 #' In `coord_radial()`, position guides can be defined by using
 #' `guides(r = ..., theta = ..., r.sec = ..., theta.sec = ...)`. Note that
@@ -34,15 +46,73 @@
 #' be used for the `theta` positions. Using the `theta.sec` position is only
 #' sensible when `inner.radius > 0`.
 #'
-#' @export
+#' @seealso
+#' The `r link_book("polar coordinates section", "coord#polar-coordinates-with-coord_polar")`
 #' @examples
+#' # NOTE: Use these plots with caution - polar coordinates has
+#' # major perceptual problems.  The main point of these examples is
+#' # to demonstrate how these common plots can be described in the
+#' # grammar.  Use with EXTREME caution.
+#'
+#' # A pie chart = stacked bar chart + polar coordinates
+#' pie <- ggplot(mtcars, aes(x = factor(1), fill = factor(cyl))) +
+#'  geom_bar(width = 1)
+#' pie + coord_radial(theta = "y", expand = FALSE)
+#'
+#' \donttest{
+#'
+#' # A coxcomb plot = bar chart + polar coordinates
+#' cxc <- ggplot(mtcars, aes(x = factor(cyl))) +
+#'   geom_bar(width = 1, colour = "black")
+#' cxc + coord_radial(expand = FALSE)
+#' # A new type of plot?
+#' cxc + coord_radial(theta = "y", expand = FALSE)
+#'
+#' # The bullseye chart
+#' pie + coord_radial(expand = FALSE)
+#'
+#' # Hadley's favourite pie chart
+#' df <- data.frame(
+#'   variable = c("does not resemble", "resembles"),
+#'   value = c(20, 80)
+#' )
+#' ggplot(df, aes(x = "", y = value, fill = variable)) +
+#'   geom_col(width = 1) +
+#'   scale_fill_manual(values = c("red", "yellow")) +
+#'   coord_radial("y", start = pi / 3, expand =  FALSE) +
+#'   labs(title = "Pac man")
+#'
+#' # Windrose + doughnut plot
+#' if (require("ggplot2movies")) {
+#' movies$rrating <- cut_interval(movies$rating, length = 1)
+#' movies$budgetq <- cut_number(movies$budget, 4)
+#'
+#' doh <- ggplot(movies, aes(x = rrating, fill = budgetq))
+#'
+#' # Wind rose
+#' doh + geom_bar(width = 1) + coord_radial(expand = FALSE)
+#' # Race track plot
+#' doh + geom_bar(width = 0.9, position = "fill") +
+#'   coord_radial(theta = "y", expand = FALSE)
+#' }
+#' }
 #' # A partial polar plot
 #' ggplot(mtcars, aes(disp, mpg)) +
 #'   geom_point() +
 #'   coord_radial(start = -0.4 * pi, end = 0.4 * pi, inner.radius = 0.3)
+#'
+#' # Similar with coord_cartesian(), you can set limits.
+#' ggplot(mtcars, aes(disp, mpg)) +
+#'   geom_point() +
+#'   coord_radial(
+#'     start = -0.4 * pi,
+#'     end = 0.4 * pi, inner.radius = 0.3,
+#'     thetalim = c(200, 300),
+#'     rlim = c(15, 30),
+#'   )
 coord_radial <- function(theta = "x",
                          start = 0, end = NULL,
-                         expand = TRUE,
+                         thetalim = NULL, rlim = NULL, expand = TRUE,
                          direction = deprecated(),
                          clip = "off",
                          r.axis.inside = NULL,
@@ -53,20 +123,23 @@ coord_radial <- function(theta = "x",
                          rotate_angle = deprecated()) {
 
   if (lifecycle::is_present(r_axis_inside)) {
-    deprecate_warn0(
-      "3.5.1", "coord_radial(r_axis_inside)", "coord_radial(r.axis.inside)"
+    deprecate(
+      "coord_radial(r_axis_inside)", "coord_radial(r.axis.inside)",
+      when = "3.5.1", escalate = "warn"
     )
     r.axis.inside <- r_axis_inside
   }
   if (lifecycle::is_present(rotate_angle)) {
-    deprecate_warn0(
-      "3.5.1", "coord_radial(rotate_angle)", "coord_radial(rotate.angle)"
+    deprecate(
+      "coord_radial(rotate_angle)", "coord_radial(rotate.angle)",
+      when = "3.5.1", escalate = "warn"
     )
     rotate.angle <- rotate_angle
   }
   if (lifecycle::is_present(direction)) {
-    deprecate_warn0(
-      "3.5.2", "coord_radial(direction)", "coord_radial(reverse)"
+    deprecate(
+      "4.0.0", "coord_radial(direction)", "coord_radial(reverse)",
+      when = "4.0.0", escalate = "warn"
     )
     reverse <- switch(reverse, "r" = "thetar", "theta")
   }
@@ -91,11 +164,22 @@ coord_radial <- function(theta = "x",
   arc <- switch(reverse, thetar = , theta = rev(arc), arc)
 
   r.axis.inside <- r.axis.inside %||% !(abs(arc[2] - arc[1]) >= 1.999 * pi)
+  if (isFALSE(r.axis.inside)) {
+    place <- in_arc(c(0, 0.5, 1, 1.5) * pi, arc)
+    if (!any(place)) {
+      cli::cli_warn(c(
+        "No appropriate placement found for outside {.field r.axis}.",
+        i = "Will use {.code r.axis.inside = TRUE} instead"
+      ))
+      r.axis.inside <- TRUE
+    }
+  }
 
   inner.radius <- c(inner.radius, 1) * 0.4
   inner.radius <- switch(reverse, thetar = , r = rev, identity)(inner.radius)
 
   ggproto(NULL, CoordRadial,
+    limits = list(theta = thetalim, r = rlim),
     theta = theta,
     r = r,
     arc = arc,
@@ -108,7 +192,7 @@ coord_radial <- function(theta = "x",
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Coord
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -118,7 +202,9 @@ CoordRadial <- ggproto("CoordRadial", Coord,
     diff(details$bbox$y) / diff(details$bbox$x)
   },
 
-  is_free = function() TRUE,
+  is_free = function() {
+    TRUE
+  },
 
   distance = function(self, x, y, details, boost = 0.75) {
     arc <- details$arc %||% c(0, 2 * pi)
@@ -147,10 +233,20 @@ CoordRadial <- ggproto("CoordRadial", Coord,
   },
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
-
+    if (self$theta == "x") {
+      xlimits <- self$limits$theta
+      ylimits <- self$limits$r
+    } else {
+      xlimits <- self$limits$r
+      ylimits <- self$limits$theta
+    }
     params <- c(
-      view_scales_polar(scale_x, self$theta, expand = params$expand[c(4, 2)]),
-      view_scales_polar(scale_y, self$theta, expand = params$expand[c(3, 1)]),
+      view_scales_polar(scale_x, self$theta, xlimits,
+        expand = params$expand[c(4, 2)]
+      ),
+      view_scales_polar(scale_y, self$theta, ylimits,
+        expand = params$expand[c(3, 1)]
+      ),
       list(bbox = polar_bbox(self$arc, inner_radius = self$inner_radius),
            arc = self$arc, inner_radius = self$inner_radius)
     )
@@ -431,30 +527,20 @@ CoordRadial <- ggproto("CoordRadial", Coord,
 
   setup_params = function(self, data) {
     params <- ggproto_parent(Coord, self)$setup_params(data)
-    if (!isFALSE(self$r_axis_inside)) {
-      return(params)
+    if (isFALSE(self$r_axis_inside)) {
+      place <- in_arc(c(0, 0.5, 1, 1.5) * pi, self$arc)
+      params$r_axis   <- if (any(place[c(1, 3)])) "left" else "bottom"
+      params$fake_arc <- switch(
+        which(place[c(1, 3, 2, 4)])[1],
+        c(0, 2), c(1, 3), c(0.5, 2.5), c(1.5, 3.5)
+      ) * pi
     }
-
-    place <- in_arc(c(0, 0.5, 1, 1.5) * pi, self$arc)
-    if (!any(place)) {
-      cli::cli_warn(c(
-        "No appropriate placement found for {.arg r_axis_inside}.",
-        i = "Axis will be placed at panel edge."
-      ))
-      params$r_axis_inside <- TRUE
-      return(params)
-    }
-
-    params$r_axis   <- if (any(place[c(1, 3)])) "left" else "bottom"
-    params$fake_arc <- switch(
-      which(place[c(1, 3, 2, 4)])[1],
-      c(0, 2), c(1, 3), c(0.5, 2.5), c(1.5, 3.5)
-    ) * pi
     params
   }
 )
 
-view_scales_polar <- function(scale, theta = "x", expand = TRUE) {
+view_scales_polar <- function(scale, theta = "x", coord_limits = NULL,
+                              expand = TRUE) {
 
   aesthetic <- scale$aesthetics[1]
   is_theta  <- theta == aesthetic
@@ -462,7 +548,10 @@ view_scales_polar <- function(scale, theta = "x", expand = TRUE) {
 
   expansion <- default_expansion(scale, expand = expand)
   limits <- scale$get_limits()
-  continuous_range <- expand_limits_scale(scale, expansion, limits)
+  continuous_range <- expand_limits_scale(
+    scale, expansion, limits,
+    coord_limits
+  )
 
   primary <- view_scale_primary(scale, limits, continuous_range)
   view_scales <- list(
@@ -499,6 +588,7 @@ polar_bbox <- function(arc, margin = c(0.05, 0.05, 0.05, 0.05),
     return(list(x = c(0, 1), y = c(0, 1)))
   }
   arc <- sort(arc)
+  inner_radius <- sort(inner_radius)
 
   # X and Y position of the sector arc ends
   xmax <- 0.5 * sin(arc) + 0.5
@@ -550,7 +640,7 @@ deg2rad <- function(deg) deg * pi / 180
 # Function to rotate a radius axis through viewport
 rotate_r_axis <- function(axis, angle, bbox, position = "left") {
 
-  if (inherits(axis, "zeroGrob")) {
+  if (is_zero(axis)) {
     return(axis)
   }
 

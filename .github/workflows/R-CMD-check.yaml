@@ -58,7 +58,22 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
+      # TODO: remove this when R 4.6 is released
+      - name: Tweak for old Windows (R 4.1)
+        uses: r-lib/actions/setup-r-dependencies@v2
+        if: ${{ matrix.config.os == 'windows-latest' && matrix.config.r == 'oldrel-4' }}
+        with:
+          cache-version: 3
+          extra-packages: >
+            any::rcmdcheck,
+            ragg@1.4.0,
+            Hmisc=?ignore-before-r=4.2.0,
+            quantreg=?ignore-before-r=4.3.0
+            local::.
+          needs: check
+
       - uses: r-lib/actions/setup-r-dependencies@v2
+        if: ${{ matrix.config.os != 'windows-latest' || matrix.config.r != 'oldrel-4' }}
         with:
           cache-version: 3
           extra-packages: >

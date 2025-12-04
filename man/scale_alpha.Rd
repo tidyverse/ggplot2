@@ -68,6 +68,7 @@ The \href{https://ggplot2-book.org/scales-colour#sec-scales-alpha}{alpha scales 
 Other colour scales: 
 \code{\link{scale_colour_brewer}()},
 \code{\link{scale_colour_continuous}()},
+\code{\link{scale_colour_discrete}()},
 \code{\link{scale_colour_gradient}()},
 \code{\link{scale_colour_grey}()},
 \code{\link{scale_colour_hue}()},

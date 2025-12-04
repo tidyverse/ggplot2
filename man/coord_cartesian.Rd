@@ -10,7 +10,8 @@ coord_cartesian(
   expand = TRUE,
   default = FALSE,
   clip = "on",
-  reverse = "none"
+  reverse = "none",
+  ratio = NULL
 )
 }
 \arguments{
@@ -42,6 +43,11 @@ legend, the plot title, or the plot margins.}
 (default) keeps directions as is. \code{"x"} and \code{"y"} can be used to reverse
 their respective directions. \code{"xy"} can be used to reverse both
 directions.}
+
+\item{ratio}{aspect ratio, expressed as \code{y / x}. Can be \code{NULL} (default) to
+not use an aspect ratio. Using \code{1} ensures that one unit on the x-axis
+is the same length as one unit on the y-axis. Ratios higher than one make
+units on the y-axis longer than units on the x-axis, and vice versa.}
 }
 \description{
 The Cartesian coordinate system is the most familiar, and common, type of
@@ -73,6 +79,10 @@ p + coord_cartesian(xlim = c(325, 500), expand = FALSE)
 # Similarly, we can use expand = FALSE to turn off expansion with the
 # default limits
 p + coord_cartesian(expand = FALSE)
+
+# Using a fixed ratio: 1 y-axis unit is 100 x-axis units
+# Plot window can be resized and aspect ratio will be maintained
+p + coord_cartesian(ratio = 100)
 
 # You can see the same thing with this 2d histogram
 d <- ggplot(diamonds, aes(carat, price)) +

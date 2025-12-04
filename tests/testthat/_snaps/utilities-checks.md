@@ -18,11 +18,3 @@
 
     Unable to check the capabilities of the foobar device.
 
-# check_device finds ragg capabilities
-
-    The agg_tiff device does not support compositing.
-
-# check_device finds svglite capabilities
-
-    The devSVG device does not support compositing.
-

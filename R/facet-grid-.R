@@ -145,7 +145,7 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
                        facets = deprecated()) {
   # `facets` is deprecated
   if (lifecycle::is_present(facets)) {
-    lifecycle::deprecate_stop("2.2.0", "facet_grid(facets)", "facet_grid(rows)")
+    deprecate("2.2.0", "facet_grid(facets)", "facet_grid(rows)")
   }
 
   # Should become a warning in a future release
@@ -187,7 +187,7 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
   facets_list <- grid_as_facets_list(rows, cols)
 
   # Check for deprecated labellers
-  check_labeller(labeller)
+  labeller <- validate_labeller(labeller)
 
   ggproto(NULL, FacetGrid,
     shrink = shrink,
@@ -206,7 +206,7 @@ grid_as_facets_list <- function(rows, cols) {
       msg <- "{.arg rows} must be {.code NULL} or a {.fn vars} list if {.arg cols} is a {.fn vars} list."
       # Native pipe have higher precedence than + so any type of gg object can be
       # expected here, not just ggplot
-      if (inherits(rows, "gg")) {
+      if (S7::S7_inherits(rows, class_gg)) {
         msg <- c(
           msg,
           "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?"
@@ -234,7 +234,7 @@ grid_as_facets_list <- function(rows, cols) {
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Facet
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -430,7 +430,7 @@ ulevels <- function(x, na.last = TRUE) {
 
 table_has_grob <- function(table, pattern) {
   grobs <- table$grobs[grep(pattern, table$layout$name)]
-  !all(vapply(grobs, is.zero, logical(1)))
+  !all(vapply(grobs, is_zero, logical(1)))
 }
 
 seam_table <- function(table, grobs = NULL, side, shift = 1, name, z = 1,

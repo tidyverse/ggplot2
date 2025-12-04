@@ -5,13 +5,13 @@
 #' [stat_bin()]: instead of just counting, they can compute any
 #' aggregate.
 #'
-#' @eval rd_orientation()
+#' @inheritSection shared_layer_parameters Orientation
 #'
-#' @eval rd_aesthetics("stat", "summary")
+#' @aesthetics StatSummary
 #' @seealso [geom_errorbar()], [geom_pointrange()],
 #'  [geom_linerange()], [geom_crossbar()] for geoms to
 #'  display summarised data
-#' @inheritParams stat_identity
+#' @inheritParams shared_layer_parameters
 #' @section Summary functions:
 #' You can either supply summary functions individually (`fun`,
 #' `fun.max`, `fun.min`), or as a single function (`fun.data`):
@@ -123,7 +123,7 @@
 #' # statistic has been computed. This means we're calculating the summary on the raw data
 #' # and stretching the geoms onto the log scale.  Compare the widths of the
 #' # standard errors.
-#' m2 + coord_trans(y="log10")
+#' m2 + coord_transform(y="log10")
 #' }
 #' }
 stat_summary <- function(mapping = NULL, data = NULL,
@@ -142,15 +142,15 @@ stat_summary <- function(mapping = NULL, data = NULL,
                          fun.ymin = deprecated(),
                          fun.ymax = deprecated()) {
   if (lifecycle::is_present(fun.y)) {
-    deprecate_warn0("3.3.0", "stat_summary(fun.y)", "stat_summary(fun)")
+    deprecate("3.3.0", "stat_summary(fun.y)", "stat_summary(fun)")
     fun <- fun %||% fun.y
   }
   if (lifecycle::is_present(fun.ymin)) {
-    deprecate_warn0("3.3.0", "stat_summary(fun.ymin)", "stat_summary(fun.min)")
+    deprecate("3.3.0", "stat_summary(fun.ymin)", "stat_summary(fun.min)")
     fun.min <- fun.min %||% fun.ymin
   }
   if (lifecycle::is_present(fun.ymax)) {
-    deprecate_warn0("3.3.0", "stat_summary(fun.ymax)", "stat_summary(fun.max)")
+    deprecate("3.3.0", "stat_summary(fun.ymax)", "stat_summary(fun.max)")
     fun.max <- fun.max %||% fun.ymax
   }
   layer(
@@ -174,7 +174,7 @@ stat_summary <- function(mapping = NULL, data = NULL,
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Stat
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -185,8 +185,8 @@ StatSummary <- ggproto("StatSummary", Stat,
 
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params)
-    params$fun <- make_summary_fun(
-      params$fun.data, params$fun,
+    params[["fun"]] <- make_summary_fun(
+      params$fun.data, params[["fun"]],
       params$fun.max, params$fun.min,
       params$fun.args %||% list()
     )

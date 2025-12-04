@@ -241,10 +241,11 @@ get_plot_background <- function(plot, bg = NULL, default = "transparent") {
     return(bg)
   }
   plot <- if (is_bare_list(plot)) plot[[1]] else plot
-  if (!is.ggplot(plot)) {
+  if (!is_ggplot(plot)) {
     return(default)
   }
-  calc_element("plot.background", plot_theme(plot))$fill %||% default
+  bg <- calc_element("plot.background", plot_theme(plot))
+  try_prop(bg, "fill") %||% "transparent"
 }
 
 validate_device <- function(device, filename = NULL, dpi = 300, call = caller_env()) {
@@ -325,10 +326,7 @@ validate_device <- function(device, filename = NULL, dpi = 300, call = caller_en
   dev
 }
 
-#' @export
-grid.draw.ggplot <- function(x, recording = TRUE) {
-  print(x)
-}
+S7::method(grid.draw, class_ggplot) <- function(x, recording = TRUE) print(x)
 
 absorb_grdevice_args <- function(f) {
   function(..., type, antialias) {

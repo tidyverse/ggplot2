@@ -1,17 +1,32 @@
+#' @rdname Geom
+#' @format NULL
+#' @usage NULL
+#' @export
+#' @include geom-ribbon.R
+GeomDensity <- ggproto(
+  "GeomDensity", GeomArea,
+  default_aes = aes(
+    colour = from_theme(colour %||% ink),
+    fill   = from_theme(fill %||% NA),
+    weight = 1,
+    alpha  = NA,
+    linewidth = from_theme(linewidth),
+    linetype  = from_theme(linetype)
+  )
+)
+
 #' Smoothed density estimates
 #'
 #' Computes and draws kernel density estimate, which is a smoothed version of
 #' the histogram. This is a useful alternative to the histogram for continuous
 #' data that comes from an underlying smooth distribution.
 #'
-#' @eval rd_orientation()
-#'
-#' @eval rd_aesthetics("geom", "density")
+#' @inheritSection shared_layer_parameters Orientation
+#' @aesthetics GeomDensity
 #' @seealso See [geom_histogram()], [geom_freqpoly()] for
 #'   other methods of displaying continuous distribution.
 #'   See [geom_violin()] for a compact density display.
-#' @inheritParams layer
-#' @inheritParams geom_bar
+#' @inheritParams shared_layer_parameters
 #' @inheritParams geom_ribbon
 #' @param geom,stat Use to override the default connection between
 #'   `geom_density()` and `stat_density()`. For more information about
@@ -59,45 +74,9 @@
 #' ggplot(diamonds, aes(carat, after_stat(count), fill = cut)) +
 #'   geom_density(position = "fill")
 #' }
-geom_density <- function(mapping = NULL, data = NULL,
-                         stat = "density", position = "identity",
-                         ...,
-                         na.rm = FALSE,
-                         orientation = NA,
-                         show.legend = NA,
-                         inherit.aes = TRUE,
-                         outline.type = "upper") {
-  outline.type <- arg_match0(outline.type, c("both", "upper", "lower", "full"))
-
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomDensity,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      na.rm = na.rm,
-      orientation = orientation,
-      outline.type = outline.type,
-      ...
-    )
-  )
-}
-
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
-#' @include geom-ribbon.R
-GeomDensity <- ggproto("GeomDensity", GeomArea,
-  default_aes = aes(
-    colour = from_theme(colour %||% ink),
-    fill   = from_theme(fill %||% NA),
-    weight = 1,
-    alpha  = NA,
-    linewidth = from_theme(borderwidth),
-    linetype  = from_theme(bordertype)
+geom_density <- make_constructor(
+  GeomDensity, stat = "density", outline.type = "upper",
+  checks = exprs(
+    outline.type <- arg_match0(outline.type, c("both", "upper", "lower", "full"))
   )
 )

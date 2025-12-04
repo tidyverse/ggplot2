@@ -58,9 +58,11 @@ functions for different kind of labels, for example use \code{\link[=label_parse
 formatting facet labels. \code{\link[=label_value]{label_value()}} is used by default,
 check it for more details and pointers to other options.}
 
-\item{as.table}{If \code{TRUE}, the default, the facets are laid out like
-a table with highest values at the bottom-right. If \code{FALSE}, the
-facets are laid out like a plot with the highest value at the top-right.}
+\item{as.table}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}} The \code{as.table} argument
+is now absorbed into the \code{dir} argument via the two letter options.
+If \code{TRUE}, the facets are laid out like a table with highest values at the
+bottom-right. If \code{FALSE}, the facets are laid out like a plot with the
+highest value at the top-right.}
 
 \item{switch}{By default, the labels are displayed on the top and
 right of the plot. If \code{"x"}, the top labels will be
@@ -91,7 +93,7 @@ When \code{"margins"} (default), axes will be drawn at the exterior margins.
 panels too, whereas \code{"all"} will draw all axes at all panels.}
 
 \item{axis.labels}{Determines whether to draw labels for interior axes when
-the scale is fixed and the \code{axis} argument is not \code{"margins"}. When
+the scale is fixed and the \code{axes} argument is not \code{"margins"}. When
 \code{"all"} (default), all interior axes get labels. When \code{"margins"}, only
 the exterior axes get labels, and the interior axes get none. When
 \code{"all_x"} or \code{"all_y"}, only draws the labels at the interior axes in the

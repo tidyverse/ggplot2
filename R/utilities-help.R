@@ -34,7 +34,7 @@ rd_aesthetics_item <- function(x) {
     paste0("\\strong{\\code{", docs, "}}"),
     paste0("\\code{", docs, "}")
   )
-  paste0(" \u2022 \\tab ", item, " \\tab ", defaults, " \\cr\\cr")
+  paste0(" \u2022 \\tab ", item, " \\tab ", defaults, " \\cr")
 }
 
 rd_defaults <- function(layer, aesthetics) {
@@ -78,7 +78,7 @@ rd_match_docpage <- function(aes) {
   )[index + 1]
   no_match <- index == 0
   docpage[!no_match] <- paste0(
-    "\\link[=", docpage[!no_match],
+    "\\link[ggplot2:", docpage[!no_match],
     "]{", flat[!no_match], "}"
   )
   docpage[no_match] <- flat[no_match]
@@ -87,19 +87,8 @@ rd_match_docpage <- function(aes) {
 }
 
 rd_orientation <- function() {
-  c(
-    "@section Orientation: ",
-    paste(
-      'This geom treats each axis differently and, thus, can thus have two orientations.',
-      'Often the orientation is easy to deduce from a combination of the given',
-      'mappings and the types of positional scales in use. Thus, ggplot2 will by',
-      'default try to guess which orientation the layer should have. Under rare',
-      'circumstances, the orientation is ambiguous and guessing may fail. In that',
-      'case the orientation can be specified directly using the \\code{orientation} parameter,',
-      'which can be either \\code{"x"} or \\code{"y"}. The value gives the axis that the geom',
-      'should run along, \\code{"x"} being the default orientation you would expect for the geom.'
-    )
-  )
+  # This function is vestigial. It exists only not to break dependencies.
+  "@inheritSection ggplot2::shared_layer_parameters Orientation"
 }
 
 #' Format 'Computed variables' section
@@ -164,4 +153,59 @@ link_book <- function(text = "", section = "",
     links <- oxford_comma(links, final = "and")
   }
   paste(links, suffix, sep = " ")
+}
+
+roxy_tag_parse.roxy_tag_aesthetics <- function(x) {
+  x <- roxygen2::tag_two_part(x, "an argument name", "a description", required = FALSE)
+
+  class <- get0(x$val$name, parent.frame())
+  if (!inherits(class, c("Geom", "Stat", "Position"))) {
+    cli::cli_abort(
+      "Cannot create a {.field Aesthetics} section for {.val {x$val$name}}."
+    )
+  }
+
+
+  fun_name <- snake_class(class)
+  aes_item <- rd_aesthetics_item(class)
+
+  x$val <- c("",
+    paste0(
+      "\\code{", fun_name, "()} ",
+      "understands the following aesthetics. Required aesthetics are displayed",
+      " in bold and defaults are displayed for optional aesthetics:"
+    ),
+    "\\tabular{rll}{", aes_item, "}",
+    if (nzchar(x$val$description)) x$val$description
+  )
+  x
+}
+
+roxy_tag_rd.roxy_tag_aesthetics <- function(x, base_path, env) {
+  # When we document ggplot2 itself, we don't need to prefix links with ggplot2
+  if (basename(base_path) == "ggplot2") {
+    x$val <- gsub("\\link[ggplot2:", "\\link[=", x$val, fixed = TRUE)
+  }
+  roxygen2::rd_section("aesthetics", x$val)
+}
+
+on_load({
+  vctrs::s3_register(
+    "roxygen2::roxy_tag_parse", "roxy_tag_aesthetics",
+    roxy_tag_parse.roxy_tag_aesthetics
+  )
+  vctrs::s3_register(
+    "roxygen2::roxy_tag_rd", "roxy_tag_aesthetics",
+    roxy_tag_rd.roxy_tag_aesthetics
+  )
+})
+
+#' @export
+format.rd_section_aesthetics <- function(x, ...) {
+  vec_c(
+    "\\section{Aesthetics}{",
+    !!!x$value,
+    "\nLearn more about setting these aesthetics in \\code{vignette(\"ggplot2-specs\")}.",
+    "}"
+  )
 }

@@ -54,15 +54,15 @@ geom_crossbar <- function(mapping = NULL, data = NULL,
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export
 GeomCrossbar <- ggproto("GeomCrossbar", Geom,
   setup_params = function(data, params) {
     if (lifecycle::is_present(params$fatten %||% deprecated())) {
-      deprecate_soft0(
-        "3.6.0", "geom_crossbar(fatten)",
+      deprecate(
+        "4.0.0", "geom_crossbar(fatten)",
         "geom_crossbar(middle.linewidth)"
       )
     } else {

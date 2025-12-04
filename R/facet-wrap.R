@@ -40,11 +40,16 @@ NULL
 #'   `"all_x"` and `"all_y"` will draw the respective axes at the interior
 #'   panels too, whereas `"all"` will draw all axes at all panels.
 #' @param axis.labels Determines whether to draw labels for interior axes when
-#'   the scale is fixed and the `axis` argument is not `"margins"`. When
+#'   the scale is fixed and the `axes` argument is not `"margins"`. When
 #'   `"all"` (default), all interior axes get labels. When `"margins"`, only
 #'   the exterior axes get labels, and the interior axes get none. When
 #'   `"all_x"` or `"all_y"`, only draws the labels at the interior axes in the
 #'   x- or y-direction respectively.
+#' @param as.table `r lifecycle::badge("superseded")` The `as.table` argument
+#'   is now absorbed into the `dir` argument via the two letter options.
+#'   If `TRUE`, the facets are laid out like a table with highest values at the
+#'   bottom-right. If `FALSE`, the facets are laid out like a plot with the
+#'   highest value at the top-right.
 #'
 #' @section Layer layout:
 #' The [`layer(layout)`][layer()] argument in context of `facet_wrap()` can take
@@ -183,13 +188,13 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   )
 
   # Check for deprecated labellers
-  check_labeller(labeller)
+  labeller <- validate_labeller(labeller)
 
   # Flatten all facets dimensions into a single one
   facets <- compact_facets(facets)
 
   if (lifecycle::is_present(switch) && !is.null(switch)) {
-    lifecycle::deprecate_stop(
+    deprecate(
       "2.2.0", "facet_wrap(switch)", "facet_wrap(strip.position)"
     )
   }
@@ -223,7 +228,7 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Facet
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -327,7 +332,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     if (length(empty_bottom) > 0) {
       x_axes <- original$x$bottom[matched[empty_bottom]]
       clash["bottom"] <- strip == "bottom" && !inside && !free$x &&
-        !all(vapply(x_axes, is.zero, logical(1)))
+        !all(vapply(x_axes, is_zero, logical(1)))
       if (!clash["bottom"]) {
         bottom[empty_bottom] <- x_axes
       }
@@ -336,7 +341,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     if (length(empty_top) > 0) {
       x_axes <- original$x$top[matched[empty_top]]
       clash["top"] <- strip == "top" && !inside && !free$x &&
-        !all(vapply(x_axes, is.zero, logical(1)))
+        !all(vapply(x_axes, is_zero, logical(1)))
       if (!clash["top"]) {
         top[empty_top] <- x_axes
       }
@@ -345,7 +350,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     if (length(empty_right) > 0) {
       y_axes <- original$y$right[matched[empty_right]]
       clash["right"]  <- strip == "right" && !inside && !free$y &&
-        !all(vapply(y_axes, is.zero, logical(1)))
+        !all(vapply(y_axes, is_zero, logical(1)))
       if (!clash["right"]) {
         right[empty_right] <- y_axes
       }
@@ -354,7 +359,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     if (length(empty_left) > 0) {
       y_axes <- original$y$left[matched[empty_left]]
       clash["left"]  <- strip == "left" && !inside && !free$y &&
-        !all(vapply(y_axes, is.zero, logical(1)))
+        !all(vapply(y_axes, is_zero, logical(1)))
       if (!clash["left"]) {
         left[empty_left] <- y_axes
       }
@@ -410,7 +415,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
 
     if (!inside) {
       axes  <- grepl(paste0("axis-", pos), table$layout$name)
-      has_axes <- !vapply(table$grobs[axes], is.zero, logical(1))
+      has_axes <- !vapply(table$grobs[axes], is_zero, logical(1))
       has_axes <- split(has_axes, table$layout[[pos]][axes])
       has_axes <- vapply(has_axes, sum, numeric(1)) > 0
       padding  <- rep(padding, length(has_axes))
@@ -563,8 +568,8 @@ wrap_layout <- function(id, dims, dir) {
   if (nchar(dir) != 2) {
     # Should only occur when `as.table` was not incorporated into `dir`
     dir <- switch(dir, h = "lt", v = "tl")
-    deprecate_soft0(
-      "3.5.2",
+    deprecate(
+      "4.0.0",
       what = I("Internal use of `dir = \"h\"` and `dir = \"v\"` in `facet_wrap()`"),
       details = I(c(
         "The `dir` argument should incorporate the `as.table` argument.",

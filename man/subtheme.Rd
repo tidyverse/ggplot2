@@ -15,35 +15,106 @@
 \alias{theme_sub_strip}
 \title{Shortcuts for theme settings}
 \usage{
-theme_sub_axis(title, text, ticks, ticks.length, line)
+theme_sub_axis(..., title, text, ticks, ticks.length, line, minor.ticks.length)
 
-theme_sub_axis_x(title, text, ticks, ticks.length, line)
+theme_sub_axis_x(
+  ...,
+  title,
+  text,
+  ticks,
+  ticks.length,
+  line,
+  minor.ticks.length
+)
 
-theme_sub_axis_y(title, text, ticks, ticks.length, line)
+theme_sub_axis_y(
+  ...,
+  title,
+  text,
+  ticks,
+  ticks.length,
+  line,
+  minor.ticks.length
+)
 
-theme_sub_axis_bottom(title, text, ticks, ticks.length, line)
+theme_sub_axis_bottom(
+  ...,
+  title,
+  text,
+  ticks,
+  ticks.length,
+  line,
+  minor.ticks,
+  minor.ticks.length
+)
 
-theme_sub_axis_top(title, text, ticks, ticks.length, line)
+theme_sub_axis_top(
+  ...,
+  title,
+  text,
+  ticks,
+  ticks.length,
+  line,
+  minor.ticks,
+  minor.ticks.length
+)
 
-theme_sub_axis_left(title, text, ticks, ticks.length, line)
+theme_sub_axis_left(
+  ...,
+  title,
+  text,
+  ticks,
+  ticks.length,
+  line,
+  minor.ticks,
+  minor.ticks.length
+)
 
-theme_sub_axis_right(title, text, ticks, ticks.length, line)
+theme_sub_axis_right(
+  ...,
+  title,
+  text,
+  ticks,
+  ticks.length,
+  line,
+  minor.ticks,
+  minor.ticks.length
+)
 
 theme_sub_legend(
+  ...,
+  text,
+  text.position,
+  title,
+  title.position,
   background,
-  margin,
+  frame,
+  ticks,
+  ticks.length,
+  axis.line,
   spacing,
   spacing.x,
   spacing.y,
+  margin,
   key,
   key.size,
   key.height,
   key.width,
-  text,
-  title,
+  key.spacing,
+  key.spacing.x,
+  key.spacing.y,
+  key.justification,
+  byrow,
   position,
   direction,
+  location,
+  position.inside,
   justification,
+  justification.top,
+  justification.bottom,
+  justification.left,
+  justification.right,
+  justification.inside,
   box,
   box.just,
   box.margin,
@@ -52,8 +123,11 @@ theme_sub_legend(
 )
 
 theme_sub_panel(
+  ...,
   background,
   border,
+  widths,
+  heights,
   spacing,
   spacing.x,
   spacing.y,
@@ -68,6 +142,7 @@ theme_sub_panel(
 )
 
 theme_sub_plot(
+  ...,
   background,
   title,
   title.position,
@@ -81,6 +156,7 @@ theme_sub_plot(
 )
 
 theme_sub_strip(
+  ...,
   background,
   background.x,
   background.y,
@@ -98,7 +174,9 @@ theme_sub_strip(
 )
 }
 \arguments{
-\item{background, background.x, background.y, border, box, box.background, box.just, box.margin, box.spacing, caption, caption.position, clip, direction, grid, grid.major, grid.major.x, grid.major.y, grid.minor, grid.minor.x, grid.minor.y, justification, key, key.height, key.size, key.width, line, margin, ontop, placement, position, spacing, spacing.x, spacing.y, subtitle, switch.pad.grid, switch.pad.wrap, tag, tag.location, tag.position, text, text.x, text.x.bottom, text.x.top, text.y, text.y.left, text.y.right, ticks, ticks.length, title, title.position}{Arguments that are renamed and passed on to \code{\link[=theme]{theme()}}.}
+\item{...}{Not in use, expected to be empty.}
+
+\item{axis.line, background, background.x, background.y, border, box, box.background, box.just, box.margin, box.spacing, byrow, caption, caption.position, clip, direction, frame, grid, grid.major, grid.major.x, grid.major.y, grid.minor, grid.minor.x, grid.minor.y, heights, justification, justification.bottom, justification.inside, justification.left, justification.right, justification.top, key, key.height, key.justification, key.size, key.spacing, key.spacing.x, key.spacing.y, key.width, line, location, margin, minor.ticks, minor.ticks.length, ontop, placement, position, position.inside, spacing, spacing.x, spacing.y, subtitle, switch.pad.grid, switch.pad.wrap, tag, tag.location, tag.position, text, text.position, text.x, text.x.bottom, text.x.top, text.y, text.y.left, text.y.right, ticks, ticks.length, title, title.position, widths}{Arguments that are renamed and passed on to \code{\link[=theme]{theme()}}.}
 }
 \value{
 A \code{theme}-class object that can be added to a plot.

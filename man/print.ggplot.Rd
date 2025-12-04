@@ -4,11 +4,6 @@
 \alias{print.ggplot}
 \alias{plot.ggplot}
 \title{Explicitly draw plot}
-\usage{
-\method{print}{ggplot}(x, newpage = is.null(vp), vp = NULL, ...)
-
-\method{plot}{ggplot}(x, newpage = is.null(vp), vp = NULL, ...)
-}
 \arguments{
 \item{x}{plot to display}
 

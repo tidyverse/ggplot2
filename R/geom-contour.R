@@ -1,3 +1,26 @@
+#' @rdname Geom
+#' @format NULL
+#' @usage NULL
+#' @export
+#' @include geom-path.R
+GeomContour <- ggproto(
+  "GeomContour", GeomPath,
+  default_aes = aes(
+    weight = 1,
+    colour = from_theme(colour %||% accent),
+    linewidth = from_theme(linewidth),
+    linetype = from_theme(linetype),
+    alpha = NA
+  )
+)
+
+#' @rdname Geom
+#' @format NULL
+#' @usage NULL
+#' @export
+#' @include geom-polygon.R
+GeomContourFilled <- ggproto("GeomContourFilled", GeomPolygon)
+
 #' 2D contours of a 3D surface
 #'
 #' @description
@@ -9,13 +32,11 @@
 #' once. Missing values of `z` are allowed, but contouring will only work for
 #' grid points where all four corners are non-missing. If you have irregular
 #' data, you'll need to first interpolate on to a grid before visualising,
-#' using [interp::interp()], [akima::bilinear()], or similar.
+#' using `interp::interp()`, `akima::bilinear()`, or similar.
 #'
-#' @eval rd_aesthetics("geom", "contour")
-#' @eval rd_aesthetics("geom", "contour_filled")
-#' @inheritParams layer
-#' @inheritParams geom_point
-#' @inheritParams geom_path
+#' @aesthetics GeomContour
+#' @aesthetics GeomContourFilled
+#' @inheritParams shared_layer_parameters
 #' @param binwidth The width of the contour bins. Overridden by `bins`.
 #' @param bins Number of contour bins. Overridden by `breaks`.
 #' @param breaks One of:
@@ -26,6 +47,10 @@
 #'
 #'   Overrides `binwidth` and `bins`. By default, this is a vector of length
 #'   ten with [pretty()] breaks.
+#' @param rule Either `"evenodd"` or `"winding"`. If polygons with holes are
+#' being drawn (using the `subgroup` aesthetic) this argument defines how the
+#' hole coordinates are interpreted. See the examples in [grid::pathGrob()] for
+#' an explanation.
 #' @seealso [geom_density_2d()]: 2d density contours
 #' @export
 #' @examples
@@ -56,81 +81,16 @@
 #' v + geom_raster(aes(fill = density)) +
 #'   geom_contour(colour = "white")
 #' }
-geom_contour <- function(mapping = NULL, data = NULL,
-                         stat = "contour", position = "identity",
-                         ...,
-                         bins = NULL,
-                         binwidth = NULL,
-                         breaks = NULL,
-                         lineend = "butt",
-                         linejoin = "round",
-                         linemitre = 10,
-                         na.rm = FALSE,
-                         show.legend = NA,
-                         inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomContour,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      bins = bins,
-      binwidth = binwidth,
-      breaks = breaks,
-      lineend = lineend,
-      linejoin = linejoin,
-      linemitre = linemitre,
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
+geom_contour <- make_constructor(
+  GeomContour, stat = "contour",
+  # Passed to contour stat:
+  bins = NULL, binwidth = NULL, breaks = NULL
+)
 
 #' @rdname geom_contour
 #' @export
-geom_contour_filled <- function(mapping = NULL, data = NULL,
-                                stat = "contour_filled", position = "identity",
-                                ...,
-                                bins = NULL,
-                                binwidth = NULL,
-                                breaks = NULL,
-                                na.rm = FALSE,
-                                show.legend = NA,
-                                inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomContourFilled,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      bins = bins,
-      binwidth = binwidth,
-      breaks = breaks,
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
-
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
-#' @include geom-path.R
-GeomContour <- ggproto("GeomContour", GeomPath,
-  default_aes = aes(weight = 1, !!!GeomPath$default_aes)
+geom_contour_filled <- make_constructor(
+  GeomContourFilled, stat = "contour_filled",
+  # Passed to contour_filled stat:
+  bins = NULL, binwidth = NULL, breaks = NULL
 )
-
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
-#' @include geom-polygon.R
-GeomContourFilled <- ggproto("GeomContourFilled", GeomPolygon)
-

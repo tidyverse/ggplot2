@@ -31,77 +31,72 @@ stat_ydensity(
   geom = "violin",
   position = "dodge",
   ...,
-  quantiles = c(0.25, 0.5, 0.75),
+  orientation = NA,
   bw = "nrd0",
   adjust = 1,
   kernel = "gaussian",
   trim = TRUE,
   scale = "area",
   drop = TRUE,
+  bounds = c(-Inf, Inf),
+  quantiles = c(0.25, 0.5, 0.75),
   na.rm = FALSE,
-  orientation = NA,
   show.legend = NA,
-  inherit.aes = TRUE,
-  bounds = c(-Inf, Inf)
+  inherit.aes = TRUE
 )
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}}. If specified and
-\code{inherit.aes = TRUE} (the default), it is combined with the default mapping
-at the top level of the plot. You must supply \code{mapping} if there is no plot
-mapping.}
+\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}}. If specified and \code{inherit.aes = TRUE} (the default), it is combined with the default mapping at the top level
+of the plot. You must supply \code{mapping} if there is no plot mapping.}
 
-\item{data}{The data to be displayed in this layer. There are three
-options:
+\item{data}{The data to be displayed in this layer. There are three options:
+\itemize{
+\item \code{NULL} (default): the data is inherited from the plot data as specified
+in the call to \code{\link[=ggplot]{ggplot()}}.
+\item A \code{data.frame}, or other object, will override the plot data. All objects
+will be fortified to produce a data frame. See \code{\link[=fortify]{fortify()}} for which
+variables will be created.
+\item A \code{function} will be called with a single argument, the plot data. The return
+value must be a \code{data.frame}, and will be used as the layer data. A
+\code{function} can be created from a \code{formula} (e.g. \code{~ head(.x, 10)}).
+}}
 
-If \code{NULL}, the default, the data is inherited from the plot
-data as specified in the call to \code{\link[=ggplot]{ggplot()}}.
-
-A \code{data.frame}, or other object, will override the plot
-data. All objects will be fortified to produce a data frame. See
-\code{\link[=fortify]{fortify()}} for which variables will be created.
-
-A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data. A \code{function} can be created
-from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
-
-\item{position}{A position adjustment to use on the data for this layer. This
-can be used in various ways, including to prevent overplotting and
-improving the display. The \code{position} argument accepts the following:
+\item{position}{A position adjustment to use on the data for this layer. This can be used in
+various ways, including to prevent overplotting and improving the display.
+The \code{position} argument accepts the following:
 \itemize{
 \item The result of calling a position function, such as \code{position_jitter()}.
 This method allows for passing extra arguments to the position.
 \item A string naming the position adjustment. To give the position as a
-string, strip the function name of the \code{position_} prefix. For example,
-to use \code{position_jitter()}, give the position as \code{"jitter"}.
+string, strip the function name of the \code{position_} prefix. For example, to
+use \code{position_jitter()}, give the position as \code{"jitter"}.
 \item For more information and other ways to specify the position, see the
 \link[=layer_positions]{layer position} documentation.
 }}
 
-\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}'s \code{params} argument. These
-arguments broadly fall into one of 4 categories below. Notably, further
-arguments to the \code{position} argument, or aesthetics that are required
-can \emph{not} be passed through \code{...}. Unknown arguments that are not part
-of the 4 categories below are ignored.
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}'s \code{params} argument. These arguments
+broadly fall into one of 4 categories below. Notably, further arguments to
+the \code{position} argument, or aesthetics that are required can
+\emph{not} be passed through \code{...}. Unknown arguments that are not part of the 4
+categories below are ignored.
 \itemize{
 \item Static aesthetics that are not mapped to a scale, but are at a fixed
-value and apply to the layer as a whole. For example, \code{colour = "red"}
-or \code{linewidth = 3}. The geom's documentation has an \strong{Aesthetics}
-section that lists the available options. The 'required' aesthetics
-cannot be passed on to the \code{params}. Please note that while passing
-unmapped aesthetics as vectors is technically possible, the order and
-required length is not guaranteed to be parallel to the input data.
+value and apply to the layer as a whole. For example, \code{colour = "red"} or
+\code{linewidth = 3}. The geom's documentation has an \strong{Aesthetics} section
+that lists the available options. The 'required' aesthetics cannot be
+passed on to the \code{params}. Please note that while passing unmapped
+aesthetics as vectors is technically possible, the order and required
+length is not guaranteed to be parallel to the input data.
 \item When constructing a layer using
-a \verb{stat_*()} function, the \code{...} argument can be used to pass on
-parameters to the \code{geom} part of the layer. An example of this is
+a \verb{stat_*()} function, the \code{...} argument can be used to pass on parameters
+to the \code{geom} part of the layer. An example of this is
 \code{stat_density(geom = "area", outline.type = "both")}. The geom's
 documentation lists which parameters it can accept.
 \item Inversely, when constructing a layer using a
 \verb{geom_*()} function, the \code{...} argument can be used to pass on parameters
 to the \code{stat} part of the layer. An example of this is
-\code{geom_area(stat = "density", adjust = 0.5)}. The stat's documentation
-lists which parameters it can accept.
+\code{geom_area(stat = "density", adjust = 0.5)}. The stat's documentation lists
+which parameters it can accept.
 \item The \code{key_glyph} argument of \code{\link[=layer]{layer()}} may also be passed on through
 \code{...}. This can be one of the functions described as
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
@@ -118,7 +113,8 @@ outside of bounds are removed with a warning.}
 
 \item{quantile.colour, quantile.color, quantile.linewidth, quantile.linetype}{Default aesthetics for the quantile lines. Set to \code{NULL} to inherit from
 the data's aesthetics. By default, quantile lines are hidden and can be
-turned on by changing \code{quantile.linetype}.}
+turned on by changing \code{quantile.linetype}. Quantile values can be set
+using the \code{quantiles} argument when using \code{stat = "ydensity"} (default).}
 
 \item{draw_quantiles}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Previous
 specification of drawing quantiles.}
@@ -127,34 +123,30 @@ specification of drawing quantiles.}
 the tails). If "count", areas are scaled proportionally to the number of
 observations. If "width", all violins have the same maximum width.}
 
-\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
-a warning. If \code{TRUE}, missing values are silently removed.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with a warning. If
+\code{TRUE}, missing values are silently removed.}
 
-\item{orientation}{The orientation of the layer. The default (\code{NA})
-automatically determines the orientation from the aesthetic mapping. In the
-rare event that this fails it can be given explicitly by setting \code{orientation}
-to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
+\item{orientation}{The orientation of the layer. The default (\code{NA}) automatically determines the
+orientation from the aesthetic mapping. In the rare event that this fails it
+can be given explicitly by setting \code{orientation} to either \code{"x"} or \code{"y"}.
+See the \emph{Orientation} section for more detail.}
 
-\item{show.legend}{logical. Should this layer be included in the legends?
-\code{NA}, the default, includes if any aesthetics are mapped.
-\code{FALSE} never includes, and \code{TRUE} always includes.
-It can also be a named logical vector to finely select the aesthetics to
-display. To include legend keys for all levels, even
-when no data exists, use \code{TRUE}.  If \code{NA}, all levels are shown in legend,
-but unobserved levels are omitted.}
+\item{show.legend}{Logical. Should this layer be included in the legends? \code{NA}, the default,
+includes if any aesthetics are mapped. \code{FALSE} never includes, and \code{TRUE}
+always includes. It can also be a named logical vector to finely select the
+aesthetics to display. To include legend keys for all levels, even when no
+data exists, use \code{TRUE}.  If \code{NA}, all levels are shown in legend, but
+unobserved levels are omitted.}
 
-\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
-rather than combining with them. This is most useful for helper functions
-that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics, rather than combining with
+them. This is most useful for helper functions that define both data and
+aesthetics and shouldn't inherit behaviour from the default plot
+specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 
 \item{geom, stat}{Use to override the default connection between
 \code{geom_violin()} and \code{stat_ydensity()}. For more information about
 overriding these connections, see how the \link[=layer_stats]{stat} and
 \link[=layer_geoms]{geom} arguments work.}
-
-\item{quantiles}{If not \code{NULL} (default), compute the \code{quantile} variable
-and draw horizontal lines at the given quantiles in \code{geom_violin()}.}
 
 \item{bw}{The smoothing bandwidth to be used.
 If numeric, the standard deviation of the smoothing kernel.
@@ -171,6 +163,12 @@ For example, \code{adjust = 1/2} means use half of the default bandwidth.}
 \item{drop}{Whether to discard groups with less than 2 observations
 (\code{TRUE}, default) or keep such groups for position adjustment purposes
 (\code{FALSE}).}
+
+\item{quantiles}{A numeric vector with numbers between 0 and 1 to indicate
+quantiles marked by the \code{quantile} computed variable. The default marks the
+25th, 50th and 75th percentiles. The display of quantiles can be
+turned on by setting \code{quantile.linetype} to non-blank when using
+\code{geom = "violin"} (default).}
 }
 \description{
 A violin plot is a compact display of a continuous distribution. It is a
@@ -178,29 +176,6 @@ blend of \code{\link[=geom_boxplot]{geom_boxplot()}} and \code{\link[=geom_densi
 violin plot is a mirrored density plot displayed in the same way as a
 boxplot.
 }
-\section{Orientation}{
-
-This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the \code{orientation} parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom should run along, \code{"x"} being the default orientation you would expect for the geom.
-}
-
-\section{Aesthetics}{
-
-\code{geom_violin()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
-\tabular{rll}{
-• \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
-• \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
-• \tab \code{weight} \tab → \code{1} \cr\cr
-• \tab \code{width} \tab → \code{0.9} \cr\cr
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-}
-
 \section{Computed variables}{
 
 These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}.
@@ -213,6 +188,19 @@ These are calculated by the 'stat' part of layers and can be accessed with \link
 \item \code{after_stat(width)}\cr Width of violin bounding box.
 \item \code{after_stat(quantile)}\cr Whether the row is part of the \code{quantiles} computation.
 }
+}
+
+\section{Orientation}{
+
+This geom treats each axis differently and, thus, can have two
+orientations. Often the orientation is easy to deduce from a combination of
+the given mappings and the types of positional scales in use. Thus, ggplot2
+will by default try to guess which orientation the layer should have. Under
+rare circumstances, the orientation is ambiguous and guessing may fail. In
+that case the orientation can be specified directly using the \code{orientation}
+parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that
+the geom should run along, \code{"x"} being the default orientation you would
+expect for the geom.
 }
 
 \examples{
@@ -264,10 +252,10 @@ m +
   scale_y_log10()
 m +
   geom_violin() +
-  coord_trans(y = "log10")
+  coord_transform(y = "log10")
 m +
   geom_violin() +
-  scale_y_log10() + coord_trans(y = "log10")
+  scale_y_log10() + coord_transform(y = "log10")
 
 # Violin plots with continuous x:
 # Use the group aesthetic to group observations in violins
@@ -285,4 +273,22 @@ Plot-Density Trace Synergism. The American Statistician 52, 181-184.
 \seealso{
 \code{\link[=geom_violin]{geom_violin()}} for examples, and \code{\link[=stat_density]{stat_density()}}
 for examples with data along the x axis.
+}
+\section{Aesthetics}{
+
+\code{geom_violin()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr
+ • \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr
+ • \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr
+ • \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr
+ • \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr
+ • \tab \code{weight} \tab → \code{1} \cr
+ • \tab \code{width} \tab → \code{0.9} \cr
+}
+
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

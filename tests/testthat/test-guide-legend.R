@@ -5,7 +5,7 @@ test_that("show.legend handles named vectors", {
     g <- ggplotGrob(p)
     gb <- grep("guide-box", g$layout$name)
     n <- vapply(g$grobs[gb], function(x) {
-      if (is.zero(x)) return(0)
+      if (is_zero(x)) return(0)
       length(x$grobs) - 1
     }, numeric(1))
     sum(n)
@@ -128,7 +128,7 @@ test_that("legends can be forced to display unrelated geoms", {
     )
 
   b <- ggplot_build(p)
-  legend <- b$plot$guides$params[[1]]
+  legend <- b@plot@guides$params[[1]]
 
   expect_equal(
     legend$decor[[1]]$data$fill,
@@ -144,6 +144,43 @@ test_that("unresolved, modified expressions throw a warning (#6264)", {
       aes(fill = stage(drv, after_scale = alpha(fill, prop)))
     )
   expect_snapshot_warning(ggplot_build(p))
+})
+
+test_that("legend filters out aesthetics not of length 1", {
+  df <- data_frame(x = 1:5, y = 1:5)
+  p <- ggplot(df, aes(x, y, colour = factor(x))) +
+    geom_point(alpha = seq(0, 1, length.out = 5))
+
+  # Ideally would test something in the legend data structure, but
+  # that's not easily accessible currently.
+  expect_no_error(ggplot_gtable(ggplot_build(p)))
+})
+
+test_that("deprecated_guide_args works as expected", {
+
+  withr::local_options(lifecycle_verbosity = "quiet")
+
+  thm <- guide_legend(
+    label.hjust = 0.5,
+    title.hjust = 0.5,
+    frame.colour = "black",
+    ticks.colour = "black",
+    axis.colour  = "black",
+    theme = list()
+  )$params$theme
+
+  expect_true(is_theme_element(thm$legend.frame, "rect"))
+  expect_true(is_theme_element(thm$legend.ticks, "line"))
+  expect_true(is_theme_element(thm$legend.axis.line, "line"))
+  expect_true(is_theme_element(thm$legend.text, "text"))
+  expect_true(is_theme_element(thm$legend.title, "text"))
+
+  thm <- guide_legend(
+    label = FALSE,
+    ticks = FALSE,
+    axis = FALSE
+  )$params$theme
+  expect_true(is_theme_element(thm$legend.text, "blank"))
 })
 
 # Visual tests ------------------------------------------------------------

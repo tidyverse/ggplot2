@@ -20,7 +20,8 @@ theme_grey(
   base_line_size = base_size/22,
   base_rect_size = base_size/22,
   ink = "black",
-  paper = "white"
+  paper = "white",
+  accent = "#3366FF"
 )
 
 theme_gray(
@@ -30,7 +31,8 @@ theme_gray(
   base_line_size = base_size/22,
   base_rect_size = base_size/22,
   ink = "black",
-  paper = "white"
+  paper = "white",
+  accent = "#3366FF"
 )
 
 theme_bw(
@@ -40,7 +42,8 @@ theme_bw(
   base_line_size = base_size/22,
   base_rect_size = base_size/22,
   ink = "black",
-  paper = "white"
+  paper = "white",
+  accent = "#3366FF"
 )
 
 theme_linedraw(
@@ -50,7 +53,8 @@ theme_linedraw(
   base_line_size = base_size/22,
   base_rect_size = base_size/22,
   ink = "black",
-  paper = "white"
+  paper = "white",
+  accent = "#3366FF"
 )
 
 theme_light(
@@ -60,7 +64,8 @@ theme_light(
   base_line_size = base_size/22,
   base_rect_size = base_size/22,
   ink = "black",
-  paper = "white"
+  paper = "white",
+  accent = "#3366FF"
 )
 
 theme_dark(
@@ -70,7 +75,8 @@ theme_dark(
   base_line_size = base_size/22,
   base_rect_size = base_size/22,
   ink = "black",
-  paper = "white"
+  paper = "white",
+  accent = "#3366FF"
 )
 
 theme_minimal(
@@ -80,7 +86,8 @@ theme_minimal(
   base_line_size = base_size/22,
   base_rect_size = base_size/22,
   ink = "black",
-  paper = "white"
+  paper = "white",
+  accent = "#3366FF"
 )
 
 theme_classic(
@@ -90,7 +97,8 @@ theme_classic(
   base_line_size = base_size/22,
   base_rect_size = base_size/22,
   ink = "black",
-  paper = "white"
+  paper = "white",
+  accent = "#3366FF"
 )
 
 theme_void(
@@ -100,7 +108,8 @@ theme_void(
   base_line_size = base_size/22,
   base_rect_size = base_size/22,
   ink = "black",
-  paper = alpha(ink, 0)
+  paper = alpha(ink, 0),
+  accent = "#3366FF"
 )
 
 theme_test(
@@ -110,7 +119,8 @@ theme_test(
   base_line_size = base_size/22,
   base_rect_size = base_size/22,
   ink = "black",
-  paper = "white"
+  paper = "white",
+  accent = "#3366FF"
 )
 }
 \arguments{
@@ -126,7 +136,7 @@ legend titles, the plot title and tag text.}
 
 \item{base_rect_size}{base size for rect elements}
 
-\item{ink, paper}{colour for foreground and background elements respectively.}
+\item{ink, paper, accent}{colour for foreground, background, and accented elements respectively.}
 }
 \description{
 These are complete themes which control all non-data display. Use

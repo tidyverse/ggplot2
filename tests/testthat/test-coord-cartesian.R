@@ -1,16 +1,16 @@
 test_that("clipping can be turned off and on", {
   # clip on by default
   p <- ggplot() + coord_cartesian()
-  coord <- ggplot_build(p)$layout$coord
+  coord <- ggplot_build(p)@layout$coord
   expect_equal(coord$clip, "on")
 
   # clip can be turned on and off
   p <- ggplot() + coord_cartesian(clip = "off")
-  coord <- ggplot_build(p)$layout$coord
+  coord <- ggplot_build(p)@layout$coord
   expect_equal(coord$clip, "off")
 
   p <- ggplot() + coord_cartesian(clip = "on")
-  coord <- ggplot_build(p)$layout$coord
+  coord <- ggplot_build(p)@layout$coord
   expect_equal(coord$clip, "on")
 })
 
@@ -29,10 +29,10 @@ test_that("cartesian coords can be reversed", {
     coord_cartesian(
       xlim = c(-1, 3), ylim = c(-1, 3), expand = FALSE,
       reverse = "xy"
-    )
-  grob <- layer_grob(p)[[1]]
-  expect_equal(as.numeric(grob$x), c(0.75, 0.25))
-  expect_equal(as.numeric(grob$y), c(0.75, 0.25))
+    ) +
+    theme_test() +
+    theme(axis.line = element_line())
+  expect_doppelganger("reversed cartesian coords", p)
 })
 
 

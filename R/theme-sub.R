@@ -5,6 +5,7 @@
 #' keeping theme declarations more organised.
 #'
 #' @eval subtheme_param_doc()
+#' @param ... Not in use, expected to be empty.
 #'
 #' @return A `theme`-class object that can be added to a plot.
 #' @name subtheme
@@ -54,77 +55,104 @@ subtheme <- function(elements, prefix = "", suffix = "", call = caller_env()) {
 
 #' @export
 #' @describeIn subtheme Theme specification for all axes.
-theme_sub_axis <- function(title, text, ticks, ticks.length, line) {
+theme_sub_axis <- function(..., title, text, ticks, ticks.length, line, minor.ticks.length) {
+  warn_dots_empty()
   subtheme(find_args(), "axis.")
 }
 
 #' @export
 #' @describeIn subtheme Theme specification for both x axes.
-theme_sub_axis_x <- function(title, text, ticks, ticks.length, line) {
+theme_sub_axis_x <- function(..., title, text, ticks, ticks.length, line, minor.ticks.length) {
+  warn_dots_empty()
   subtheme(find_args(), "axis.", ".x")
 }
 
 #' @export
 #' @describeIn subtheme Theme specification for both y axes.
-theme_sub_axis_y <- function(title, text, ticks, ticks.length, line) {
+theme_sub_axis_y <- function(..., title, text, ticks, ticks.length, line, minor.ticks.length) {
+  warn_dots_empty()
   subtheme(find_args(), "axis.", ".y")
 }
 
 #' @export
 #' @describeIn subtheme Theme specification for the bottom x axis.
-theme_sub_axis_bottom <- function(title, text, ticks, ticks.length, line) {
+theme_sub_axis_bottom <- function(..., title, text, ticks, ticks.length, line, minor.ticks, minor.ticks.length) {
+  warn_dots_empty()
   subtheme(find_args(), "axis.", ".x.bottom")
 }
 
 #' @export
 #' @describeIn subtheme Theme specification for the top x axis.
-theme_sub_axis_top <- function(title, text, ticks, ticks.length, line) {
+theme_sub_axis_top <- function(..., title, text, ticks, ticks.length, line, minor.ticks, minor.ticks.length) {
+  warn_dots_empty()
   subtheme(find_args(), "axis.", ".x.top")
 }
 
 #' @export
 #' @describeIn subtheme Theme specification for the left y axis.
-theme_sub_axis_left <- function(title, text, ticks, ticks.length, line) {
+theme_sub_axis_left <- function(..., title, text, ticks, ticks.length, line, minor.ticks, minor.ticks.length) {
+  warn_dots_empty()
   subtheme(find_args(), "axis.", ".y.left")
 }
 
 #' @export
 #' @describeIn subtheme Theme specification for the right y axis.
-theme_sub_axis_right <- function(title, text, ticks, ticks.length, line) {
+theme_sub_axis_right <- function(..., title, text, ticks, ticks.length, line, minor.ticks, minor.ticks.length) {
+  warn_dots_empty()
   subtheme(find_args(), "axis.", ".y.right")
 }
 
 #' @export
 #' @describeIn subtheme Theme specification for the legend.
-theme_sub_legend <- function(background, margin, spacing, spacing.x, spacing.y,
-                             key, key.size, key.height, key.width, text, title,
-                             position, direction, justification, box, box.just,
-                             box.margin, box.background, box.spacing) {
+theme_sub_legend <- function(
+  ...,
+  # Text stuff
+  text, text.position, title, title.position,
+  # Drawn elements
+  background, frame, ticks, ticks.length, axis.line,
+  # Spacings
+  spacing, spacing.x, spacing.y,   margin,
+  # Seys
+  key, key.size, key.height, key.width, key.spacing, key.spacing.x,
+  key.spacing.y, key.justification,
+  # Settings
+  byrow, position, direction, location, position.inside,
+  # Justification
+  justification, justification.top, justification.bottom, justification.left,
+  justification.right, justification.inside,
+  # Box
+  box, box.just, box.margin, box.background, box.spacing
+) {
+  warn_dots_empty()
   subtheme(find_args(), "legend.")
 }
 
 #' @export
 #' @describeIn subtheme Theme specification for the panels.
-theme_sub_panel <- function(background, border, spacing, spacing.x, spacing.y,
+theme_sub_panel <- function(..., background, border,
+                            widths, heights, spacing, spacing.x, spacing.y,
                             grid, grid.major, grid.minor, grid.major.x,
                             grid.major.y, grid.minor.x, grid.minor.y, ontop) {
+  warn_dots_empty()
   subtheme(find_args(), "panel.")
 }
 
 #' @export
 #' @describeIn subtheme Theme specification for the whole plot.
-theme_sub_plot <- function(background, title, title.position, subtitle, caption,
+theme_sub_plot <- function(..., background, title, title.position, subtitle, caption,
                            caption.position, tag, tag.position, tag.location,
                            margin) {
+  warn_dots_empty()
   subtheme(find_args(), "plot.")
 }
 
 #' @export
 #' @describeIn subtheme Theme specification for facet strips.
-theme_sub_strip <- function(background, background.x, background.y, clip,
+theme_sub_strip <- function(..., background, background.x, background.y, clip,
                             placement, text, text.x, text.x.bottom, text.x.top,
                             text.y, text.y.left, text.y.right,
                             switch.pad.grid, switch.pad.wrap) {
+  warn_dots_empty()
   subtheme(find_args(), "strip.")
 }
 
@@ -135,6 +163,7 @@ subtheme_param_doc <- function() {
     theme_sub_panel, theme_sub_plot, theme_sub_strip
   )
   args <- sort(unique(unlist(lapply(funs, fn_fmls_names), use.names = FALSE)))
+  args <- setdiff(args, "...")
   paste0(
     "@param ",
     paste0(args, collapse = ","),

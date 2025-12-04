@@ -62,12 +62,12 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
                   xlab = NULL, ylab = NULL,
                   asp = NA, stat = deprecated(), position = deprecated()) {
 
-  deprecate_warn0("3.4.0", "qplot()")
+  deprecate("3.4.0", "qplot()")
 
   caller_env <- parent.frame()
 
-  if (lifecycle::is_present(stat)) lifecycle::deprecate_stop("2.0.0", "qplot(stat)")
-  if (lifecycle::is_present(position)) lifecycle::deprecate_stop("2.0.0", "qplot(position)")
+  if (lifecycle::is_present(stat)) deprecate("2.0.0", "qplot(stat)")
+  if (lifecycle::is_present(position)) deprecate("2.0.0", "qplot(position)")
   check_character(geom)
 
   exprs <- enquos(x = x, y = y, ...)
@@ -78,7 +78,7 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
   is_constant <- (!names(exprs) %in% ggplot_global$all_aesthetics) |
     vapply(exprs, quo_is_call, logical(1), name = "I")
 
-  mapping <- new_aes(exprs[!is_missing & !is_constant], env = parent.frame())
+  mapping <- class_mapping(exprs[!is_missing & !is_constant], env = parent.frame())
 
   consts <- exprs[is_constant]
 
@@ -121,7 +121,7 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
       geom[geom == "auto"] <- "qq"
     } else if (missing(y)) {
       x <- eval_tidy(mapping$x, data, caller_env)
-      if (is.discrete(x)) {
+      if (is_discrete(x)) {
         geom[geom == "auto"] <- "bar"
       } else {
         geom[geom == "auto"] <- "histogram"
@@ -139,7 +139,7 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
 
   if (is.null(facets)) {
     p <- p + facet_null()
-  } else if (is.formula(facets) && length(facets) == 2) {
+  } else if (is_formula(facets) && length(facets) == 2) {
     p <- p + facet_wrap(facets)
   } else {
     p <- p + facet_grid(rows = deparse(facets), margins = margins)

@@ -9,14 +9,13 @@ NULL
 #' it can be used in conjunction with `geom_sf()` layers and/or
 #' [`coord_sf()`] (see examples).
 #'
-#' @eval rd_aesthetics("geom", "map")
+#' @aesthetics GeomMap
 #' @export
 #' @param map Data frame that contains the map coordinates.  This will
 #'   typically be created using [fortify()] on a spatial object.
 #'   It must contain columns `x` or `long`, `y` or
 #'   `lat`, and `region` or `id`.
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @examples
 #' # First, a made-up example containing a few polygons, to explain
 #' # how `geom_map()` works. It requires two data frames:
@@ -55,7 +54,7 @@ NULL
 #'
 #'   crimes <- data.frame(state = tolower(rownames(USArrests)), USArrests)
 #'
-#'   # Equivalent to crimes %>% tidyr::pivot_longer(Murder:Rape)
+#'   # Equivalent to crimes |> tidyr::pivot_longer(Murder:Rape)
 #'   vars <- lapply(names(crimes)[-1], function(j) {
 #'     data.frame(state = crimes$state, variable = j, value = crimes[[j]])
 #'   })
@@ -121,7 +120,7 @@ geom_map <- function(mapping = NULL, data = NULL,
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export

@@ -16,6 +16,8 @@ geom_contour(
   bins = NULL,
   binwidth = NULL,
   breaks = NULL,
+  arrow = NULL,
+  arrow.fill = NULL,
   lineend = "butt",
   linejoin = "round",
   linemitre = 10,
@@ -33,6 +35,10 @@ geom_contour_filled(
   bins = NULL,
   binwidth = NULL,
   breaks = NULL,
+  rule = "evenodd",
+  lineend = "butt",
+  linejoin = "round",
+  linemitre = 10,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -67,30 +73,25 @@ stat_contour_filled(
 )
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}}. If specified and
-\code{inherit.aes = TRUE} (the default), it is combined with the default mapping
-at the top level of the plot. You must supply \code{mapping} if there is no plot
-mapping.}
+\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}}. If specified and \code{inherit.aes = TRUE} (the default), it is combined with the default mapping at the top level
+of the plot. You must supply \code{mapping} if there is no plot mapping.}
 
-\item{data}{The data to be displayed in this layer. There are three
-options:
+\item{data}{The data to be displayed in this layer. There are three options:
+\itemize{
+\item \code{NULL} (default): the data is inherited from the plot data as specified
+in the call to \code{\link[=ggplot]{ggplot()}}.
+\item A \code{data.frame}, or other object, will override the plot data. All objects
+will be fortified to produce a data frame. See \code{\link[=fortify]{fortify()}} for which
+variables will be created.
+\item A \code{function} will be called with a single argument, the plot data. The return
+value must be a \code{data.frame}, and will be used as the layer data. A
+\code{function} can be created from a \code{formula} (e.g. \code{~ head(.x, 10)}).
+}}
 
-If \code{NULL}, the default, the data is inherited from the plot
-data as specified in the call to \code{\link[=ggplot]{ggplot()}}.
-
-A \code{data.frame}, or other object, will override the plot
-data. All objects will be fortified to produce a data frame. See
-\code{\link[=fortify]{fortify()}} for which variables will be created.
-
-A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data. A \code{function} can be created
-from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
-
-\item{stat}{The statistical transformation to use on the data for this layer.
-When using a \verb{geom_*()} function to construct a layer, the \code{stat}
-argument can be used to override the default coupling between geoms and
-stats. The \code{stat} argument accepts the following:
+\item{stat}{The statistical transformation to use on the data for this layer. When using
+a \verb{geom_*()} function to construct a layer, the \code{stat} argument can be used
+to override the default coupling between geoms and stats. The \code{stat} argument
+accepts the following:
 \itemize{
 \item A \code{Stat} ggproto subclass, for example \code{StatCount}.
 \item A string naming the stat. To give the stat as a string, strip the
@@ -100,42 +101,42 @@ give the stat as \code{"count"}.
 \link[=layer_stats]{layer stat} documentation.
 }}
 
-\item{position}{A position adjustment to use on the data for this layer. This
-can be used in various ways, including to prevent overplotting and
-improving the display. The \code{position} argument accepts the following:
+\item{position}{A position adjustment to use on the data for this layer. This can be used in
+various ways, including to prevent overplotting and improving the display.
+The \code{position} argument accepts the following:
 \itemize{
 \item The result of calling a position function, such as \code{position_jitter()}.
 This method allows for passing extra arguments to the position.
 \item A string naming the position adjustment. To give the position as a
-string, strip the function name of the \code{position_} prefix. For example,
-to use \code{position_jitter()}, give the position as \code{"jitter"}.
+string, strip the function name of the \code{position_} prefix. For example, to
+use \code{position_jitter()}, give the position as \code{"jitter"}.
 \item For more information and other ways to specify the position, see the
 \link[=layer_positions]{layer position} documentation.
 }}
 
-\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}'s \code{params} argument. These
-arguments broadly fall into one of 4 categories below. Notably, further
-arguments to the \code{position} argument, or aesthetics that are required
-can \emph{not} be passed through \code{...}. Unknown arguments that are not part
-of the 4 categories below are ignored.
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}'s \code{params} argument. These arguments
+broadly fall into one of 4 categories below. Notably, further arguments to
+the \code{position} argument, or aesthetics that are required can
+\emph{not} be passed through \code{...}. Unknown arguments that are not part of the 4
+categories below are ignored.
 \itemize{
 \item Static aesthetics that are not mapped to a scale, but are at a fixed
-value and apply to the layer as a whole. For example, \code{colour = "red"}
-or \code{linewidth = 3}. The geom's documentation has an \strong{Aesthetics}
-section that lists the available options. The 'required' aesthetics
-cannot be passed on to the \code{params}. Please note that while passing
-unmapped aesthetics as vectors is technically possible, the order and
-required length is not guaranteed to be parallel to the input data.
+value and apply to the layer as a whole. For example, \code{colour = "red"} or
+\code{linewidth = 3}. The geom's documentation has an \strong{Aesthetics} section
+that lists the available options. The 'required' aesthetics cannot be
+passed on to the \code{params}. Please note that while passing unmapped
+aesthetics as vectors is technically possible, the order and required
+length is not guaranteed to be parallel to the input data.
 \item When constructing a layer using
-a \verb{stat_*()} function, the \code{...} argument can be used to pass on
-parameters to the \code{geom} part of the layer. An example of this is
+a \verb{stat_*()} function, the \code{...} argument can be used to pass on parameters
+to the \code{geom} part of the layer. An example of this is
 \code{stat_density(geom = "area", outline.type = "both")}. The geom's
 documentation lists which parameters it can accept.
 \item Inversely, when constructing a layer using a
 \verb{geom_*()} function, the \code{...} argument can be used to pass on parameters
 to the \code{stat} part of the layer. An example of this is
-\code{geom_area(stat = "density", adjust = 0.5)}. The stat's documentation
-lists which parameters it can accept.
+\code{geom_area(stat = "density", adjust = 0.5)}. The stat's documentation lists
+which parameters it can accept.
 \item The \code{key_glyph} argument of \code{\link[=layer]{layer()}} may also be passed on through
 \code{...}. This can be one of the functions described as
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
@@ -156,32 +157,42 @@ and returns breaks as output. A function can be created from a formula
 Overrides \code{binwidth} and \code{bins}. By default, this is a vector of length
 ten with \code{\link[=pretty]{pretty()}} breaks.}
 
-\item{lineend}{Line end style (round, butt, square).}
+\item{arrow}{Arrow specification. Can be created by \code{\link[grid:arrow]{grid::arrow()}} or \code{NULL} to not draw
+an arrow.}
 
-\item{linejoin}{Line join style (round, mitre, bevel).}
+\item{arrow.fill}{Fill colour to use for closed arrowheads. \code{NULL} means use \code{colour}
+aesthetic.}
 
-\item{linemitre}{Line mitre limit (number greater than 1).}
+\item{lineend}{Line end style, one of \code{"round"}, \code{"butt"} or \code{"square"}.}
 
-\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
-a warning. If \code{TRUE}, missing values are silently removed.}
+\item{linejoin}{Line join style, one of \code{"round"}, \code{"mitre"} or \code{"bevel"}.}
 
-\item{show.legend}{logical. Should this layer be included in the legends?
-\code{NA}, the default, includes if any aesthetics are mapped.
-\code{FALSE} never includes, and \code{TRUE} always includes.
-It can also be a named logical vector to finely select the aesthetics to
-display. To include legend keys for all levels, even
-when no data exists, use \code{TRUE}.  If \code{NA}, all levels are shown in legend,
-but unobserved levels are omitted.}
+\item{linemitre}{Line mitre limit, a number greater  than 1.}
 
-\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
-rather than combining with them. This is most useful for helper functions
-that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with a warning. If
+\code{TRUE}, missing values are silently removed.}
 
-\item{geom}{The geometric object to use to display the data for this layer.
-When using a \verb{stat_*()} function to construct a layer, the \code{geom} argument
-can be used to override the default coupling between stats and geoms. The
-\code{geom} argument accepts the following:
+\item{show.legend}{Logical. Should this layer be included in the legends? \code{NA}, the default,
+includes if any aesthetics are mapped. \code{FALSE} never includes, and \code{TRUE}
+always includes. It can also be a named logical vector to finely select the
+aesthetics to display. To include legend keys for all levels, even when no
+data exists, use \code{TRUE}.  If \code{NA}, all levels are shown in legend, but
+unobserved levels are omitted.}
+
+\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics, rather than combining with
+them. This is most useful for helper functions that define both data and
+aesthetics and shouldn't inherit behaviour from the default plot
+specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
+
+\item{rule}{Either \code{"evenodd"} or \code{"winding"}. If polygons with holes are
+being drawn (using the \code{subgroup} aesthetic) this argument defines how the
+hole coordinates are interpreted. See the examples in \code{\link[grid:grid.path]{grid::pathGrob()}} for
+an explanation.}
+
+\item{geom}{The geometric object to use to display the data for this layer. When using a
+\verb{stat_*()} function to construct a layer, the \code{geom} argument can be used to
+override the default coupling between stats and geoms. The \code{geom} argument
+accepts the following:
 \itemize{
 \item A \code{Geom} ggproto subclass, for example \code{GeomPoint}.
 \item A string naming the geom. To give the geom as a string, strip the
@@ -200,62 +211,8 @@ form an equally spaced grid, and each combination of \code{x} and \code{y} appea
 once. Missing values of \code{z} are allowed, but contouring will only work for
 grid points where all four corners are non-missing. If you have irregular
 data, you'll need to first interpolate on to a grid before visualising,
-using \code{\link[interp:interp]{interp::interp()}}, \code{\link[akima:bilinear]{akima::bilinear()}}, or similar.
+using \code{interp::interp()}, \code{akima::bilinear()}, or similar.
 }
-\section{Aesthetics}{
-
-\code{geom_contour()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
-\tabular{rll}{
-• \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
-• \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
-• \tab \code{weight} \tab → \code{1} \cr\cr
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-
-
-\code{geom_contour_filled()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
-\tabular{rll}{
-• \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
-• \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr\cr
-• \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr\cr
-• \tab \code{subgroup} \tab → \code{NULL} \cr\cr
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-
-
-\code{stat_contour()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
-\tabular{rll}{
-• \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
-• \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
-• \tab \strong{\code{z}} \tab   \cr\cr
-• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
-• \tab \code{order} \tab → \code{after_stat(level)} \cr\cr
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-
-
-\code{stat_contour_filled()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
-\tabular{rll}{
-• \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr\cr
-• \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr\cr
-• \tab \strong{\code{z}} \tab   \cr\cr
-• \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → \code{after_stat(level)} \cr\cr
-• \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr\cr
-• \tab \code{order} \tab → \code{after_stat(level)} \cr\cr
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-}
-
 \section{Computed variables}{
 
 These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}. The computed variables differ somewhat for contour lines  (computed by \code{stat_contour()}) and contour bands (filled contours,  computed by \code{stat_contour_filled()}). The variables \code{nlevel} and \code{piece}  are available for both, whereas \code{level_low}, \code{level_high}, and \code{level_mid}  are only available for bands. The variable \code{level} is a numeric or a factor  depending on whether lines or bands are calculated.
@@ -305,4 +262,52 @@ v + geom_raster(aes(fill = density)) +
 }
 \seealso{
 \code{\link[=geom_density_2d]{geom_density_2d()}}: 2d density contours
+}
+\section{Aesthetics}{
+
+\code{geom_contour()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr
+ • \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr
+ • \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr
+ • \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr
+ • \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr
+ • \tab \code{weight} \tab → \code{1} \cr
+}
+
+\code{geom_contour_filled()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr
+ • \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr
+ • \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr
+ • \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr
+ • \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr
+ • \tab \code{subgroup} \tab → \code{NULL} \cr
+}
+
+\code{stat_contour()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr
+ • \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr
+ • \tab \strong{\code{z}} \tab   \cr
+ • \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr
+ • \tab \code{order} \tab → \code{after_stat(level)} \cr
+}
+
+\code{stat_contour_filled()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \strong{\code{\link[=aes_position]{x}}} \tab   \cr
+ • \tab \strong{\code{\link[=aes_position]{y}}} \tab   \cr
+ • \tab \strong{\code{z}} \tab   \cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → \code{after_stat(level)} \cr
+ • \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr
+ • \tab \code{order} \tab → \code{after_stat(level)} \cr
+}
+
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

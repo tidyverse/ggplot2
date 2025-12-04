@@ -26,8 +26,10 @@ geom_histogram(
   ...,
   binwidth = NULL,
   bins = NULL,
-  na.rm = FALSE,
   orientation = NA,
+  lineend = "butt",
+  linejoin = "mitre",
+  na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
 )
@@ -38,97 +40,91 @@ stat_bin(
   geom = "bar",
   position = "stack",
   ...,
+  orientation = NA,
   binwidth = NULL,
   bins = NULL,
   center = NULL,
   boundary = NULL,
-  breaks = NULL,
   closed = c("right", "left"),
   pad = FALSE,
-  na.rm = FALSE,
+  breaks = NULL,
   drop = "none",
-  orientation = NA,
+  na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
 )
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}}. If specified and
-\code{inherit.aes = TRUE} (the default), it is combined with the default mapping
-at the top level of the plot. You must supply \code{mapping} if there is no plot
-mapping.}
+\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}}. If specified and \code{inherit.aes = TRUE} (the default), it is combined with the default mapping at the top level
+of the plot. You must supply \code{mapping} if there is no plot mapping.}
 
-\item{data}{The data to be displayed in this layer. There are three
-options:
+\item{data}{The data to be displayed in this layer. There are three options:
+\itemize{
+\item \code{NULL} (default): the data is inherited from the plot data as specified
+in the call to \code{\link[=ggplot]{ggplot()}}.
+\item A \code{data.frame}, or other object, will override the plot data. All objects
+will be fortified to produce a data frame. See \code{\link[=fortify]{fortify()}} for which
+variables will be created.
+\item A \code{function} will be called with a single argument, the plot data. The return
+value must be a \code{data.frame}, and will be used as the layer data. A
+\code{function} can be created from a \code{formula} (e.g. \code{~ head(.x, 10)}).
+}}
 
-If \code{NULL}, the default, the data is inherited from the plot
-data as specified in the call to \code{\link[=ggplot]{ggplot()}}.
-
-A \code{data.frame}, or other object, will override the plot
-data. All objects will be fortified to produce a data frame. See
-\code{\link[=fortify]{fortify()}} for which variables will be created.
-
-A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data. A \code{function} can be created
-from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
-
-\item{position}{A position adjustment to use on the data for this layer. This
-can be used in various ways, including to prevent overplotting and
-improving the display. The \code{position} argument accepts the following:
+\item{position}{A position adjustment to use on the data for this layer. This can be used in
+various ways, including to prevent overplotting and improving the display.
+The \code{position} argument accepts the following:
 \itemize{
 \item The result of calling a position function, such as \code{position_jitter()}.
 This method allows for passing extra arguments to the position.
 \item A string naming the position adjustment. To give the position as a
-string, strip the function name of the \code{position_} prefix. For example,
-to use \code{position_jitter()}, give the position as \code{"jitter"}.
+string, strip the function name of the \code{position_} prefix. For example, to
+use \code{position_jitter()}, give the position as \code{"jitter"}.
 \item For more information and other ways to specify the position, see the
 \link[=layer_positions]{layer position} documentation.
 }}
 
-\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}'s \code{params} argument. These
-arguments broadly fall into one of 4 categories below. Notably, further
-arguments to the \code{position} argument, or aesthetics that are required
-can \emph{not} be passed through \code{...}. Unknown arguments that are not part
-of the 4 categories below are ignored.
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}'s \code{params} argument. These arguments
+broadly fall into one of 4 categories below. Notably, further arguments to
+the \code{position} argument, or aesthetics that are required can
+\emph{not} be passed through \code{...}. Unknown arguments that are not part of the 4
+categories below are ignored.
 \itemize{
 \item Static aesthetics that are not mapped to a scale, but are at a fixed
-value and apply to the layer as a whole. For example, \code{colour = "red"}
-or \code{linewidth = 3}. The geom's documentation has an \strong{Aesthetics}
-section that lists the available options. The 'required' aesthetics
-cannot be passed on to the \code{params}. Please note that while passing
-unmapped aesthetics as vectors is technically possible, the order and
-required length is not guaranteed to be parallel to the input data.
+value and apply to the layer as a whole. For example, \code{colour = "red"} or
+\code{linewidth = 3}. The geom's documentation has an \strong{Aesthetics} section
+that lists the available options. The 'required' aesthetics cannot be
+passed on to the \code{params}. Please note that while passing unmapped
+aesthetics as vectors is technically possible, the order and required
+length is not guaranteed to be parallel to the input data.
 \item When constructing a layer using
-a \verb{stat_*()} function, the \code{...} argument can be used to pass on
-parameters to the \code{geom} part of the layer. An example of this is
+a \verb{stat_*()} function, the \code{...} argument can be used to pass on parameters
+to the \code{geom} part of the layer. An example of this is
 \code{stat_density(geom = "area", outline.type = "both")}. The geom's
 documentation lists which parameters it can accept.
 \item Inversely, when constructing a layer using a
 \verb{geom_*()} function, the \code{...} argument can be used to pass on parameters
 to the \code{stat} part of the layer. An example of this is
-\code{geom_area(stat = "density", adjust = 0.5)}. The stat's documentation
-lists which parameters it can accept.
+\code{geom_area(stat = "density", adjust = 0.5)}. The stat's documentation lists
+which parameters it can accept.
 \item The \code{key_glyph} argument of \code{\link[=layer]{layer()}} may also be passed on through
 \code{...}. This can be one of the functions described as
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 
-\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
-a warning. If \code{TRUE}, missing values are silently removed.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with a warning. If
+\code{TRUE}, missing values are silently removed.}
 
-\item{show.legend}{logical. Should this layer be included in the legends?
-\code{NA}, the default, includes if any aesthetics are mapped.
-\code{FALSE} never includes, and \code{TRUE} always includes.
-It can also be a named logical vector to finely select the aesthetics to
-display. To include legend keys for all levels, even
-when no data exists, use \code{TRUE}.  If \code{NA}, all levels are shown in legend,
-but unobserved levels are omitted.}
+\item{show.legend}{Logical. Should this layer be included in the legends? \code{NA}, the default,
+includes if any aesthetics are mapped. \code{FALSE} never includes, and \code{TRUE}
+always includes. It can also be a named logical vector to finely select the
+aesthetics to display. To include legend keys for all levels, even when no
+data exists, use \code{TRUE}.  If \code{NA}, all levels are shown in legend, but
+unobserved levels are omitted.}
 
-\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
-rather than combining with them. This is most useful for helper functions
-that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics, rather than combining with
+them. This is most useful for helper functions that define both data and
+aesthetics and shouldn't inherit behaviour from the default plot
+specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 
 \item{binwidth}{The width of the bins. Can be specified as a numeric value
 or as a function that takes x after scale transformation as input and
@@ -144,10 +140,14 @@ bin width of a time variable is the number of seconds.}
 
 \item{bins}{Number of bins. Overridden by \code{binwidth}. Defaults to 30.}
 
-\item{orientation}{The orientation of the layer. The default (\code{NA})
-automatically determines the orientation from the aesthetic mapping. In the
-rare event that this fails it can be given explicitly by setting \code{orientation}
-to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
+\item{orientation}{The orientation of the layer. The default (\code{NA}) automatically determines the
+orientation from the aesthetic mapping. In the rare event that this fails it
+can be given explicitly by setting \code{orientation} to either \code{"x"} or \code{"y"}.
+See the \emph{Orientation} section for more detail.}
+
+\item{lineend}{Line end style, one of \code{"round"}, \code{"butt"} or \code{"square"}.}
+
+\item{linejoin}{Line join style, one of \code{"round"}, \code{"mitre"} or \code{"bevel"}.}
 
 \item{geom, stat}{Use to override the default connection between
 \code{geom_histogram()}/\code{geom_freqpoly()} and \code{stat_bin()}. For more information
@@ -164,15 +164,15 @@ if \code{0} is outside the range of the data. Alternatively, this same alignment
 can be specified with \code{binwidth = 1} and \code{boundary = 0.5}, even if \code{0.5} is
 outside the range of the data.}
 
-\item{breaks}{Alternatively, you can supply a numeric vector giving
-the bin boundaries. Overrides \code{binwidth}, \code{bins}, \code{center},
-and \code{boundary}. Can also be a function that takes group-wise values as input and returns bin boundaries.}
-
 \item{closed}{One of \code{"right"} or \code{"left"} indicating whether right
 or left edges of bins are included in the bin.}
 
 \item{pad}{If \code{TRUE}, adds empty bins at either end of x. This ensures
 frequency polygons touch 0. Defaults to \code{FALSE}.}
+
+\item{breaks}{Alternatively, you can supply a numeric vector giving
+the bin boundaries. Overrides \code{binwidth}, \code{bins}, \code{center},
+and \code{boundary}. Can also be a function that takes group-wise values as input and returns bin boundaries.}
 
 \item{drop}{Treatment of zero count bins. If \code{"none"} (default), such
 bins are kept as-is. If \code{"all"}, all zero count bins are filtered out.
@@ -209,11 +209,6 @@ In addition to \code{geom_histogram()}, you can create a histogram plot by using
 \code{scale_x_binned()} with \code{\link[=geom_bar]{geom_bar()}}. This method by default plots tick marks
 in between each bar.
 }
-\section{Orientation}{
-
-This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the \code{orientation} parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom should run along, \code{"x"} being the default orientation you would expect for the geom.
-}
-
 \section{Aesthetics}{
 
 \code{geom_histogram()} uses the same aesthetics as \code{\link[=geom_bar]{geom_bar()}};
@@ -237,6 +232,19 @@ These are calculated by the 'stat' part of layers and can be accessed with \link
 \describe{
 \item{\code{weight}}{After binning, weights of individual data points (if supplied) are no longer available.}
 }
+}
+
+\section{Orientation}{
+
+This geom treats each axis differently and, thus, can have two
+orientations. Often the orientation is easy to deduce from a combination of
+the given mappings and the types of positional scales in use. Thus, ggplot2
+will by default try to guess which orientation the layer should have. Under
+rare circumstances, the orientation is ambiguous and guessing may fail. In
+that case the orientation can be specified directly using the \code{orientation}
+parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that
+the geom should run along, \code{"x"} being the default orientation you would
+expect for the geom.
 }
 
 \examples{
@@ -312,11 +320,11 @@ m +
 # no observations have 0 ratings.
 m +
   geom_histogram(boundary = 0) +
-  coord_trans(x = "log10")
+  coord_transform(x = "log10")
 # Use boundary = 0, to make sure we don't take sqrt of negative values
 m +
   geom_histogram(boundary = 0) +
-  coord_trans(x = "sqrt")
+  coord_transform(x = "sqrt")
 
 # You can also transform the y axis.  Remember that the base of the bars
 # has value 0, so log transformations are not appropriate
@@ -331,7 +339,7 @@ m +
 # different ranges because the function will be called once per facet
 ggplot(economics_long, aes(value)) +
   facet_wrap(~variable, scales = 'free_x') +
-  geom_histogram(binwidth = function(x) 2 * IQR(x) / (length(x)^(1/3)))
+  geom_histogram(binwidth = \(x) 2 * IQR(x) / (length(x)^(1/3)))
 }
 \seealso{
 \code{\link[=stat_count]{stat_count()}}, which counts the number of cases at each x

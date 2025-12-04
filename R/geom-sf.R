@@ -126,7 +126,7 @@ GeomSf <- ggproto("GeomSf", Geom,
     fill = NULL,
     size = NULL,
     linewidth = NULL,
-    linetype = from_theme(linetype),
+    linetype = NULL,
     alpha = NA,
     stroke = 0.5
   ),
@@ -171,7 +171,7 @@ GeomSf <- ggproto("GeomSf", Geom,
     other_default <- modify_list(
       GeomPolygon$default_aes,
       aes(
-        fill   = from_theme(fill %||% col_mix(ink, paper, 0.9)),
+        fill   = from_theme(fill %||% col_mix(ink, paper, 0.899)),
         colour = from_theme(colour %||% col_mix(ink, paper, 0.35)),
         linewidth = from_theme(0.4 * borderwidth)
       )
@@ -200,6 +200,10 @@ GeomSf <- ggproto("GeomSf", Geom,
 
     # Recombine data in original order
     data <- vec_c(points, lines, others, collections)
+    # Avoids NA linetype in points, which is invalid input
+    data$linetype[vec_seq_along(points)] <-
+      if (is.character(data$linetype)) "solid" else 1L
+
     vec_slice(data, order(unlist(index)))
   },
 
@@ -285,7 +289,7 @@ GeomSf <- ggproto("GeomSf", Geom,
 
 #' @export
 #' @rdname ggsf
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 geom_sf <- function(mapping = aes(), data = NULL, stat = "sf",
                     position = "identity", na.rm = FALSE, show.legend = NA,
                     inherit.aes = TRUE, ...) {
@@ -329,7 +333,10 @@ geom_sf_label <- function(mapping = aes(), data = NULL,
 
   extra_args <- list2(...)
   if (lifecycle::is_present(label.size)) {
-    deprecate_warn0("3.5.0", "geom_label(label.size)", "geom_label(linewidth)")
+    deprecate(
+      "3.5.0", escalate = "warn",
+      "geom_label(label.size)", "geom_label(linewidth)"
+    )
     extra_args$linewidth <- extra_args$linewidth %||% label.size
   }
 

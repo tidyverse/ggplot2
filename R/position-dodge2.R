@@ -2,17 +2,22 @@
 #' @rdname position_dodge
 #' @param padding Padding between elements at the same position. Elements are
 #'   shrunk by this proportion to allow space between them. Defaults to 0.1.
+#' @param group.row Relationship between groups and rows. Can be `"single"` if
+#'   every row represents a single group, or `"many"` if many rows represent
+#'   a group.
 position_dodge2 <- function(width = NULL, preserve = "total",
-                            padding = 0.1, reverse = FALSE) {
+                            padding = 0.1, reverse = FALSE,
+                            group.row = "single") {
   ggproto(NULL, PositionDodge2,
     width = width,
     preserve = arg_match0(preserve, c("total", "single")),
     padding = padding,
-    reverse = reverse
+    reverse = reverse,
+    group_row = arg_match0(group.row, c("single", "many"))
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Position
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -20,6 +25,7 @@ PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
   preserve = "total",
   padding = 0.1,
   reverse = FALSE,
+  group_row = "single",
 
   setup_params = function(self, data) {
     flipped_aes <- has_flipped_aes(data)
@@ -48,14 +54,22 @@ PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
       n = n,
       padding = self$padding,
       reverse = self$reverse,
-      flipped_aes = flipped_aes
+      flipped_aes = flipped_aes,
+      group_row = self$group_row
     )
   },
 
   compute_panel = function(data, params, scales) {
     data <- flip_data(data, params$flipped_aes)
+    key <- NULL
+    columns <- intersect(c("group", "x", "xmin", "xmax"), names(data))
+    if (isTRUE(params$group_row == "many") && length(columns) > 0) {
+      # Run-length encode (RLE) relevant variables
+      key <- vec_unrep(data[columns])
+    }
+
     collided <- collide2(
-      data,
+      key$key %||% data,
       params$width,
       name = "position_dodge2",
       strategy = pos_dodge2,
@@ -64,7 +78,15 @@ PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
       check.width = FALSE,
       reverse = params$reverse
     )
-    flip_data(collided, params$flipped_aes)
+
+    if (!is.null(key)) {
+      # Decode RLE to full data
+      data[columns] <- vec_rep_each(collided[columns], key$times)
+    } else {
+      data <- collided
+    }
+
+    flip_data(data, params$flipped_aes)
   }
 )
 

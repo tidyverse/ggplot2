@@ -10,7 +10,7 @@
 \alias{layer_grob}
 \title{Build ggplot for rendering.}
 \usage{
-ggplot_build(plot)
+ggplot_build(plot, ...)
 
 get_layer_data(plot = get_last_plot(), i = 1L)
 
@@ -27,18 +27,21 @@ layer_grob(plot = get_last_plot(), i = 1L)
 \arguments{
 \item{plot}{ggplot object}
 
-\item{i}{An integer. In \code{get_layer_data()}, the data to return (in the order added to the
+\item{...}{Not currently in use.}
+
+\item{i}{An integer or a name of a layer. In \code{get_layer_data()}, the data to return (in the order added to the
 plot). In \code{get_layer_grob()}, the grob to return (in the order added to the
-plot). In \code{get_panel_scales()}, the row of a facet to return scales for.}
+plot). In \code{get_panel_scales()} (only integers allowed), the row of a facet to return scales for.}
 
 \item{j}{An integer. In \code{get_panel_scales()}, the column of a facet to return
 scales for.}
 }
 \description{
-\code{ggplot_build()} takes the plot object, and performs all steps necessary
+\code{build_ggplot()} takes the plot object, and performs all steps necessary
 to produce an object that can be rendered.  This function outputs two pieces:
 a list of data frames (one for each layer), and a panel object, which
-contain all information about axis limits, breaks etc.
+contain all information about axis limits, breaks etc. The \code{ggplot_build()}
+function is vestigial and \code{build_ggplot()} should be used instead.
 }
 \details{
 \code{get_layer_data()}, \code{get_layer_grob()}, and \code{get_panel_scales()} are helper
