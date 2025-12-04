@@ -21,6 +21,10 @@
 * New `geom_smooth(band.colour, band.linetype, band.linewidth)` arguments 
   control graphical parameters of the (confidence) band (@teunbrand, #6551)
   
+* New `position_dodge2(group.row)` argument that can be set to `"many"` to
+  dodge groups with more than one row, such as in `geom_violin()` 
+  (@teunbrand, #6663)
+
 # ggplot2 4.0.1
 
 This is a smaller patch release focussed on fixing regressions from 4.0.0 and 
