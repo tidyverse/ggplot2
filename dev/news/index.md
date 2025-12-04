@@ -2,6 +2,11 @@
 
 ## ggplot2 (development version)
 
+- (internal)
+  [`zeroGrob()`](https://ggplot2.tidyverse.org/dev/reference/zeroGrob.md)
+  now returns a
+  [`grid::nullGrob()`](https://rdrr.io/r/grid/grid.null.html)
+  ([\#6390](https://github.com/tidyverse/ggplot2/issues/6390)).
 - [`stat_ydensity()`](https://ggplot2.tidyverse.org/dev/reference/geom_violin.md)
   now only requires the `x` or `y` aesthetic. The other will be
   populated with 0, similar to
