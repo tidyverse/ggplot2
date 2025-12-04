@@ -2,6 +2,14 @@
 
 ## ggplot2 (development version)
 
+- The default linetype in
+  [`geom_sf()`](https://ggplot2.tidyverse.org/dev/reference/ggsf.md) is
+  derived from
+  [`geom_polygon()`](https://ggplot2.tidyverse.org/dev/reference/geom_polygon.md)
+  for polygons and from
+  [`geom_line()`](https://ggplot2.tidyverse.org/dev/reference/geom_path.md)
+  for (multi)linestrings ([@teunbrand](https://github.com/teunbrand),
+  [\#6543](https://github.com/tidyverse/ggplot2/issues/6543)).
 - Using infinite `radius` aesthetic in
   [`geom_spoke()`](https://ggplot2.tidyverse.org/dev/reference/geom_spoke.md)
   now throws a warning
