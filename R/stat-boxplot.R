@@ -5,6 +5,7 @@
 StatBoxplot <- ggproto("StatBoxplot", Stat,
   required_aes = c("y|x"),
   non_missing_aes = "weight",
+  optional_aes = "width",
   # either the x or y aesthetic will get dropped during
   # statistical transformation, depending on the orientation
   dropped_aes = c("x", "y", "weight"),
@@ -25,8 +26,8 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
                                           group_has_equal = TRUE,
                                           main_is_optional = TRUE,
                                         default = NA)
-    
-    if (is.na(params$flipped_aes)) {
+
+    if (is.na(params$flipped_aes) && any(c("x", "y") %in% names(data))) {
       cli::cli_warn("Orientation is not uniquely specified when both the x and y aesthetics are continuous. Picking default orientation 'x'.")
       params$flipped_aes <- FALSE
     }
@@ -69,9 +70,11 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
     if (any(outliers)) {
       stats[c(1, 5)] <- range(c(stats[2:4], data$y[!outliers]), na.rm = TRUE)
     }
-
-    if (vec_unique_count(data$x) > 1)
+    if (length(data$width) > 0L) {
+      width <- data$width[1L]
+    } else if (vec_unique_count(data$x) > 1) {
       width <- diff(range(data$x)) * 0.9
+    }
 
     df <- data_frame0(!!!as.list(stats))
     df$outliers <- list(data$y[outliers])
@@ -96,7 +99,7 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
 
 #' @rdname geom_boxplot
 #' @param coef Length of the whiskers as multiple of IQR. Defaults to 1.5.
-#' @inheritParams stat_identity
+#' @inheritParams shared_layer_parameters
 #' @export
 #' @eval rd_computed_vars(
 #'   .details = "`stat_boxplot()` provides the following variables, some of

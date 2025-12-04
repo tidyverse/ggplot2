@@ -3,7 +3,7 @@ NULL
 
 #' Count overlapping points
 #'
-#' This is a variant [geom_point()] that counts the number of
+#' This is a variant of [geom_point()] that counts the number of
 #' observations at each location, then maps the count to point area. It
 #' useful when you have discrete data and overplotting.
 #'
@@ -13,8 +13,7 @@ NULL
 #'   these connections, see how the [stat][layer_stats] and [geom][layer_geoms]
 #'   arguments work.
 #' @seealso For continuous `x` and `y`, use [geom_bin_2d()].
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @export
 #' @examples
 #' ggplot(mpg, aes(cty, hwy)) +

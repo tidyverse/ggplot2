@@ -5,7 +5,7 @@ about: Submit a bug report to help us improve ggplot2
 
 ### Tips for a helpful bug report:
 
-* If you have a question, please don't use this form. Instead, ask on <https://stackoverflow.com/> or <https://community.rstudio.com/>.
+* If you have a question, please don't use this form. Instead, ask on <https://stackoverflow.com/> or <https://forum.posit.co/>.
 
 * Please include a **minimal reproducible example**, a reprex, to demonstrate the bug.
 If you've never heard of a reprex, please read ["Make a reprex"](https://www.tidyverse.org/help/#reprex).

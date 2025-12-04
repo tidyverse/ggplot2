@@ -37,6 +37,10 @@
 
     `nrow` * `ncol` needs to be larger than the number of breaks (5).
 
+# validate_guide finds guides with namespace prefixes
+
+    Unknown guide: bar
+
 # get_guide_data retrieves keys appropriately
 
     Code
@@ -53,16 +57,6 @@
       Error in `get_guide_data()`:
       ! `panel` must be a whole number, not the string "a".
 
-# binning scales understand the different combinations of limits, breaks, labels, and show.limits
-
-    `show.limits` is ignored when `labels` are given as a character vector.
-    i Either add the limits to `breaks` or provide a function for `labels`.
-
----
-
-    `show.limits` is ignored when `labels` are given as a character vector.
-    i Either add the limits to `breaks` or provide a function for `labels`.
-
 # guides() warns if unnamed guides are provided
 
     Guides provided to `guides()` must be named.
@@ -72,9 +66,4 @@
 
     Guides provided to `guides()` must be named.
     i The 2nd guide is unnamed.
-
-# old S3 guides can be implemented
-
-    The S3 guide system was deprecated in ggplot2 3.5.0.
-    i It has been replaced by a ggproto system that can be extended.
 

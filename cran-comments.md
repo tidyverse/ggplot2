@@ -1,9 +1,13 @@
-This is a major release of ggplot2. Among other things it includes an adaption
-of S7 for all the S3 classes and methods that were currently in use.
-Unfortunately such a change is not without issue with the number of reverse
-dependencies that ggplot2 has as many packages wrongfully checks the internals
-of ggplot2 objects in their tests.
+This is a patch release fixing a range of regressions reported after the 4.0.0
+release. While no breaking changes in the API we did detect a few packages that
+breaks with this release due to either making assumptions about ggplot2 internal
+behaviour, or requiring documentation updates that can only happen after release
+of 4.0.1
 
-Because of this you should expect a larger than usual number of breaking
-packages. We have been very diligent to reach out to all maintainers over the
-last 2-3 months and provided resolutions but breakages are still to be expected.
+The packages are:
+- adproplus: https://github.com/henry-heppe/adproclus/issues/3
+- ggsurveillance: https://github.com/biostats-dev/ggsurveillance/issues/1
+- ggformula: https://github.com/ProjectMOSAIC/ggformula/issues/187
+- ggside: https://github.com/jtlandis/ggside/issues/71
+
+They have all been notified in advance of this submission
