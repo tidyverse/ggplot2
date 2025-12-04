@@ -100,7 +100,7 @@ test_that("element_text throws appropriate conditions", {
   # labs(y = element_blank()) for some reason
   el <- theme_get()$text
   expect_snapshot(
-    element_grob(el, label = element_blank())
+    x <- element_grob(el, label = element_blank())
   )
 })
 
