@@ -102,6 +102,10 @@ Position <- ggproto(
   #' A data frame with completed layer data
   use_defaults = function(self, data, params = list()) {
 
+    if (empty(data)) {
+      return(data)
+    }
+
     aes <- self$aesthetics()
     defaults <- self$default_aes
 
@@ -111,6 +115,13 @@ Position <- ggproto(
 
     if ((length(params) + length(defaults)) < 1) {
       return(data)
+    }
+
+    empty_aes <- names(params)[lengths(params) == 0]
+    if (length(empty_aes) > 0) {
+      # The Geom$use_defaults method will already warn about this, we just need
+      # to ignore this here.
+      params <- params[setdiff(names(params), empty_aes)]
     }
 
     new <- compact(lapply(defaults, eval_tidy, data = data))

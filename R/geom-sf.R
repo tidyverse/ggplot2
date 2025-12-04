@@ -289,7 +289,7 @@ GeomSf <- ggproto("GeomSf", Geom,
 
 #' @export
 #' @rdname ggsf
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 geom_sf <- function(mapping = aes(), data = NULL, stat = "sf",
                     position = "identity", na.rm = FALSE, show.legend = NA,
                     inherit.aes = TRUE, ...) {
@@ -333,7 +333,10 @@ geom_sf_label <- function(mapping = aes(), data = NULL,
 
   extra_args <- list2(...)
   if (lifecycle::is_present(label.size)) {
-    deprecate_warn0("3.5.0", "geom_label(label.size)", "geom_label(linewidth)")
+    deprecate(
+      "3.5.0", escalate = "warn",
+      "geom_label(label.size)", "geom_label(linewidth)"
+    )
     extra_args$linewidth <- extra_args$linewidth %||% label.size
   }
 

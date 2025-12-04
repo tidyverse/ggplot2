@@ -81,7 +81,7 @@ S7::method(`+`, list(class_theme, S7::class_any)) <- function(e1, e2) {
 #' @export
 "%+%" <- function(e1, e2) {
   if (getRversion() >= "4.3.0") {
-    deprecate_soft0("4.0.0", I("<ggplot> %+% x"), I("<ggplot> + x"))
+    deprecate("4.0.0", I("<ggplot> %+% x"), I("<ggplot> + x"))
   }
   add_gg(e1, e2)
 }
@@ -268,3 +268,12 @@ new_layer_names <- function(layer, existing) {
   names <- c(existing, new_name)
   vec_as_names(names, repair = "check_unique")
 }
+
+local({
+  S7::method(format, class_gg) <- function(x, ...) {
+    x <- S7::S7_class(x)
+    # Similar to S7:::S7_class_name
+    x <- paste(c(x@package, x@name), collapse = "::")
+    format(paste0("<", x, ">"), ...)
+  }
+})
