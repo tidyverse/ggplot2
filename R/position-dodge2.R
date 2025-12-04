@@ -62,8 +62,8 @@ PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
   compute_panel = function(data, params, scales) {
     data <- flip_data(data, params$flipped_aes)
     key <- NULL
-    columns <- c("group", "x", "xmin", "xmax")
-    if (isTRUE(params$group_row == "many")) {
+    columns <- intersect(c("group", "x", "xmin", "xmax"), names(data))
+    if (isTRUE(params$group_row == "many") && length(columns) > 0) {
       # Run-length encode (RLE) relevant variables
       key <- vec_unrep(data[columns])
     }
