@@ -14,6 +14,7 @@ position_jitterdodge(
   jitter.height = 0,
   dodge.width = 0.75,
   reverse = FALSE,
+  preserve = "total",
   seed = NA
 )
 ```
@@ -39,6 +40,11 @@ position_jitterdodge(
 
   If `TRUE`, will reverse the default stacking order. This is useful if
   you're rotating both the plot and legend.
+
+- preserve:
+
+  Should dodging preserve the `"total"` width of all elements at a
+  position, or the width of a `"single"` element?
 
 - seed:
 

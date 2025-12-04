@@ -29,6 +29,14 @@
   has a new `radius` aesthetic, representing the relative size of the
   hexagons ([@teunbrand](https://github.com/teunbrand),
   [\#6727](https://github.com/tidyverse/ggplot2/issues/6727))
+- Added `preserve` argument to
+  [`position_jitterdodge()`](https://ggplot2.tidyverse.org/dev/reference/position_jitterdodge.md)
+  ([@teunbrand](https://github.com/teunbrand),
+  [\#6584](https://github.com/tidyverse/ggplot2/issues/6584)).
+- Fixed `position_jitterdodge(jitter.height, jitter.width)` applying to
+  the wrong dimension with flipped geoms
+  ([@teunbrand](https://github.com/teunbrand),
+  [\#6535](https://github.com/tidyverse/ggplot2/issues/6535)).
 
 ## ggplot2 4.0.1
 
