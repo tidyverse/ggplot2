@@ -110,7 +110,7 @@ print(geom_path2)
 #>             lineend = lineend, linejoin = linejoin, linemitre = linemitre, 
 #>             ...))
 #> }
-#> <environment: 0x55c00e5bfa48>
+#> <environment: 0x5613ee9c1548>
 
 # Argument mismatch is detected
 try(geom_path2(linejoin = "foo"))
