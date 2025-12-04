@@ -1,4 +1,4 @@
-# accessing an undefined variable results in an error
+# aes evaluated in environment where plot created
 
     Code
       get_layer_data(p)
@@ -38,23 +38,51 @@
     Use of `df$x` is discouraged.
     i Use `x` instead.
 
-# aes evaluation fails with unknown input
+# alternative_aes_extract_usage() can inspect the call
 
-    Unknown input: <environment>
-
----
-
-    Unknown input: <environment>
+    Don't know how to get alternative usage for `foo`.
 
 # aes() supports `!!!` in named arguments (#2675)
 
     formal argument "y" matched by multiple actual arguments
 
-# alternative_aes_extract_usage() can inspect the call
-
-    Don't know how to get alternative usage for `foo`.
-
-# new_aes() checks its inputs
+# class_mapping() checks its inputs
 
     `x` must be a <list>, not an integer vector.
+
+# aesthetic parameters match length of data
+
+    Code
+      set_colours(rep("red", 2))
+    Condition
+      Error in `geom_point()`:
+      ! Problem while setting up geom aesthetics.
+      i Error occurred in the 1st layer.
+      Caused by error in `check_aesthetics()`:
+      ! Aesthetics must be either length 1 or the same as the data (5).
+      x Fix the following mappings: `colour`.
+
+---
+
+    Code
+      set_colours(rep("red", 3))
+    Condition
+      Error in `geom_point()`:
+      ! Problem while setting up geom aesthetics.
+      i Error occurred in the 1st layer.
+      Caused by error in `check_aesthetics()`:
+      ! Aesthetics must be either length 1 or the same as the data (5).
+      x Fix the following mappings: `colour`.
+
+---
+
+    Code
+      set_colours(rep("red", 4))
+    Condition
+      Error in `geom_point()`:
+      ! Problem while setting up geom aesthetics.
+      i Error occurred in the 1st layer.
+      Caused by error in `check_aesthetics()`:
+      ! Aesthetics must be either length 1 or the same as the data (5).
+      x Fix the following mappings: `colour`.
 

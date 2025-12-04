@@ -22,15 +22,15 @@ stat_summary_bin <- function(mapping = NULL, data = NULL,
                              fun.ymin = deprecated(),
                              fun.ymax = deprecated()) {
   if (lifecycle::is_present(fun.y)) {
-    deprecate_warn0("3.3.0", "stat_summary_bin(fun.y)", "stat_summary_bin(fun)")
+    deprecate("3.3.0", "stat_summary_bin(fun.y)", "stat_summary_bin(fun)")
     fun <- fun %||% fun.y
   }
   if (lifecycle::is_present(fun.ymin)) {
-    deprecate_warn0("3.3.0", "stat_summary_bin(fun.ymin)", "stat_summary_bin(fun.min)")
+    deprecate("3.3.0", "stat_summary_bin(fun.ymin)", "stat_summary_bin(fun.min)")
     fun.min <- fun.min %||% fun.ymin
   }
   if (lifecycle::is_present(fun.ymax)) {
-    deprecate_warn0("3.3.0", "stat_summary_bin(fun.ymax)", "stat_summary_bin(fun.max)")
+    deprecate("3.3.0", "stat_summary_bin(fun.ymax)", "stat_summary_bin(fun.max)")
     fun.max <- fun.max %||% fun.ymax
   }
   layer(
@@ -107,6 +107,13 @@ make_summary_fun <- function(fun.data, fun, fun.max, fun.min, fun.args) {
   force(fun.max)
   force(fun.min)
   force(fun.args)
+
+  as_function <- function(x) {
+    if (is.character(x)) {
+      x <- match.fun(x)
+    }
+    rlang::as_function(x)
+  }
 
   if (!is.null(fun.data)) {
     # Function that takes complete data frame as input

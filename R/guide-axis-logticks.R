@@ -82,20 +82,23 @@ guide_axis_logticks <- function(
   ...
 ) {
   if (lifecycle::is_present(prescale_base)) {
-    deprecate_warn0(
-      "3.5.1", "guide_axis_logticks(prescale_base)", "guide_axis_logticks(prescale.base)"
+    deprecate(
+      "3.5.1", escalate = "warn",
+      "guide_axis_logticks(prescale_base)", "guide_axis_logticks(prescale.base)"
     )
     prescale.base <- prescale_base
   }
   if (lifecycle::is_present(negative_small)) {
-    deprecate_warn0(
-      "3.5.1", "guide_axis_logticks(negative_small)", "guide_axis_logticks(negative.small)"
+    deprecate(
+      "3.5.1", escalate = "warn",
+      "guide_axis_logticks(negative_small)", "guide_axis_logticks(negative.small)"
     )
     negative.small <- negative_small
   }
   if (lifecycle::is_present(short_theme)) {
-    deprecate_warn0(
-      "3.5.1", "guide_axis_logticks(short_theme)", "guide_axis_logticks(short.theme)"
+    deprecate(
+      "3.5.1", escalate = "warn",
+      "guide_axis_logticks(short_theme)", "guide_axis_logticks(short.theme)"
     )
     short.theme <- short_theme
   }
@@ -121,7 +124,7 @@ guide_axis_logticks <- function(
     allow_null = TRUE
   )
   check_bool(expanded)
-  check_inherits(short.theme, c("element_blank", "element_line"))
+  check_inherits(short.theme, c("ggplot2::element_blank", "ggplot2::element_line"))
 
   new_guide(
     available_aes  = c("x", "y"),

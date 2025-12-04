@@ -97,8 +97,14 @@ coord_cartesian <- function(xlim = NULL, ylim = NULL, expand = TRUE,
 #' @export
 CoordCartesian <- ggproto("CoordCartesian", Coord,
 
-  is_linear = function() TRUE,
-  is_free = function(self) is.null(self$ratio),
+  is_linear = function() {
+    TRUE
+  },
+
+  is_free = function(self) {
+    is.null(self$ratio)
+  },
+
   aspect = function(self, ranges) {
     if (is.null(self$ratio)) {
       return(NULL)

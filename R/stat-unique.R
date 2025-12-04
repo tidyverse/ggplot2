@@ -4,15 +4,16 @@
 #' @export
 StatUnique <- ggproto(
   "StatUnique", Stat,
-  compute_panel = function(data, scales) unique0(data)
+  compute_panel = function(data, scales) {
+    unique0(data)
+  }
 )
 
 #' Remove duplicates
 #'
 #' @aesthetics StatUnique
 #' @export
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @examples
 #' ggplot(mtcars, aes(vs, am)) +
 #'   geom_point(alpha = 0.1)

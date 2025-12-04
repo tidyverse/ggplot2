@@ -127,11 +127,12 @@ theme_grey <- function(base_size = 11, base_family = "",
     # by others
     line =               element_line(
                            colour = ink, linewidth = base_line_size,
-                           linetype = 1, lineend = "butt"
+                           linetype = 1, lineend = "butt", linejoin = "round"
                          ),
     rect =               element_rect(
                            fill = paper, colour = ink,
-                           linewidth = base_rect_size, linetype = 1
+                           linewidth = base_rect_size, linetype = 1,
+                           linejoin = "round"
                          ),
     text =               element_text(
                             family = base_family, face = "plain",
@@ -153,7 +154,7 @@ theme_grey <- function(base_size = 11, base_family = "",
 
     polygon =            element_polygon(
                            fill = paper, colour = ink,
-                           linewidth = base_rect_size, linetype = 1
+                           linewidth = base_rect_size, linetype = 1, linejoin = "round"
                          ),
 
     geom =               element_geom(
@@ -219,7 +220,7 @@ theme_grey <- function(base_size = 11, base_family = "",
     legend.direction =   NULL,
     legend.justification = "center",
     legend.box =         NULL,
-    legend.box.margin =  rel(0),
+    legend.box.margin =  margin_auto(0),
     legend.box.background = element_blank(),
     legend.box.spacing = rel(2),
 
@@ -525,7 +526,7 @@ theme_void <- function(base_size = 11, base_family = "",
     line =               element_blank(),
     rect =               element_rect(
                            fill = paper, colour = NA, linewidth = 0, linetype = 1,
-                           inherit.blank = FALSE
+                           inherit.blank = FALSE, linejoin = "round"
                          ),
     polygon =            element_blank(),
     point =              element_blank(),
@@ -561,8 +562,8 @@ theme_void <- function(base_size = 11, base_family = "",
     legend.text =        element_text(size = rel(0.8)),
     legend.title =       element_text(hjust = 0),
     legend.key.spacing = rel(1),
-    legend.margin =      rel(0),
-    legend.box.margin =  rel(0),
+    legend.margin =      margin_auto(0),
+    legend.box.margin =  margin_auto(0),
     legend.box.spacing = unit(0.2, "cm"),
     legend.ticks.length = rel(0.2),
     legend.background =  element_blank(),
@@ -577,7 +578,7 @@ theme_void <- function(base_size = 11, base_family = "",
     panel.spacing =      NULL,
     panel.background =   element_blank(),
     panel.border =       element_blank(),
-    plot.margin =        rel(0),
+    plot.margin =        margin_auto(0),
     plot.title =         element_text(
                            size = rel(1.2),
                            hjust = 0, vjust = 1,
@@ -621,11 +622,11 @@ theme_test <- function(base_size = 11, base_family = "",
   t <- theme(
     line =               element_line(
                            colour = ink, linewidth = base_line_size,
-                           linetype = 1, lineend = "butt"
+                           linetype = 1, lineend = "butt", linejoin = "round"
                          ),
     rect =               element_rect(
                            fill = paper, colour = ink,
-                           linewidth = base_rect_size, linetype = 1
+                           linewidth = base_rect_size, linetype = 1, linejoin = "round"
                          ),
     text =               element_text(
                             family = base_family, face = "plain",
@@ -640,7 +641,7 @@ theme_test <- function(base_size = 11, base_family = "",
                          ),
     polygon =            element_polygon(
                            fill = paper, colour = ink,
-                           linewidth = base_rect_size, linetype = 1
+                           linewidth = base_rect_size, linetype = 1, linejoin = "round"
                          ),
     title =              element_text(family = header_family),
     spacing = unit(half_line, "pt"),

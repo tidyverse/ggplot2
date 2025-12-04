@@ -1,6 +1,6 @@
 Package: ggplot2
 Title: Create Elegant Data Visualisations Using the Grammar of Graphics
-Version: 3.5.2.9000
+Version: 4.0.1.9000
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@posit.co", role = "aut",
            comment = c(ORCID = "0000-0003-4757-117X")),
@@ -40,6 +40,7 @@ Imports:
     isoband,
     lifecycle (> 1.0.1),
     rlang (>= 1.1.0),
+    S7,
     scales (>= 1.4.0),
     stats,
     vctrs (>= 0.6.0),
@@ -51,6 +52,7 @@ Suggests:
     ggplot2movies,
     hexbin,
     Hmisc,
+    hms,
     knitr,
     mapproj,
     maps,
@@ -61,40 +63,38 @@ Suggests:
     nlme,
     profvis,
     quantreg,
+    quarto,
     ragg (>= 1.2.6),
     RColorBrewer,
-    rmarkdown,
     roxygen2,
     rpart,
     sf (>= 0.7-3),
     svglite (>= 2.1.2),
-    testthat (>= 3.1.5),
+    testthat (>= 3.3.0),
     tibble,
     vdiffr (>= 1.0.6),
     xml2
 Enhances:
     sp
-VignetteBuilder:
-    knitr
+VignetteBuilder: 
+    quarto
 Config/Needs/website: ggtext, tidyr, forcats, tidyverse/tidytemplate
 Config/testthat/edition: 3
 Config/usethis/last-upkeep: 2025-04-23
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Collate:
-    'ggproto.R'
+    'aes-delayed-eval.R'
+    'aes-variants.R'
     'ggplot-global.R'
-    'aaa-.R'
-    'aes-colour-fill-alpha.R'
-    'aes-evaluation.R'
-    'aes-group-order.R'
-    'aes-linetype-size-shape.R'
-    'aes-position.R'
+    'ggproto.R'
+    'all-classes.R'
     'compat-plyr.R'
     'utilities.R'
     'aes.R'
+    'annotate.R'
     'annotation-borders.R'
     'utilities-checks.R'
     'legend-draw.R'
@@ -109,7 +109,6 @@ Collate:
     'annotation-map.R'
     'geom-raster.R'
     'annotation-raster.R'
-    'annotation.R'
     'autolayer.R'
     'autoplot.R'
     'axis-secondary.R'
@@ -128,9 +127,11 @@ Collate:
     'coord-sf.R'
     'coord-transform.R'
     'data.R'
-    'docs_layer.R'
+    'docs-aes.R'
+    'docs-layer.R'
     'facet-.R'
     'facet-grid-.R'
+    'facet-labeller.R'
     'facet-null.R'
     'facet-wrap.R'
     'fortify-map.R'
@@ -138,14 +139,13 @@ Collate:
     'fortify-spatial.R'
     'fortify.R'
     'stat-.R'
-    'geom-abline.R'
+    'geom-abline-hline-vline.R'
     'geom-rect.R'
     'geom-bar.R'
     'geom-tile.R'
     'geom-bin2d.R'
     'geom-blank.R'
     'geom-boxplot.R'
-    'geom-col.R'
     'geom-path.R'
     'geom-contour.R'
     'geom-point.R'
@@ -153,7 +153,6 @@ Collate:
     'geom-crossbar.R'
     'geom-segment.R'
     'geom-curve.R'
-    'geom-defaults.R'
     'geom-ribbon.R'
     'geom-density.R'
     'geom-density2d.R'
@@ -163,7 +162,6 @@ Collate:
     'geom-function.R'
     'geom-hex.R'
     'geom-histogram.R'
-    'geom-hline.R'
     'geom-jitter.R'
     'geom-label.R'
     'geom-linerange.R'
@@ -174,13 +172,15 @@ Collate:
     'geom-smooth.R'
     'geom-spoke.R'
     'geom-text.R'
+    'geom-update-defaults.R'
     'geom-violin.R'
-    'geom-vline.R'
     'ggplot2-package.R'
     'grob-absolute.R'
     'grob-dotstack.R'
     'grob-null.R'
     'grouping.R'
+    'properties.R'
+    'margins.R'
     'theme-elements.R'
     'guide-.R'
     'guide-axis.R'
@@ -199,16 +199,14 @@ Collate:
     'hexbin.R'
     'import-standalone-obj-type.R'
     'import-standalone-types-check.R'
-    'labeller.R'
     'labels.R'
     'layer-sf.R'
     'layout.R'
     'limits.R'
-    'margins.R'
-    'performance.R'
     'plot-build.R'
     'plot-construction.R'
     'plot-last.R'
+    'plot-render.R'
     'plot.R'
     'position-.R'
     'position-collide.R'
@@ -284,6 +282,7 @@ Collate:
     'utilities-grid.R'
     'utilities-help.R'
     'utilities-patterns.R'
+    'utilities-performance.R'
     'utilities-resolution.R'
     'utilities-tidy-eval.R'
     'zxx.R'

@@ -18,10 +18,19 @@ GeomErrorbar <- ggproto(
   required_aes = c("x|y", "ymin|xmin", "ymax|xmax"),
 
   setup_params = function(data, params) {
-    GeomLinerange$setup_params(data, params)
+    params <- GeomLinerange$setup_params(data, params)
+    if (
+      isTRUE(params$flipped_aes) &&
+      isTRUE("height" %in% names(params)) &&
+      !isTRUE("width" %in% names(params))
+    ) {
+      params <- rename(params, c(height = "width"))
+      cli::cli_inform("{.arg height} was translated to {.arg width}.")
+    }
+    params
   },
 
-  extra_params = c("na.rm", "orientation"),
+  extra_params = c("na.rm", "orientation", "height"),
 
   setup_data = function(self, data, params) {
     data$flipped_aes <- params$flipped_aes
@@ -68,8 +77,8 @@ GeomErrorbar <- ggproto(
 GeomErrorbarh <- ggproto(
   "GeomErrorbarh", GeomErrorbar,
   setup_params = function(data, params) {
-    deprecate_soft0(
-      "3.5.2", "geom_errobarh()", "geom_errorbar(orientation = \"y\")",
+    deprecate(
+      "4.0.0", "geom_errorbarh()", "geom_errorbar(orientation = \"y\")",
       id = "no-more-errorbarh"
     )
     GeomLinerange$setup_params(data, params)
@@ -86,8 +95,8 @@ geom_errorbar <- make_constructor(GeomErrorbar, orientation = NA)
 #' `geom_errorbarh()` is `r lifecycle::badge("deprecated")`. Use
 #' `geom_errorbar(orientation = "y")` instead.
 geom_errorbarh <- function(..., orientation = "y") {
-  deprecate_soft0(
-    "3.5.2", "geom_errobarh()", "geom_errorbar(orientation = \"y\")",
+  deprecate(
+    "4.0.0", "geom_errorbarh()", "geom_errorbar(orientation = \"y\")",
     id = "no-more-errorbarh"
   )
   geom_errorbar(..., orientation = orientation)

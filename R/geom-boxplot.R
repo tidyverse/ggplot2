@@ -4,7 +4,7 @@
 #' It visualises five summary statistics (the median, two hinges
 #' and two whiskers), and all "outlying" points individually.
 #'
-#' @eval rd_orientation()
+#' @inheritSection shared_layer_parameters Orientation
 #'
 #' @section Summary statistics:
 #' The lower and upper hinges correspond to the first and third quartiles
@@ -29,8 +29,7 @@
 #' @seealso [geom_quantile()] for continuous `x`,
 #'   [geom_violin()] for a richer display of the distribution, and
 #'   [geom_jitter()] for a useful technique for small data.
-#' @inheritParams layer
-#' @inheritParams geom_bar
+#' @inheritParams shared_layer_parameters
 #' @param geom,stat Use to override the default connection between
 #'   `geom_boxplot()` and `stat_boxplot()`. For more information about
 #'   overriding these connections, see how the [stat][layer_stats] and
@@ -240,8 +239,8 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
 
   setup_params = function(data, params) {
     if ("fatten" %in% names(params)) {
-      deprecate_soft0(
-        "3.6.0", "geom_boxplot(fatten)",
+      deprecate(
+        "4.0.0", "geom_boxplot(fatten)",
         "geom_boxplot(median.linewidth)"
       )
     } else {

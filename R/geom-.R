@@ -206,7 +206,7 @@ Geom <- ggproto(
     # Take care of subclasses setting the wrong default when inheriting from
     # a geom with rename_size = TRUE
     if (self$rename_size && is.null(default_aes$linewidth)) {
-      deprecate_warn0("3.4.0", I("Using the `size` aesthetic in this geom"), I("`linewidth` in the `default_aes` field and elsewhere"))
+      deprecate("3.4.0", I("Using the `size` aesthetic in this geom"), I("`linewidth` in the `default_aes` field and elsewhere"))
       default_aes$linewidth <- default_aes$size
     }
 
@@ -474,7 +474,7 @@ eval_from_theme <- function(aesthetics, theme, class = NULL) {
     return(aesthetics)
   }
 
-  element <- calc_element("geom", theme) %||% .default_geom_element
+  el <- calc_element("geom", theme) %||% .default_geom_element
   class <- setdiff(class, c("Geom", "ggproto", "gg"))
 
   if (length(class) > 0) {
@@ -489,12 +489,12 @@ eval_from_theme <- function(aesthetics, theme, class = NULL) {
     # Inherit up to parent geom class
     if (length(class) > 0) {
       for (cls in rev(class)) {
-        element <- combine_elements(theme[[cls]], element)
+        el <- combine_elements(theme[[cls]], el)
       }
     }
   }
 
-  lapply(aesthetics[themed], eval_tidy, data = element)
+  lapply(aesthetics[themed], eval_tidy, data = S7::props(el))
 }
 
 #' Graphical units
@@ -530,7 +530,7 @@ check_aesthetics <- function(x, n) {
 
 fix_linewidth <- function(data, name) {
   if (is.null(data$linewidth) && !is.null(data$size)) {
-    deprecate_warn0("3.4.0", I(paste0("Using the `size` aesthetic with ", name)), I("the `linewidth` aesthetic"))
+    deprecate("3.4.0", I(paste0("Using the `size` aesthetic with ", name)), I("the `linewidth` aesthetic"))
     data$linewidth <- data$size
   }
   data

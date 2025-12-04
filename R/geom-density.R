@@ -10,8 +10,8 @@ GeomDensity <- ggproto(
     fill   = from_theme(fill %||% NA),
     weight = 1,
     alpha  = NA,
-    linewidth = from_theme(borderwidth),
-    linetype  = from_theme(bordertype)
+    linewidth = from_theme(linewidth),
+    linetype  = from_theme(linetype)
   )
 )
 
@@ -21,13 +21,12 @@ GeomDensity <- ggproto(
 #' the histogram. This is a useful alternative to the histogram for continuous
 #' data that comes from an underlying smooth distribution.
 #'
-#' @eval rd_orientation()
+#' @inheritSection shared_layer_parameters Orientation
 #' @aesthetics GeomDensity
 #' @seealso See [geom_histogram()], [geom_freqpoly()] for
 #'   other methods of displaying continuous distribution.
 #'   See [geom_violin()] for a compact density display.
-#' @inheritParams layer
-#' @inheritParams geom_bar
+#' @inheritParams shared_layer_parameters
 #' @inheritParams geom_ribbon
 #' @param geom,stat Use to override the default connection between
 #'   `geom_density()` and `stat_density()`. For more information about
@@ -76,7 +75,7 @@ GeomDensity <- ggproto(
 #'   geom_density(position = "fill")
 #' }
 geom_density <- make_constructor(
-  GeomDensity, stat = "density",
+  GeomDensity, stat = "density", outline.type = "upper",
   checks = exprs(
     outline.type <- arg_match0(outline.type, c("both", "upper", "lower", "full"))
   )

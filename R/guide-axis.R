@@ -424,7 +424,6 @@ GuideAxis <- ggproto(
     # Unlist the 'label' grobs
     z <- if (params$position == "left") c(2, 1, 3) else 1:3
     z <- rep(z, c(1, length(grobs$labels), 1))
-    has_labels <- !is_zero(grobs$labels[[1]])
     grobs  <- c(list(grobs$ticks), grobs$labels, list(grobs$title))
 
     # Initialise empty gtable
@@ -452,15 +451,15 @@ GuideAxis <- ggproto(
 
     # Add null-unit padding to justify based on eventual gtable cell shape
     # rather than dimensions of this axis alone.
-    if (has_labels && params$position %in% c("left", "right")) {
+    if (params$position %in% c("left", "right")) {
       where <- layout$l[-c(1, length(layout$l))]
-      just <- with(elements$text, rotate_just(angle, hjust, vjust))$hjust %||% 0.5
+      just <- rotate_just(element = elements$text)$hjust %||% 0.5
       gt <- gtable_add_cols(gt, unit(just, "null"), pos = min(where) - 1)
       gt <- gtable_add_cols(gt, unit(1 - just, "null"), pos = max(where) + 1)
     }
-    if (has_labels && params$position %in% c("top", "bottom")) {
+    if (params$position %in% c("top", "bottom")) {
       where <- layout$t[-c(1, length(layout$t))]
-      just <- with(elements$text, rotate_just(angle, hjust, vjust))$vjust %||% 0.5
+      just <- rotate_just(element = elements$text)$vjust %||% 0.5
       gt <- gtable_add_rows(gt, unit(1 - just, "null"), pos = min(where) - 1)
       gt <- gtable_add_rows(gt, unit(just, "null"), pos = max(where) + 1)
     }
@@ -616,8 +615,8 @@ label_angle_heuristic <- function(element, position, angle) {
   hjust <- switch(position, left = cosine, right = 1 - cosine, top = 1 - sine, sine)
   vjust <- switch(position, left = 1 - sine, right = sine, top = 1 - cosine, cosine)
 
-  element$angle <- angle %||% element$angle
-  element$hjust <- hjust %||% element$hjust
-  element$vjust <- vjust %||% element$vjust
+  element@angle <- angle %||% try_prop(element, "angle")
+  element@hjust <- hjust %||% try_prop(element, "hjust")
+  element@vjust <- vjust %||% try_prop(element, "vjust")
   element
 }

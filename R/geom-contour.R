@@ -5,7 +5,13 @@
 #' @include geom-path.R
 GeomContour <- ggproto(
   "GeomContour", GeomPath,
-  default_aes = aes(weight = 1, !!!GeomPath$default_aes)
+  default_aes = aes(
+    weight = 1,
+    colour = from_theme(colour %||% accent),
+    linewidth = from_theme(linewidth),
+    linetype = from_theme(linetype),
+    alpha = NA
+  )
 )
 
 #' @rdname Geom
@@ -30,9 +36,7 @@ GeomContourFilled <- ggproto("GeomContourFilled", GeomPolygon)
 #'
 #' @aesthetics GeomContour
 #' @aesthetics GeomContourFilled
-#' @inheritParams layer
-#' @inheritParams geom_point
-#' @inheritParams geom_path
+#' @inheritParams shared_layer_parameters
 #' @param binwidth The width of the contour bins. Overridden by `bins`.
 #' @param bins Number of contour bins. Overridden by `breaks`.
 #' @param breaks One of:

@@ -49,7 +49,7 @@ GeomLinerange <- ggproto(
 #' Various ways of representing a vertical interval defined by `x`,
 #' `ymin` and `ymax`. Each case draws a single graphical object.
 #'
-#' @eval rd_orientation()
+#' @inheritSection shared_layer_parameters Orientation
 #'
 #' @aesthetics GeomLinerange
 #' Note that `geom_pointrange()` also understands `size` for the size of the points.
@@ -60,9 +60,7 @@ GeomLinerange <- ggproto(
 #'  [stat_summary()] for examples of these guys in use,
 #'  [geom_smooth()] for continuous analogue
 #' @export
-#' @inheritParams layer
-#' @inheritParams geom_bar
-#' @inheritParams geom_segment
+#' @inheritParams shared_layer_parameters
 #' @examples
 #' # Create a simple example dataset
 #' df <- data.frame(

@@ -62,12 +62,12 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
                   xlab = NULL, ylab = NULL,
                   asp = NA, stat = deprecated(), position = deprecated()) {
 
-  deprecate_warn0("3.4.0", "qplot()")
+  deprecate("3.4.0", "qplot()")
 
   caller_env <- parent.frame()
 
-  if (lifecycle::is_present(stat)) lifecycle::deprecate_stop("2.0.0", "qplot(stat)")
-  if (lifecycle::is_present(position)) lifecycle::deprecate_stop("2.0.0", "qplot(position)")
+  if (lifecycle::is_present(stat)) deprecate("2.0.0", "qplot(stat)")
+  if (lifecycle::is_present(position)) deprecate("2.0.0", "qplot(position)")
   check_character(geom)
 
   exprs <- enquos(x = x, y = y, ...)
@@ -78,7 +78,7 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
   is_constant <- (!names(exprs) %in% ggplot_global$all_aesthetics) |
     vapply(exprs, quo_is_call, logical(1), name = "I")
 
-  mapping <- new_aes(exprs[!is_missing & !is_constant], env = parent.frame())
+  mapping <- class_mapping(exprs[!is_missing & !is_constant], env = parent.frame())
 
   consts <- exprs[is_constant]
 

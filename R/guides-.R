@@ -78,7 +78,7 @@ guides <- function(...) {
 
   idx_false <- vapply(args, isFALSE, FUN.VALUE = logical(1L))
   if (isTRUE(any(idx_false))) {
-    deprecate_warn0("3.3.4", "guides(`<scale>` = 'cannot be `FALSE`. Use \"none\" instead')")
+    deprecate("3.3.4", "guides(`<scale>` = 'cannot be `FALSE`. Use \"none\" instead')")
     args[idx_false] <- "none"
   }
 
@@ -274,7 +274,7 @@ Guides <- ggproto(
   #
   # The resulting guide is then drawn in ggplot_gtable
 
-  build = function(self, scales, layers, labels, layer_data, theme = theme()) {
+  build = function(self, scales, layers, labels, layer_data, theme = NULL) {
 
     # Empty guides list
     custom <- self$get_custom()
@@ -300,6 +300,7 @@ Guides <- ggproto(
     }
 
     # Merge and process layers
+    theme <- theme %||% theme()
     guides$merge()
     guides$process_layers(layers, layer_data, theme)
     if (length(guides$guides) == 0) {
@@ -344,7 +345,7 @@ Guides <- ggproto(
         default %||% missing
 
       if (isFALSE(guide)) {
-        deprecate_warn0("3.3.4", I("The `guide` argument in `scale_*()` cannot be `FALSE`. This "), I('"none"'))
+        deprecate("3.3.4", I("The `guide` argument in `scale_*()` cannot be `FALSE`. This "), I('"none"'))
         guide <- "none"
       }
 
@@ -658,7 +659,8 @@ Guides <- ggproto(
       if (!stretch_spacing) {
         spacing <- convertWidth(spacing, "cm")
       }
-      heights <- unit(height_cm(lapply(heights, sum)), "cm")
+
+      total_height <- max(inject(unit.c(!!!lapply(heights, sum))))
 
       if (stretch_x || stretch_spacing) {
         widths   <- redistribute_null_units(widths, spacing, margin, "width")
@@ -671,14 +673,14 @@ Guides <- ggproto(
       # Set global justification
       vp <- viewport(
         x = global_xjust, y = global_yjust, just = global_just,
-        height = max(heights),
+        height = total_height,
         width  = vp_width
       )
 
       # Initialise gtable as legends in a row
       guides <- gtable_row(
         name = "guides", grobs = grobs,
-        widths = widths, height = max(heights),
+        widths = widths, height = total_height,
         vp = vp
       )
 
@@ -700,7 +702,7 @@ Guides <- ggproto(
       if (!stretch_spacing) {
         spacing <- convertWidth(spacing, "cm")
       }
-      widths  <- unit(width_cm(lapply(widths, sum)), "cm")
+      total_width <- max(inject(unit.c(!!!lapply(widths, sum))))
 
       if (stretch_y || stretch_spacing) {
         heights   <- redistribute_null_units(heights, spacing, margin, "height")
@@ -714,13 +716,13 @@ Guides <- ggproto(
       vp <- viewport(
         x = global_xjust, y = global_yjust, just = global_just,
         height = vp_height,
-        width =  max(widths)
+        width =  total_width
       )
 
       # Initialise gtable as legends in a column
       guides <- gtable_col(
         name = "guides", grobs = grobs,
-        width = max(widths), heights = heights,
+        width = total_width, heights = heights,
         vp = vp
       )
 
@@ -835,7 +837,7 @@ get_guide_data <- function(plot = get_last_plot(), aesthetic, panel = 1L) {
 
   if (!aesthetic %in% c("x", "y", "x.sec", "y.sec", "theta", "r")) {
     # Non position guides: check if aesthetic in colnames of key
-    keys <- lapply(plot$plot$guides$params, `[[`, "key")
+    keys <- lapply(plot@plot@guides$params, `[[`, "key")
     keep <- vapply(keys, function(x) any(colnames(x) %in% aesthetic), logical(1))
     keys <- switch(sum(keep) + 1, NULL, keys[[which(keep)]], keys[keep])
     return(keys)
@@ -843,12 +845,12 @@ get_guide_data <- function(plot = get_last_plot(), aesthetic, panel = 1L) {
 
   # Position guides: find the right layout entry
   check_number_whole(panel)
-  layout <- plot$layout$layout
+  layout <- plot@layout$layout
   select <- layout[layout$PANEL == panel, , drop = FALSE]
   if (nrow(select) == 0) {
     return(NULL)
   }
-  params <- plot$layout$panel_params[select$PANEL][[1]]
+  params <- plot@layout$panel_params[select$PANEL][[1]]
 
   # If panel params don't have guides, we probably have old coord system
   # that doesn't use the guide system.
@@ -913,8 +915,19 @@ include_layer_in_guide <- function(layer, matched) {
 validate_guide <- function(guide) {
   # if guide is specified by character, then find the corresponding guide
   if (is.character(guide)) {
-    fun <- find_global(paste0("guide_", guide), env = global_env(),
-                       mode = "function")
+    check_string(guide, allow_empty = FALSE)
+    search_env <- list(global_env())
+    if (isTRUE(grepl("::", guide))) {
+      guide <- strsplit(guide, "::", fixed = TRUE)[[1]]
+      # Append prefix as namespaces to search environments
+      search_env <- c(search_env, list(as_namespace(guide[[1]])))
+      # Remove prefix from guide name
+      guide <- guide[[2]]
+    }
+    fun <- find_global(
+      paste0("guide_", guide),
+      env = search_env, mode = "function"
+    )
     if (is.function(fun)) {
       guide <- fun()
     }
@@ -941,7 +954,13 @@ redistribute_null_units <- function(units, spacing, margin, type = "width") {
 
   # Get spacing between guides and margins in absolute units
   size    <- switch(type, width = width_cm, height = height_cm)
-  spacing <- sum(rep(spacing, length.out = length(units) - 1))
+  if (length(units) < 2) {
+    # When we have 1 guide, we don't need any spacing
+    spacing <- unit(0, "cm")
+  } else {
+    spacing <- sum(rep(spacing, length.out = length(units) - 1))
+  }
+
   margin  <- switch(type, width = margin[c(2, 4)], height = margin[c(1, 3)])
   margin  <- sum(size(margin))
 
