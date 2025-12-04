@@ -64,10 +64,8 @@
 ---
 
     Code
-      element_grob(el, label = element_blank())
+      x <- element_grob(el, label = element_blank())
     Condition
       Warning:
       `label` cannot be a <ggplot2::element_blank> object.
-    Output
-      zeroGrob[NULL] 
 

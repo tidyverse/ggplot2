@@ -177,7 +177,6 @@ Collate:
     'ggplot2-package.R'
     'grob-absolute.R'
     'grob-dotstack.R'
-    'grob-null.R'
     'grouping.R'
     'properties.R'
     'margins.R'

@@ -942,6 +942,15 @@ compute_data_size <- function(data, size, default = 0.9,
   data
 }
 
+add_class <- function(x, new_class) {
+  new_class <- setdiff(new_class, class(x))
+  if (length(new_class) < 1) {
+    return(x)
+  }
+  class(x) <- union(new_class, class(x))
+  x
+}
+
 try_prop <- function(object, name, default = NULL) {
   if (!S7::S7_inherits(object)) {
     return(default)
