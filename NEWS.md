@@ -18,6 +18,9 @@
 * Added `preserve` argument to `position_jitterdodge()` (@teunbrand, #6584).
 * Fixed `position_jitterdodge(jitter.height, jitter.width)` applying to the 
   wrong dimension with flipped geoms (@teunbrand, #6535).
+* New `position_dodge2(group.row)` argument that can be set to `"many"` to
+  dodge groups with more than one row, such as in `geom_violin()` 
+  (@teunbrand, #6663)
 
 # ggplot2 4.0.1
 
