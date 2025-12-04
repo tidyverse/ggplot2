@@ -41,13 +41,14 @@ test_that("groups with multiple rows are dodged", {
     vapply(split(x, g), vec_unique_count, integer(1), USE.NAMES = FALSE)
   }
 
-  p <- ggplot() +
+  p <- ggplot(
     data_frame(
       x = "x",
       y = 1:6,
       g = rep(LETTERS[1:3], 3:1)
-    ) +
+    ),
     aes(x, y, colour = g)
+  )
 
   singles <- get_layer_data(
     p + geom_point(position = position_dodge2(width = 1, group.row = "single"))
