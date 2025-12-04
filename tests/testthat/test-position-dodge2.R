@@ -35,6 +35,33 @@ test_that("rectangles are dodged", {
   expect_false(any(duplicated(find_x_overlaps(get_layer_data(p)))))
 })
 
+test_that("groups with multiple rows are dodged", {
+
+  n_per_group <- function(x, g) {
+    vapply(split(x, g), vec_unique_count, integer(1), USE.NAMES = FALSE)
+  }
+
+  p <- ggplot() +
+    data_frame(
+      x = "x",
+      y = 1:6,
+      g = rep(LETTERS[1:3], 3:1)
+    ) +
+    aes(x, y, colour = g)
+
+  singles <- get_layer_data(
+    p + geom_point(position = position_dodge2(width = 1, group.row = "single"))
+  )
+
+  expect_equal(n_per_group(singles$x, singles$group), 3:1)
+
+  multi <- get_layer_data(
+    p + geom_point(position = position_dodge2(width = 1, group.row = "many"))
+  )
+
+  expect_all_equal(n_per_group(multi$x, multi$group), 1)
+})
+
 test_that("cols at the same x position are dodged", {
   df <- data_frame(
     x = c("a", "a", "b"),
