@@ -45,6 +45,11 @@
   the wrong dimension with flipped geoms
   ([@teunbrand](https://github.com/teunbrand),
   [\#6535](https://github.com/tidyverse/ggplot2/issues/6535)).
+- New `position_dodge2(group.row)` argument that can be set to `"many"`
+  to dodge groups with more than one row, such as in
+  [`geom_violin()`](https://ggplot2.tidyverse.org/dev/reference/geom_violin.md)
+  ([@teunbrand](https://github.com/teunbrand),
+  [\#6663](https://github.com/tidyverse/ggplot2/issues/6663))
 
 ## ggplot2 4.0.1
 

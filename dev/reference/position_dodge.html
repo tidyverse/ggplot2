@@ -103,7 +103,8 @@ can have variable widths.</p>
 <span>  width <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  preserve <span class="op">=</span> <span class="st">"total"</span>,</span>
 <span>  padding <span class="op">=</span> <span class="fl">0.1</span>,</span>
-<span>  reverse <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  reverse <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  group.row <span class="op">=</span> <span class="st">"single"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -136,6 +137,12 @@ This is useful if you're rotating both the plot and legend.</p></dd>
 <dt id="arg-padding">padding<a class="anchor" aria-label="anchor" href="#arg-padding"></a></dt>
 <dd><p>Padding between elements at the same position. Elements are
 shrunk by this proportion to allow space between them. Defaults to 0.1.</p></dd>
+
+
+<dt id="arg-group-row">group.row<a class="anchor" aria-label="anchor" href="#arg-group-row"></a></dt>
+<dd><p>Relationship between groups and rows. Can be <code>"single"</code> if
+every row represents a single group, or <code>"many"</code> if many rows represent
+a group.</p></dd>
 
 </dl></div>
     <div class="section level2">
