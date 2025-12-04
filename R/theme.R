@@ -151,7 +151,10 @@
 #'   from `line`
 #' @param panel.widths,panel.heights Sizes for panels (`units`). Can be a
 #'   single unit to set the total size for the panel area, or a unit vector to
-#'   set the size of individual panels.
+#'   set the size of individual panels. Using this setting overrides the
+#'   aspect ratio set by the theme, coord or facets. An exception is made when
+#'   the plot has a single panel and exactly one of the width *or* height is
+#'   set, in which case an attempt is made to preserve the aspect ratio.
 #' @param panel.ontop option to place the panel (background, gridlines) over
 #'   the data layers (`logical`). Usually used with a transparent or blank
 #'   `panel.background`.
@@ -217,7 +220,7 @@
 #' @param validate `TRUE` to run `check_element()`, `FALSE` to bypass checks.
 #' @export
 #' @seealso
-#'   [add_gg()] and [%+replace%],
+#'   [add_gg()] and [`%+replace%`][get_theme()],
 #'   [element_blank()], [element_line()],
 #'   [element_rect()], and [element_text()] for
 #'   details of the specific theme elements.
@@ -498,7 +501,7 @@ theme <- function(...,
   }
 
   t <- class_theme(elements, complete = complete, validate = validate)
-  class(t) <- union("theme", class(t))
+  t <- add_class(t, "theme")
   t
 }
 
@@ -512,7 +515,7 @@ fix_theme_deprecations <- function(elements) {
     elements$legend.margin <- margin()
   }
   if (!is.null(elements$legend.title.align)) {
-    deprecate_soft0(
+    deprecate(
       "3.5.0", "theme(legend.title.align)",
       I("theme(legend.title = element_text(hjust))")
     )
@@ -525,7 +528,7 @@ fix_theme_deprecations <- function(elements) {
     elements$legend.title.align <- NULL
   }
   if (!is.null(elements$legend.text.align)) {
-    deprecate_soft0(
+    deprecate(
       "3.5.0", "theme(legend.text.align)",
       I("theme(legend.text = element_text(hjust))")
     )
@@ -538,7 +541,7 @@ fix_theme_deprecations <- function(elements) {
     elements$legend.text.align <- NULL
   }
   if (is.numeric(elements[["legend.position"]])) {
-    deprecate_soft0(
+    deprecate(
       "3.5.0", I("A numeric `legend.position` argument in `theme()`"),
       "theme(legend.position.inside)"
     )
@@ -596,7 +599,7 @@ is_theme <- function(x) S7::S7_inherits(x, class_theme)
 #' @rdname is_tests
 #' @usage is.theme(x) # Deprecated
 is.theme <- function(x) {
-  deprecate_soft0("3.5.2", "is.theme()", "is_theme()")
+  deprecate("3.5.2", "is.theme()", "is_theme()")
   is_theme(x)
 }
 
@@ -699,7 +702,7 @@ add_theme <- function(t1, t2, t2name, call = caller_env()) {
     return(t1)
   }
   if (!is.list(t2)) { # in various places in the code base, simple lists are used as themes
-    cli::cli_abort("Can't add {.arg {t2name}} to a theme object.", call = call)
+    cli::cli_abort("Can't add {.arg {t2name}} to a theme object.", call = NULL)
   }
 
   # If t2 is a complete theme or t1 is NULL, just return t2

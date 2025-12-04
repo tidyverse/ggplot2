@@ -42,9 +42,9 @@ test_that("geom_boxplot for continuous x gives warning if more than one x (#992)
     ggplot_build(ggplot(dat, aes) + geom_boxplot(aes) + extra)
   }
 
-  expect_snapshot_warning(bplot(aes(x, y)))
-  expect_snapshot_warning(bplot(aes(x, y), facet_wrap(~x)))
-  expect_snapshot_warning(bplot(aes(Sys.Date() + x, y)))
+  expect_snapshot(p <- bplot(aes(x, y)))
+  expect_snapshot(p <- bplot(aes(x, y), facet_wrap(~x)))
+  expect_snapshot(p <- bplot(aes(Sys.Date() + x, y)))
 
   expect_silent(bplot(aes(x, group = x, y)))
   expect_silent(bplot(aes(1, y)))

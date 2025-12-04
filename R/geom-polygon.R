@@ -41,9 +41,6 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
         )
       )
     } else {
-      if (getRversion() < "3.6") {
-        cli::cli_abort("Polygons with holes requires R 3.6 or above.")
-      }
       # Sort by group to make sure that colors, fill, etc. come in same order
       munched <- munched[order(munched$group, munched$subgroup), ]
       id <- match(munched$subgroup, unique0(munched$subgroup))
@@ -108,11 +105,7 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
 #'  [geom_path()] for an unfilled polygon,
 #'  [geom_ribbon()] for a polygon anchored on the x-axis
 #' @export
-#' @inheritParams layer
-#' @inheritParams geom_point
-#' @param lineend Line end style (round, butt, square).
-#' @param linejoin Line join style (round, mitre, bevel).
-#' @param linemitre Line mitre limit (number greater than 1).
+#' @inheritParams shared_layer_parameters
 #' @param rule Either `"evenodd"` or `"winding"`. If polygons with holes are
 #' being drawn (using the `subgroup` aesthetic) this argument defines how the
 #' hole coordinates are interpreted. See the examples in [grid::pathGrob()] for
@@ -177,16 +170,3 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
 #'   p
 #' }
 geom_polygon <- make_constructor(GeomPolygon)
-
-# Assigning pathGrob in .onLoad ensures that packages that subclass GeomPolygon
-# do not install with error `possible error in 'pathGrob(munched$x, munched$y, ':
-# unused argument (pathId = munched$group)` despite the fact that this is correct
-# usage
-pathGrob <- NULL
-on_load(
-  if (getRversion() < as.numeric_version("3.6")) {
-    pathGrob <- function(..., pathId.lengths) {
-      grid::pathGrob(...)
-    }
-  }
-)

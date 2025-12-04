@@ -1,5 +1,79 @@
 # ggplot2 (development version)
 
+* The `arrow` and `arrow.fill` arguments are now available in 
+  `geom_linerange()` and `geom_pointrange()` layers (@teunbrand, #6481).
+* (internal) `zeroGrob()` now returns a `grid::nullGrob()` (#6390).
+* `stat_ydensity()` now only requires the `x` or `y` aesthetic. The other will
+  be populated with 0, similar to `stat_boxplot()` (@teunbrand, #6600)
+* Implemented `as.list()` and `S7::convert()` methods for lists and classes in ggplot2 
+  (@teunbrand, #6695)
+* The default linetype in `geom_sf()` is derived from `geom_polygon()` for 
+  polygons and from `geom_line()` for (multi)linestrings (@teunbrand, #6543).
+* Using infinite `radius` aesthetic in `geom_spoke()` now throws a warning 
+  (#6671)
+* Scales and guides specified by a string can now use package name prefixes to
+  indicate a namespace wherein to look for the scale/guide. For example, one can
+  use `scale_x_continuous(guide = "legendry::axis_base")` (@teunbrand, #4705).
+* `get_layer_data()` and `get_layer_grob()` now accept layer names as index 
+  (@lgaborini, #6724)
+* Added new argument `geom_curve(shape)` that will be passed down to 
+  `grid::curveGrob()` (@fmarotta, #5998).
+* Fixed a regression where default `width` was miscalculated when some panels
+  are empty (@teunbrand, #6758)
+* `geom_hex()` has a new `radius` aesthetic, representing the relative size of
+  the hexagons (@teunbrand, #6727)
+* Added `preserve` argument to `position_jitterdodge()` (@teunbrand, #6584).
+* Fixed `position_jitterdodge(jitter.height, jitter.width)` applying to the 
+  wrong dimension with flipped geoms (@teunbrand, #6535).
+* New `position_dodge2(group.row)` argument that can be set to `"many"` to
+  dodge groups with more than one row, such as in `geom_violin()` 
+  (@teunbrand, #6663)
+
+# ggplot2 4.0.1
+
+This is a smaller patch release focussed on fixing regressions from 4.0.0 and 
+polishing the recent features.
+
+## Bug fixes
+
+* Fixed regression where `geom_area()` didn't draw panels with single groups 
+  when `stat = "align"` (@teunbrand, #6680)
+* Fixed regression where `position_stack(vjust)` was ignored when there are
+  only single groups (#6692)
+* Fixed bug where `NA` handling in `geom_path()` was ignoring panels (@teunbrand, #6533)
+* Fixed bug where `stat_bin(boundary)` was ignored (#6682).
+* `geom_text()` and `geom_label()` accept expressions as the `label` aesthetic 
+  (@teunbrand, #6638)
+* Fixed regression where `draw_key_rect()` stopped using `fill` colours 
+  (@mitchelloharawild, #6609).
+* Fixed regression where `scale_{x,y}_*()` threw an error when an expression
+  object is set to `labels` argument (@yutannihilation, #6617).
+* Fixed regression where the first (unnamed) argument to colour/fill scales was 
+  not passed as the `name` argument (@teunbrand, #6623)
+* Fixed issue where vectorised `arrow()`s caused errors in drawing the 
+  legend glyphs (@teunbrand, #6594)
+* Fixed regression where `NULL`-aesthetics contributed to plot labels too 
+  insistently. Now they contribute only as fallback labels (@teunbrand, #6616)
+* Fixed regression where empty arguments to colour/fill scale caused errors
+  (@jmbarbone, #6710)
+* Fixed axis misplacement in `coor_radial()` when labels are blank (@teunbrand, #6574)
+
+## Improvements
+
+* Improved palette fallback mechanism in scales (@teunbrand, #6669).
+* Allow `stat` in `geom_hline`, `geom_vline`, and `geom_abline`. (@sierrajohnson, #6559)
+* `stat_boxplot()` treats `width` as an optional aesthetic (@Yunuuuu, #6575)
+* The `theme(panel.widths, panel.heights)` setting attempts to preserve the
+  plot's aspect ratio when only one of the two settings is given, and the plot 
+  has a single panel (@teunbrand, #6701).
+* Logical values for the linetype aesthetic will be interpreted numerically,
+  so that `linetype = FALSE` becomes 0/'blank' and `linetype = TRUE` becomes 
+  1/'solid' (@teunbrand, #6641)
+* Out-of-bounds datapoints used as padding by `stat_align()` now get removed
+  silently rather than verbosely (@teunbrand, #6667)
+
+# ggplot2 4.0.0
+
 ## User facing
 
 ### Breaking changes

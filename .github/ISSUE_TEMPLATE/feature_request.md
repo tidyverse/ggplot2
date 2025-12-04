@@ -5,7 +5,7 @@ about: Suggest a change or new feature in ggplot2
 
 ### Tips for a helpful feature request:
 
-* If you have a question, please don't use this form. Instead, ask on <https://stackoverflow.com/> or <https://community.rstudio.com/>.
+* If you have a question, please don't use this form. Instead, ask on <https://stackoverflow.com/> or <https://forum.posit.co/>.
 
 * See the [contributing guidelines](https://github.com/tidyverse/ggplot2/blob/main/CONTRIBUTING.md).
 
