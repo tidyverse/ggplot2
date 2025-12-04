@@ -16,7 +16,7 @@ geom_smooth(
   se = TRUE,
   band.colour = NULL,
   band.color = NULL,
-  band.linetype = NULL,
+  band.linetype = "blank",
   band.linewidth = NULL,
   na.rm = FALSE,
   orientation = NA,
