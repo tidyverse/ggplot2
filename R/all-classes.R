@@ -1,3 +1,7 @@
+#' @include ggproto.R
+#' @include ggplot-global.R
+NULL
+
 # Docs -------------------------------------------------------------
 
 #' Class definitions

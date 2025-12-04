@@ -27,8 +27,8 @@
 #'   geom_polygon(aes(group = group), colour = "white")
 #' }
 fortify.map <- function(model, data, ...) {
-  lifecycle::deprecate_warn(
-    "3.6.0", I("`fortify(<map>)`"), "map_data()"
+  deprecate(
+    "4.0.0", I("`fortify(<map>)`"), "map_data()", escalate = "warn"
   )
   df <- data_frame0(
     long = model$x,

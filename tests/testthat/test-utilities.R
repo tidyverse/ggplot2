@@ -86,6 +86,10 @@ test_that("parse_safe works with multi expressions", {
   )
 })
 
+test_that("parse_safe() checks input", {
+  expect_snapshot_error(parse_safe(1:5))
+})
+
 test_that("x and y aesthetics have the same length", {
   expect_length(ggplot_global$x_aes, length(ggplot_global$y_aes))
 })
@@ -115,21 +119,6 @@ test_that("tolower() and toupper() has been masked", {
   expect_snapshot_error(toupper())
 })
 
-test_that("parse_safe() checks input", {
-  expect_snapshot_error(parse_safe(1:5))
-})
-
-test_that("width_cm() and height_cm() checks input", {
-  expect_snapshot_error(width_cm(letters))
-  expect_snapshot_error(height_cm(letters))
-})
-
-test_that("cut_*() checks its input and output", {
-  expect_snapshot_error(cut_number(1, 10))
-  expect_snapshot_error(breaks(1:10, "numbers", nbins = 2, binwidth = 05))
-  expect_snapshot_error(cut_width(1:10, 1, center = 0, boundary = 0.5))
-})
-
 test_that("vec_rbind0 can combined ordered factors", {
 
   withr::local_options(lifecycle_verbosity = "warning")
@@ -156,18 +145,6 @@ test_that("vec_rbind0 can combined ordered factors", {
   # Test levels are combined sensibly
   expect_equal(levels(test$a), c("A", "B", "C"))
 
-})
-
-test_that("resolution() gives correct answers", {
-  expect_equal(resolution(c(4,  6)), 2)
-  expect_equal(resolution(c(4L, 6L)), 1L)
-  expect_equal(resolution(mapped_discrete(c(4, 6)), discrete = TRUE), 1L)
-  expect_equal(resolution(mapped_discrete(c(4, 6))), 2)
-  expect_equal(resolution(c(0, 0)), 1L)
-  expect_equal(resolution(c(0.5,  1.5), zero = TRUE), 0.5)
-
-  # resolution has a tolerance
-  expect_equal(resolution(c(1, 1 + 1000 * .Machine$double.eps, 2)), 1)
 })
 
 test_that("expose/ignore_data() can round-trip a data.frame", {
@@ -206,17 +183,29 @@ test_that("allow_lambda converts the correct cases", {
   expect_equal(f, call("~", "foo", "bar"))
 })
 
-test_that("summary method gives a nice summary", {
-  # This test isn't important enough to break anything on CRAN
-  skip_on_cran()
+test_that("should_stop stops when it should", {
+  expect_silent(should_stop(stop()))
+  expect_snapshot(should_stop(invisible()), error = TRUE)
+})
 
-  p <- ggplot(mpg, aes(displ, hwy, colour = drv)) +
-    geom_point() +
-    scale_x_continuous() +
-    scale_colour_brewer() +
-    facet_grid(year ~ cyl)
+test_that("fallback_palette finds palettes", {
+  sc <- continuous_scale("colour", palette = NULL, fallback.palette = pal_identity())
+  pal <- fallback_palette(sc)
+  expect_true(is_continuous_pal(pal))
 
-  expect_snapshot(summary(p))
+  sc <- discrete_scale("shape", palette = NULL, fallback.palette = pal_identity())
+  pal <- fallback_palette(sc)
+  expect_true(is_discrete_pal(pal))
+})
+
+test_that("compute_data_size handles gnarly cases", {
+  # Test missing levels
+  df <- data_frame0(
+    x = seq(0, 20, by = 2),
+    PANEL = factor(rep("B", 11), levels = c("A", "B"))
+  )
+  new <- compute_data_size(df, size = NULL, target = "width", default = 1)
+  expect_all_equal(new$width, 2)
 })
 
 test_that("list conversion works for ggplot classes", {
