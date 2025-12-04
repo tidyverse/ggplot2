@@ -11,7 +11,7 @@ StatYdensity <- ggproto(
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = TRUE, group_has_equal = TRUE)
 
     if (!is.null(params$draw_quantiles)) {
-      deprecate_soft0(
+      deprecate(
         "4.0.0",
         what = "stat_ydensity(draw_quantiles)",
         with = "stat_ydensity(quantiles)"
@@ -128,8 +128,7 @@ StatYdensity <- ggproto(
   dropped_aes = "weight"
 )
 
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @inheritParams stat_density
 #' @param scale if "area" (default), all violins have the same area (before trimming
 #'   the tails). If "count", areas are scaled proportionally to the number of
@@ -137,8 +136,11 @@ StatYdensity <- ggproto(
 #' @param drop Whether to discard groups with less than 2 observations
 #'   (`TRUE`, default) or keep such groups for position adjustment purposes
 #'   (`FALSE`).
-#' @param quantiles If not `NULL` (default), compute the `quantile` variable
-#'   and draw horizontal lines at the given quantiles in `geom_violin()`.
+#' @param quantiles A numeric vector with numbers between 0 and 1 to indicate
+#'   quantiles marked by the `quantile` computed variable. The default marks the
+#'   25th, 50th and 75th percentiles. The display of quantiles can be
+#'   turned on by setting `quantile.linetype` to non-blank when using
+#'   `geom = "violin"` (default).
 #'
 #' @eval rd_computed_vars(
 #'   density = "Density estimate.",

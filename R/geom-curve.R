@@ -6,8 +6,8 @@
 GeomCurve <- ggproto(
   "GeomCurve", GeomSegment,
 
-  draw_panel = function(data, panel_params, coord, curvature = 0.5, angle = 90,
-                        ncp = 5, arrow = NULL, arrow.fill = NULL, lineend = "butt", na.rm = FALSE) {
+  draw_panel = function(data, panel_params, coord, curvature = 0.5, angle = 90, ncp = 5, shape = 0.5,
+                        arrow = NULL, arrow.fill = NULL, lineend = "butt", na.rm = FALSE) {
 
     if (!coord$is_linear()) {
       cli::cli_warn("{.fn geom_curve} is not implemented for non-linear coordinates")
@@ -31,11 +31,13 @@ GeomCurve <- ggproto(
 
     arrow.fill <- arrow.fill %||% trans$colour
 
+    square <- (ncp == 1 && angle == 90)
+
     curveGrob(
       trans$x, trans$y, trans$xend, trans$yend,
       default.units = "native",
-      curvature = curvature, angle = angle, ncp = ncp,
-      square = FALSE, squareShape = 1, inflect = FALSE, open = TRUE,
+      curvature = curvature, angle = angle, ncp = ncp, shape = shape,
+      square = square, squareShape = 1, inflect = FALSE, open = TRUE,
       gp = gg_par(
         col = alpha(trans$colour, trans$alpha),
         fill = alpha(arrow.fill, trans$alpha),

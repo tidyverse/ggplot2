@@ -35,7 +35,7 @@ pak::pak("tidyverse/ggplot2")
 
 ## Cheatsheet
 
-<a href="https://github.com/rstudio/cheatsheets/blob/master/data-visualization.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-visualization-cheatsheet-thumbs.png" width="630" height="252" alt="ggplot2 cheatsheet" /></a>
+<a href="https://github.com/rstudio/cheatsheets/blob/main/data-visualization.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/main/pngs/thumbnails/data-visualization-cheatsheet-thumbs.png" width="630" height="252" alt="ggplot2 cheatsheet" /></a>
 
 ## Usage
 
@@ -59,7 +59,7 @@ ggplot(mpg, aes(displ, hwy, colour = class)) +
 
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 
-ggplot2 is now over 10 years old and is used by hundreds of thousands of
+ggplot2 is now 18 years old and is used by hundreds of thousands of
 people to make millions of plots. That means, by-and-large, ggplot2
 itself changes relatively little. When we do make changes, they will be
 generally to add new functions or arguments rather than changing the
@@ -80,8 +80,8 @@ documentation pages. Currently, there are several good places to start:
     [Communication](https://r4ds.hadley.nz/communication) chapters in [R
     for Data Science](https://r4ds.hadley.nz). R for Data Science is
     designed to give you a comprehensive introduction to the
-    [tidyverse](https://www.tidyverse.org), and these two chapters will
-    get you up to speed with the essentials of ggplot2 as quickly as
+    [tidyverse](https://tidyverse.org/), and these two chapters will get
+    you up to speed with the essentials of ggplot2 as quickly as
     possible.
 
 2.  If you’d like to take an online course, try [Data Visualization in R
@@ -105,14 +105,14 @@ documentation pages. Currently, there are several good places to start:
     graphics specifically tailored to your needs.
 
 6.  For articles about announcements and deep-dives you can visit the
-    [tidyverse blog](https://www.tidyverse.org/tags/ggplot2/).
+    [tidyverse blog](https://tidyverse.org/tags/ggplot2/).
 
 ## Getting help
 
 There are two main places to get help with ggplot2:
 
-1.  The [RStudio community](https://forum.posit.co/) is a friendly place
-    to ask any questions about ggplot2.
+1.  The [Posit Community](https://forum.posit.co/) (formerly RStudio
+    Community) is a friendly place to ask any questions about ggplot2.
 
 2.  [Stack
     Overflow](https://stackoverflow.com/questions/tagged/ggplot2?sort=frequent&pageSize=50)
