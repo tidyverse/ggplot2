@@ -108,13 +108,13 @@ summarise_layout(b)
 #> 6     6   2   3 subcompact 1.33 7.27 10.4 45.6
 #> 7     7   3   1        suv 1.33 7.27 10.4 45.6
 #>                          xscale                        yscale
-#> 1 <environment: 0x55ef906822b8> <environment: 0x55ef8cbabe10>
-#> 2 <environment: 0x55ef906822b8> <environment: 0x55ef8cbabe10>
-#> 3 <environment: 0x55ef906822b8> <environment: 0x55ef8cbabe10>
-#> 4 <environment: 0x55ef906822b8> <environment: 0x55ef8cbabe10>
-#> 5 <environment: 0x55ef906822b8> <environment: 0x55ef8cbabe10>
-#> 6 <environment: 0x55ef906822b8> <environment: 0x55ef8cbabe10>
-#> 7 <environment: 0x55ef906822b8> <environment: 0x55ef8cbabe10>
+#> 1 <environment: 0x558fa2b75268> <environment: 0x558fa8b55a48>
+#> 2 <environment: 0x558fa2b75268> <environment: 0x558fa8b55a48>
+#> 3 <environment: 0x558fa2b75268> <environment: 0x558fa8b55a48>
+#> 4 <environment: 0x558fa2b75268> <environment: 0x558fa8b55a48>
+#> 5 <environment: 0x558fa2b75268> <environment: 0x558fa8b55a48>
+#> 6 <environment: 0x558fa2b75268> <environment: 0x558fa8b55a48>
+#> 7 <environment: 0x558fa2b75268> <environment: 0x558fa8b55a48>
 summarise_coord(b)
 #> $xlog
 #> [1] NA

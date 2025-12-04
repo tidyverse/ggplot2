@@ -2,6 +2,12 @@
 
 ## ggplot2 (development version)
 
+- [`stat_ydensity()`](https://ggplot2.tidyverse.org/dev/reference/geom_violin.md)
+  now only requires the `x` or `y` aesthetic. The other will be
+  populated with 0, similar to
+  [`stat_boxplot()`](https://ggplot2.tidyverse.org/dev/reference/geom_boxplot.md)
+  ([@teunbrand](https://github.com/teunbrand),
+  [\#6600](https://github.com/tidyverse/ggplot2/issues/6600))
 - Implemented [`as.list()`](https://rdrr.io/r/base/list.html) and
   [`S7::convert()`](https://rconsortium.github.io/S7/reference/convert.html)
   methods for lists and classes in ggplot2
