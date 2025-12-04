@@ -2,6 +2,11 @@
 
 ## ggplot2 (development version)
 
+- Implemented [`as.list()`](https://rdrr.io/r/base/list.html) and
+  [`S7::convert()`](https://rconsortium.github.io/S7/reference/convert.html)
+  methods for lists and classes in ggplot2
+  ([@teunbrand](https://github.com/teunbrand),
+  [\#6695](https://github.com/tidyverse/ggplot2/issues/6695))
 - The default linetype in
   [`geom_sf()`](https://ggplot2.tidyverse.org/dev/reference/ggsf.md) is
   derived from
