@@ -152,4 +152,7 @@
       [21] "axis.minor.ticks.length.r"     "axis.line.theta"              
       [23] "axis.line.r"                   "complete"                     
       [25] "validate"                     
+# theme element conversion to lists works
+
+    Unknown arguments to `element_text()`: `italic`, `fontweight`, and `fontwidth`.
 
