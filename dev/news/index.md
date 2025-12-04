@@ -2,6 +2,12 @@
 
 ## ggplot2 (development version)
 
+- The `arrow` and `arrow.fill` arguments are now available in
+  [`geom_linerange()`](https://ggplot2.tidyverse.org/dev/reference/geom_linerange.md)
+  and
+  [`geom_pointrange()`](https://ggplot2.tidyverse.org/dev/reference/geom_linerange.md)
+  layers ([@teunbrand](https://github.com/teunbrand),
+  [\#6481](https://github.com/tidyverse/ggplot2/issues/6481)).
 - (internal)
   [`zeroGrob()`](https://ggplot2.tidyverse.org/dev/reference/zeroGrob.md)
   now returns a

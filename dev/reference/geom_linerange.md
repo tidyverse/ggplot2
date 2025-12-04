@@ -50,6 +50,8 @@ geom_linerange(
   ...,
   orientation = NA,
   lineend = "butt",
+  arrow = NULL,
+  arrow.fill = NULL,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -64,6 +66,8 @@ geom_pointrange(
   orientation = NA,
   fatten = deprecated(),
   lineend = "butt",
+  arrow = NULL,
+  arrow.fill = NULL,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -225,6 +229,17 @@ geom_pointrange(
 - lineend:
 
   Line end style, one of `"round"`, `"butt"` or `"square"`.
+
+- arrow:
+
+  Arrow specification. Can be created by
+  [`grid::arrow()`](https://rdrr.io/r/grid/arrow.html) or `NULL` to not
+  draw an arrow.
+
+- arrow.fill:
+
+  Fill colour to use for closed arrowheads. `NULL` means use `colour`
+  aesthetic.
 
 ## Note
 
