@@ -207,3 +207,24 @@ test_that("compute_data_size handles gnarly cases", {
   new <- compute_data_size(df, size = NULL, target = "width", default = 1)
   expect_all_equal(new$width, 2)
 })
+
+test_that("list conversion works for ggplot classes", {
+  # Test list-based class round-trips
+  x <- aes(x = 10, y = foo)
+  expect_type(x <- as.list(x), "list")
+  expect_s7_class(x <- convert(x, class_mapping), class_mapping)
+
+  # Mapping should still be able to evaluate
+  expect_equal(
+    eval_aesthetics(x, data = data.frame(foo = "A")),
+    list(x = 10, y = "A")
+  )
+
+  # Test property-based class round-trips
+  x <- ggplot()
+  expect_type(x <- as.list(x), "list")
+  expect_s7_class(x <- convert(x, class_ggplot), class_ggplot)
+
+  # Plot should still be buildable
+  expect_s3_class(ggplotGrob(x), "gtable")
+})
