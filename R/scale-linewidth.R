@@ -2,7 +2,7 @@
 #'
 #' `scale_linewidth` scales the width of lines and polygon strokes. Due to
 #' historical reasons, it is also possible to control this with the `size`
-#' aesthetic, but using `linewidth` is encourage to clearly differentiate area
+#' aesthetic, but using `linewidth` is encouraged to clearly differentiate area
 #' aesthetics from stroke width aesthetics.
 #'
 #' @name scale_linewidth
@@ -36,9 +36,12 @@ scale_linewidth_continuous <- function(name = waiver(), breaks = waiver(),
                                        guide = "legend",
                                        aesthetics = "linewidth") {
   palette <- if (!is.null(range)) pal_rescale(range) else NULL
-  continuous_scale(aesthetics, palette = palette, name = name,
-                   breaks = breaks, labels = labels, limits = limits,
-                   transform = transform, trans = trans, guide = guide)
+  continuous_scale(
+    aesthetics, palette = palette, name = name,
+    breaks = breaks, labels = labels, limits = limits,
+    transform = transform, trans = trans, guide = guide,
+    fallback.palette = pal_rescale(c(1, 6))
+  )
 }
 
 #' @rdname scale_linewidth
@@ -52,10 +55,13 @@ scale_linewidth_binned <- function(name = waiver(), breaks = waiver(), labels = 
                               nice.breaks = TRUE, transform = "identity",
                               trans = deprecated(), guide = "bins", aesthetics = "linewidth") {
   palette <- if (!is.null(range)) pal_rescale(range) else NULL
-  binned_scale(aesthetics, palette = palette, name = name,
-               breaks = breaks, labels = labels, limits = limits,
-               transform = transform, trans = trans, n.breaks = n.breaks,
-               nice.breaks = nice.breaks, guide = guide)
+  binned_scale(
+    aesthetics, palette = palette, name = name,
+    breaks = breaks, labels = labels, limits = limits,
+    transform = transform, trans = trans, n.breaks = n.breaks,
+    nice.breaks = nice.breaks, guide = guide,
+    fallback.palette = pal_rescale(c(1, 6))
+  )
 }
 
 #' @rdname scale_linewidth
@@ -77,7 +83,11 @@ scale_linewidth_ordinal <- function(name = waiver(), ..., range = NULL, aestheti
   } else {
     NULL
   }
-  discrete_scale(aesthetics, name = name, palette = palette, ...)
+  discrete_scale(
+    aesthetics, name = name, palette = palette,
+    fallback.palette = function(n) seq(2, 6, length.out = n),
+    ...
+  )
 }
 
 #' @rdname scale_linewidth
@@ -87,7 +97,8 @@ scale_linewidth_datetime <- function(name = waiver(), ..., range = NULL, aesthet
   palette <- if (!is.null(range)) pal_rescale(range) else NULL
   datetime_scale(
     aesthetics, transform = "time", name = name,
-    palette = palette, ...
+    palette = palette, fallback.palette = pal_rescale(c(1, 6)),
+    ...
   )
 }
 
@@ -98,6 +109,7 @@ scale_linewidth_date <- function(name = waiver(), ..., range = NULL, aesthetics 
   palette <- if (!is.null(range)) pal_rescale(range) else NULL
   datetime_scale(
     aesthetics, transform = "date", name = name,
-    palette = palette, ...
+    palette = palette, fallback.palette = pal_rescale(c(1, 6)),
+    ...
   )
 }

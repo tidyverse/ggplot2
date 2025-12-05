@@ -13,6 +13,7 @@ element_grob(element, ...)
 usually at least position. See the source code for individual methods.}
 }
 \description{
-Generate grid grob from theme element
+The \code{element_grob()} function is vestigial and \code{draw_element()} should
+be used instead.
 }
 \keyword{internal}

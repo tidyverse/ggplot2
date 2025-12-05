@@ -1,86 +1,18 @@
-#' @inheritParams layer
-#' @inheritParams geom_point
-#' @inheritParams stat_density
-#' @param scale if "area" (default), all violins have the same area (before trimming
-#'   the tails). If "count", areas are scaled proportionally to the number of
-#'   observations. If "width", all violins have the same maximum width.
-#' @param drop Whether to discard groups with less than 2 observations
-#'   (`TRUE`, default) or keep such groups for position adjustment purposes
-#'   (`FALSE`).
-#' @param quantiles If not `NULL` (default), compute the `quantile` variable
-#'   and draw horizontal lines at the given quantiles in `geom_violin()`.
-#'
-#' @eval rd_computed_vars(
-#'   density = "Density estimate.",
-#'   scaled  = "Density estimate, scaled to a maximum of 1.",
-#'   count   = "Density * number of points - probably useless for violin
-#'   plots.",
-#'   violinwidth = "Density scaled for the violin plot, according to area,
-#'   counts or to a constant maximum width.",
-#'   n = "Number of points.",
-#'   width = "Width of violin bounding box.",
-#'   quantile = "Whether the row is part of the `quantiles` computation."
-#' )
-#'
-#' @seealso [geom_violin()] for examples, and [stat_density()]
-#'   for examples with data along the x axis.
-#' @export
-#' @rdname geom_violin
-stat_ydensity <- function(mapping = NULL, data = NULL,
-                          geom = "violin", position = "dodge",
-                          ...,
-                          quantiles = c(0.25, 0.50, 0.75),
-                          bw = "nrd0",
-                          adjust = 1,
-                          kernel = "gaussian",
-                          trim = TRUE,
-                          scale = "area",
-                          drop  = TRUE,
-                          na.rm = FALSE,
-                          orientation = NA,
-                          show.legend = NA,
-                          inherit.aes = TRUE,
-                          bounds = c(-Inf, Inf)) {
-  scale <- arg_match0(scale, c("area", "count", "width"))
-
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = StatYdensity,
-    geom = geom,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      bw = bw,
-      adjust = adjust,
-      kernel = kernel,
-      trim = trim,
-      scale = scale,
-      drop  = drop,
-      na.rm = na.rm,
-      bounds = bounds,
-      quantiles = quantiles,
-      ...
-    )
-  )
-}
-
-
-#' @rdname ggplot2-ggproto
+#' @rdname Stat
 #' @format NULL
 #' @usage NULL
 #' @export
-StatYdensity <- ggproto("StatYdensity", Stat,
-  required_aes = c("x", "y"),
+StatYdensity <- ggproto(
+  "StatYdensity", Stat,
+  required_aes = "x|y",
   non_missing_aes = "weight",
 
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = TRUE, group_has_equal = TRUE)
 
     if (!is.null(params$draw_quantiles)) {
-      deprecate_soft0(
-        "3.6.0",
+      deprecate(
+        "4.0.0",
         what = "stat_ydensity(draw_quantiles)",
         with = "stat_ydensity(quantiles)"
       )
@@ -91,13 +23,19 @@ StatYdensity <- ggproto("StatYdensity", Stat,
     params
   },
 
+  setup_data = function(self, data, params) {
+    var <- flipped_names(flip = params$flipped_aes)$x
+    data[[var]] <- data[[var]] %||% 0
+    data
+  },
+
   # `draw_quantiles` is here for deprecation repair reasons
   extra_params = c("na.rm", "orientation", "draw_quantiles"),
 
   compute_group = function(self, data, scales, width = NULL, bw = "nrd0", adjust = 1,
-                       kernel = "gaussian", trim = TRUE, na.rm = FALSE,
-                       drop = TRUE, flipped_aes = FALSE, bounds = c(-Inf, Inf),
-                       quantiles = c(0.25, 0.50, 0.75)) {
+                           kernel = "gaussian", trim = TRUE, na.rm = FALSE,
+                           drop = TRUE, flipped_aes = FALSE, bounds = c(-Inf, Inf),
+                           quantiles = c(0.25, 0.50, 0.75)) {
     if (nrow(data) < 2) {
       if (isTRUE(drop)) {
         cli::cli_warn(c(
@@ -105,7 +43,7 @@ StatYdensity <- ggproto("StatYdensity", Stat,
           i = paste0(
             "Set {.code drop = FALSE} to consider such groups for position ",
             "adjustment purposes."
-        )))
+          )))
         return(data_frame0())
       }
       ans <- data_frame0(x = data$x, n = nrow(data))
@@ -170,21 +108,22 @@ StatYdensity <- ggproto("StatYdensity", Stat,
       trim = trim, na.rm = na.rm, drop = drop, bounds = bounds,
       quantiles = quantiles
     )
-    if (!drop && any(data$n < 2)) {
+    if (!drop && any(data[["n"]] < 2)) {
       cli::cli_warn(
         "Cannot compute density for groups with fewer than two datapoints."
       )
     }
 
     # choose how violins are scaled relative to each other
-    data$violinwidth <- switch(scale,
+    data$violinwidth <- switch(
+      scale,
       # area : keep the original densities but scale them to a max width of 1
       #        for plotting purposes only
       area = data$density / max(data$density, na.rm = TRUE),
       # count: use the original densities scaled to a maximum of 1 (as above)
       #        and then scale them according to the number of observations
       count = data$density / max(data$density, na.rm = TRUE) *
-        data$n / max(data$n),
+        data[["n"]] / max(data[["n"]]),
       # width: constant width (density scaled to a maximum of 1)
       width = data$scaled
     )
@@ -193,6 +132,42 @@ StatYdensity <- ggproto("StatYdensity", Stat,
   },
 
   dropped_aes = "weight"
+)
+
+#' @inheritParams shared_layer_parameters
+#' @inheritParams stat_density
+#' @param scale if "area" (default), all violins have the same area (before trimming
+#'   the tails). If "count", areas are scaled proportionally to the number of
+#'   observations. If "width", all violins have the same maximum width.
+#' @param drop Whether to discard groups with less than 2 observations
+#'   (`TRUE`, default) or keep such groups for position adjustment purposes
+#'   (`FALSE`).
+#' @param quantiles A numeric vector with numbers between 0 and 1 to indicate
+#'   quantiles marked by the `quantile` computed variable. The default marks the
+#'   25th, 50th and 75th percentiles. The display of quantiles can be
+#'   turned on by setting `quantile.linetype` to non-blank when using
+#'   `geom = "violin"` (default).
+#'
+#' @eval rd_computed_vars(
+#'   density = "Density estimate.",
+#'   scaled  = "Density estimate, scaled to a maximum of 1.",
+#'   count   = "Density * number of points - probably useless for violin
+#'   plots.",
+#'   violinwidth = "Density scaled for the violin plot, according to area,
+#'   counts or to a constant maximum width.",
+#'   n = "Number of points.",
+#'   width = "Width of violin bounding box.",
+#'   quantile = "Whether the row is part of the `quantiles` computation."
+#' )
+#'
+#' @seealso [geom_violin()] for examples, and [stat_density()]
+#'   for examples with data along the x axis.
+#' @export
+#' @rdname geom_violin
+stat_ydensity <- make_constructor(
+  StatYdensity, geom = "violin", position = "dodge",
+  checks = exprs(scale <- arg_match0(scale, c("area", "count", "width"))),
+  orientation = NA, omit = "width"
 )
 
 calc_bw <- function(x, bw) {

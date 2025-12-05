@@ -82,7 +82,8 @@ ScalesList <- ggproto("ScalesList", NULL,
       function(scale) scale$map_df(df = df)
     ), recursive = FALSE)
 
-    data_frame0(!!!mapped, df[setdiff(names(df), names(mapped))])
+    df[names(mapped)] <- mapped
+    df
   },
 
   transform_df = function(self, df) {
@@ -108,7 +109,8 @@ ScalesList <- ggproto("ScalesList", NULL,
       function(scale) scale$transform_df(df = df)
     ), recursive = FALSE)
 
-    data_frame0(!!!transformed, df[setdiff(names(df), names(transformed))])
+    df[names(transformed)] <- transformed
+    df
   },
 
   backtransform_df = function(self, df) {
@@ -143,10 +145,8 @@ ScalesList <- ggproto("ScalesList", NULL,
       }
     ), recursive = FALSE)
 
-    data_frame0(
-      !!!backtransformed,
-      df[setdiff(names(df), names(backtransformed))]
-    )
+    df[names(backtransformed)] <- backtransformed
+    df
   },
 
   # `aesthetics` is a list of aesthetic-variable mappings. The name of each
@@ -203,7 +203,7 @@ ScalesList <- ggproto("ScalesList", NULL,
       elem <- compact(lapply(elem, calc_element, theme))[1][[1]]
 
       # Resolve the palette itself
-      elem <- elem %||% fallback_palette(scale)
+      elem <- elem %||% fetch_ggproto(scale, "fallback_palette")
       palette <- switch(
         type,
         discrete   = as_discrete_pal(elem),

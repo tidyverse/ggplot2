@@ -51,70 +51,65 @@ stat_boxplot(
   geom = "boxplot",
   position = "dodge2",
   ...,
+  orientation = NA,
   coef = 1.5,
   na.rm = FALSE,
-  orientation = NA,
   show.legend = NA,
   inherit.aes = TRUE
 )
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}}. If specified and
-\code{inherit.aes = TRUE} (the default), it is combined with the default mapping
-at the top level of the plot. You must supply \code{mapping} if there is no plot
-mapping.}
+\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}}. If specified and \code{inherit.aes = TRUE} (the default), it is combined with the default mapping at the top level
+of the plot. You must supply \code{mapping} if there is no plot mapping.}
 
-\item{data}{The data to be displayed in this layer. There are three
-options:
+\item{data}{The data to be displayed in this layer. There are three options:
+\itemize{
+\item \code{NULL} (default): the data is inherited from the plot data as specified
+in the call to \code{\link[=ggplot]{ggplot()}}.
+\item A \code{data.frame}, or other object, will override the plot data. All objects
+will be fortified to produce a data frame. See \code{\link[=fortify]{fortify()}} for which
+variables will be created.
+\item A \code{function} will be called with a single argument, the plot data. The return
+value must be a \code{data.frame}, and will be used as the layer data. A
+\code{function} can be created from a \code{formula} (e.g. \code{~ head(.x, 10)}).
+}}
 
-If \code{NULL}, the default, the data is inherited from the plot
-data as specified in the call to \code{\link[=ggplot]{ggplot()}}.
-
-A \code{data.frame}, or other object, will override the plot
-data. All objects will be fortified to produce a data frame. See
-\code{\link[=fortify]{fortify()}} for which variables will be created.
-
-A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data. A \code{function} can be created
-from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
-
-\item{position}{A position adjustment to use on the data for this layer. This
-can be used in various ways, including to prevent overplotting and
-improving the display. The \code{position} argument accepts the following:
+\item{position}{A position adjustment to use on the data for this layer. This can be used in
+various ways, including to prevent overplotting and improving the display.
+The \code{position} argument accepts the following:
 \itemize{
 \item The result of calling a position function, such as \code{position_jitter()}.
 This method allows for passing extra arguments to the position.
 \item A string naming the position adjustment. To give the position as a
-string, strip the function name of the \code{position_} prefix. For example,
-to use \code{position_jitter()}, give the position as \code{"jitter"}.
+string, strip the function name of the \code{position_} prefix. For example, to
+use \code{position_jitter()}, give the position as \code{"jitter"}.
 \item For more information and other ways to specify the position, see the
 \link[=layer_positions]{layer position} documentation.
 }}
 
-\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}'s \code{params} argument. These
-arguments broadly fall into one of 4 categories below. Notably, further
-arguments to the \code{position} argument, or aesthetics that are required
-can \emph{not} be passed through \code{...}. Unknown arguments that are not part
-of the 4 categories below are ignored.
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}'s \code{params} argument. These arguments
+broadly fall into one of 4 categories below. Notably, further arguments to
+the \code{position} argument, or aesthetics that are required can
+\emph{not} be passed through \code{...}. Unknown arguments that are not part of the 4
+categories below are ignored.
 \itemize{
 \item Static aesthetics that are not mapped to a scale, but are at a fixed
-value and apply to the layer as a whole. For example, \code{colour = "red"}
-or \code{linewidth = 3}. The geom's documentation has an \strong{Aesthetics}
-section that lists the available options. The 'required' aesthetics
-cannot be passed on to the \code{params}. Please note that while passing
-unmapped aesthetics as vectors is technically possible, the order and
-required length is not guaranteed to be parallel to the input data.
+value and apply to the layer as a whole. For example, \code{colour = "red"} or
+\code{linewidth = 3}. The geom's documentation has an \strong{Aesthetics} section
+that lists the available options. The 'required' aesthetics cannot be
+passed on to the \code{params}. Please note that while passing unmapped
+aesthetics as vectors is technically possible, the order and required
+length is not guaranteed to be parallel to the input data.
 \item When constructing a layer using
-a \verb{stat_*()} function, the \code{...} argument can be used to pass on
-parameters to the \code{geom} part of the layer. An example of this is
+a \verb{stat_*()} function, the \code{...} argument can be used to pass on parameters
+to the \code{geom} part of the layer. An example of this is
 \code{stat_density(geom = "area", outline.type = "both")}. The geom's
 documentation lists which parameters it can accept.
 \item Inversely, when constructing a layer using a
 \verb{geom_*()} function, the \code{...} argument can be used to pass on parameters
 to the \code{stat} part of the layer. An example of this is
-\code{geom_area(stat = "density", adjust = 0.5)}. The stat's documentation
-lists which parameters it can accept.
+\code{geom_area(stat = "density", adjust = 0.5)}. The stat's documentation lists
+which parameters it can accept.
 \item The \code{key_glyph} argument of \code{\link[=layer]{layer()}} may also be passed on through
 \code{...}. This can be one of the functions described as
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
@@ -159,26 +154,25 @@ Staples mark the ends of the whiskers with a line.}
 square-roots of the number of observations in the groups (possibly
 weighted, using the \code{weight} aesthetic).}
 
-\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
-a warning. If \code{TRUE}, missing values are silently removed.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with a warning. If
+\code{TRUE}, missing values are silently removed.}
 
-\item{orientation}{The orientation of the layer. The default (\code{NA})
-automatically determines the orientation from the aesthetic mapping. In the
-rare event that this fails it can be given explicitly by setting \code{orientation}
-to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
+\item{orientation}{The orientation of the layer. The default (\code{NA}) automatically determines the
+orientation from the aesthetic mapping. In the rare event that this fails it
+can be given explicitly by setting \code{orientation} to either \code{"x"} or \code{"y"}.
+See the \emph{Orientation} section for more detail.}
 
-\item{show.legend}{logical. Should this layer be included in the legends?
-\code{NA}, the default, includes if any aesthetics are mapped.
-\code{FALSE} never includes, and \code{TRUE} always includes.
-It can also be a named logical vector to finely select the aesthetics to
-display. To include legend keys for all levels, even
-when no data exists, use \code{TRUE}.  If \code{NA}, all levels are shown in legend,
-but unobserved levels are omitted.}
+\item{show.legend}{Logical. Should this layer be included in the legends? \code{NA}, the default,
+includes if any aesthetics are mapped. \code{FALSE} never includes, and \code{TRUE}
+always includes. It can also be a named logical vector to finely select the
+aesthetics to display. To include legend keys for all levels, even when no
+data exists, use \code{TRUE}.  If \code{NA}, all levels are shown in legend, but
+unobserved levels are omitted.}
 
-\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
-rather than combining with them. This is most useful for helper functions
-that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics, rather than combining with
+them. This is most useful for helper functions that define both data and
+aesthetics and shouldn't inherit behaviour from the default plot
+specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 
 \item{geom, stat}{Use to override the default connection between
 \code{geom_boxplot()} and \code{stat_boxplot()}. For more information about
@@ -196,11 +190,6 @@ and two whiskers), and all "outlying" points individually.
 In the unlikely event you specify both US and UK spellings of colour,
 the US spelling will take precedence.
 }
-\section{Orientation}{
-
-This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the \code{orientation} parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom should run along, \code{"x"} being the default orientation you would expect for the geom.
-}
-
 \section{Summary statistics}{
 
 The lower and upper hinges correspond to the first and third quartiles
@@ -221,30 +210,6 @@ This gives a roughly 95\% confidence interval for comparing medians.
 See McGill et al. (1978) for more details.
 }
 
-\section{Aesthetics}{
-
-\code{geom_boxplot()} understands the following aesthetics (required aesthetics are in bold):
-\itemize{
-\item \strong{\code{\link[=aes_position]{x}} \emph{or} \code{\link[=aes_position]{y}}}
-\item \strong{\code{lower} \emph{or} \code{xlower}}
-\item \strong{\code{upper} \emph{or} \code{xupper}}
-\item \strong{\code{middle} \emph{or} \code{xmiddle}}
-\item \strong{\code{\link[=aes_position]{ymin}} \emph{or} \code{\link[=aes_position]{xmin}}}
-\item \strong{\code{\link[=aes_position]{ymax}} \emph{or} \code{\link[=aes_position]{xmax}}}
-\item \code{\link[=aes_colour_fill_alpha]{alpha}}
-\item \code{\link[=aes_colour_fill_alpha]{colour}}
-\item \code{\link[=aes_colour_fill_alpha]{fill}}
-\item \code{\link[=aes_group_order]{group}}
-\item \code{\link[=aes_linetype_size_shape]{linetype}}
-\item \code{\link[=aes_linetype_size_shape]{linewidth}}
-\item \code{\link[=aes_linetype_size_shape]{shape}}
-\item \code{\link[=aes_linetype_size_shape]{size}}
-\item \code{weight}
-\item \code{width}
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-}
-
 \section{Computed variables}{
 
 These are calculated by the 'stat' part of layers and can be accessed with \link[=aes_eval]{delayed evaluation}. \code{stat_boxplot()} provides the following variables, some of  which depend on the orientation:
@@ -258,6 +223,19 @@ These are calculated by the 'stat' part of layers and can be accessed with \link
 \item \code{after_stat(upper)} \emph{or} \code{after_stat(xupper)}\cr upper hinge, 75\% quantile.
 \item \code{after_stat(ymax)} \emph{or} \code{after_stat(xmax)}\cr upper whisker = largest observation less than or equal to  upper hinger + 1.5 * IQR.
 }
+}
+
+\section{Orientation}{
+
+This geom treats each axis differently and, thus, can have two
+orientations. Often the orientation is easy to deduce from a combination of
+the given mappings and the types of positional scales in use. Thus, ggplot2
+will by default try to guess which orientation the layer should have. Under
+rare circumstances, the orientation is ambiguous and guessing may fail. In
+that case the orientation can be specified directly using the \code{orientation}
+parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that
+the geom should run along, \code{"x"} being the default orientation you would
+expect for the geom.
 }
 
 \examples{
@@ -316,4 +294,28 @@ box plots. The American Statistician 32, 12-16.
 \code{\link[=geom_quantile]{geom_quantile()}} for continuous \code{x},
 \code{\link[=geom_violin]{geom_violin()}} for a richer display of the distribution, and
 \code{\link[=geom_jitter]{geom_jitter()}} for a useful technique for small data.
+}
+\section{Aesthetics}{
+
+\code{geom_boxplot()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \strong{\code{\link[=aes_position]{x}} \emph{or} \code{\link[=aes_position]{y}}} \tab   \cr
+ • \tab \strong{\code{lower} \emph{or} \code{xlower}} \tab   \cr
+ • \tab \strong{\code{upper} \emph{or} \code{xupper}} \tab   \cr
+ • \tab \strong{\code{middle} \emph{or} \code{xmiddle}} \tab   \cr
+ • \tab \strong{\code{\link[=aes_position]{ymin}} \emph{or} \code{\link[=aes_position]{xmin}}} \tab   \cr
+ • \tab \strong{\code{\link[=aes_position]{ymax}} \emph{or} \code{\link[=aes_position]{xmax}}} \tab   \cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{alpha}} \tab → \code{NA} \cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{colour}} \tab → via \code{theme()} \cr
+ • \tab \code{\link[=aes_colour_fill_alpha]{fill}} \tab → via \code{theme()} \cr
+ • \tab \code{\link[=aes_group_order]{group}} \tab → inferred \cr
+ • \tab \code{\link[=aes_linetype_size_shape]{linetype}} \tab → via \code{theme()} \cr
+ • \tab \code{\link[=aes_linetype_size_shape]{linewidth}} \tab → via \code{theme()} \cr
+ • \tab \code{\link[=aes_linetype_size_shape]{shape}} \tab → via \code{theme()} \cr
+ • \tab \code{\link[=aes_linetype_size_shape]{size}} \tab → via \code{theme()} \cr
+ • \tab \code{weight} \tab → \code{1} \cr
+ • \tab \code{width} \tab → \code{0.9} \cr
+}
+
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

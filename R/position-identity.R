@@ -6,7 +6,7 @@ position_identity <- function() {
   PositionIdentity
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Position
 #' @format NULL
 #' @usage NULL
 #' @export

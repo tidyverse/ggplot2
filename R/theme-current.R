@@ -40,7 +40,7 @@ NULL
 #' @return `set_theme()`, `update_theme()`, and `replace_theme()`
 #'   invisibly return the previous theme so you can easily save it, then
 #'   later restore it.
-#' @seealso [+.gg()]
+#' @seealso [add_gg()]
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(mpg, wt)) +
@@ -91,10 +91,11 @@ get_theme <- function() {
 theme_get <- get_theme
 
 #' @rdname get_theme
-#' @param new new theme (a list of theme elements)
+#' @param new new theme (a list of theme elements). Sets theme to the default ([theme_grey()]) if `new` isn't supplied.
 #' @export
-set_theme <- function(new) {
-  check_object(new, is.theme, "a {.cls theme} object")
+set_theme <- function(new = NULL) {
+  new <- new %||% ggplot_global$theme_default
+  check_object(new, is_theme, "a {.cls theme} object")
   old <- ggplot_global$theme_current
   ggplot_global$theme_current <- new
   invisible(old)
@@ -127,7 +128,7 @@ theme_replace <- replace_theme
 #' @rdname get_theme
 #' @export
 "%+replace%" <- function(e1, e2) {
-  if (!is.theme(e1) || !is.theme(e2)) {
+  if (!is_theme(e1) || !is_theme(e2)) {
     cli::cli_abort("{.code %+replace%} requires two theme objects")
   }
 
@@ -141,4 +142,3 @@ theme_replace <- replace_theme
 
   e1
 }
-

@@ -12,7 +12,7 @@
 #' update_labels(p, list(colour = "Fail silently"))
 update_labels <- function(p, labels) {
   p <- plot_clone(p)
-  p$labels <- defaults(labels, p$labels)
+  p@labels <- labs(!!!defaults(labels, p@labels))
   p
 }
 
@@ -24,10 +24,17 @@ setup_plot_labels <- function(plot, layers, data) {
   # Find labels from every layer
   for (i in seq_along(layers)) {
     layer <- layers[[i]]
-    exclude <- names(layer$aes_params)
+
     mapping <- layer$computed_mapping
+    if (inherits(mapping, "unlabelled")) {
+      next
+    }
+    mapping <- mapping[have_name(mapping)]
+
     mapping <- strip_stage(mapping)
     mapping <- strip_dots(mapping, strip_pronoun = TRUE)
+
+    exclude <- names(layer$aes_params)
     mapping <- mapping[setdiff(names(mapping), exclude)]
 
     # Acquire default labels
@@ -69,16 +76,24 @@ setup_plot_labels <- function(plot, layers, data) {
   # Warn for spurious labels that don't have a mapping.
   # Note: sometimes, 'x' and 'y' might not have a mapping, like in
   # `geom_function()`. We can display these labels anyway, so we include them.
-  plot_labels  <- plot$labels
+  plot_labels  <- plot@labels
   known_labels <- c(names(labels), fn_fmls_names(labs), "x", "y")
-  extra_labels <- setdiff(names(plot_labels), known_labels)
+  extra_labels <- names(plot_labels)[lengths(plot_labels) > 0]
+  extra_labels <- setdiff(extra_labels, known_labels)
 
   if (length(extra_labels) > 0) {
-    extra_labels <- paste0(
-      "{.code ", extra_labels, " = \"", plot_labels[extra_labels], "\"}"
+
+    warn_labels <- plot_labels[extra_labels]
+    warn_labels <- ifelse(
+      vapply(warn_labels, is.function, logical(1)),
+      "{.cls function}",
+      paste0("{.val ", warn_labels, "}")
     )
+
+    extra_labels <- paste0("{.field ", extra_labels, "} : ", warn_labels)
     names(extra_labels) <- rep("*", length(extra_labels))
-    cli::cli_warn(c(
+
+    cli::cli_inform(c(
       "Ignoring unknown labels:",
       extra_labels
     ))
@@ -102,7 +117,27 @@ setup_plot_labels <- function(plot, layers, data) {
     })
   }
 
-  defaults(plot_labels, labels)
+  labs(!!!defaults(plot_labels, labels))
+}
+
+# Convert aesthetic mapping into text labels
+make_labels <- function(mapping) {
+  default_label <- function(aesthetic, mapping) {
+    # e.g., geom_smooth(aes(colour = "loess")) or aes(y = NULL)
+    if (is.null(mapping) || is.atomic(mapping)) {
+      return(structure(aesthetic, fallback = TRUE))
+    }
+    mapping <- strip_stage(mapping)
+    mapping <- strip_dots(mapping, strip_pronoun = TRUE)
+    if (is_quosure(mapping) && quo_is_symbol(mapping)) {
+      name <- as_string(quo_get_expr(mapping))
+    } else {
+      name <- quo_text(mapping)
+      name <- gsub("\n.*$", "...", name)
+    }
+    name
+  }
+  Map(default_label, names(mapping), mapping)
 }
 
 #' Modify axis, legend, and plot labels
@@ -140,7 +175,13 @@ setup_plot_labels <- function(plot, layers, data) {
 #'        See [get_alt_text] for examples. `alt` can also be a function that
 #'        takes the plot as input and returns text as output. `alt` also accepts
 #'        rlang [lambda][rlang::as_function()] function notation.
-#' @param ... A list of new name-value pairs. The name should be an aesthetic.
+#' @param ...
+#' New name-value pairs. The name should be an aesthetic. The values can be
+#' one of the following:
+#' * A string or expression to set a label verbatim.
+#' * A function to use as formatter for the default label.
+#' * `NULL` to remove a label.
+#' * A [`waiver()`] to use the default label.
 #' @export
 #'
 #' @seealso
@@ -151,7 +192,7 @@ setup_plot_labels <- function(plot, layers, data) {
 #' p + labs(x = "New x label")
 #'
 #' # Set labels by variable name instead of aesthetic
-#' p + labs(dict = c(
+#' p + labs(dictionary = c(
 #'   disp = "Displacment", # Not in use
 #'   cyl  = "Number of cylinders",
 #'   mpg  = "Miles per gallon",
@@ -175,38 +216,44 @@ setup_plot_labels <- function(plot, layers, data) {
 #' p +
 #'  labs(title = "title") +
 #'  labs(title = NULL)
-labs <- function(..., title = waiver(), subtitle = waiver(), caption = waiver(),
-                 tag = waiver(), dictionary = waiver(), alt = waiver(),
-                 alt_insight = waiver()) {
+labs <- function(..., title = waiver(), subtitle = waiver(),
+                 caption = waiver(), tag = waiver(), dictionary = waiver(),
+                 alt = waiver(), alt_insight = waiver()) {
   # .ignore_empty = "all" is needed to allow trailing commas, which is NOT a trailing comma for dots_list() as it's in ...
   args <- dots_list(..., title = title, subtitle = subtitle, caption = caption,
-    tag = tag, alt = allow_lambda(alt), alt_insight = alt_insight,
-    dictionary = dictionary, .ignore_empty = "all")
+                    tag = tag, alt = allow_lambda(alt), alt_insight = alt_insight,
+                    dictionary = dictionary, .ignore_empty = "all")
 
-  is_waive <- vapply(args, is.waiver, logical(1))
+  is_waive <- vapply(args, is_waiver, logical(1))
   args <- args[!is_waive]
   # remove duplicated arguments
   args <- args[!duplicated(names(args))]
   args <- rename_aes(args)
-
-  structure(args, class = c("labels", "gg"))
+  class_labels(args)
 }
 
 #' @rdname labs
 #' @export
+#' @description
+#' `r lifecycle::badge("superseded")`: `xlab()`, `ylab()` and `ggtitle()` are
+#' superseded. It is recommended to use the `labs(x, y, title, subtitle)`
+#' arguments instead.
 xlab <- function(label) {
+  lifecycle::signal_stage("superseded", "xlab()", "labs(x)")
   labs(x = label)
 }
 
 #' @rdname labs
 #' @export
 ylab <- function(label) {
+  lifecycle::signal_stage("superseded", "ylab()", "labs(y)")
   labs(y = label)
 }
 
 #' @rdname labs
 #' @export
 ggtitle <- function(label, subtitle = waiver()) {
+  lifecycle::signal_stage("superseded", "ggtitle()", I("labs(title, subtitle)"))
   labs(title = label, subtitle = subtitle)
 }
 
@@ -218,18 +265,18 @@ ggtitle <- function(label, subtitle = waiver()) {
 get_labs <- function(plot = get_last_plot()) {
   plot <- ggplot_build(plot)
 
-  labs <- plot$plot$labels
+  labs <- plot@plot@labels
 
   xy_labs <- rename(
-    c(x = plot$layout$resolve_label(plot$layout$panel_scales_x[[1]], labs),
-      y = plot$layout$resolve_label(plot$layout$panel_scales_y[[1]], labs)),
+    c(x = plot@layout$resolve_label(plot@layout$panel_scales_x[[1]], labs),
+      y = plot@layout$resolve_label(plot@layout$panel_scales_y[[1]], labs)),
     c(x.primary = "x", x.secondary = "x.sec",
       y.primary = "y", y.secondary = "y.sec")
   )
 
   labs <- defaults(xy_labs, labs)
 
-  guides <- plot$plot$guides
+  guides <- plot@plot@guides
   if (length(guides$aesthetics) == 0) {
     return(labs)
   }
@@ -273,29 +320,29 @@ get_labs <- function(plot = get_last_plot()) {
 #'
 #' get_alt_text(p)
 #'
-get_alt_text <- function(p, ...) {
+get_alt_text <- S7::new_generic("get_alt_text", "p", fun = function(p, ...) {
   warn_dots_used()
-  UseMethod("get_alt_text")
-}
-#' @export
-get_alt_text.ggplot <- function(p, ...) {
-  alt <- p$labels[["alt"]] %||% ""
+  S7::S7_dispatch()
+})
+
+S7::method(get_alt_text, class_ggplot) <- function(p, ...) {
+  alt <- p@labels[["alt"]] %||% ""
   if (!is.function(alt)) {
     return(alt)
   }
-  p$labels[["alt"]] <- NULL
+  p@labels[["alt"]] <- NULL
   build <- ggplot_build(p)
-  build$plot$labels[["alt"]] <- alt
+  build@plot@labels[["alt"]] <- alt
   get_alt_text(build)
 }
-#' @export
-get_alt_text.ggplot_built <- function(p, ...) {
-  alt <- p$plot$labels[["alt"]] %||% ""
-  p$plot$labels[["alt"]] <- NULL
-  if (is.function(alt)) alt(p$plot) else alt
+
+S7::method(get_alt_text, class_ggplot_built) <- function(p, ...) {
+  alt <- p@plot@labels[["alt"]] %||% ""
+  p@plot@labels[["alt"]] <- NULL
+  if (is.function(alt)) alt(p@plot) else alt
 }
-#' @export
-get_alt_text.gtable <- function(p, ...) {
+
+S7::method(get_alt_text, class_gtable) <- function(p, ...) {
   attr(p, "alt-label") %||% ""
 }
 
@@ -345,8 +392,8 @@ get_alt_text.gtable <- function(p, ...) {
 #'
 generate_alt_text <- function(p) {
   # Combine titles
-  if (!is.null(p$label$title %||% p$labels$subtitle)) {
-    title <- sub("\\.?$", "", c(p$labels$title, p$labels$subtitle))
+  if (!is.null(p@labels$title %||% p@labels$subtitle)) {
+    title <- sub("\\.?$", "", c(p@labels$title, p@labels$subtitle))
     if (length(title) == 2) {
       title <- paste0(title[1], ": ", title[2])
     }
@@ -362,7 +409,7 @@ generate_alt_text <- function(p) {
   axes <- safe_string(axes)
 
   # Get layer types
-  layers <- vapply(p$layers, function(l) snake_class(l$geom), character(1))
+  layers <- vapply(p@layers, function(l) snake_class(l$geom), character(1))
   layers <- sub("_", " ", sub("^geom_", "", unique0(layers)))
   if (length(layers) == 1) {
     layers <- paste0(" using a ", layers, " layer")
@@ -373,8 +420,8 @@ generate_alt_text <- function(p) {
 
   # Combine
   alt <- paste0(title, "A plot", axes, layers, ".")
-  if (!is.null(p$labels$alt_insight)) {
-    alt <- paste0(alt, " ", p$labels$alt_insight)
+  if (!is.null(p@labels$alt_insight)) {
+    alt <- paste0(alt, " ", p@labels$alt_insight)
   }
   as.character(alt)
 }
@@ -382,12 +429,12 @@ safe_string <- function(string) {
   if (length(string) == 0) "" else string
 }
 scale_description <- function(p, name) {
-  scale <- p$scales$get_scales(name)
+  scale <- p@scales$get_scales(name)
   if (is.null(scale)) {
-    lab <- p$labels[[name]]
+    lab <- p@labels[[name]]
     type <- "the"
   } else {
-    lab <- scale$make_title(scale$name %|W|% p$labels[[name]])
+    lab <- scale$make_title(scale$name %|W|% p@labels[[name]])
     type <- "a continuous"
     if (scale$is_discrete()) type <- "a discrete"
     if (inherits(scale, "ScaleBinned")) type <- "a binned"

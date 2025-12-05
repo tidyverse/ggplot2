@@ -15,16 +15,6 @@ items on discrete scales by a small amount. Nudging is built in to
 \code{\link[=geom_text]{geom_text()}} because it's so useful for moving labels a small
 distance from what they're labelling.
 }
-\section{Aesthetics}{
-
-\code{position_nudge()} understands the following aesthetics (required aesthetics are in bold):
-\itemize{
-\item \code{nudge_x}
-\item \code{nudge_y}
-}
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-}
-
 \examples{
 df <- data.frame(
   x = c(1,3,2,5),
@@ -43,6 +33,11 @@ ggplot(df, aes(x, y)) +
 ggplot(df, aes(x, y)) +
   geom_point() +
   geom_text(aes(label = y), nudge_y = -0.1)
+
+# For each text individually
+ggplot(df, aes(x, y)) +
+  geom_point() +
+  geom_text(aes(label = y, nudge_y = c(-0.1, 0.1, -0.1, 0.1)))
 }
 \seealso{
 Other position adjustments: 
@@ -53,3 +48,13 @@ Other position adjustments:
 \code{\link{position_stack}()}
 }
 \concept{position adjustments}
+\section{Aesthetics}{
+
+\code{position_nudge()} understands the following aesthetics. Required aesthetics are displayed in bold and defaults are displayed for optional aesthetics:
+\tabular{rll}{
+ • \tab \code{nudge_x} \tab → \code{0} \cr
+ • \tab \code{nudge_y} \tab → \code{0} \cr
+}
+
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
+}

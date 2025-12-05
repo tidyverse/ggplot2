@@ -10,7 +10,7 @@
 #' level, and increasing by one for each level (i.e. the labels are placed
 #' at integer positions).  This is what allows jittering to work.
 #'
-#' @inheritDotParams discrete_scale -scale_name
+#' @inheritDotParams discrete_scale -scale_name -fallback.palette
 #' @inheritParams discrete_scale
 #' @param palette A palette function that when called with a single integer
 #'   argument (the number of levels in the scale) returns the numerical values
@@ -111,7 +111,7 @@ scale_y_discrete <- function(name = waiver(), ..., palette = seq_len,
 # mapping, but makes it possible to place objects at non-integer positions,
 # as is necessary for jittering etc.
 
-#' @rdname ggplot2-ggproto
+#' @rdname Scale
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -119,7 +119,7 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
   continuous_limits = NULL,
 
   train = function(self, x) {
-    if (is.discrete(x)) {
+    if (is_discrete(x)) {
       self$range$train(x, drop = self$drop, na.rm = !self$na.translate)
     } else {
       self$range_c$train(x)
@@ -153,7 +153,10 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
   },
 
   map = function(self, x, limits = self$get_limits()) {
-    if (is.discrete(x)) {
+    if (inherits(x, "AsIs")) {
+      return(x)
+    }
+    if (is_discrete(x)) {
       values <- self$palette(length(limits))
       if (!is.numeric(values)) {
         cli::cli_abort(
@@ -182,7 +185,7 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
   },
 
   sec_name = function(self) {
-    if (is.waiver(self$secondary.axis)) {
+    if (is_waiver(self$secondary.axis)) {
       waiver()
     } else {
       self$secondary.axis$name

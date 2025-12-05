@@ -6,7 +6,7 @@ test_that("geom_raster() checks input and coordinate system", {
 
   df <- data_frame(x = rep(c(-1, 1), each = 3), y = rep(-1:1, 2), z = 1:6)
   p <- ggplot(df, aes(x, y, fill = z)) + geom_raster() + coord_polar()
-  expect_message(ggplotGrob(p), "only works with")
+  expect_snapshot(b <- ggplotGrob(p))
 })
 
 test_that("geom_raster() fails with pattern fills", {

@@ -4,7 +4,7 @@
 #' It visualises five summary statistics (the median, two hinges
 #' and two whiskers), and all "outlying" points individually.
 #'
-#' @eval rd_orientation()
+#' @inheritSection shared_layer_parameters Orientation
 #'
 #' @section Summary statistics:
 #' The lower and upper hinges correspond to the first and third quartiles
@@ -24,13 +24,12 @@
 #' This gives a roughly 95% confidence interval for comparing medians.
 #' See McGill et al. (1978) for more details.
 #'
-#' @eval rd_aesthetics("geom", "boxplot")
+#' @aesthetics GeomBoxplot
 #'
 #' @seealso [geom_quantile()] for continuous `x`,
 #'   [geom_violin()] for a richer display of the distribution, and
 #'   [geom_jitter()] for a useful technique for small data.
-#' @inheritParams layer
-#' @inheritParams geom_bar
+#' @inheritParams shared_layer_parameters
 #' @param geom,stat Use to override the default connection between
 #'   `geom_boxplot()` and `stat_boxplot()`. For more information about
 #'   overriding these connections, see how the [stat][layer_stats] and
@@ -230,7 +229,7 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -240,8 +239,8 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
 
   setup_params = function(data, params) {
     if ("fatten" %in% names(params)) {
-      deprecate_soft0(
-        "3.6.0", "geom_boxplot(fatten)",
+      deprecate(
+        "4.0.0", "geom_boxplot(fatten)",
         "geom_boxplot(median.linewidth)"
       )
     } else {
@@ -395,8 +394,8 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
   draw_key = draw_key_boxplot,
 
   default_aes = aes(
-    weight = 1, colour = from_theme(col_mix(ink, paper, 0.2)),
-    fill = from_theme(paper), size = from_theme(pointsize),
+    weight = 1, colour = from_theme(colour %||% col_mix(ink, paper, 0.2)),
+    fill = from_theme(fill %||% paper), size = from_theme(pointsize),
     alpha = NA, shape = from_theme(pointshape), linetype = from_theme(bordertype),
     linewidth = from_theme(borderwidth),
     width = 0.9

@@ -1,16 +1,45 @@
+#' @rdname Stat
+#' @format NULL
+#' @usage NULL
+#' @export
+StatQq <- ggproto(
+  "StatQq", Stat,
+  default_aes = aes(y = after_stat(sample), x = after_stat(theoretical)),
+
+  required_aes = c("sample"),
+
+  compute_group = function(self, data, scales, quantiles = NULL,
+                           distribution = stats::qnorm, dparams = list(),
+                           na.rm = FALSE) {
+
+    sample <- sort(data$sample)
+    n <- length(sample)
+
+    # Compute theoretical quantiles
+    if (is.null(quantiles)) {
+      quantiles <- stats::ppoints(n)
+    } else if (length(quantiles) != n) {
+      cli::cli_abort("The length of {.arg quantiles} must match the length of the data.")
+    }
+
+    theoretical <- inject(distribution(p = quantiles, !!!dparams))
+
+    data_frame0(sample = sample, theoretical = theoretical)
+  }
+)
+
 #' A quantile-quantile plot
 #'
 #' `geom_qq()` and `stat_qq()` produce quantile-quantile plots. `geom_qq_line()` and
 #' `stat_qq_line()` compute the slope and intercept of the line connecting the
 #' points at specified quartiles of the theoretical and sample distributions.
 #'
-#' @eval rd_aesthetics("stat", "qq")
-#' @eval rd_aesthetics("stat", "qq_line")
+#' @aesthetics StatQq
+#' @aesthetics StatQqLine
 #' @param distribution Distribution function to use, if x not specified
 #' @param dparams Additional parameters passed on to `distribution`
 #'   function.
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @eval rd_computed_vars(
 #'  .details = "\\cr Variables computed by `stat_qq()`:",
 #'  sample      = "Sample quantiles.",
@@ -52,60 +81,8 @@
 #'   stat_qq() +
 #'   stat_qq_line()
 #' }
-geom_qq <- function(mapping = NULL, data = NULL,
-                    geom = "point", position = "identity",
-                    ...,
-                    distribution = stats::qnorm,
-                    dparams = list(),
-                    na.rm = FALSE,
-                    show.legend = NA,
-                    inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = StatQq,
-    geom = geom,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      distribution = distribution,
-      dparams = dparams,
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
+geom_qq <- make_constructor(StatQq, geom = "point", omit = "quantiles")
 
 #' @export
 #' @rdname geom_qq
 stat_qq <- geom_qq
-
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
-StatQq <- ggproto("StatQq", Stat,
-  default_aes = aes(y = after_stat(sample), x = after_stat(theoretical)),
-
-  required_aes = c("sample"),
-
-  compute_group = function(self, data, scales, quantiles = NULL,
-                           distribution = stats::qnorm, dparams = list(),
-                           na.rm = FALSE) {
-
-    sample <- sort(data$sample)
-    n <- length(sample)
-
-    # Compute theoretical quantiles
-    if (is.null(quantiles)) {
-      quantiles <- stats::ppoints(n)
-    } else if (length(quantiles) != n) {
-      cli::cli_abort("The length of {.arg quantiles} must match the length of the data.")
-    }
-
-    theoretical <- inject(distribution(p = quantiles, !!!dparams))
-
-    data_frame0(sample = sample, theoretical = theoretical)
-  }
-)

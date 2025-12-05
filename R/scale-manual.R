@@ -12,7 +12,7 @@
 #' of aesthetics provided via the `aesthetics` argument.
 #'
 #' @inheritParams discrete_scale
-#' @inheritDotParams discrete_scale -expand -position -aesthetics -palette -scale_name
+#' @inheritDotParams discrete_scale -expand -position -aesthetics -palette -scale_name -fallback.palette
 #' @param aesthetics Character string or vector of character strings listing the
 #'   name(s) of the aesthetic(s) that this scale works with. This can be useful, for
 #'   example, to apply colour settings to the `colour` and `fill` aesthetics at the
@@ -171,7 +171,7 @@ manual_scale <- function(aesthetic, values = NULL, breaks = waiver(),
   }
 
   # order values according to breaks
-  if (is.vector(values) && is.null(names(values)) && !is.waiver(breaks) &&
+  if (is.vector(values) && is.null(names(values)) && !is_waiver(breaks) &&
       !is.null(breaks) && !is.function(breaks)) {
     if (length(breaks) <= length(values)) {
       names(values) <- breaks

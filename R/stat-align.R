@@ -1,33 +1,9 @@
-#' @inheritParams layer
-#' @inheritParams geom_point
-#' @export
-#' @rdname geom_ribbon
-stat_align <- function(mapping = NULL, data = NULL,
-                       geom = "area", position = "identity",
-                       ...,
-                       na.rm = FALSE,
-                       show.legend = NA,
-                       inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = StatAlign,
-    geom = geom,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
-
-#' @rdname ggplot2-ggproto
+#' @rdname Stat
 #' @format NULL
 #' @usage NULL
 #' @export
-StatAlign <- ggproto("StatAlign", Stat,
+StatAlign <- ggproto(
+  "StatAlign", Stat,
   extra_params = c("na.rm", "orientation"),
   required_aes = c("x", "y"),
 
@@ -97,5 +73,20 @@ StatAlign <- ggproto("StatAlign", Stat,
       flipped_aes = flipped_aes
     )
     flip_data(data_aligned, flipped_aes)
+  },
+
+  finish_layer = function(data, params) {
+    # Silently remove out-of-bounds padding vertices
+    var <- flipped_names(params$flipped_aes %||% FALSE)$x
+    remove <- is.na(data[[var]]) & (data$align_padding %||% FALSE)
+    vec_slice(data, !remove)
   }
+)
+
+#' @inheritParams shared_layer_parameters
+#' @export
+#' @rdname geom_ribbon
+stat_align <- make_constructor(
+  StatAlign, geom = "area",
+  omit = c("unique_loc", "adjust")
 )

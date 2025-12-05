@@ -1,3 +1,41 @@
+#' @rdname Geom
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomPoint <- ggproto(
+  "GeomPoint", Geom,
+  required_aes = c("x", "y"),
+  non_missing_aes = c("size", "shape", "colour"),
+  default_aes = aes(
+    shape = from_theme(pointshape),
+    colour = from_theme(colour %||% ink),
+    fill = from_theme(fill %||% NA),
+    size = from_theme(pointsize),
+    alpha = NA,
+    stroke = from_theme(borderwidth)
+  ),
+
+  draw_panel = function(self, data, panel_params, coord, na.rm = FALSE) {
+    data$shape <- translate_shape_string(data$shape)
+    coords <- coord$transform(data, panel_params)
+    ggname(
+      "geom_point",
+      pointsGrob(
+        coords$x, coords$y,
+        pch = coords$shape,
+        gp = gg_par(
+          col = alpha(coords$colour, coords$alpha),
+          fill = fill_alpha(coords$fill, coords$alpha),
+          pointsize = coords$size,
+          stroke = coords$stroke
+        )
+      )
+    )
+  },
+
+  draw_key = draw_key_point
+)
+
 #' Points
 #'
 #' The point geom is used to create scatterplots. The scatterplot is most
@@ -27,35 +65,9 @@
 #' `geom_point(alpha = 0.05)`) or very small (e.g.
 #' `geom_point(shape = ".")`).
 #'
-#' @eval rd_aesthetics("geom", "point", "The `fill` aesthetic only applies to shapes 21-25.")
-#' @inheritParams layer
-#' @param na.rm If `FALSE`, the default, missing values are removed with
-#'   a warning. If `TRUE`, missing values are silently removed.
-#' @param ... Other arguments passed on to [layer()]'s `params` argument. These
-#'   arguments broadly fall into one of 4 categories below. Notably, further
-#'   arguments to the `position` argument, or aesthetics that are required
-#'   can *not* be passed through `...`. Unknown arguments that are not part
-#'   of the 4 categories below are ignored.
-#'   * Static aesthetics that are not mapped to a scale, but are at a fixed
-#'     value and apply to the layer as a whole. For example, `colour = "red"`
-#'     or `linewidth = 3`. The geom's documentation has an **Aesthetics**
-#'     section that lists the available options. The 'required' aesthetics
-#'     cannot be passed on to the `params`. Please note that while passing
-#'     unmapped aesthetics as vectors is technically possible, the order and
-#'     required length is not guaranteed to be parallel to the input data.
-#'   * When constructing a layer using
-#'     a `stat_*()` function, the `...` argument can be used to pass on
-#'     parameters to the `geom` part of the layer. An example of this is
-#'     `stat_density(geom = "area", outline.type = "both")`. The geom's
-#'     documentation lists which parameters it can accept.
-#'   * Inversely, when constructing a layer using a
-#'     `geom_*()` function, the `...` argument can be used to pass on parameters
-#'     to the `stat` part of the layer. An example of this is
-#'     `geom_area(stat = "density", adjust = 0.5)`. The stat's documentation
-#'     lists which parameters it can accept.
-#'   * The `key_glyph` argument of [`layer()`] may also be passed on through
-#'     `...`. This can be one of the functions described as
-#'     [key glyphs][draw_key], to change the display of the layer in the legend.
+#' @aesthetics GeomPoint
+#' The `fill` aesthetic only applies to shapes 21-25.
+#' @inheritParams shared_layer_parameters
 #'
 #' @export
 #' @examples
@@ -113,59 +125,7 @@
 #' ggplot(mtcars2, aes(wt, mpg)) +
 #'   geom_point(na.rm = TRUE)
 #' }
-geom_point <- function(mapping = NULL, data = NULL,
-                       stat = "identity", position = "identity",
-                       ...,
-                       na.rm = FALSE,
-                       show.legend = NA,
-                       inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomPoint,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
-
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
-GeomPoint <- ggproto("GeomPoint", Geom,
-  required_aes = c("x", "y"),
-  non_missing_aes = c("size", "shape", "colour"),
-  default_aes = aes(
-    shape = from_theme(pointshape),
-    colour = from_theme(ink), size = from_theme(pointsize), fill = NA,
-    alpha = NA, stroke = from_theme(borderwidth)
-  ),
-
-  draw_panel = function(self, data, panel_params, coord, na.rm = FALSE) {
-    data$shape <- translate_shape_string(data$shape)
-    coords <- coord$transform(data, panel_params)
-    ggname("geom_point",
-      pointsGrob(
-        coords$x, coords$y,
-        pch = coords$shape,
-        gp = gg_par(
-          col = alpha(coords$colour, coords$alpha),
-          fill = fill_alpha(coords$fill, coords$alpha),
-          pointsize = coords$size,
-          stroke = coords$stroke
-        )
-      )
-    )
-  },
-
-  draw_key = draw_key_point
-)
+geom_point <- make_constructor(GeomPoint)
 
 #' Translating shape strings
 #'

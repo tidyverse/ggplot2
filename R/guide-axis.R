@@ -81,7 +81,7 @@ guide_axis <- function(title = waiver(), theme = NULL, check.overlap = FALSE,
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Guide
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -167,12 +167,8 @@ GuideAxis <- ggproto(
     }
 
     opposite <- setdiff(c("x", "y"), aesthetic)
-    opposite_value <- if (position %in% c("top", "right")) -Inf else Inf
 
-    data_frame(
-      !!aesthetic := value,
-      !!opposite  := opposite_value
-    )
+    data_frame(!!aesthetic := value)
   },
 
   transform = function(self, params, coord, panel_params) {
@@ -180,19 +176,27 @@ GuideAxis <- ggproto(
     position <- params$position
     check <- FALSE
 
+    aesthetic <- names(key)[!grepl("^\\.", names(key))]
+    ortho     <- setdiff(c("x", "y"), params$aesthetic)
+    override  <- switch(position %||% "", bottom = , left = -Inf, Inf)
+
+    if (!(panel_params$reverse %||% "none") %in% c("xy", ortho)) {
+      override <- -override
+    }
+
     if (!(is.null(position) || nrow(key) == 0)) {
       check <- TRUE
-      aesthetics <- names(key)[!grepl("^\\.", names(key))]
-      if (!all(c("x", "y") %in% aesthetics)) {
-        other_aesthetic <- setdiff(c("x", "y"), aesthetics)
-        override_value <- if (position %in% c("bottom", "left")) -Inf else Inf
-        key[[other_aesthetic]] <- override_value
+      if (!all(c("x", "y") %in% aesthetic)) {
+        key[[ortho]] <- override
       }
       key <- coord$transform(key, panel_params)
       params$key <- key
     }
 
     if (!is.null(params$decor)) {
+      if (!ortho %in% names(params$decor)) {
+        params$decor[[ortho]] <- override
+      }
       params$decor <- coord_munch(coord, params$decor, panel_params)
 
       if (!coord$is_linear()) {
@@ -259,10 +263,10 @@ GuideAxis <- ggproto(
   override_elements = function(params, elements, theme) {
     elements$text <-
       label_angle_heuristic(elements$text, params$position, params$angle)
-    if (inherits(elements$ticks, "element_blank")) {
+    if (is_theme_element(elements$ticks, "blank")) {
       elements$major_length <- unit(0, "cm")
     }
-    if (inherits(elements$minor, "element_blank") || isFALSE(params$minor.ticks)) {
+    if (is_theme_element(elements$minor, "blank") || isFALSE(params$minor.ticks)) {
       elements$minor_length <- unit(0, "cm")
     }
     return(elements)
@@ -379,7 +383,7 @@ GuideAxis <- ggproto(
     # Ticks
     major_cm <- convertUnit(elements$major_length, "cm", valueOnly = TRUE)
     range <- range(0, major_cm)
-    if (params$minor.ticks && !inherits(elements$minor, "element_blank")) {
+    if (params$minor.ticks && !is_theme_element(elements$minor, "blank")) {
       minor_cm <- convertUnit(elements$minor_length, "cm", valueOnly = TRUE)
       range <- range(range, minor_cm)
     }
@@ -420,7 +424,6 @@ GuideAxis <- ggproto(
     # Unlist the 'label' grobs
     z <- if (params$position == "left") c(2, 1, 3) else 1:3
     z <- rep(z, c(1, length(grobs$labels), 1))
-    has_labels <- !is.zero(grobs$labels[[1]])
     grobs  <- c(list(grobs$ticks), grobs$labels, list(grobs$title))
 
     # Initialise empty gtable
@@ -448,15 +451,15 @@ GuideAxis <- ggproto(
 
     # Add null-unit padding to justify based on eventual gtable cell shape
     # rather than dimensions of this axis alone.
-    if (has_labels && params$position %in% c("left", "right")) {
+    if (params$position %in% c("left", "right")) {
       where <- layout$l[-c(1, length(layout$l))]
-      just <- with(elements$text, rotate_just(angle, hjust, vjust))$hjust %||% 0.5
+      just <- rotate_just(element = elements$text)$hjust %||% 0.5
       gt <- gtable_add_cols(gt, unit(just, "null"), pos = min(where) - 1)
       gt <- gtable_add_cols(gt, unit(1 - just, "null"), pos = max(where) + 1)
     }
-    if (has_labels && params$position %in% c("top", "bottom")) {
+    if (params$position %in% c("top", "bottom")) {
       where <- layout$t[-c(1, length(layout$t))]
-      just <- with(elements$text, rotate_just(angle, hjust, vjust))$vjust %||% 0.5
+      just <- rotate_just(element = elements$text)$vjust %||% 0.5
       gt <- gtable_add_rows(gt, unit(1 - just, "null"), pos = min(where) - 1)
       gt <- gtable_add_rows(gt, unit(just, "null"), pos = max(where) + 1)
     }
@@ -590,7 +593,7 @@ axis_label_priority_between <- function(x, y) {
 #'   overridden from the user- or theme-supplied element.
 #' @noRd
 label_angle_heuristic <- function(element, position, angle) {
-  if (!inherits(element, "element_text")
+  if (!is_theme_element(element, "text")
       || is.null(position)
       || is.null(angle %|W|% NULL)) {
     return(element)
@@ -612,8 +615,8 @@ label_angle_heuristic <- function(element, position, angle) {
   hjust <- switch(position, left = cosine, right = 1 - cosine, top = 1 - sine, sine)
   vjust <- switch(position, left = 1 - sine, right = sine, top = 1 - cosine, cosine)
 
-  element$angle <- angle %||% element$angle
-  element$hjust <- hjust %||% element$hjust
-  element$vjust <- vjust %||% element$vjust
+  element@angle <- angle %||% try_prop(element, "angle")
+  element@hjust <- hjust %||% try_prop(element, "hjust")
+  element@vjust <- vjust %||% try_prop(element, "vjust")
   element
 }

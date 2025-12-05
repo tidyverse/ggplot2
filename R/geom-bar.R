@@ -1,3 +1,53 @@
+#' @rdname Geom
+#' @format NULL
+#' @usage NULL
+#' @export
+#' @include geom-rect.R
+GeomBar <- ggproto(
+  "GeomBar", GeomRect,
+  required_aes = c("x", "y"),
+
+  # These aes columns are created by setup_data(). They need to be listed here so
+  # that GeomRect$handle_na() properly removes any bars that fall outside the defined
+  # limits, not just those for which x and y are outside the limits
+  non_missing_aes = c("xmin", "xmax", "ymin", "ymax"),
+
+  default_aes = aes(!!!GeomRect$default_aes, width = 0.9),
+
+  setup_params = function(data, params) {
+    params$flipped_aes <- has_flipped_aes(data, params)
+    params
+  },
+
+  extra_params = c("just", "na.rm", "orientation"),
+
+  setup_data = function(self, data, params) {
+    data$flipped_aes <- params$flipped_aes
+    data <- flip_data(data, params$flipped_aes)
+    data <- compute_data_size(
+      data, size = params$width,
+      default = self$default_aes$width, zero = FALSE
+    )
+    data$just <- params$just %||% 0.5
+    data <- transform(data,
+                      ymin = pmin(y, 0), ymax = pmax(y, 0),
+                      xmin = x - width * just, xmax = x + width * (1 - just),
+                      width = NULL, just = NULL
+    )
+    flip_data(data, params$flipped_aes)
+  },
+
+  rename_size = FALSE
+)
+
+#' @rdname Geom
+#' @format NULL
+#' @usage NULL
+#' @export
+#' @include geom-rect.R
+# TODO: deprecate this
+GeomCol <- ggproto("GeomCol", GeomBar)
+
 #' Bar charts
 #'
 #' There are two types of bar charts: `geom_bar()` and `geom_col()`.
@@ -24,22 +74,17 @@
 #' [position_fill()] shows relative proportions at each `x` by stacking the
 #' bars and then standardising each bar to have the same height.
 #'
-#' @eval rd_orientation()
+#' @inheritSection shared_layer_parameters Orientation
 #'
-#' @eval rd_aesthetics("geom", "bar")
-#' @eval rd_aesthetics("geom", "col")
-#' @eval rd_aesthetics("stat", "count")
+#' @aesthetics GeomBar
+#' @aesthetics GeomCol
+#' @aesthetics StatCount
 #' @seealso
 #'   [geom_histogram()] for continuous data,
 #'   [position_dodge()] and [position_dodge2()] for creating side-by-side
 #'   bar charts.
 #' @export
-#' @inheritParams layer
-#' @inheritParams geom_point
-#' @param orientation The orientation of the layer. The default (`NA`)
-#' automatically determines the orientation from the aesthetic mapping. In the
-#' rare event that this fails it can be given explicitly by setting `orientation`
-#' to either `"x"` or `"y"`. See the *Orientation* section for more detail.
+#' @inheritParams shared_layer_parameters
 #' @param just Adjustment for column placement. Set to `0.5` by default, meaning
 #'   that columns will be centered about axis breaks. Set to `0` or `1` to place
 #'   columns to the left/right of axis breaks. Note that this argument may have
@@ -92,68 +137,11 @@
 #' ggplot(df, aes(x, y)) + geom_col(just = 0.5)
 #' # Columns begin on the first day of the month
 #' ggplot(df, aes(x, y)) + geom_col(just = 1)
-geom_bar <- function(mapping = NULL, data = NULL,
-                     stat = "count", position = "stack",
-                     ...,
-                     just = 0.5,
-                     na.rm = FALSE,
-                     orientation = NA,
-                     show.legend = NA,
-                     inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomBar,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      just = just,
-      na.rm = na.rm,
-      orientation = orientation,
-      ...
-    )
-  )
-}
-
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
-#' @include geom-rect.R
-GeomBar <- ggproto("GeomBar", GeomRect,
-  required_aes = c("x", "y"),
-
-  # These aes columns are created by setup_data(). They need to be listed here so
-  # that GeomRect$handle_na() properly removes any bars that fall outside the defined
-  # limits, not just those for which x and y are outside the limits
-  non_missing_aes = c("xmin", "xmax", "ymin", "ymax"),
-
-  default_aes = aes(!!!GeomRect$default_aes, width = 0.9),
-
-  setup_params = function(data, params) {
-    params$flipped_aes <- has_flipped_aes(data, params)
-    params
-  },
-
-  extra_params = c("just", "na.rm", "orientation"),
-
-  setup_data = function(self, data, params) {
-    data$flipped_aes <- params$flipped_aes
-    data <- flip_data(data, params$flipped_aes)
-    data <- compute_data_size(
-      data, size = params$width,
-      default = self$default_aes$width, zero = FALSE
-    )
-    data$just <- params$just %||% 0.5
-    data <- transform(data,
-      ymin = pmin(y, 0), ymax = pmax(y, 0),
-      xmin = x - width * just, xmax = x + width * (1 - just),
-      width = NULL, just = NULL
-    )
-    flip_data(data, params$flipped_aes)
-  },
-
-  rename_size = FALSE
+geom_bar <- make_constructor(
+  GeomBar,
+  stat = "count", position = "stack", just = 0.5
 )
+
+#' @export
+#' @rdname geom_bar
+geom_col <- make_constructor(GeomCol, position = "stack", just = 0.5)

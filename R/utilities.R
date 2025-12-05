@@ -12,7 +12,7 @@ scales::alpha
 }
 
 "%|W|%" <- function(a, b) {
-  if (!is.waiver(a)) a else b
+  if (!is_waiver(a)) a else b
 }
 
 # Check required aesthetics are present
@@ -71,6 +71,11 @@ check_required_aesthetics <- function(required, present, name, call = caller_env
     "{.fn {name}} requires the following missing aesthetics: {.and {missing}}.",
     call = call
   )
+}
+
+allow_lambda <- function(x) {
+  # we check the 'call' class to prevent interpreting `bquote()` calls as a function
+  if (is_formula(x, lhs = FALSE) && !inherits(x, "call")) as_function(x) else x
 }
 
 # Concatenate a named list for output
@@ -183,7 +188,7 @@ should_stop <- function(expr) {
 #' calling function should just use the default value.  It is used in certain
 #' functions to distinguish between displaying nothing (`NULL`) and
 #' displaying a default value calculated elsewhere (`waiver()`).
-#' `is.waiver()` reports whether an object is a waiver.
+#' `is_waiver()` reports whether an object is a waiver.
 #'
 #' @export
 #' @keywords internal
@@ -192,9 +197,10 @@ waiver <- function() structure(list(), class = "waiver")
 #' @param x An object to test
 #' @export
 #' @rdname waiver
-is.waiver <- function(x) inherits(x, "waiver")
+is_waiver <- function(x) inherits(x, "waiver")
 
 pal_binned <- function(palette) {
+  force(palette)
   function(x) {
     palette(length(x))
   }
@@ -211,7 +217,7 @@ pal_binned <- function(palette) {
 #' @keywords internal
 #' @export
 gg_dep <- function(version, msg) {
-  deprecate_warn0("3.3.0", "gg_dep()")
+  deprecate("3.3.0", "gg_dep()")
   .Deprecated()
   v <- as.package_version(version)
   cv <- utils::packageVersion("ggplot2")
@@ -249,6 +255,14 @@ toupper <- function(x) {
   cli::cli_abort("Please use {.fn to_upper_ascii}, which works fine in all locales.")
 }
 
+merge_attrs <- function(new, old) {
+  new_attr <- attributes(new)
+  new <- vec_restore(new, old) # copies old attributes to new
+  new_attr <- new_attr[setdiff(names(new_attr), names(attributes(new)))]
+  attributes(new) <- c(attributes(new), new_attr)
+  new
+}
+
 # Convert a snake_case string to camelCase
 camelize <- function(x, first = FALSE) {
   x <- gsub("_(.)", "\\U\\1", x, perl = TRUE)
@@ -270,10 +284,10 @@ snake_class <- function(x) {
 }
 
 empty <- function(df) {
-  is.null(df) || nrow(df) == 0 || ncol(df) == 0 || is.waiver(df)
+  is.null(df) || nrow(df) == 0 || ncol(df) == 0 || is_waiver(df)
 }
 
-is.discrete <- function(x) {
+is_discrete <- function(x) {
   is.factor(x) || is.character(x) || is.logical(x)
 }
 
@@ -306,8 +320,6 @@ compact <- function(x) {
   null <- vapply(x, is.null, logical(1))
   x[!null]
 }
-
-is.formula <- function(x) inherits(x, "formula")
 
 dispatch_args <- function(f, ...) {
   args <- list(...)
@@ -555,7 +567,7 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
     }
   }
 
-  isTRUE(default)
+  as.logical(default)[1]
 }
 #' @rdname bidirection
 #' @export
@@ -709,7 +721,7 @@ with_ordered_restart <- function(expr, .call) {
         ")"
       )
 
-      deprecate_soft0(
+      deprecate(
         "3.4.0",
         I(msg),
         details = desc
@@ -777,14 +789,30 @@ as_cli <- function(..., env = caller_env()) {
   cli::cli_fmt(cli::cli_text(..., .envir = env))
 }
 
-deprecate_soft0 <- function(..., user_env = NULL) {
-  user_env <- user_env %||% getOption("ggplot2_plot_env") %||% caller_env(2)
-  lifecycle::deprecate_soft(..., user_env = user_env)
-}
+deprecate <- function(when, ..., id = NULL, always = FALSE, user_env = NULL,
+                      escalate = NULL) {
 
-deprecate_warn0 <- function(..., user_env = NULL) {
+  defunct <- "3.0.0"
+  full    <- "3.4.0"
+  soft    <- utils::packageVersion("ggplot2")
+
+  if (identical(escalate, "delay")) {
+    soft <- full
+    full <- defunct
+    defunct <- "0.0.0"
+  }
+
+  version <- as.package_version(when)
+  if (version < defunct || identical(escalate, "abort")) {
+    lifecycle::deprecate_stop(when, ...)
+  }
   user_env <- user_env %||% getOption("ggplot2_plot_env") %||% caller_env(2)
-  lifecycle::deprecate_warn(..., user_env = user_env)
+  if (version <= full || identical(escalate, "warn")) {
+    lifecycle::deprecate_warn(when, ..., id = id, always = always, user_env = user_env)
+  } else if (version <= soft) {
+    lifecycle::deprecate_soft(when, ..., id = id, user_env = user_env)
+  }
+  invisible()
 }
 
 as_unordered_factor <- function(x) {
@@ -796,7 +824,7 @@ as_unordered_factor <- function(x) {
 size0 <- function(x) {
   if (obj_is_vector(x)) {
     vec_size(x)
-  } else if (is.vector(x)) {
+  } else if (is.vector(x) || is.expression(x)) {
     length(x)
   } else {
     NULL
@@ -831,6 +859,8 @@ fallback_palette <- function(scale) {
   )
 }
 
+# For when you want to ensure all forwarded arguments are consumed by downstream
+# functions.
 warn_dots_used <- function(env = caller_env(), call = caller_env()) {
   check_dots_used(
     env = env, call = call,
@@ -843,55 +873,16 @@ warn_dots_used <- function(env = caller_env(), call = caller_env()) {
   )
 }
 
-# TODO: delete shims when {scales} releases >1.3.0.9000
-# and bump {scales} version requirements
-# Shim for scales/#424
-col_mix <- function(a, b, amount = 0.5) {
-  input <- vec_recycle_common(a = a, b = b, amount = amount)
-  a <- grDevices::col2rgb(input$a, TRUE)
-  b <- grDevices::col2rgb(input$b, TRUE)
-  new <- (a * (1 - input$amount) + b * input$amount)
-  grDevices::rgb(
-    new["red", ], new["green", ], new["blue", ],
-    alpha = new["alpha", ], maxColorValue = 255
+# For when you do not want `...` to be used; it should be empty.
+warn_dots_empty <- function(env = caller_env(), call = caller_env()) {
+  check_dots_empty(
+    env = env, call = call,
+    error = function(cnd) {
+      msg <- gsub("\n", "\f", cnd_message(cnd))
+      cli::cli_warn(msg, call = call)
+    }
   )
 }
-
-# Shim for scales/#427
-as_discrete_pal <- function(x, ...) {
-  if (is.function(x)) {
-    return(x)
-  }
-  pal_manual(x)
-}
-
-# Shim for scales/#427
-as_continuous_pal <- function(x, ...) {
-  if (is.function(x)) {
-    return(x)
-  }
-  is_color <- grepl("^#(([[:xdigit:]]{2}){3,4}|([[:xdigit:]]){3,4})$", x) |
-    x %in% grDevices::colours()
-  if (all(is_color)) {
-    colour_ramp(x)
-  } else {
-    approxfun(seq(0, 1, length.out = length(x)), x)
-  }
-}
-
-# Replace shims by actual scales function when available
-on_load({
-  nse <- getNamespaceExports("scales")
-  if ("col_mix" %in% nse) {
-    col_mix <- scales::col_mix
-  }
-  if ("as_discrete_pal" %in% nse) {
-    as_discrete_pal <- scales::as_discrete_pal
-  }
-  if ("as_continuous_pal" %in% nse) {
-    as_continuous_pal <- scales::as_continuous_pal
-  }
-})
 
 # TODO: Replace me if rlang/#1730 gets implemented
 # Similar to `rlang::check_installed()` but returns boolean and misses
@@ -936,11 +927,11 @@ compute_data_size <- function(data, size, default = 0.9,
   panels <- arg_match0(panels, c("across", "by", "ignore"))
 
   if (panels == "across") {
-    res <- split(data[[var]], data$PANEL, drop = FALSE)
+    res <- split(data[[var]], data$PANEL, drop = TRUE)
     res <- vapply(res, resolution, FUN.VALUE = numeric(1), ...)
     res <- min(res, na.rm = TRUE)
   } else if (panels == "by") {
-    res <- stats::ave(data[[var]], data$PANEL, FUN = function(x) resolution(x, ...))
+    res <- vec_ave(data[[var]], data$PANEL, function(x) resolution(x, ...))
   } else {
     res <- resolution(data[[var]], ...)
   }
@@ -949,4 +940,34 @@ compute_data_size <- function(data, size, default = 0.9,
   }
   data[[target]] <- res * (default %||% 0.9)
   data
+}
+
+add_class <- function(x, new_class) {
+  new_class <- setdiff(new_class, class(x))
+  if (length(new_class) < 1) {
+    return(x)
+  }
+  class(x) <- union(new_class, class(x))
+  x
+}
+
+try_prop <- function(object, name, default = NULL) {
+  if (!S7::S7_inherits(object)) {
+    return(default)
+  }
+  if (!S7::prop_exists(object, name)) {
+    return(default)
+  }
+  S7::prop(object, name)
+}
+
+vec_ave <- function(x, by, fn, ...) {
+  idx <- vec_group_loc(by)$loc
+  list_unchop(
+    lapply(
+      vec_chop(x, indices = idx),
+      FUN = fn, ...
+    ),
+    indices = idx
+  )
 }

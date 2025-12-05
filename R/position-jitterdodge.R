@@ -21,6 +21,7 @@
 #'   geom_point(pch = 21, position = position_jitterdodge())
 position_jitterdodge <- function(jitter.width = NULL, jitter.height = 0,
                                  dodge.width = 0.75, reverse = FALSE,
+                                 preserve = "total",
                                  seed = NA) {
   if (!is.null(seed) && is.na(seed)) {
     seed <- sample.int(.Machine$integer.max, 1L)
@@ -31,12 +32,13 @@ position_jitterdodge <- function(jitter.width = NULL, jitter.height = 0,
     jitter.width = jitter.width,
     jitter.height = jitter.height,
     dodge.width = dodge.width,
+    preserve = arg_match0(preserve, c("total", "single")),
     reverse = reverse,
     seed = seed
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Position
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -45,6 +47,8 @@ PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
   jitter.height = NULL,
   dodge.width = NULL,
   reverse = NULL,
+  default_aes = aes(order = NULL),
+  preserve = "total",
 
   required_aes = c("x", "y"),
 
@@ -53,18 +57,27 @@ PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
     data <- flip_data(data, flipped_aes)
     width <- self$jitter.width %||% (resolution(data$x, zero = FALSE, TRUE) * 0.4)
 
-    ndodge <- vec_unique(data[c("group", "PANEL", "x")])
-    ndodge <- vec_group_id(ndodge[c("PANEL", "x")])
-    ndodge <- max(tabulate(ndodge, attr(ndodge, "n")))
+    if (identical(self$preserve, "total")) {
+      n <- NULL
+    } else {
+      n <- vec_unique(data[c("group", "PANEL", "x")])
+      n <- vec_group_id(n[c("PANEL", "x")])
+      n <- max(tabulate(n, attr(n, "n")))
+    }
 
     list(
       dodge.width = self$dodge.width %||% 0.75,
       jitter.height = self$jitter.height %||% 0,
-      jitter.width = width / (ndodge + 2),
+      jitter.width = width / ((n %||% 1) + 2),
+      n = n,
       seed = self$seed,
       flipped_aes = flipped_aes,
       reverse = self$reverse %||% FALSE
     )
+  },
+
+  setup_data = function(self, data, params) {
+    PositionDodge$setup_data(data = data, params = params)
   },
 
   compute_panel = function(data, params, scales) {
@@ -72,27 +85,13 @@ PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
     data <- collide(
       data,
       params$dodge.width,
-      "position_jitterdodge",
+      name = "position_jitterdodge",
       strategy = pos_dodge,
+      n = params$n,
       check.width = FALSE,
       reverse = !params$reverse # for consistency with `position_dodge2()`
     )
-
-    trans_x <- if (params$jitter.width > 0) function(x) jitter(x, amount = params$jitter.width)
-    trans_y <- if (params$jitter.height > 0) function(x) jitter(x, amount = params$jitter.height)
-
-    x_aes <- intersect(ggplot_global$x_aes, names(data))
-    y_aes <- intersect(ggplot_global$y_aes, names(data))
-
-    x <- if (length(x_aes) == 0) 0 else data[[x_aes[1]]]
-    y <- if (length(y_aes) == 0) 0 else data[[y_aes[1]]]
-    dummy_data <- data_frame0(x = x, y = y, .size = nrow(data))
-
-    fixed_jitter <- with_seed_null(params$seed, transform_position(dummy_data, trans_x, trans_y))
-    x_jit <- fixed_jitter$x - x
-    y_jit <- fixed_jitter$y - y
-
-    data <- transform_position(data, function(x) x + x_jit, function(x) x + y_jit)
-    flip_data(data, params$flipped_aes)
+    data <- flip_data(data, params$flipped_aes)
+    compute_jitter(data, params$jitter.width, params$jitter.height, params$seed)
   }
 )

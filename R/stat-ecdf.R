@@ -1,98 +1,9 @@
-#' Compute empirical cumulative distribution
-#'
-#' The empirical cumulative distribution function (ECDF) provides an alternative
-#' visualisation of distribution. Compared to other visualisations that rely on
-#' density (like [geom_histogram()]), the ECDF doesn't require any
-#' tuning parameters and handles both continuous and categorical variables.
-#' The downside is that it requires more training to accurately interpret,
-#' and the underlying visual tasks are somewhat more challenging.
-#'
-#' The statistic relies on the aesthetics assignment to guess which variable to
-#' use as the input and which to use as the output. Either x or y must be provided
-#' and one of them must be unused. The ECDF will be calculated on the given aesthetic
-#' and will be output on the unused one.
-#'
-#' If the `weight` aesthetic is provided, a weighted ECDF will be computed. In
-#' this case, the ECDF is incremented by `weight / sum(weight)` instead of
-#' `1 / length(x)` for each observation.
-#'
-#' @inheritParams layer
-#' @inheritParams geom_point
-#' @param na.rm If `FALSE` (the default), removes missing values with
-#'    a warning.  If `TRUE` silently removes missing values.
-#' @param n if NULL, do not interpolate. If not NULL, this is the number
-#'   of points to interpolate with.
-#' @param pad If `TRUE`, pad the ecdf with additional points (-Inf, 0)
-#'   and (Inf, 1)
-#' @eval rd_aesthetics("stat", "ecdf")
-#' @eval rd_computed_vars(
-#'   ecdf = "Cumulative density corresponding to `x`.",
-#'   y    = "`r lifecycle::badge('superseded')` For backward compatibility."
-#' )
-#' @section Dropped variables:
-#' \describe{
-#'   \item{weight}{After calculation, weights of individual observations (if
-#'     supplied), are no longer available.}
-#' }
-#' @export
-#' @examples
-#' set.seed(1)
-#' df <- data.frame(
-#'   x = c(rnorm(100, 0, 3), rnorm(100, 0, 10)),
-#'   g = gl(2, 100)
-#' )
-#' ggplot(df, aes(x)) +
-#'   stat_ecdf(geom = "step")
-#'
-#' # Don't go to positive/negative infinity
-#' ggplot(df, aes(x)) +
-#'   stat_ecdf(geom = "step", pad = FALSE)
-#'
-#' # Multiple ECDFs
-#' ggplot(df, aes(x, colour = g)) +
-#'   stat_ecdf()
-#'
-#' # Using weighted eCDF
-#' weighted <- data.frame(x = 1:10, weights = c(1:5, 5:1))
-#' plain <- data.frame(x = rep(weighted$x, weighted$weights))
-#'
-#' ggplot(plain, aes(x)) +
-#'   stat_ecdf(linewidth = 1) +
-#'   stat_ecdf(
-#'     aes(weight = weights),
-#'     data = weighted, colour = "green"
-#'   )
-stat_ecdf <- function(mapping = NULL, data = NULL,
-                      geom = "step", position = "identity",
-                      ...,
-                      n = NULL,
-                      pad = TRUE,
-                      na.rm = FALSE,
-                      show.legend = NA,
-                      inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = StatEcdf,
-    geom = geom,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      n = n,
-      pad = pad,
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
-
-
-#' @rdname ggplot2-ggproto
+#' @rdname Stat
 #' @format NULL
 #' @usage NULL
 #' @export
-StatEcdf <- ggproto("StatEcdf", Stat,
+StatEcdf <- ggproto(
+  "StatEcdf", Stat,
   required_aes = c("x|y"),
 
   default_aes = aes(x = after_stat(ecdf), y = after_stat(ecdf), weight = NULL),
@@ -135,6 +46,71 @@ StatEcdf <- ggproto("StatEcdf", Stat,
 
   dropped_aes = "weight"
 )
+
+#' Compute empirical cumulative distribution
+#'
+#' The empirical cumulative distribution function (ECDF) provides an alternative
+#' visualisation of distribution. Compared to other visualisations that rely on
+#' density (like [geom_histogram()]), the ECDF doesn't require any
+#' tuning parameters and handles both continuous and categorical variables.
+#' The downside is that it requires more training to accurately interpret,
+#' and the underlying visual tasks are somewhat more challenging.
+#'
+#' The statistic relies on the aesthetics assignment to guess which variable to
+#' use as the input and which to use as the output. Either x or y must be provided
+#' and one of them must be unused. The ECDF will be calculated on the given aesthetic
+#' and will be output on the unused one.
+#'
+#' If the `weight` aesthetic is provided, a weighted ECDF will be computed. In
+#' this case, the ECDF is incremented by `weight / sum(weight)` instead of
+#' `1 / length(x)` for each observation.
+#'
+#' @inheritParams shared_layer_parameters
+#' @param na.rm If `FALSE` (the default), removes missing values with
+#'    a warning.  If `TRUE` silently removes missing values.
+#' @param n if NULL, do not interpolate. If not NULL, this is the number
+#'   of points to interpolate with.
+#' @param pad If `TRUE`, pad the ecdf with additional points (-Inf, 0)
+#'   and (Inf, 1)
+#' @aesthetics StatEcdf
+#' @eval rd_computed_vars(
+#'   ecdf = "Cumulative density corresponding to `x`.",
+#'   y    = "`r lifecycle::badge('superseded')` For backward compatibility."
+#' )
+#' @section Dropped variables:
+#' \describe{
+#'   \item{weight}{After calculation, weights of individual observations (if
+#'     supplied), are no longer available.}
+#' }
+#' @export
+#' @examples
+#' set.seed(1)
+#' df <- data.frame(
+#'   x = c(rnorm(100, 0, 3), rnorm(100, 0, 10)),
+#'   g = gl(2, 100)
+#' )
+#' ggplot(df, aes(x)) +
+#'   stat_ecdf(geom = "step")
+#'
+#' # Don't go to positive/negative infinity
+#' ggplot(df, aes(x)) +
+#'   stat_ecdf(geom = "step", pad = FALSE)
+#'
+#' # Multiple ECDFs
+#' ggplot(df, aes(x, colour = g)) +
+#'   stat_ecdf()
+#'
+#' # Using weighted eCDF
+#' weighted <- data.frame(x = 1:10, weights = c(1:5, 5:1))
+#' plain <- data.frame(x = rep(weighted$x, weighted$weights))
+#'
+#' ggplot(plain, aes(x)) +
+#'   stat_ecdf(linewidth = 1) +
+#'   stat_ecdf(
+#'     aes(weight = weights),
+#'     data = weighted, colour = "green"
+#'   )
+stat_ecdf <- make_constructor(StatEcdf, geom = "step")
 
 # Weighted eCDF function
 wecdf <- function(x, weights = NULL) {

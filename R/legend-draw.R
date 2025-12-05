@@ -44,30 +44,30 @@ draw_key_abline <- function(data, params, size) {
   segmentsGrob(0, 0, 1, 1,
     gp = gg_par(
       col = alpha(data$colour %||% data$fill %||% "black", data$alpha),
+      fill = alpha(params$arrow.fill %||% data$colour %||% data$fill %||% "black", data$alpha),
       lwd = data$linewidth %||% 0.5,
       lty = data$linetype %||% 1,
       lineend = params$lineend %||% "butt"
-    )
+    ),
+    arrow = params[["arrow"]]
   )
 }
 
 #' @export
 #' @rdname draw_key
 draw_key_rect <- function(data, params, size) {
+  colour <- if (is.na(data$fill %||% NA)) data$colour else data$fill
   rectGrob(gp = gg_par(
     col = NA,
-    fill = fill_alpha(data$fill %||% data$colour %||% "grey20", data$alpha),
+    fill = fill_alpha(colour %||% "grey20", data$alpha),
     lty = data$linetype %||% 1
   ))
 }
 #' @export
 #' @rdname draw_key
 draw_key_polygon <- function(data, params, size) {
-  if (is.null(data$linewidth)) {
-    data$linewidth <- 0.5
-  }
 
-  lwd <- data$linewidth
+  lwd <- data$linewidth %||% 0
 
   grob <- rectGrob(
     width = unit(1, "npc") - unit(lwd, "mm"),
@@ -199,8 +199,6 @@ draw_key_crossbar <- function(data, params, size) {
 draw_key_path <- function(data, params, size) {
   if (is.null(data$linetype)) {
     data$linetype <- 0
-  } else {
-    data$linetype[is.na(data$linetype)] <- 0
   }
   grob <- segmentsGrob(0.1, 0.5, 0.9, 0.5,
     gp = gg_par(
@@ -211,12 +209,14 @@ draw_key_path <- function(data, params, size) {
       lty = data$linetype %||% 1,
       lineend = params$lineend %||% "butt"
     ),
-    arrow = params$arrow
+    arrow = params[["arrow"]]
   )
-  if (!is.null(params$arrow)) {
-    angle <- deg2rad(params$arrow$angle)
-    length <- convertUnit(params$arrow$length, "cm", valueOnly = TRUE)
+  if (!is.null(params[["arrow"]])) {
+    angle <- deg2rad(params[["arrow"]]$angle)
+    length <- convertUnit(params[["arrow"]]$length[1], "cm", valueOnly = TRUE)
+    # grob spans '0.8 * full width', so multiply by 1/0.8
     attr(grob, "width")  <- cos(angle) * length * 1.25
+    # arrow is symmetric, so double height
     attr(grob, "height") <- sin(angle) * length * 2
   }
   grob
@@ -232,12 +232,14 @@ draw_key_vpath <- function(data, params, size) {
       lty = data$linetype %||% 1,
       lineend = params$lineend %||% "butt"
     ),
-    arrow = params$arrow
+    arrow = params[["arrow"]]
   )
-  if (!is.null(params$arrow)) {
-    angle <- deg2rad(params$arrow$angle)
-    length <- convertUnit(params$arrow$length, "cm", valueOnly = TRUE)
+  if (!is.null(params[["arrow"]])) {
+    angle <- deg2rad(params[["arrow"]]$angle)
+    length <- convertUnit(params[["arrow"]]$length[1], "cm", valueOnly = TRUE)
+    # arrow is symmetric, so double width
     attr(grob, "width")  <- sin(angle) * length * 2
+    # grob spans '0.8 * full height', so multiply by 1/0.8
     attr(grob, "height") <- cos(angle) * length * 1.25
   }
   grob
@@ -373,14 +375,26 @@ draw_key_label <- function(data, params, size) {
 #' @export
 #' @rdname draw_key
 draw_key_vline <- function(data, params, size) {
-  segmentsGrob(0.5, 0, 0.5, 1,
+  # main difference between `draw_key_vline` and `draw_key_vpath` is that
+  # `draw_key_vline` spans the whole height
+  grob <- segmentsGrob(0.5, 0, 0.5, 1,
     gp = gg_par(
       col = alpha(data$colour %||% data$fill %||% "black", data$alpha),
+      fill = alpha(params$arrow.fill %||% data$colour %||% data$fill %||% "black", data$alpha),
       lwd = data$linewidth %||% 0.5,
       lty = data$linetype %||% 1,
       lineend = params$lineend %||% "butt"
-    )
+    ),
+    arrow = params[["arrow"]]
   )
+  if (!is.null(params[["arrow"]])) {
+    angle <- deg2rad(params[["arrow"]]$angle)
+    length <- convertUnit(params[["arrow"]]$length[1], "cm", valueOnly = TRUE)
+    # arrow is symmetric, so use double the width
+    attr(grob, "width")  <- sin(angle) * length * 2
+    attr(grob, "height") <- cos(angle) * length
+  }
+  grob
 }
 
 #' @export
@@ -388,19 +402,18 @@ draw_key_vline <- function(data, params, size) {
 draw_key_timeseries <- function(data, params, size) {
   if (is.null(data$linetype)) {
     data$linetype <- 0
-  } else {
-    data$linetype[is.na(data$linetype)] <- 0
   }
-
   grid::linesGrob(
     x = c(0, 0.4, 0.6, 1),
     y = c(0.1, 0.6, 0.4, 0.9),
     gp = gg_par(
       col = alpha(data$colour %||% data$fill %||% "black", data$alpha),
+      fill = alpha(params$arrow.fill %||% data$colour %||% data$fill %||% "black", data$alpha),
       lwd = data$linewidth %||% 0.5,
       lty = data$linetype %||% 1,
       lineend = params$lineend %||% "butt",
       linejoin = params$linejoin %||% "round"
-    )
+    ),
+    arrow = params[["arrow"]]
   )
 }

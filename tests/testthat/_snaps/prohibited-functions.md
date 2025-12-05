@@ -12,6 +12,9 @@
       $calc_element
       [1] "skip_blank"
       
+      $class_ggplot
+      [1] "plot_env"
+      
       $continuous_scale
       [1] "scale_name"   "minor_breaks"
       
@@ -51,9 +54,6 @@
       
       $geom_violin
       [1] "draw_quantiles"
-      
-      $ggplot_add
-      [1] "object_name"
       
       $ggproto
       [1] "_class"   "_inherit"
@@ -212,10 +212,6 @@
       [5] "base_rect_size"
       
       $theme_test
-      [1] "base_size"      "base_family"    "header_family"  "base_line_size"
-      [5] "base_rect_size"
-      
-      $theme_transparent
       [1] "base_size"      "base_family"    "header_family"  "base_line_size"
       [5] "base_rect_size"
       

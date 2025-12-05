@@ -1,3 +1,172 @@
+#' @rdname Geom
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomPath <- ggproto("GeomPath", Geom,
+  required_aes = c("x", "y"),
+
+  default_aes = aes(
+    colour = from_theme(colour %||% ink),
+    linewidth = from_theme(linewidth),
+    linetype = from_theme(linetype),
+    alpha = NA
+  ),
+
+  non_missing_aes = c("linewidth", "colour", "linetype"),
+
+  handle_na = function(self, data, params) {
+    # Drop missing values at the start or end of a line - can't drop in the
+    # middle since you expect those to be shown by a break in the line
+    aesthetics <- c(self$required_aes, self$non_missing_aes)
+    complete <- stats::complete.cases(data[names(data) %in% aesthetics])
+    kept <- vec_ave(complete, interaction(data$group, data$PANEL, drop = TRUE), keep_mid_true)
+    data <- data[kept, ]
+
+    if (!all(kept) && !params$na.rm) {
+      cli::cli_warn(paste0(
+        "Removed {sum(!kept)} row{?s} containing missing values or values ",
+        "outside the scale range ({.fn {snake_class(self)}})."
+      ))
+    }
+
+    data
+  },
+
+  draw_panel = function(self, data, panel_params, coord, arrow = NULL, arrow.fill = NULL,
+                        lineend = "butt", linejoin = "round", linemitre = 10,
+                        na.rm = FALSE) {
+    data <- fix_linewidth(data, snake_class(self))
+    if (!anyDuplicated(data$group)) {
+      cli::cli_inform(c(
+        "{.fn {snake_class(self)}}: Each group consists of only one observation.",
+        i = "Do you need to adjust the {.field group} aesthetic?"
+      ))
+    }
+
+    # must be sorted on group
+    data <- data[order(data$group), , drop = FALSE]
+    munched <- coord_munch(coord, data, panel_params)
+
+    # Silently drop lines with less than two points, preserving order
+    rows <- vec_ave(seq_len(nrow(munched)), munched$group, length)
+    munched <- munched[rows >= 2, ]
+    if (nrow(munched) < 2) return(zeroGrob())
+
+    # Work out whether we should use lines or segments
+    attr <- dapply(munched, "group", function(df) {
+      linetype <- unique0(df$linetype)
+      data_frame0(
+        solid = length(linetype) == 1 && (identical(linetype, "solid") || linetype == 1),
+        constant = nrow(unique0(df[, names(df) %in% c("alpha", "colour", "linewidth", "linetype")])) == 1,
+        .size = 1
+      )
+    })
+    solid_lines <- all(attr$solid)
+    constant <- all(attr$constant)
+    if (!solid_lines && !constant) {
+      cli::cli_abort("{.fn {snake_class(self)}} can't have varying {.field colour}, {.field linewidth}, and/or {.field alpha} along the line when {.field linetype} isn't solid.")
+    }
+
+    # Work out grouping variables for grobs
+    n <- nrow(munched)
+    group_diff <- munched$group[-1] != munched$group[-n]
+    start <- c(TRUE, group_diff)
+    end <-   c(group_diff, TRUE)
+
+    munched$fill <- arrow.fill %||% munched$colour
+
+    if (!constant) {
+
+      arrow <- repair_segment_arrow(arrow, munched$group)
+
+      segmentsGrob(
+        munched$x[!end], munched$y[!end], munched$x[!start], munched$y[!start],
+        default.units = "native", arrow = arrow,
+        gp = gg_par(
+          col = alpha(munched$colour, munched$alpha)[!end],
+          fill = alpha(munched$fill, munched$alpha)[!end],
+          lwd = munched$linewidth[!end],
+          lty = munched$linetype[!end],
+          lineend = lineend,
+          linejoin = linejoin,
+          linemitre = linemitre
+        )
+      )
+    } else {
+      id <- match(munched$group, unique0(munched$group))
+      polylineGrob(
+        munched$x, munched$y, id = id,
+        default.units = "native", arrow = arrow,
+        gp = gg_par(
+          col = alpha(munched$colour, munched$alpha)[start],
+          fill = alpha(munched$fill, munched$alpha)[start],
+          lwd = munched$linewidth[start],
+          lty = munched$linetype[start],
+          lineend = lineend,
+          linejoin = linejoin,
+          linemitre = linemitre
+        )
+      )
+    }
+  },
+
+  draw_key = draw_key_path,
+
+  rename_size = TRUE
+)
+
+#' @rdname Geom
+#' @format NULL
+#' @usage NULL
+#' @export
+#' @include geom-path.R
+GeomLine <- ggproto(
+  "GeomLine", GeomPath,
+  setup_params = function(data, params) {
+    params$flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)
+    params
+  },
+
+  extra_params = c("na.rm", "orientation"),
+
+  setup_data = function(data, params) {
+    data$flipped_aes <- params$flipped_aes
+    data <- flip_data(data, params$flipped_aes)
+    data <- data[order(data$PANEL, data$group, data$x), ]
+    flip_data(data, params$flipped_aes)
+  }
+)
+
+#' @rdname Geom
+#' @format NULL
+#' @usage NULL
+#' @export
+#' @include geom-path.R
+GeomStep <- ggproto(
+  "GeomStep", GeomPath,
+  setup_params = function(data, params) {
+    params$flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)
+    params
+  },
+  extra_params = c("na.rm", "orientation"),
+  draw_panel = function(data, panel_params, coord,
+                        lineend = "butt", linejoin = "round", linemitre = 10,
+                        arrow = NULL, arrow.fill = NULL,
+                        direction = "hv", flipped_aes = FALSE) {
+    data <- flip_data(data, flipped_aes)
+    if (isTRUE(flipped_aes)) {
+      direction <- switch(direction, hv = "vh", vh = "hv", direction)
+    }
+    data <- dapply(data, "group", stairstep, direction = direction)
+    data <- flip_data(data, flipped_aes)
+    GeomPath$draw_panel(
+      data, panel_params, coord,
+      lineend = lineend, linejoin = linejoin, linemitre = linemitre,
+      arrow = arrow, arrow.fill = arrow.fill
+    )
+  }
+)
+
 #' Connect observations
 #'
 #' `geom_path()` connects the observations in the order in which they appear
@@ -9,17 +178,10 @@
 #' An alternative parameterisation is [geom_segment()], where each line
 #' corresponds to a single case which provides the start and end coordinates.
 #'
-#' @eval rd_orientation()
+#' @inheritSection shared_layer_parameters Orientation
 #'
-#' @eval rd_aesthetics("geom", "path")
-#' @inheritParams layer
-#' @inheritParams geom_bar
-#' @param lineend Line end style (round, butt, square).
-#' @param linejoin Line join style (round, mitre, bevel).
-#' @param linemitre Line mitre limit (number greater than 1).
-#' @param arrow Arrow specification, as created by [grid::arrow()].
-#' @param arrow.fill fill colour to use for the arrow head (if closed). `NULL`
-#'        means use `colour` aesthetic.
+#' @aesthetics GeomPath
+#' @inheritParams shared_layer_parameters
 #' @seealso
 #'  [geom_polygon()]: Filled paths (polygons);
 #'  [geom_segment()]: Line segments
@@ -97,153 +259,18 @@
 #' # But this doesn't
 #' should_stop(p + geom_line(aes(colour = x), linetype=2))
 #' }
-geom_path <- function(mapping = NULL, data = NULL,
-                      stat = "identity", position = "identity",
-                      ...,
-                      lineend = "butt",
-                      linejoin = "round",
-                      linemitre = 10,
-                      arrow = NULL,
-                      arrow.fill = NULL,
-                      na.rm = FALSE,
-                      show.legend = NA,
-                      inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomPath,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      lineend = lineend,
-      linejoin = linejoin,
-      linemitre = linemitre,
-      arrow = arrow,
-      arrow.fill = arrow.fill,
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
+geom_path <- make_constructor(GeomPath)
 
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
 #' @export
-GeomPath <- ggproto("GeomPath", Geom,
-  required_aes = c("x", "y"),
+#' @rdname geom_path
+geom_line <- make_constructor(GeomLine, orientation = NA)
 
-  default_aes = aes(
-    colour = from_theme(ink),
-    linewidth = from_theme(linewidth),
-    linetype = from_theme(linetype),
-    alpha = NA
-  ),
-
-  non_missing_aes = c("linewidth", "colour", "linetype"),
-
-  handle_na = function(self, data, params) {
-    # Drop missing values at the start or end of a line - can't drop in the
-    # middle since you expect those to be shown by a break in the line
-    aesthetics <- c(self$required_aes, self$non_missing_aes)
-    complete <- stats::complete.cases(data[names(data) %in% aesthetics])
-    kept <- stats::ave(complete, data$group, FUN = keep_mid_true)
-    data <- data[kept, ]
-
-    if (!all(kept) && !params$na.rm) {
-      cli::cli_warn(paste0(
-        "Removed {sum(!kept)} row{?s} containing missing values or values ",
-        "outside the scale range ({.fn {snake_class(self)}})."
-      ))
-    }
-
-    data
-  },
-
-  draw_panel = function(self, data, panel_params, coord, arrow = NULL, arrow.fill = NULL,
-                        lineend = "butt", linejoin = "round", linemitre = 10,
-                        na.rm = FALSE) {
-    data <- fix_linewidth(data, snake_class(self))
-    if (!anyDuplicated(data$group)) {
-      cli::cli_inform(c(
-        "{.fn {snake_class(self)}}: Each group consists of only one observation.",
-        i = "Do you need to adjust the {.field group} aesthetic?"
-      ))
-    }
-
-    # must be sorted on group
-    data <- data[order(data$group), , drop = FALSE]
-    munched <- coord_munch(coord, data, panel_params)
-
-    # Silently drop lines with less than two points, preserving order
-    rows <- stats::ave(seq_len(nrow(munched)), munched$group, FUN = length)
-    munched <- munched[rows >= 2, ]
-    if (nrow(munched) < 2) return(zeroGrob())
-
-    # Work out whether we should use lines or segments
-    attr <- dapply(munched, "group", function(df) {
-      linetype <- unique0(df$linetype)
-      data_frame0(
-        solid = length(linetype) == 1 && (identical(linetype, "solid") || linetype == 1),
-        constant = nrow(unique0(df[, names(df) %in% c("alpha", "colour", "linewidth", "linetype")])) == 1,
-        .size = 1
-      )
-    })
-    solid_lines <- all(attr$solid)
-    constant <- all(attr$constant)
-    if (!solid_lines && !constant) {
-      cli::cli_abort("{.fn {snake_class(self)}} can't have varying {.field colour}, {.field linewidth}, and/or {.field alpha} along the line when {.field linetype} isn't solid.")
-    }
-
-    # Work out grouping variables for grobs
-    n <- nrow(munched)
-    group_diff <- munched$group[-1] != munched$group[-n]
-    start <- c(TRUE, group_diff)
-    end <-   c(group_diff, TRUE)
-
-    munched$fill <- arrow.fill %||% munched$colour
-
-    if (!constant) {
-
-      arrow <- repair_segment_arrow(arrow, munched$group)
-
-      segmentsGrob(
-        munched$x[!end], munched$y[!end], munched$x[!start], munched$y[!start],
-        default.units = "native", arrow = arrow,
-        gp = gg_par(
-          col = alpha(munched$colour, munched$alpha)[!end],
-          fill = alpha(munched$fill, munched$alpha)[!end],
-          lwd = munched$linewidth[!end],
-          lty = munched$linetype[!end],
-          lineend = lineend,
-          linejoin = linejoin,
-          linemitre = linemitre
-        )
-      )
-    } else {
-      id <- match(munched$group, unique0(munched$group))
-      polylineGrob(
-        munched$x, munched$y, id = id,
-        default.units = "native", arrow = arrow,
-        gp = gg_par(
-          col = alpha(munched$colour, munched$alpha)[start],
-          fill = alpha(munched$fill, munched$alpha)[start],
-          lwd = munched$linewidth[start],
-          lty = munched$linetype[start],
-          lineend = lineend,
-          linejoin = linejoin,
-          linemitre = linemitre
-        )
-      )
-    }
-  },
-
-  draw_key = draw_key_path,
-
-  rename_size = TRUE
-)
+#' @param direction direction of stairs: 'vh' for vertical then horizontal,
+#'   'hv' for horizontal then vertical, or 'mid' for step half-way between
+#'   adjacent x-values.
+#' @export
+#' @rdname geom_path
+geom_step <- make_constructor(GeomStep, orientation = NA)
 
 # Trim false values from left and right: keep all values from
 # first TRUE to last TRUE
@@ -260,104 +287,6 @@ keep_mid_true <- function(x) {
     rep(FALSE, length(x) - last)
   )
 }
-
-
-#' @export
-#' @rdname geom_path
-geom_line <- function(mapping = NULL, data = NULL, stat = "identity",
-                      position = "identity", na.rm = FALSE, orientation = NA,
-                      show.legend = NA, inherit.aes = TRUE, ...) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomLine,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      na.rm = na.rm,
-      orientation = orientation,
-      ...
-    )
-  )
-}
-
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
-#' @include geom-path.R
-GeomLine <- ggproto("GeomLine", GeomPath,
-  setup_params = function(data, params) {
-    params$flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)
-    params
-  },
-
-  extra_params = c("na.rm", "orientation"),
-
-  setup_data = function(data, params) {
-    data$flipped_aes <- params$flipped_aes
-    data <- flip_data(data, params$flipped_aes)
-    data <- data[order(data$PANEL, data$group, data$x), ]
-    flip_data(data, params$flipped_aes)
-  }
-)
-
-#' @param direction direction of stairs: 'vh' for vertical then horizontal,
-#'   'hv' for horizontal then vertical, or 'mid' for step half-way between
-#'   adjacent x-values.
-#' @export
-#' @rdname geom_path
-geom_step <- function(mapping = NULL, data = NULL, stat = "identity",
-                      position = "identity", direction = "hv",
-                      na.rm = FALSE, orientation = NA, show.legend = NA,
-                      inherit.aes = TRUE, ...) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomStep,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      direction = direction,
-      orientation = orientation,
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
-
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
-#' @include geom-path.R
-GeomStep <- ggproto("GeomStep", GeomPath,
-  setup_params = function(data, params) {
-    params$flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)
-    params
-  },
-  extra_params = c("na.rm", "orientation"),
-  draw_panel = function(data, panel_params, coord,
-                        lineend = "butt", linejoin = "round", linemitre = 10,
-                        arrow = NULL, arrow.fill = NULL,
-                        direction = "hv", flipped_aes = FALSE) {
-    data <- flip_data(data, flipped_aes)
-    if (isTRUE(flipped_aes)) {
-      direction <- switch(direction, hv = "vh", vh = "hv", direction)
-    }
-    data <- dapply(data, "group", stairstep, direction = direction)
-    data <- flip_data(data, flipped_aes)
-    GeomPath$draw_panel(
-      data, panel_params, coord,
-      lineend = lineend, linejoin = linejoin, linemitre = linemitre,
-      arrow = arrow, arrow.fill = arrow.fill
-    )
-  }
-)
 
 #' Calculate stairsteps for `geom_step()`
 #' Used by `GeomStep()`

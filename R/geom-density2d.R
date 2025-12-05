@@ -6,8 +6,8 @@
 #' draws contour lines, and `geom_density_2d_filled()` draws filled contour
 #' bands.
 #'
-#' @eval rd_aesthetics("geom", "density_2d")
-#' @eval rd_aesthetics("geom", "density_2d_filled")
+#' @aesthetics GeomDensity2d
+#' @aesthetics GeomDensity2dFilled
 #' @seealso [geom_contour()], [geom_contour_filled()] for information about
 #'  how contours are drawn; [geom_bin_2d()] for another way of dealing with
 #'  overplotting.
@@ -15,9 +15,7 @@
 #'   `geom_density_2d()` and `stat_density_2d()`. For more information at
 #'   overriding these connections, see how the [stat][layer_stats] and
 #'   [geom][layer_geoms] arguments work.
-#' @inheritParams layer
-#' @inheritParams geom_point
-#' @inheritParams geom_path
+#' @inheritParams shared_layer_parameters
 #' @param contour_var Character string identifying the variable to contour
 #'   by. Can be one of `"density"`, `"ndensity"`, or `"count"`. See the section
 #'   on computed variables for details.
@@ -101,13 +99,13 @@ geom_density_2d <- function(mapping = NULL, data = NULL,
 geom_density2d <- geom_density_2d
 
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export
 GeomDensity2d <- ggproto("GeomDensity2d", GeomPath,
   default_aes = aes(
-    colour = from_theme(accent),
+    colour = from_theme(colour %||% accent),
     linewidth = from_theme(linewidth),
     linetype = from_theme(linetype),
     alpha = NA
@@ -145,7 +143,7 @@ geom_density_2d_filled <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 geom_density2d_filled <- geom_density_2d_filled
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export
