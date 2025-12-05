@@ -81,10 +81,7 @@
 #'
 lims <- function(...) {
   args <- list2(...)
-
-  if (!is_named2(args)) {
-    cli::cli_abort("All arguments must be named.")
-  }
+  check_named(args, arg = I("Arguments"))
   env <- current_env()
   Map(limits, args, names(args), rep(list(env), length(args)))
 }
