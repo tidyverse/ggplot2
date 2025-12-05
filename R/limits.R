@@ -184,7 +184,8 @@ limits.POSIXlt <- function(lims, var, call = caller_env()) {
 expand_limits <- function(...) {
   data <- list2(...)
 
-  lifecycle::signal_stage("superseded", "expand_limits()")
+
+  supersede("2026", "expand_limits()")
 
   # unpack data frame columns
   data_dfs <- vapply(data, is.data.frame, logical(1))
