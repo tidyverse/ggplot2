@@ -83,7 +83,6 @@ check_length <- function(x, length = integer(), ..., min = 0, max = Inf,
   if (n %in% length) {
     return(invisible(NULL))
   }
-  fmt <- if (inherits(arg, "AsIs")) identity else function(x) sprintf("`%s`", x)
   if (length(length) > 0) {
     type <- paste0("a vector of length ", oxford_comma(length))
     if (length(length) == 1) {
@@ -96,7 +95,7 @@ check_length <- function(x, length = integer(), ..., min = 0, max = Inf,
     }
     msg <- sprintf(
       "%s must be %s, not length %d.",
-      fmt(arg), type, n
+      fmt_arg(arg), type, n
     )
     cli::cli_abort(msg, call = call, arg = arg)
   }
@@ -122,7 +121,7 @@ check_length <- function(x, length = integer(), ..., min = 0, max = Inf,
 
   msg <- sprintf(
     "`%s` must be a %s with %s, not length %d.",
-    fmt(arg), type, what, n
+    fmt_arg(arg), type, what, n
   )
   cli::cli_abort(msg, call = call, arg = arg)
 }
@@ -419,3 +418,10 @@ check_device <- function(feature, action = "warn", op = NULL, maybe = FALSE,
 .blend_ops <- c("multiply", "screen", "overlay", "darken", "lighten",
                 "color.dodge", "color.burn", "hard.light", "soft.light",
                 "difference", "exclusion")
+
+fmt_arg <- function(x) {
+  if (inherits(x, "AsIs")) {
+    return(x)
+  }
+  sprintf("`%s`", x)
+}
