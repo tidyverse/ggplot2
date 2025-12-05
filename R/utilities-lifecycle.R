@@ -7,8 +7,12 @@
 #' @param edition An edition. Possible values currently include `"2026"` only.
 #'   Can be `NULL` (default) to unset an edition.
 #'
-#' @returns The previous `edition` value. This function is called for the side
-#'  effect of setting the edition though.
+#' @returns For `set_ggplot2_edition()`, the previous `edition` value and for
+#'   `local_ggplot2_edition()`: `NULL`. Thesef unction are called for the side
+#'   effect of setting the edition though. For `with_ggplot2_edition`, the
+#'   result of the evaluation. For `get_ggplot2_edition()`, the currently
+#'   active edition.
+#'
 #' @export
 #' @keywords internal
 #'
@@ -16,24 +20,39 @@
 #' # Setting an edition
 #' set_ggplot2_edition(2026)
 #'
+#' # Getting the edition
+#' get_ggplot2_edition()
+#'
+#'
 #' # Unsetting an edition
 #' set_ggplot2_edition()
+#'
+#' # Using withr-like scoping
+#' with_ggplot2_edition(2026, get_ggplot2_edition())
 set_ggplot2_edition <- function(edition = NULL) {
   old <- ggplot_global$edition
   ggplot_global$edition <- validate_edition(edition)
   invisible(old)
 }
 
-local_ggplot2_edition <- function(edition, env = parent.frame()) {
+#' @export
+#' @param env An `environment` to use for scoping.
+#' @rdname set_ggplot2_edition
+local_ggplot2_edition <- function(edition = NULL, env = parent.frame()) {
   old <- set_ggplot2_edition(edition)
   withr::defer(set_ggplot2_edition(old), envir = env)
 }
 
-with_ggplot2_edition <- function(edition, code) {
+#' @export
+#' @param code Code to execute in the temporary environment.
+#' @rdname set_ggplot2_edition
+with_ggplot2_edition <- function(edition = NULL, code) {
   local_ggplot2_edition(edition)
   code
 }
 
+#' @export
+#' @rdname set_ggplot2_edition
 get_ggplot2_edition <- function() {
   ggplot_global$edition[[1]]
 }

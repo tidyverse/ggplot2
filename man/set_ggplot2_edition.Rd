@@ -2,17 +2,33 @@
 % Please edit documentation in R/utilities-lifecycle.R
 \name{set_ggplot2_edition}
 \alias{set_ggplot2_edition}
+\alias{local_ggplot2_edition}
+\alias{with_ggplot2_edition}
+\alias{get_ggplot2_edition}
 \title{Set ggplot2 edition}
 \usage{
 set_ggplot2_edition(edition = NULL)
+
+local_ggplot2_edition(edition = NULL, env = parent.frame())
+
+with_ggplot2_edition(edition = NULL, code)
+
+get_ggplot2_edition()
 }
 \arguments{
 \item{edition}{An edition. Possible values currently include \code{"2026"} only.
 Can be \code{NULL} (default) to unset an edition.}
+
+\item{env}{An \code{environment} to use for scoping.}
+
+\item{code}{Code to execute in the temporary environment.}
 }
 \value{
-The previous \code{edition} value. This function is called for the side
-effect of setting the edition though.
+For \code{set_ggplot2_edition()}, the previous \code{edition} value and for
+\code{local_ggplot2_edition()}: \code{NULL}. Thesef unction are called for the side
+effect of setting the edition though. For \code{with_ggplot2_edition}, the
+result of the evaluation. For \code{get_ggplot2_edition()}, the currently
+active edition.
 }
 \description{
 ggplot2 uses the 'edition' concept to manage the lifecycles of functions and
@@ -23,7 +39,14 @@ closes down deprecated and superseded functionality.
 # Setting an edition
 set_ggplot2_edition(2026)
 
+# Getting the edition
+get_ggplot2_edition()
+
+
 # Unsetting an edition
 set_ggplot2_edition()
+
+# Using withr-like scoping
+with_ggplot2_edition(2026, get_ggplot2_edition())
 }
 \keyword{internal}
