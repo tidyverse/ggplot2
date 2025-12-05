@@ -9,6 +9,8 @@ test_that("construction checks input", {
   expect_snapshot_error(ggproto("Test", NULL, function(self, a) a))
   expect_snapshot_error(ggproto("Test", NULL, a <- function(self, a) a))
   expect_snapshot_error(ggproto("Test", mtcars, a = function(self, a) a))
+  # Duplicate names
+  expect_snapshot_error(ggproto("Test", NULL, foo = 20, foo = "A"))
 })
 
 test_that("all ggproto methods start with `{` (#6459)", {
