@@ -746,9 +746,9 @@ Scale <- ggproto("Scale", NULL,
     title
   },
 
-  new = function(self, aesthetics = NULL, breaks = waiver(),
+  new = function(self, aesthetics = NULL, palette = waiver(), breaks = waiver(),
                  minor_breaks = waiver(), labels = waiver(), limits = NULL,
-                 guide = NULL, position = NULL,
+                 guide = NULL, position = NULL, fallback.palette = NULL,
                  call = caller_call(), ..., super = NULL) {
 
     super <- super %||% self
@@ -763,6 +763,13 @@ Scale <- ggproto("Scale", NULL,
     if (is.null(breaks) & !any(is_position_aes(aesthetics))) {
       guide <- "none"
     }
+    palette <- palette %|W|% fetch_ggproto(super, "palette")
+    fallback.palette <- validate_fallback_palette(
+      pal = palette,
+      fallback = fallback.palette %||% fetch_ggproto(super, "fallback_palette"),
+      discrete = super$is_discrete(),
+      call = call
+    )
 
     ggproto(
       NULL, super,
@@ -774,14 +781,16 @@ Scale <- ggproto("Scale", NULL,
       labels = labels,
       guide = guide %||% super$guide,
       position = position,
+      palette = palette,
+      fallback_palette = fallback.palette,
       ...
     )
   },
 
   updatable_params = c(
     "aesthetics", "scale_name", "palette", "name", "breaks", "labels",
-    "limits", "expand", "na.value", "guide", "position", "call",
-    "super"
+    "limits", "expand", "na.value", "guide", "position", "fallback.palette",
+    "call", "super"
   ),
 
   update = function(self, params) {
@@ -1447,20 +1456,21 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     "minor_breaks", "na.translate", "drop"
   ),
 
-  new = function(self, aesthetics = NULL, palette = NULL, limits = NULL, call = caller_call(),
+  new = function(self, aesthetics = NULL, palette = waiver(), limits = NULL, call = caller_call(),
                  range = DiscreteRange$new(),
                  ..., super = NULL) {
     call <- call %||% current_call()
     super <- super %||% self
     limits <- allow_lambda(limits)
-    if (!is.function(limits) && (length(limits) > 0 && !is.discrete(limits))) {
+    if (!is.function(limits) && (length(limits) > 0 && !is_discrete(limits))) {
       cli::cli_warn(c(
         "Continuous limits supplied to discrete scale.",
         i = "Did you mean {.code limits = factor(...)} or {.fn scale_*_continuous}?"
       ), call = call)
     }
+
     aesthetics <- aesthetics %||% super$aesthetics
-    palette <- palette %||% .subset2(super, "palette")
+    palette <- palette %|W|% .subset2(super, "palette")
     if (identical(palette, identity) && any(is_position_aes(aesthetics))) {
       palette <- seq_len
     }
@@ -1814,7 +1824,8 @@ validate_fallback_palette <- function(pal, fallback, aesthetic = "x",
     return(pal)
   }
   cli::cli_abort(
-    "When {.code palette = NULL}, the {.arg fallback.palette} must be defined."
+    "When {.code palette = NULL}, the {.arg fallback.palette} must be defined.",
+    call = call
   )
 }
 

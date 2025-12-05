@@ -212,7 +212,7 @@ test_that("populating palettes works", {
 })
 test_that("continuous scales update limits when changing transforms", {
 
-  x <- scale_x_continuous(limits = c(10, 100), trans = "sqrt")
+  x <- scale_x_continuous(limits = c(10, 100), transform = "sqrt")
   expect_equal(x$limits, sqrt(c(10, 100)))
 
   x <- x$update(list(transform = "log10"))
