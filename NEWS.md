@@ -1,7 +1,33 @@
 # ggplot2 (development version)
 
+* The `arrow` and `arrow.fill` arguments are now available in 
+  `geom_linerange()` and `geom_pointrange()` layers (@teunbrand, #6481).
+* (internal) `zeroGrob()` now returns a `grid::nullGrob()` (#6390).
+* `stat_ydensity()` now only requires the `x` or `y` aesthetic. The other will
+  be populated with 0, similar to `stat_boxplot()` (@teunbrand, #6600)
+* Implemented `as.list()` and `S7::convert()` methods for lists and classes in ggplot2 
+  (@teunbrand, #6695)
+* The default linetype in `geom_sf()` is derived from `geom_polygon()` for 
+  polygons and from `geom_line()` for (multi)linestrings (@teunbrand, #6543).
+* Using infinite `radius` aesthetic in `geom_spoke()` now throws a warning 
+  (#6671)
+* Scales and guides specified by a string can now use package name prefixes to
+  indicate a namespace wherein to look for the scale/guide. For example, one can
+  use `scale_x_continuous(guide = "legendry::axis_base")` (@teunbrand, #4705).
 * `get_layer_data()` and `get_layer_grob()` now accept layer names as index 
   (@lgaborini, #6724)
+* Added new argument `geom_curve(shape)` that will be passed down to 
+  `grid::curveGrob()` (@fmarotta, #5998).
+* Fixed a regression where default `width` was miscalculated when some panels
+  are empty (@teunbrand, #6758)
+* `geom_hex()` has a new `radius` aesthetic, representing the relative size of
+  the hexagons (@teunbrand, #6727)
+* Added `preserve` argument to `position_jitterdodge()` (@teunbrand, #6584).
+* Fixed `position_jitterdodge(jitter.height, jitter.width)` applying to the 
+  wrong dimension with flipped geoms (@teunbrand, #6535).
+* New `position_dodge2(group.row)` argument that can be set to `"many"` to
+  dodge groups with more than one row, such as in `geom_violin()` 
+  (@teunbrand, #6663)
 
 # ggplot2 4.0.1
 

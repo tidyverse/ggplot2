@@ -88,12 +88,16 @@ which parameters it can accept.
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
 }}
 
-\item{type}{The type of ellipse.
-The default \code{"t"} assumes a multivariate t-distribution, and
-\code{"norm"} assumes a multivariate normal distribution.
-\code{"euclid"} draws a circle with the radius equal to \code{level},
-representing the euclidean distance from the center.
-This ellipse probably won't appear circular unless \code{coord_fixed()} is applied.}
+\item{type}{The type of ellipse. One of the following:
+\itemize{
+\item \code{"t"} assuming a multivariate t-distribution based on \code{\link[MASS:cov.trob]{MASS::cov.trob()}}.
+\item \code{"norm"} assuming a multivariate normal distribution.
+\item \code{"euclid"} drawing a circle with the radius equal to \code{level},
+representing the euclidean distance from the center. This ellipse
+probably won't appear circular unless \code{coord_fixed()} is applied.
+}
+
+The \code{"norm"} and \code{"euclid"} options are based on \code{\link[stats:cov.wt]{stats::cov.wt()}}.}
 
 \item{level}{The level at which to draw an ellipse,
 or, if \code{type="euclid"}, the radius of the circle to be drawn.}

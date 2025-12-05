@@ -53,6 +53,8 @@ geom_linerange(
   ...,
   orientation = NA,
   lineend = "butt",
+  arrow = NULL,
+  arrow.fill = NULL,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -67,6 +69,8 @@ geom_pointrange(
   orientation = NA,
   fatten = deprecated(),
   lineend = "butt",
+  arrow = NULL,
+  arrow.fill = NULL,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -173,6 +177,12 @@ aesthetics and shouldn't inherit behaviour from the default plot
 specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 
 \item{lineend}{Line end style, one of \code{"round"}, \code{"butt"} or \code{"square"}.}
+
+\item{arrow}{Arrow specification. Can be created by \code{\link[grid:arrow]{grid::arrow()}} or \code{NULL} to not draw
+an arrow.}
+
+\item{arrow.fill}{Fill colour to use for closed arrowheads. \code{NULL} means use \code{colour}
+aesthetic.}
 }
 \description{
 Various ways of representing a vertical interval defined by \code{x},

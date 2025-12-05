@@ -54,3 +54,7 @@
     The `options('ggplot2.discrete.colour')` setting is incompatible with the `palette.colour.discrete` theme setting.
     i You can set `options(ggplot2.discrete.colour = NULL)`.
 
+# theme element conversion to lists works
+
+    Unknown arguments to `element_text()`: `italic`, `fontweight`, and `fontwidth`.
+

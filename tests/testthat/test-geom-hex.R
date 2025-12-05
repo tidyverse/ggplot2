@@ -27,6 +27,17 @@ test_that("bin size are picked up from stat", {
       geom_hex(aes(x = x, y = y), binwidth = c(0.1, 0.1)) +
       coord_cartesian(xlim = c(-1, 1), ylim = c(-1, 1))
   )
+
+  expect_doppelganger(
+    "hexes with different sizes",
+    ggplot(data.frame(x = 1:3, y = 0, r = (1:3)/6)) +
+      geom_hex(
+        aes(x = x, y = y, radius = r),
+        stat = "identity"
+      ) +
+      coord_cartesian(xlim = c(0, 4), y = c(-1, 1))
+  )
+
 })
 
 test_that("geom_hex works in non-linear coordinate systems", {

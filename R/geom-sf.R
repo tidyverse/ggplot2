@@ -126,7 +126,7 @@ GeomSf <- ggproto("GeomSf", Geom,
     fill = NULL,
     size = NULL,
     linewidth = NULL,
-    linetype = from_theme(linetype),
+    linetype = NULL,
     alpha = NA,
     stroke = 0.5
   ),
@@ -200,6 +200,10 @@ GeomSf <- ggproto("GeomSf", Geom,
 
     # Recombine data in original order
     data <- vec_c(points, lines, others, collections)
+    # Avoids NA linetype in points, which is invalid input
+    data$linetype[vec_seq_along(points)] <-
+      if (is.character(data$linetype)) "solid" else 1L
+
     vec_slice(data, order(unlist(index)))
   },
 

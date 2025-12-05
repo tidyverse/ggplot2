@@ -901,11 +901,11 @@ compute_data_size <- function(data, size, default = 0.9,
   panels <- arg_match0(panels, c("across", "by", "ignore"))
 
   if (panels == "across") {
-    res <- split(data[[var]], data$PANEL, drop = FALSE)
+    res <- split(data[[var]], data$PANEL, drop = TRUE)
     res <- vapply(res, resolution, FUN.VALUE = numeric(1), ...)
     res <- min(res, na.rm = TRUE)
   } else if (panels == "by") {
-    res <- stats::ave(data[[var]], data$PANEL, FUN = function(x) resolution(x, ...))
+    res <- vec_ave(data[[var]], data$PANEL, function(x) resolution(x, ...))
   } else {
     res <- resolution(data[[var]], ...)
   }
@@ -916,6 +916,15 @@ compute_data_size <- function(data, size, default = 0.9,
   data
 }
 
+add_class <- function(x, new_class) {
+  new_class <- setdiff(new_class, class(x))
+  if (length(new_class) < 1) {
+    return(x)
+  }
+  class(x) <- union(new_class, class(x))
+  x
+}
+
 try_prop <- function(object, name, default = NULL) {
   if (!S7::S7_inherits(object)) {
     return(default)
@@ -924,4 +933,15 @@ try_prop <- function(object, name, default = NULL) {
     return(default)
   }
   S7::prop(object, name)
+}
+
+vec_ave <- function(x, by, fn, ...) {
+  idx <- vec_group_loc(by)$loc
+  list_unchop(
+    lapply(
+      vec_chop(x, indices = idx),
+      FUN = fn, ...
+    ),
+    indices = idx
+  )
 }

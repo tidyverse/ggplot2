@@ -70,7 +70,7 @@ Suggests:
     rpart,
     sf (>= 0.7-3),
     svglite (>= 2.1.2),
-    testthat (>= 3.1.5),
+    testthat (>= 3.3.0),
     tibble,
     vdiffr (>= 1.0.6),
     xml2
@@ -177,7 +177,6 @@ Collate:
     'ggplot2-package.R'
     'grob-absolute.R'
     'grob-dotstack.R'
-    'grob-null.R'
     'grouping.R'
     'properties.R'
     'margins.R'

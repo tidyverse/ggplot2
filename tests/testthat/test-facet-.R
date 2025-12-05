@@ -160,7 +160,7 @@ test_that("strips can be removed", {
     theme(strip.background = element_blank(), strip.text = element_blank())
   g_grobs <- ggplotGrob(g)
   strip_grobs <- g_grobs$grobs[grepl('strip-', g_grobs$layout$name)]
-  expect_true(all(sapply(strip_grobs, inherits, 'zeroGrob')))
+  expect_true(all(sapply(strip_grobs, inherits, 'null')))
 })
 
 test_that("strip clipping can be set from the theme", {
