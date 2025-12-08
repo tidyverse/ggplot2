@@ -1339,8 +1339,11 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     pal_match <-
       vec_slice(pal, match(as.character(x), limits, nomatch = vec_size(pal)))
 
-    if (!is.na(na_value)) {
-      vec_slice(pal_match, vec_detect_missing(x)) <- na_value
+    if (!is.na(na_value) && vec_any_missing(x)) {
+      pal_match <- vec_assign(
+        pal_match, vec_detect_missing(x), na_value,
+        x_arg = "palette", value_arg = "na.value"
+      )
     }
     pal_match
   },
