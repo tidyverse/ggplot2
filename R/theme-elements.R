@@ -746,10 +746,7 @@ check_element_tree <- function(x, arg = caller_arg(x), call = caller_env()) {
   if (length(x) < 1) {
     return(invisible(NULL))
   }
-
-  if (!is_named(x)) {
-    cli::cli_abort("{.arg {arg}} must have names.", call = call)
-  }
+  check_named(x, arg = arg, call = call)
 
   # All elements should be constructed with `el_def()`
   fields <- names(el_def())

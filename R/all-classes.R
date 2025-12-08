@@ -253,21 +253,8 @@ class_labels <- S7::new_class(
   "labels", parent = class_S3_gg,
   constructor = function(labels = list(), ...) {
     warn_dots_empty()
+    check_named(labels, I("labels"))
     S7::new_object(labels)
-  },
-  validator = function(self) {
-    if (!is.list(self)) {
-      return("labels must be a list.")
-    }
-    if (!is_named2(self)) {
-      return("every label must be named.")
-    }
-    dups <- unique(names(self)[duplicated(names(self))])
-    if (length(dups) > 0) {
-      dups <- oxford_comma(dups, final = "and")
-      return(paste0("labels cannot contain duplicate names (", dups, ")."))
-    }
-    return(NULL)
   }
 )
 
