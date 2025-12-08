@@ -52,3 +52,5 @@ ggplot_global$x_aes <- c("x", "xmin", "xmax", "xend", "xintercept",
 
 ggplot_global$y_aes <- c("y", "ymin", "ymax", "yend", "yintercept",
   "ymin_final", "ymax_final", "lower", "middle", "upper", "y0")
+
+ggplot_global$edition <- NULL

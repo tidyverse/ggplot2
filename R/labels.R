@@ -239,21 +239,21 @@ labs <- function(..., title = waiver(), subtitle = waiver(),
 #' superseded. It is recommended to use the `labs(x, y, title, subtitle)`
 #' arguments instead.
 xlab <- function(label) {
-  lifecycle::signal_stage("superseded", "xlab()", "labs(x)")
+  supersede("2026", "xlab()", "labs(x)")
   labs(x = label)
 }
 
 #' @rdname labs
 #' @export
 ylab <- function(label) {
-  lifecycle::signal_stage("superseded", "ylab()", "labs(y)")
+  supersede("2026", "ylab()", "labs(y)")
   labs(y = label)
 }
 
 #' @rdname labs
 #' @export
 ggtitle <- function(label, subtitle = waiver()) {
-  lifecycle::signal_stage("superseded", "ggtitle()", I("labs(title, subtitle)"))
+  supersede("2026", "ggtitle()", I("labs(title, subtitle)"))
   labs(title = label, subtitle = subtitle)
 }
 

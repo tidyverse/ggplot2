@@ -280,6 +280,7 @@ Collate:
     'utilities-break.R'
     'utilities-grid.R'
     'utilities-help.R'
+    'utilities-lifecycle.R'
     'utilities-patterns.R'
     'utilities-performance.R'
     'utilities-resolution.R'
