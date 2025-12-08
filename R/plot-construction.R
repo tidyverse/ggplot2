@@ -237,6 +237,12 @@ S7::method(update_ggplot, list(S7::new_S3_class("by"), class_ggplot)) <-
     ggplot_add(unclass(object), plot, object_name)
   }
 
+S7::method(update_ggplot, list(scale_params, class_ggplot)) <-
+  function(object, plot, ...) {
+    plot$scales$add_params(object@aesthetics, object@params)
+    plot
+  }
+
 # TODO: the S3 generic should be phased out once S7 is adopted more widely
 # For backward compatibility, ggplot_add still exists but by default it wraps
 # `update_ggplot()`
@@ -249,12 +255,6 @@ ggplot_add <- function(object, plot, ...) {
 #' @export
 ggplot_add.default <- function(object, plot, ...) {
   update_ggplot(object = object, plot = plot, ...)
-}
-
-#' @export
-ggplot_add.scale_params <- function(object, plot, object_name) {
-  plot$scales$add_params(object$aesthetics, object$params)
-  plot
 }
 
 new_layer_names <- function(layer, existing) {
