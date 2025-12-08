@@ -413,6 +413,39 @@ class_ggplot_built <- S7::new_class(
   }
 )
 
+## Scale params -----------------------------------------------------------
+
+#' Setting scale parameters
+#'
+#' @param aesthetics The name of the aesthetics for which to update the scale.
+#' @param ... Named arguments to one of the scale constructors,
+#'   [`continuous_scale()`], [`discrete_scale()`] or [`binned_scale()`].
+#'
+#' @return A `ggplot2::scale_params` object that can be added to a plot.
+#' @export
+#'
+#' @examples
+#' ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point() +
+#'   scale_params("x", limits = c(0, 10)) +
+#'   scale_params("y", transform = "sqrt")
+scale_params <- S7::new_class(
+  "scale_params", parent = class_gg,
+  properties = list(
+    aesthetics = S7::class_character,
+    params = S7::class_list
+  ),
+  constructor = function(aesthetics, ...) {
+    params <- list2(...)
+    # TODO: use name check if #6766 is merged
+    S7::new_object(
+      S7::S7_object(),
+      aesthetics = standardise_aes_names(aesthetics),
+      params = params
+    )
+  }
+)
+
 # Methods -----------------------------------------------------------------
 
 #' @importFrom S7 convert
