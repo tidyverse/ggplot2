@@ -55,7 +55,7 @@ subtheme <- function(elements, prefix = "", suffix = "", call = caller_env()) {
 
 #' @export
 #' @describeIn subtheme Theme specification for all axes.
-theme_sub_axis <- function(..., title, text, ticks, ticks.length, line, minor.ticks.length) {
+theme_sub_axis <- function(..., title, text, ticks, ticks.length, line, minor.ticks.length, ontop) {
   warn_dots_empty()
   subtheme(find_args(), "axis.")
 }

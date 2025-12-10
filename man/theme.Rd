@@ -74,6 +74,7 @@ theme(
   axis.line.y.right,
   axis.line.theta,
   axis.line.r,
+  axis.ontop,
   legend.background,
   legend.margin,
   legend.spacing,
@@ -213,6 +214,9 @@ for each axis (using \code{axis.line.x.bottom}, \code{axis.line.x.top},
 \code{axis.line.y.left}, \code{axis.line.y.right}). \verb{axis.line.*.*} inherits from
 \verb{axis.line.*} which inherits from \code{axis.line}, which in turn inherits
 from \code{line}}
+
+\item{axis.ontop}{Controls whether axes are displayed above panel elements
+(\code{TRUE}, default) or below panel elements (\code{FALSE}).}
 
 \item{legend.background}{background of legend (\code{\link[=element_rect]{element_rect()}}; inherits
 from \code{rect})}
