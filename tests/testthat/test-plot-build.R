@@ -52,3 +52,9 @@ test_that("strings are not converted to factors", {
 
   expect_type(get_layer_data(p)$label, "character")
 })
+
+test_that("attempting the render plot build with previous version fails", {
+  p <- ggplot(mtcars, aes(disp, mpg)) + geom_point()
+  p@version <- package_version("3.5.2")
+  expect_snapshot(print(p), error = TRUE)
+})
