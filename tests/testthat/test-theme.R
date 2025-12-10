@@ -444,6 +444,39 @@ test_that("theme element conversion to lists works", {
   expect_silent(convert(x, element_text))
 })
 
+test_that("axis.ontop changes z-column in gtable", {
+
+  get_z <- function(p, pattern = c("panel", "axis")) {
+    gt <- ggplotGrob(p)
+
+    out <- list()
+    for (pat in pattern) {
+      out[[pat]] <- gtable_filter(gt, pat)$layout$z
+    }
+    out
+  }
+
+  p <- ggplot() + annotate("point", 1, 1)
+
+  z <- get_z(p + facet_null() + theme(axis.ontop = TRUE))
+  expect_all_true(z$panel < z$axis)
+
+  z <- get_z(p + facet_null() + theme(axis.ontop = FALSE))
+  expect_all_true(z$panel > z$axis)
+
+  z <- get_z(p + facet_wrap(~"foo") + theme(axis.ontop = TRUE))
+  expect_all_true(z$panel < z$axis)
+
+  z <- get_z(p + facet_wrap(~"foo") + theme(axis.ontop = FALSE))
+  expect_all_true(z$panel > z$axis)
+
+  z <- get_z(p + facet_grid(~"foo") + theme(axis.ontop = TRUE))
+  expect_all_true(z$panel < z$axis)
+
+  z <- get_z(p + facet_grid(~"foo") + theme(axis.ontop = FALSE))
+  expect_all_true(z$panel > z$axis)
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("aspect ratio is honored", {
