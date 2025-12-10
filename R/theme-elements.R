@@ -915,7 +915,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   axis.minor.ticks.length.r = el_def(
     c("unit", "rel"), c("axis.minor.ticks.length.y", "axis.ticks.length.r")
   ),
-
+  axis.ontop = el_def("logical"),
   legend.background   = el_def(element_rect, "rect"),
   legend.margin       = el_def(c("margin", "unit", "rel"), "margins"),
   legend.spacing      = el_def(c("unit", "rel"), "spacing"),
