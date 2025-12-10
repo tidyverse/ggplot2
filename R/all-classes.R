@@ -337,6 +337,7 @@ class_ggplot <- S7::new_class(
     layout  = class_layout,
     labels  = class_labels,
     meta    = S7::class_list,
+    version = S7::new_S3_class("package_version"),
     plot_env = S7::class_environment
   ),
   constructor = function(
@@ -368,6 +369,7 @@ class_ggplot <- S7::new_class(
       layout      = layout %||% ggproto(NULL, Layout),
       labels      = labels,
       meta        = meta,
+      version     = current_version,
       plot_env    = plot_env
     )
   }

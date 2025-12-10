@@ -37,6 +37,9 @@ on_load(
   if (getRversion() >= "4.3.0") registerS3method("+", "gg", add_gg)
 )
 
+current_version <- NULL
+on_load(current_version <- packageVersion("ggplot2"))
+
 on_load(S7::methods_register())
 .onLoad <- function(...) {
   run_on_load()
