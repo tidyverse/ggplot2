@@ -25,6 +25,9 @@
 * Added `preserve` argument to `position_jitterdodge()` (@teunbrand, #6584).
 * Fixed `position_jitterdodge(jitter.height, jitter.width)` applying to the 
   wrong dimension with flipped geoms (@teunbrand, #6535).
+* New `geom_smooth(band.colour, band.linetype, band.linewidth)` arguments 
+  control graphical parameters of the (confidence) band (@teunbrand, #6551)
+  
 * New `position_dodge2(group.row)` argument that can be set to `"many"` to
   dodge groups with more than one row, such as in `geom_violin()` 
   (@teunbrand, #6663)
