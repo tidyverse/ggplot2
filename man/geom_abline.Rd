@@ -146,7 +146,12 @@ to vary across facets, construct the data frame yourself and use aesthetics.
 
 Unlike most other geoms, these geoms do not inherit aesthetics from the plot
 default, because they do not understand x and y aesthetics which are
-commonly set in the plot. They also do not affect the x and y scales.
+commonly set in the plot.
+
+Unlike \code{\link[=geom_abline]{geom_abline()}}, \code{\link[=geom_vline]{geom_vline()}} and \code{\link[=geom_hline]{geom_hline()}} include their
+intercepts in the position aesthetics. As a result, \code{xintercept} and
+\code{yintercept} values can affect the x and y scales, particularly when
+intercepts fall outside the range of the data.
 }
 \section{Aesthetics}{
 
