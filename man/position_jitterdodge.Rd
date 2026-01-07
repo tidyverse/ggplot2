@@ -9,6 +9,7 @@ position_jitterdodge(
   jitter.height = 0,
   dodge.width = 0.75,
   reverse = FALSE,
+  preserve = "total",
   seed = NA
 )
 }
@@ -23,6 +24,9 @@ the default \code{position_dodge()} width.}
 
 \item{reverse}{If \code{TRUE}, will reverse the default stacking order.
 This is useful if you're rotating both the plot and legend.}
+
+\item{preserve}{Should dodging preserve the \code{"total"} width of all elements
+at a position, or the width of a \code{"single"} element?}
 
 \item{seed}{A random seed to make the jitter reproducible.
 Useful if you need to apply the same jitter twice, e.g., for a point and

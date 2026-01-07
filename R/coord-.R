@@ -696,7 +696,7 @@ is_coord <- function(x) inherits(x, "Coord")
 #' @rdname is_tests
 #' @usage is.Coord(x) # Deprecated
 is.Coord <- function(x) {
-  deprecate_soft0("3.5.2", "is.Coord()", "is_coord()")
+  deprecate("3.5.2", "is.Coord()", "is_coord()")
   is_coord(x)
 }
 

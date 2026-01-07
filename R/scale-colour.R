@@ -26,12 +26,11 @@
 #'   * a single string naming a palette.
 #'   * a palette function that when called with a numeric vector with values
 #'     between 0 and 1 returns the corresponding output values.
-#' @inheritDotParams continuous_scale -scale_name -trans -minor_breaks -expand
-#' @inheritDotParams binned_scale -scale_name -trans -expand
-#' @param type `r lifecycle::badge("superseded")` One of the following:
-#'   * "gradient" (the default)
-#'   * "viridis"
-#'   * A function that returns a continuous colour scale.
+#' @inheritDotParams continuous_scale -scale_name -trans -minor_breaks -expand -fallback.palette
+#' @inheritDotParams binned_scale -scale_name -trans -expand -fallback.palette
+#' @param type `r lifecycle::badge("superseded")` The preferred mechanism for
+#'   setting the default palette is by using the theme. For example:
+#'   `theme(palette.colour.discrete = "viridis")`.
 #' @seealso  [continuous_scale()] and [binned_scale()]
 #'
 #'   The documentation on [colour aesthetics][aes_colour_fill_alpha].
@@ -92,7 +91,9 @@ scale_colour_continuous <- function(..., palette = NULL, aesthetics = "colour",
   }
   palette <- if (!is.null(palette)) as_continuous_pal(palette)
   continuous_scale(
-    aesthetics, palette = palette, guide = guide, na.value = na.value,
+    aesthetics = aesthetics, palette = palette, guide = guide,
+    na.value = na.value, scale_name = deprecated(),
+    fallback.palette = pal_seq_gradient("#132B43", "#56B1F7"),
     ...
   )
 }
@@ -114,7 +115,9 @@ scale_fill_continuous <- function(..., palette = NULL, aesthetics = "fill", guid
   }
   palette <- if (!is.null(palette)) as_continuous_pal(palette)
   continuous_scale(
-    aesthetics, palette = palette, guide = guide, na.value = na.value,
+    aesthetics = aesthetics, palette = palette, guide = guide,
+    na.value = na.value, scale_name = deprecated(),
+    fallback.palette = pal_seq_gradient("#132B43", "#56B1F7"),
     ...
   )
 }
@@ -136,7 +139,9 @@ scale_colour_binned <- function(..., palette = NULL, aesthetics = "colour", guid
   }
   palette <- if (!is.null(palette)) pal_binned(as_discrete_pal(palette))
   binned_scale(
-    aesthetics, palette = palette, guide = guide, na.value = na.value,
+    aesthetics = aesthetics, palette = palette, guide = guide,
+    na.value = na.value, scale_name = deprecated(),
+    fallback.palette = pal_seq_gradient("#132B43", "#56B1F7"),
     ...
   )
 }
@@ -157,7 +162,9 @@ scale_fill_binned <- function(..., palette = NULL, aesthetics = "fill", guide = 
   }
   palette <- if (!is.null(palette)) pal_binned(as_discrete_pal(palette))
   binned_scale(
-    aesthetics, palette = palette, guide = guide, na.value = na.value,
+    aesthetics = aesthetics, palette = palette, guide = guide,
+    na.value = na.value, scale_name = deprecated(),
+    fallback.palette = pal_seq_gradient("#132B43", "#56B1F7"),
     ...
   )
 }
@@ -172,22 +179,11 @@ scale_fill_binned <- function(..., palette = NULL, aesthetics = "fill", guide = 
 #'   * a single string naming a palette.
 #'   * a palette function that when called with a single integer argument (the
 #'     number of levels in the scale) returns the values that they should take.
-#' @inheritDotParams discrete_scale -scale_name -expand -position -minor_breaks
+#' @inheritDotParams discrete_scale -scale_name -expand -position -minor_breaks -fallback.palette
 #' @inheritParams discrete_scale
 #' @param type `r lifecycle::badge("superseded")` The preferred mechanism for
 #'   setting the default palette is by using the theme. For example:
-#'   `theme(palette.colour.discrete = "Okabe-Ito")`. One of the following:
-#'   * A character vector of color codes. The codes are used for a 'manual' color
-#'   scale as long as the number of codes exceeds the number of data levels
-#'   (if there are more levels than codes, [scale_colour_hue()]/[scale_fill_hue()]
-#'   are used to construct the default scale). If this is a named vector, then the color values
-#'   will be matched to levels based on the names of the vectors. Data values that
-#'   don't match will be set as `na.value`.
-#'   * A list of character vectors of color codes. The minimum length vector that exceeds the
-#'   number of data levels is chosen for the color scaling. This is useful if you
-#'   want to change the color palette based on the number of levels.
-#'   * A function that returns a discrete colour/fill scale (e.g., [scale_fill_hue()],
-#'   [scale_fill_brewer()], etc).
+#'   `theme(palette.colour.discrete = "Okabe-Ito")`.
 #' @export
 #' @seealso [discrete_scale()]
 #' @family colour scales
@@ -226,7 +222,9 @@ scale_colour_discrete <- function(..., palette = NULL, aesthetics = "colour", na
   }
   palette <- if (!is.null(palette)) as_discrete_pal(palette)
   discrete_scale(
-    aesthetics, palette = palette, na.value = na.value,
+    aesthetics = aesthetics, palette = palette, na.value = na.value,
+    scale_name = deprecated(),
+    fallback.palette = pal_hue(),
     ...
   )
 }
@@ -247,7 +245,9 @@ scale_fill_discrete <- function(..., palette = NULL, aesthetics = "fill", na.val
   }
   palette <- if (!is.null(palette)) as_discrete_pal(palette)
   discrete_scale(
-    aesthetics, palette = palette, na.value = na.value,
+    aesthetics = aesthetics, palette = palette, na.value = na.value,
+    scale_name = deprecated(),
+    fallback.palette = pal_hue(),
     ...
   )
 }
@@ -285,7 +285,8 @@ check_scale_type <- function(scale, name, aesthetic, scale_is_discrete = FALSE, 
 scale_backward_compatibility <- function(..., scale, aesthetic, type) {
   aesthetic <- standardise_aes_names(aesthetic[1])
 
-  args <- list2(...)
+  # input ... may have trailing args, which then get stuck in the middle #6710
+  args <- dots_list(..., .ignore_empty = "all")
   args$call <- args$call %||% caller_call() %||% current_call()
 
   if (type == "binned") {

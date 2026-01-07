@@ -78,7 +78,7 @@ test_that("colorbar can be styled", {
         theme = theme(
           legend.frame = element_rect(colour = "green", linewidth = 1.5 / .pt),
           legend.ticks = element_line("black", linewidth = 2.5 / .pt),
-          legend.ticks.length = unit(0.4, "npc")
+          legend.ticks.length = unit(c(0.2, 0.4), "npc")
         ), alpha = 0.75
       )
     ) + labs(subtitle = "white-to-red semitransparent colorbar, long thick black ticks, green frame")

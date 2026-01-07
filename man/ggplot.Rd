@@ -22,7 +22,7 @@ evaluation.}
 \description{
 \code{ggplot()} initializes a ggplot object. It can be used to
 declare the input data frame for a graphic and to specify the
-set of plot aesthetics intended to be common throughout all
+set of aesthetic mappings for the plot, intended to be common throughout all
 subsequent layers unless specifically overridden.
 }
 \details{

@@ -62,12 +62,12 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
                   xlab = NULL, ylab = NULL,
                   asp = NA, stat = deprecated(), position = deprecated()) {
 
-  deprecate_warn0("3.4.0", "qplot()")
+  deprecate("3.4.0", "qplot()")
 
   caller_env <- parent.frame()
 
-  if (lifecycle::is_present(stat)) lifecycle::deprecate_stop("2.0.0", "qplot(stat)")
-  if (lifecycle::is_present(position)) lifecycle::deprecate_stop("2.0.0", "qplot(position)")
+  if (lifecycle::is_present(stat)) deprecate("2.0.0", "qplot(stat)")
+  if (lifecycle::is_present(position)) deprecate("2.0.0", "qplot(position)")
   check_character(geom)
 
   exprs <- enquos(x = x, y = y, ...)

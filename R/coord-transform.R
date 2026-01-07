@@ -84,11 +84,11 @@ coord_transform <- function(x = "identity", y = "identity", xlim = NULL, ylim = 
                             limx = deprecated(), limy = deprecated(), clip = "on",
                             expand = TRUE, reverse = "none") {
   if (lifecycle::is_present(limx)) {
-    deprecate_warn0("3.3.0", "coord_transform(limx)", "coord_transform(xlim)")
+    deprecate("3.3.0", "coord_transform(limx)", "coord_transform(xlim)")
     xlim <- limx
   }
   if (lifecycle::is_present(limy)) {
-    deprecate_warn0("3.3.0", "coord_transform(limy)", "coord_transform(ylim)")
+    deprecate("3.3.0", "coord_transform(limy)", "coord_transform(ylim)")
     ylim <- limy
   }
 
@@ -112,7 +112,7 @@ coord_transform <- function(x = "identity", y = "identity", xlim = NULL, ylim = 
 #' @rdname coord_transform
 #' @export
 coord_trans <- function(...) {
-  deprecate_soft0(
+  deprecate(
     "4.0.0",
     "coord_trans()",
     "coord_transform()"

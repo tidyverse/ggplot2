@@ -145,7 +145,7 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
                        facets = deprecated()) {
   # `facets` is deprecated
   if (lifecycle::is_present(facets)) {
-    lifecycle::deprecate_stop("2.2.0", "facet_grid(facets)", "facet_grid(rows)")
+    deprecate("2.2.0", "facet_grid(facets)", "facet_grid(rows)")
   }
 
   # Should become a warning in a future release
