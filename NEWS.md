@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Meaningless change to trigger GHA workflow (#6704)
+
 ### Bug fixes
 
 * Fixed regression where `draw_key_rect()` stopped using `fill` colours 
