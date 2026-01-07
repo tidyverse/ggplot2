@@ -24,18 +24,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macos-latest,   r: 'release'}
-
-          - {os: windows-latest, r: 'release'}
-          # use 4.0 or 4.1 to check with rtools40's older compiler
-          - {os: windows-latest, r: 'oldrel-4'}
-
-          - {os: ubuntu-latest,  r: 'devel', http-user-agent: 'release'}
-          - {os: ubuntu-latest,  r: 'release'}
-          - {os: ubuntu-latest,  r: 'oldrel-1'}
-          - {os: ubuntu-latest,  r: 'oldrel-2'}
-          - {os: ubuntu-latest,  r: 'oldrel-3'}
-          - {os: ubuntu-latest,  r: 'oldrel-4'}
+          - {os: macos-latest,   r: 'oldrel-3'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -86,3 +75,18 @@ jobs:
         with:
           upload-snapshots: true
           build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'
+
+
+      # > If the workflow run is a re-run, with debugging enabled, then it opens a tmate shell that you can ssh into for interactive debugging.
+      # > It uses https://github.com/mxschmitt/action-tmate internally.
+      # Usage:
+      # * Add your SSH key to your GitHub account. This action does not work without an SSH key.
+      # * If a workflow run fails, on the web UI select a re-run and turn on debug logging.
+      # * Wait until the workflow output tells you that the tmate shell is ready, and copy paste the random hostname.
+      # * Use ssh to log in to the VM.
+      - name: Debug GHA job (tmate)
+        uses: r-hub/actions/debug-shell@v1
+        # Use `always()` as the action will skip its steps internally if debugging is not enabled and the workflow is not a re-run.
+        if: always()
+        with:
+          connect-timeout-seconds: "600"

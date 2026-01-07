@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Meaningless change to trigger GHA workflow (#6704)
+
+### Bug fixes
 * The `arrow` and `arrow.fill` arguments are now available in 
   `geom_linerange()` and `geom_pointrange()` layers (@teunbrand, #6481).
 * (internal) `zeroGrob()` now returns a `grid::nullGrob()` (#6390).
