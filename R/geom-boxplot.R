@@ -269,8 +269,8 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
         out_max <- vapply(data$outliers, max, numeric(1))
       })
 
-      data$ymin_final  <- pmin(out_min, data$ymin)
-      data$ymax_final  <- pmax(out_max, data$ymax)
+      data$ymin_final  <- pmin(out_min, data$ymin, na.rm = TRUE)
+      data$ymax_final  <- pmax(out_max, data$ymax, na.rm = TRUE)
     }
 
     # if `varwidth` not requested or not available, don't use it
@@ -304,6 +304,27 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
       ))
     }
 
+    outliers_grob <- NULL
+    if (!is.null(data$outliers) && length(data$outliers[[1]]) >= 1) {
+      outliers <- data_frame0(
+        y = data$outliers[[1]],
+        x = data$x[1],
+        colour = outlier_gp$colour %||% data$colour[1],
+        fill   = outlier_gp$fill   %||% data$fill[1],
+        shape  = outlier_gp$shape  %||% data$shape[1]  %||% 19,
+        size   = outlier_gp$size   %||% data$size[1]   %||% 1.5,
+        stroke = outlier_gp$stroke %||% data$stroke[1] %||% 0.5,
+        fill = NA,
+        alpha = outlier_gp$alpha %||% data$alpha[1],
+        .size = length(data$outliers[[1]])
+      )
+      outliers <- flip_data(outliers, flipped_aes)
+      outliers_grob <- GeomPoint$draw_panel(outliers, panel_params, coord)
+      if (is.na(data$middle[1]) && is.na(data$lower[1]) && is.na(data$upper[1])) {
+        return(ggname("geom_boxplot", grobTree(outliers_grob)))
+      }
+    }
+
     common <- list(fill = fill_alpha(data$fill, data$alpha), group = data$group)
 
     whiskers <- data_frame0(
@@ -330,26 +351,6 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
       notchwidth = notchwidth
     )
     box <- flip_data(box, flipped_aes)
-
-    if (!is.null(data$outliers) && length(data$outliers[[1]]) >= 1) {
-      outliers <- data_frame0(
-        y = data$outliers[[1]],
-        x = data$x[1],
-        colour = outlier_gp$colour %||% data$colour[1],
-        fill   = outlier_gp$fill   %||% data$fill[1],
-        shape  = outlier_gp$shape  %||% data$shape[1]  %||% 19,
-        size   = outlier_gp$size   %||% data$size[1]   %||% 1.5,
-        stroke = outlier_gp$stroke %||% data$stroke[1] %||% 0.5,
-        fill = NA,
-        alpha = outlier_gp$alpha %||% data$alpha[1],
-        .size = length(data$outliers[[1]])
-      )
-      outliers <- flip_data(outliers, flipped_aes)
-
-      outliers_grob <- GeomPoint$draw_panel(outliers, panel_params, coord)
-    } else {
-      outliers_grob <- NULL
-    }
 
     if (staplewidth != 0) {
       staples <- data_frame0(

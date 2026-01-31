@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* New `stat_boxplot(min.group.n)` argument, which skips drawing the box and 
+  whiskers for small groups (@teunbrand based on code by @dicook, #6776)
 * The `arrow` and `arrow.fill` arguments are now available in 
   `geom_linerange()` and `geom_pointrange()` layers (@teunbrand, #6481).
 * (internal) `zeroGrob()` now returns a `grid::nullGrob()` (#6390).

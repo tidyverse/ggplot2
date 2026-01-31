@@ -40,6 +40,11 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
     }
 
     params$width <- params$width %||% (resolution(data$x %||% 0, discrete = TRUE) * 0.75)
+    check_number_whole(
+      params$min.group.n %||% 1L,
+      min = 1, allow_infinite = TRUE,
+      arg = "min.group.n"
+    )
 
     if (!is_mapped_discrete(data$x) && is.double(data$x) && !has_groups(data) && any(data$x != data$x[1L])) {
       cli::cli_warn(c(
@@ -53,7 +58,7 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
 
   extra_params = c("na.rm", "orientation"),
 
-  compute_group = function(data, scales, width = NULL, na.rm = FALSE, coef = 1.5, flipped_aes = FALSE) {
+  compute_group = function(data, scales, width = NULL, na.rm = FALSE, coef = 1.5, min.group.n = 1L, flipped_aes = FALSE) {
     data <- flip_data(data, flipped_aes)
     qs <- c(0, 0.25, 0.5, 0.75, 1)
 
@@ -66,9 +71,14 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
     names(stats) <- c("ymin", "lower", "middle", "upper", "ymax")
     iqr <- diff(stats[c(2, 4)])
 
-    outliers <- data$y < (stats[2] - coef * iqr) | data$y > (stats[4] + coef * iqr)
-    if (any(outliers)) {
-      stats[c(1, 5)] <- range(c(stats[2:4], data$y[!outliers]), na.rm = TRUE)
+    if (nrow(data) >= min.group.n) {
+      outliers <- data$y < (stats[2] - coef * iqr) | data$y > (stats[4] + coef * iqr)
+      if (any(outliers)) {
+        stats[c(1, 5)] <- range(c(stats[2:4], data$y[!outliers]), na.rm = TRUE)
+      }
+    } else {
+      stats[] <- NA
+      outliers <- rep(TRUE, nrow(data))
     }
     if (length(data$width) > 0L) {
       width <- data$width[1L]
@@ -99,6 +109,10 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
 
 #' @rdname geom_boxplot
 #' @param coef Length of the whiskers as multiple of IQR. Defaults to 1.5.
+#' @param min.group.n An integer setting the minimum size of a group to draw
+#'   the box and whiskers. Groups with less observations will be displayed as
+#'   points styled like outliers without box and whiskers. The default (1) draws
+#'   box and whiskers for all groups.
 #' @inheritParams shared_layer_parameters
 #' @export
 #' @eval rd_computed_vars(
