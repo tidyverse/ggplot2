@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Fixed bug in `width` computation when `position_dodge(preserve = "single")` 
+  had duplicated `order` aesthetic values (@teunbrand, #6775).
 * The `arrow` and `arrow.fill` arguments are now available in 
   `geom_linerange()` and `geom_pointrange()` layers (@teunbrand, #6481).
 * (internal) `zeroGrob()` now returns a `grid::nullGrob()` (#6390).
