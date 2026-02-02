@@ -1,5 +1,5 @@
 
-# ggplot2 (development version)
+# ggplot2 4.0.2
 
 This hotfix release makes ggplot2 more interoperable between rlang versions.
 
