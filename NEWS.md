@@ -140,6 +140,8 @@ polishing the recent features.
     * `header_family` to easily set the font for headers and titles (#5886)
         * To accommodate, `plot.subtitle`, `plot.caption` and `plot.tag` now
           inherit from the root `text` element instead of the `title` element.
+    * The `base_size` argument also propagates to settings in the `theme(geom)`
+      setting.
 * New function family for setting parts of a theme. For example, you can now use
   `theme_sub_axis(line, text, ticks, ticks.length, line)` as a substitute for
   `theme(axis.line, axis.text, axis.ticks, axis.ticks.length, axis.line)`. This
