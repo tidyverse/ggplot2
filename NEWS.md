@@ -1,3 +1,10 @@
+
+# ggplot2 (development version)
+
+This hotfix release makes ggplot2 more interoperable between rlang versions.
+
+* `make_constructor()` no longer captures `rlang::list2()` at build time.
+
 # ggplot2 4.0.1
 
 This is a smaller patch release focussed on fixing regressions from 4.0.0 and 
