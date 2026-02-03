@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">4.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,11 +64,17 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.1/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/tidyverse/ggplot2/blob/v4.0.2/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="4.0.1" id="ggplot2-401">ggplot2 4.0.1<a class="anchor" aria-label="anchor" href="#ggplot2-401"></a></h2>
+<h2 class="pkg-version" data-toc-text="4.0.2" id="ggplot2-402">ggplot2 4.0.2<a class="anchor" aria-label="anchor" href="#ggplot2-402"></a></h2>
+<p>This hotfix release makes ggplot2 more interoperable between rlang versions.</p>
+<ul><li>
+<code><a href="../reference/make_constructor.html">make_constructor()</a></code> no longer captures <code><a href="https://rlang.r-lib.org/reference/list2.html" class="external-link">rlang::list2()</a></code> at build time.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="4.0.1" id="ggplot2-401">ggplot2 4.0.1<a class="anchor" aria-label="anchor" href="#ggplot2-401"></a></h2><p class="text-muted">CRAN release: 2025-11-14</p>
 <p>This is a smaller patch release focussed on fixing regressions from 4.0.0 and polishing the recent features.</p>
 <div class="section level3">
 <h3 id="bug-fixes-4-0-1">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-4-0-1"></a></h3>
@@ -174,6 +180,7 @@
 <code>header_family</code> to easily set the font for headers and titles (<a href="https://github.com/tidyverse/ggplot2/issues/5886" class="external-link">#5886</a>)
 <ul><li>To accommodate, <code>plot.subtitle</code>, <code>plot.caption</code> and <code>plot.tag</code> now inherit from the root <code>text</code> element instead of the <code>title</code> element.</li>
 </ul></li>
+<li>The <code>base_size</code> argument also propagates to settings in the <code>theme(geom)</code> setting.</li>
 </ul></li>
 <li>New function family for setting parts of a theme. For example, you can now use <code>theme_sub_axis(line, text, ticks, ticks.length, line)</code> as a substitute for <code>theme(axis.line, axis.text, axis.ticks, axis.ticks.length, axis.line)</code>. This should allow slightly terser and more organised theme declarations (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5301" class="external-link">#5301</a>).</li>
 <li>Adjustments to margins (<a href="https://github.com/tidyverse/ggplot2/issues/6115" class="external-link">#6115</a>):

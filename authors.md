@@ -37,7 +37,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/tidyverse/ggplot2/blob/v4.0.1/inst/CITATION)
+[`inst/CITATION`](https://github.com/tidyverse/ggplot2/blob/v4.0.2/inst/CITATION)
 
 H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag
 New York, 2016.

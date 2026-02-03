@@ -1,6 +1,18 @@
 # Changelog
 
+## ggplot2 4.0.2
+
+This hotfix release makes ggplot2 more interoperable between rlang
+versions.
+
+- [`make_constructor()`](https://ggplot2.tidyverse.org/reference/make_constructor.md)
+  no longer captures
+  [`rlang::list2()`](https://rlang.r-lib.org/reference/list2.html) at
+  build time.
+
 ## ggplot2 4.0.1
+
+CRAN release: 2025-11-14
 
 This is a smaller patch release focussed on fixing regressions from
 4.0.0 and polishing the recent features.
@@ -248,6 +260,8 @@ CRAN release: 2025-09-11
     - To accommodate, `plot.subtitle`, `plot.caption` and `plot.tag` now
       inherit from the root `text` element instead of the `title`
       element.
+  - The `base_size` argument also propagates to settings in the
+    `theme(geom)` setting.
 - New function family for setting parts of a theme. For example, you can
   now use `theme_sub_axis(line, text, ticks, ticks.length, line)` as a
   substitute for
