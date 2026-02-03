@@ -241,16 +241,14 @@ GeomArea <- ggproto("GeomArea", GeomRibbon,
 #' of x-coordinates. To turn off this interpolation, `stat = "identity"` can
 #' be used instead.
 #'
-#' @eval rd_orientation()
+#' @inheritSection shared_layer_parameters Orientation
 #'
 #' @aesthetics GeomRibbon
 #' @seealso
 #'   [geom_bar()] for discrete intervals (bars),
 #'   [geom_linerange()] for discrete intervals (lines),
 #'   [geom_polygon()] for general polygons
-#' @inheritParams layer
-#' @inheritParams geom_bar
-#' @param linemitre Line mitre limit (number greater than 1).
+#' @inheritParams shared_layer_parameters
 #' @param outline.type Type of the outline of the area; `"both"` draws both the
 #'   upper and lower lines, `"upper"`/`"lower"` draws the respective lines only.
 #'   `"full"` draws a closed polygon around the area.

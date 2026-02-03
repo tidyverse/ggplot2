@@ -4,14 +4,14 @@
 #' @export
 StatYdensity <- ggproto(
   "StatYdensity", Stat,
-  required_aes = c("x", "y"),
+  required_aes = "x|y",
   non_missing_aes = "weight",
 
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = TRUE, group_has_equal = TRUE)
 
     if (!is.null(params$draw_quantiles)) {
-      deprecate_soft0(
+      deprecate(
         "4.0.0",
         what = "stat_ydensity(draw_quantiles)",
         with = "stat_ydensity(quantiles)"
@@ -21,6 +21,12 @@ StatYdensity <- ggproto(
     }
 
     params
+  },
+
+  setup_data = function(self, data, params) {
+    var <- flipped_names(flip = params$flipped_aes)$x
+    data[[var]] <- data[[var]] %||% 0
+    data
   },
 
   # `draw_quantiles` is here for deprecation repair reasons
@@ -128,8 +134,7 @@ StatYdensity <- ggproto(
   dropped_aes = "weight"
 )
 
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @inheritParams stat_density
 #' @param scale if "area" (default), all violins have the same area (before trimming
 #'   the tails). If "count", areas are scaled proportionally to the number of

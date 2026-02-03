@@ -81,7 +81,7 @@ S7::method(`+`, list(class_theme, S7::class_any)) <- function(e1, e2) {
 #' @export
 "%+%" <- function(e1, e2) {
   if (getRversion() >= "4.3.0") {
-    deprecate_soft0("4.0.0", I("<ggplot> %+% x"), I("<ggplot> + x"))
+    deprecate("4.0.0", I("<ggplot> %+% x"), I("<ggplot> + x"))
   }
   add_gg(e1, e2)
 }
@@ -200,6 +200,12 @@ S7::method(update_ggplot, list(class_theme, class_ggplot)) <-
 S7::method(update_ggplot, list(class_coord, class_ggplot)) <-
   function(object, plot, ...) {
     if (!isTRUE(plot@coordinates$default)) {
+
+      if (isTRUE(object$default)) {
+        # We don't let default coords override non-default coords (#6572)
+        return(plot)
+      }
+
       cli::cli_inform(c(
         "Coordinate system already present.",
         i = "Adding new coordinate system, which will replace the existing one."
