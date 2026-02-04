@@ -11,7 +11,7 @@ solution to convert model objects."><meta property="og:image" content="https://g
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">4.0.1.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">4.0.2.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -116,7 +116,7 @@ solution to convert model objects.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   term    contrast null.value estimate std.error statistic adj.p.value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> tension M - L             0   -<span style="color: #BB0000;">10</span>         3.87     -<span style="color: #BB0000;">2.58</span>     0.033<span style="text-decoration: underline;">6</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> tension M - L             0   -<span style="color: #BB0000;">10.0</span>       3.87     -<span style="color: #BB0000;">2.58</span>     0.033<span style="text-decoration: underline;">6</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> tension H - L             0   -<span style="color: #BB0000;">14.7</span>       3.87     -<span style="color: #BB0000;">3.80</span>     0.001<span style="text-decoration: underline;">10</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> tension H - M             0    -<span style="color: #BB0000;">4.72</span>      3.87     -<span style="color: #BB0000;">1.22</span>     0.447  </span>
 <span class="r-in"><span><span class="fu"><a href="fortify.html">fortify</a></span><span class="op">(</span><span class="va">wht</span><span class="op">)</span></span></span>
@@ -135,7 +135,7 @@ solution to convert model objects.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   term    contrast estimate conf.low conf.high</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> tension M - L      -<span style="color: #BB0000;">10</span>       -<span style="color: #BB0000;">19.4</span>    -<span style="color: #BB0000;">0.645</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> tension M - L      -<span style="color: #BB0000;">10.0</span>     -<span style="color: #BB0000;">19.4</span>    -<span style="color: #BB0000;">0.645</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> tension H - L      -<span style="color: #BB0000;">14.7</span>     -<span style="color: #BB0000;">24.1</span>    -<span style="color: #BB0000;">5.37</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> tension H - M       -<span style="color: #BB0000;">4.72</span>    -<span style="color: #BB0000;">14.1</span>     4.63 </span>
 <span class="r-in"><span><span class="fu"><a href="fortify.html">fortify</a></span><span class="op">(</span><span class="va">ci</span><span class="op">)</span></span></span>
@@ -156,7 +156,7 @@ solution to convert model objects.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   term    contrast null.value estimate std.error statistic adj.p.value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> tension M - L             0   -<span style="color: #BB0000;">10</span>         3.87     -<span style="color: #BB0000;">2.58</span>     0.033<span style="text-decoration: underline;">7</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> tension M - L             0   -<span style="color: #BB0000;">10.0</span>       3.87     -<span style="color: #BB0000;">2.58</span>     0.033<span style="text-decoration: underline;">7</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> tension H - L             0   -<span style="color: #BB0000;">14.7</span>       3.87     -<span style="color: #BB0000;">3.80</span>     0.001<span style="text-decoration: underline;">13</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> tension H - M             0    -<span style="color: #BB0000;">4.72</span>      3.87     -<span style="color: #BB0000;">1.22</span>     0.447  </span>
 <span class="r-in"><span><span class="fu"><a href="fortify.html">fortify</a></span><span class="op">(</span><span class="va">smry</span><span class="op">)</span></span></span>
