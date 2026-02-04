@@ -120,3 +120,7 @@ There are two main places to get help with ggplot2:
 [r4ds-comm]: https://r4ds.hadley.nz/communication
 [oreilly]: https://learning.oreilly.com/videos/data-visualization-in/9781491963661/
 [blog]: https://tidyverse.org/tags/ggplot2/
+
+
+
+Ceci est un test de modification pour le TP ENSAI.
