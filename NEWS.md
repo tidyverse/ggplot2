@@ -1,5 +1,6 @@
 # ggplot2 (development version)
 
+* `make_constructor()` no longer captures `rlang::list2()` at build time.
 * The `arrow` and `arrow.fill` arguments are now available in 
   `geom_linerange()` and `geom_pointrange()` layers (@teunbrand, #6481).
 * (internal) `zeroGrob()` now returns a `grid::nullGrob()` (#6390).
@@ -28,6 +29,10 @@
 * New `position_dodge2(group.row)` argument that can be set to `"many"` to
   dodge groups with more than one row, such as in `geom_violin()` 
   (@teunbrand, #6663)
+
+# ggplot2 4.0.2
+
+This hotfix release makes ggplot2 more interoperable between rlang versions.
 
 # ggplot2 4.0.1
 
@@ -164,6 +169,8 @@ polishing the recent features.
     * `header_family` to easily set the font for headers and titles (#5886)
         * To accommodate, `plot.subtitle`, `plot.caption` and `plot.tag` now
           inherit from the root `text` element instead of the `title` element.
+    * The `base_size` argument also propagates to settings in the `theme(geom)`
+      setting.
 * New function family for setting parts of a theme. For example, you can now use
   `theme_sub_axis(line, text, ticks, ticks.length, line)` as a substitute for
   `theme(axis.line, axis.text, axis.ticks, axis.ticks.length, axis.line)`. This

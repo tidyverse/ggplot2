@@ -79,7 +79,7 @@ StatYdensity <- ggproto(
           "{.arg quantiles} for weighted data is not implemented."
         )
       }
-      quants <- quantile(data$y, probs = quantiles)
+      quants <- stats::quantile(data$y, probs = quantiles)
       quants <- data_frame0(
         y = unname(quants),
         quantile = quantiles
@@ -88,7 +88,7 @@ StatYdensity <- ggproto(
       # Interpolate other metrics
       for (var in setdiff(names(dens), names(quants))) {
         quants[[var]] <-
-          approx(dens$y, dens[[var]], xout = quants$y, ties = "ordered")$y
+          stats::approx(dens$y, dens[[var]], xout = quants$y, ties = "ordered")$y
       }
 
       dens <- vec_slice(dens, !dens$y %in% quants$y)

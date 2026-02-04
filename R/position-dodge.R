@@ -150,13 +150,13 @@ PositionDodge <- ggproto("PositionDodge", Position,
     }
 
     data$order <- xtfrm( # xtfrm makes anything 'sortable'
-      data$order %||% ave(data$group, data$x, data$PANEL, FUN = match_sorted)
+      data$order %||% vec_ave(data$group, data[c("x", "PANEL")], fn = match_sorted)
     )
     if (isTRUE(params$reverse)) {
       data$order <- -data$order
     }
     if (is.null(params$n)) { # preserve = "total"
-      data$order <- ave(data$order, data$x, data$PANEL, FUN = match_sorted)
+      data$order <- vec_ave(data$order, data[c("x", "PANEL")], fn = match_sorted)
     } else { # preserve = "single"
       data$order <- match_sorted(data$order)
     }
