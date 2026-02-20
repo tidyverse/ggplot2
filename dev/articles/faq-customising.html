@@ -236,10 +236,10 @@ See example
 </div>
 </details></section><section class="level3"><h3 id="how-can-i-change-the-key-labels-in-the-legend">How can I change the key labels in the legend?<a class="anchor" aria-label="anchor" href="#how-can-i-change-the-key-labels-in-the-legend"></a>
 </h3>
-<p>If you don’t want to change the levels of the variable the legend is being drawn for, you can change the key labels at the time of drawing the plot using the <code>labels</code> argument in the appropriate <code>scale_*()</code> function, e.g. <code><a href="../reference/scale_colour_discrete.html">scale_colour_discrete()</a></code> if the legend is for a discrete variable mapped to the fill aesthetic.</p>
+<p>If you don’t want to change the levels of the variable the legend is being drawn for, you can change the key labels at the time of drawing the plot using the <code>labels</code> argument in the appropriate <code>scale_*()</code> function, e.g. <code><a href="../reference/scale_colour_discrete.html">scale_colour_discrete()</a></code> if the legend is for a discrete variable mapped to the colour aesthetic.</p>
 <details><summary>
 See example
-</summary><p>The <code>labels</code> argument of <code>scale_*</code> functions takes named vectors, which what we would recommend using for relabeling keys in a legend. Using named lists allows you to declare explicitly which label is assigned to which level, without having to keep track of level order.</p>
+</summary><p>The <code>labels</code> argument of <code>scale_*</code> functions takes named vectors, which is what we would recommend using for relabeling keys in a legend. Using named lists allows you to declare explicitly which label is assigned to which level, without having to keep track of level order.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="fu"><a href="../reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hwy</span>, y <span class="op">=</span> <span class="va">cty</span>, color <span class="op">=</span> <span class="va">drv</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>

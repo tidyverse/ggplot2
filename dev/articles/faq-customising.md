@@ -153,12 +153,12 @@ being drawn for, you can change the key labels at the time of drawing
 the plot using the `labels` argument in the appropriate `scale_*()`
 function,
 e.g. [`scale_colour_discrete()`](https://ggplot2.tidyverse.org/dev/reference/scale_colour_discrete.md)
-if the legend is for a discrete variable mapped to the fill aesthetic.
+if the legend is for a discrete variable mapped to the colour aesthetic.
 
 See example
 
 The `labels` argument of `scale_*` functions takes named vectors, which
-what we would recommend using for relabeling keys in a legend. Using
+is what we would recommend using for relabeling keys in a legend. Using
 named lists allows you to declare explicitly which label is assigned to
 which level, without having to keep track of level order.
 
