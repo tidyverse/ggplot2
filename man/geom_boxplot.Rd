@@ -53,7 +53,7 @@ stat_boxplot(
   ...,
   orientation = NA,
   coef = 1.5,
-  quantile_type = 7,
+  quantile.type = 7,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -182,7 +182,7 @@ overriding these connections, see how the \link[=layer_stats]{stat} and
 
 \item{coef}{Length of the whiskers as multiple of IQR. Defaults to 1.5.}
 
-\item{quantile_type}{Passed to \code{stats::quantile(type = )}, defaults to \code{7}}
+\item{quantile.type}{Passed to \code{stats::quantile(type = )}, defaults to \code{7}}
 }
 \description{
 The boxplot compactly displays the distribution of a continuous variable.
