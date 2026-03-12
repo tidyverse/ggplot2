@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* `geom_boxplot()`/`stat_boxplot()` gain a `quantile.type` parameter (default `7`) 
+   to control the percentile definition used for hinges and median; set `quantile.type = 2` 
+   to match SAS's default `PCTLDEF = 5`, enabling parity with SAS boxplots out-of-the-box. 
+   (@munoztd0, #6819)
 * `make_constructor()` no longer captures `rlang::list2()` at build time.
 * The `arrow` and `arrow.fill` arguments are now available in 
   `geom_linerange()` and `geom_pointrange()` layers (@teunbrand, #6481).
