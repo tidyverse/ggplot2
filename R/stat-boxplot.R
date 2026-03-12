@@ -53,7 +53,7 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
 
   extra_params = c("na.rm", "orientation"),
 
-  compute_group = function(data, scales, width = NULL, na.rm = FALSE, coef = 1.5, flipped_aes = FALSE, quantile_type = 7) {
+  compute_group = function(data, scales, width = NULL, na.rm = FALSE, coef = 1.5, flipped_aes = FALSE, quantile.type = 7) {
     data <- flip_data(data, flipped_aes)
     qs <- c(0, 0.25, 0.5, 0.75, 1)
 
@@ -62,7 +62,7 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
       stats <- as.numeric(stats::coef(mod))
     } else {
       # Follow base R default (type = 7) unless overridden by user
-      stats <- as.numeric(stats::quantile(data$y, qs, type = quantile_type))
+      stats <- as.numeric(stats::quantile(data$y, qs, type = quantile.type))
     }
     names(stats) <- c("ymin", "lower", "middle", "upper", "ymax")
     iqr <- diff(stats[c(2, 4)])
@@ -100,7 +100,7 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
 
 #' @rdname geom_boxplot
 #' @param coef Length of the whiskers as multiple of IQR. Defaults to 1.5.
-#' @param quantile_type Passed to `stats::quantile(type = )`, defaults to `7`
+#' @param quantile.type Passed to `stats::quantile(type = )`, defaults to `7`
 #' @inheritParams shared_layer_parameters
 #' @export
 #' @eval rd_computed_vars(
