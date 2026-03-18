@@ -128,6 +128,7 @@ and two whiskers), and all "outlying" points individually.</p>
 <span>  <span class="va">...</span>,</span>
 <span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  coef <span class="op">=</span> <span class="fl">1.5</span>,</span>
+<span>  quantile.type <span class="op">=</span> <span class="fl">7</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  inherit.aes <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -292,6 +293,11 @@ overriding these connections, see how the <a href="layer_stats.html">stat</a> an
 
 <dt id="arg-coef">coef<a class="anchor" aria-label="anchor" href="#arg-coef"></a></dt>
 <dd><p>Length of the whiskers as multiple of IQR. Defaults to 1.5.</p></dd>
+
+
+<dt id="arg-quantile-type">quantile.type<a class="anchor" aria-label="anchor" href="#arg-quantile-type"></a></dt>
+<dd><p>An integer between 1 and 9 setting the quantile algorithm
+per <code><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">stats::quantile(type)</a></code>. Defaults to <code>7</code></p></dd>
 
 </dl></div>
     <div class="section level2">

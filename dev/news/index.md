@@ -2,6 +2,13 @@
 
 ## ggplot2 (development version)
 
+- [`geom_boxplot()`](https://ggplot2.tidyverse.org/dev/reference/geom_boxplot.md)/[`stat_boxplot()`](https://ggplot2.tidyverse.org/dev/reference/geom_boxplot.md)
+  gain a `quantile.type` parameter (default `7`) to control the
+  percentile definition used for hinges and median; set
+  `quantile.type = 2` to match SAS’s default `PCTLDEF = 5`, enabling
+  parity with SAS boxplots out-of-the-box.
+  ([@munoztd0](https://github.com/munoztd0),
+  [\#6819](https://github.com/tidyverse/ggplot2/issues/6819))
 - [`make_constructor()`](https://ggplot2.tidyverse.org/dev/reference/make_constructor.md)
   no longer captures
   [`rlang::list2()`](https://rlang.r-lib.org/reference/list2.html) at

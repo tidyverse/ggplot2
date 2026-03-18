@@ -43,8 +43,8 @@ tidy(wht) # recommended
 #> # A tibble: 3 × 7
 #>   term    contrast null.value estimate std.error statistic adj.p.value
 #>   <chr>   <chr>         <dbl>    <dbl>     <dbl>     <dbl>       <dbl>
-#> 1 tension M - L             0   -10.0       3.87     -2.58     0.0336 
-#> 2 tension H - L             0   -14.7       3.87     -3.80     0.00110
+#> 1 tension M - L             0   -10         3.87     -2.58     0.0336 
+#> 2 tension H - L             0   -14.7       3.87     -3.80     0.00111
 #> 3 tension H - M             0    -4.72      3.87     -1.22     0.447  
 fortify(wht)
 #> Warning: `fortify(<glht>)` was deprecated in ggplot2 4.0.0.
@@ -62,16 +62,16 @@ tidy(ci) # recommended
 #> # A tibble: 3 × 5
 #>   term    contrast estimate conf.low conf.high
 #>   <chr>   <chr>       <dbl>    <dbl>     <dbl>
-#> 1 tension M - L      -10.0     -19.4    -0.645
+#> 1 tension M - L      -10       -19.4    -0.648
 #> 2 tension H - L      -14.7     -24.1    -5.37 
 #> 3 tension H - M       -4.72    -14.1     4.63 
 fortify(ci)
 #> Warning: `fortify(<confint.glht>)` was deprecated in ggplot2 4.0.0.
 #> ℹ Please use `broom::tidy(<confint.glht>)` instead.
 #>         lhs rhs   estimate       lwr        upr
-#> M - L M - L   0 -10.000000 -19.35506 -0.6449368
-#> H - L H - L   0 -14.722222 -24.07729 -5.3671590
-#> H - M H - M   0  -4.722222 -14.07729  4.6328410
+#> M - L M - L   0 -10.000000 -19.35230 -0.6476956
+#> H - L H - L   0 -14.722222 -24.07453 -5.3699178
+#> H - M H - M   0  -4.722222 -14.07453  4.6300822
 
 ggplot(tidy(confint(wht)),
        aes(contrast, estimate, ymin = conf.low, ymax = conf.high)) +
@@ -83,16 +83,16 @@ tidy(smry) # recommended
 #> # A tibble: 3 × 7
 #>   term    contrast null.value estimate std.error statistic adj.p.value
 #>   <chr>   <chr>         <dbl>    <dbl>     <dbl>     <dbl>       <dbl>
-#> 1 tension M - L             0   -10.0       3.87     -2.58     0.0337 
-#> 2 tension H - L             0   -14.7       3.87     -3.80     0.00113
+#> 1 tension M - L             0   -10         3.87     -2.58     0.0335 
+#> 2 tension H - L             0   -14.7       3.87     -3.80     0.00114
 #> 3 tension H - M             0    -4.72      3.87     -1.22     0.447  
 fortify(smry)
 #> Warning: `fortify(<summary.glht>)` was deprecated in ggplot2 4.0.0.
 #> ℹ Please use `broom::tidy(<summary.glht>)` instead.
-#>         lhs rhs   estimate       se         t           p
-#> M - L M - L   0 -10.000000 3.872378 -2.582393 0.033655435
-#> H - L H - L   0 -14.722222 3.872378 -3.801856 0.001128998
-#> H - M H - M   0  -4.722222 3.872378 -1.219463 0.447434894
+#>         lhs rhs   estimate       se         t          p
+#> M - L M - L   0 -10.000000 3.872378 -2.582393 0.03353428
+#> H - L H - L   0 -14.722222 3.872378 -3.801856 0.00114445
+#> H - M H - M   0  -4.722222 3.872378 -1.219463 0.44739006
 
 ggplot(mapping = aes(contrast, estimate)) +
    geom_linerange(aes(ymin = conf.low, ymax = conf.high), data = tidy(ci)) +
