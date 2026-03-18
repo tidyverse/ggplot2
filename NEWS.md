@@ -2,6 +2,10 @@
 
 * Adapt to changes in `rlang::warn_dots_used()` (@lionel-, #6830).
 * Fixed bug where `guide_axis_theta()` didn't anticipate old-style text elements (#6803).
+* `geom_boxplot()`/`stat_boxplot()` gain a `quantile.type` parameter (default `7`) 
+   to control the percentile definition used for hinges and median; set `quantile.type = 2` 
+   to match SAS's default `PCTLDEF = 5`, enabling parity with SAS boxplots out-of-the-box. 
+   (@munoztd0, #6819)
 
 # ggplot2 4.0.2
 
