@@ -182,7 +182,8 @@ overriding these connections, see how the \link[=layer_stats]{stat} and
 
 \item{coef}{Length of the whiskers as multiple of IQR. Defaults to 1.5.}
 
-\item{quantile.type}{Passed to \code{stats::quantile(type = )}, defaults to \code{7}}
+\item{quantile.type}{An integer between 1 and 9 setting the quantile algorithm
+per \code{\link[stats:quantile]{stats::quantile(type)}}. Defaults to \code{7}}
 }
 \description{
 The boxplot compactly displays the distribution of a continuous variable.

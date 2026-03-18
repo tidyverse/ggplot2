@@ -100,7 +100,8 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
 
 #' @rdname geom_boxplot
 #' @param coef Length of the whiskers as multiple of IQR. Defaults to 1.5.
-#' @param quantile.type Passed to `stats::quantile(type = )`, defaults to `7`
+#' @param quantile.type An integer between 1 and 9 setting the quantile algorithm
+#'   per [`stats::quantile(type)`][stats::quantile]. Defaults to `7`
 #' @inheritParams shared_layer_parameters
 #' @export
 #' @eval rd_computed_vars(

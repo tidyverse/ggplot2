@@ -68,7 +68,6 @@
 #'   `TRUE`, boxes are drawn with widths proportional to the
 #'   square-roots of the number of observations in the groups (possibly
 #'   weighted, using the `weight` aesthetic).
-#' @param quantile.type Passed to `stats::quantile(type = )`, defaults to `7`
 #' @note In the unlikely event you specify both US and UK spellings of colour,
 #'   the US spelling will take precedence.
 #'
