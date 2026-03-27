@@ -42,12 +42,43 @@ This is primarily used for aligning points generated through
 \code{geom_point()} with dodged boxplots (e.g., a \code{geom_boxplot()} with
 a fill aesthetic supplied).
 }
+\section{Dodge grouping}{
+
+When a \code{fill} aesthetic is present and discrete, \code{position_jitterdodge()}
+uses it to determine dodge grouping. This ensures points align with dodged
+boxplots even when additional discrete aesthetics like \code{colour} are mapped,
+which would otherwise inflate the implicit group (see \link{aes_group_order}).
+
+If no discrete \code{fill} is present, dodging falls back to the standard
+\code{group} aesthetic. You can always override grouping explicitly with
+\code{aes(group = ...)}.
+}
+
 \examples{
 set.seed(596)
 dsub <- diamonds[sample(nrow(diamonds), 1000), ]
 ggplot(dsub, aes(x = cut, y = carat, fill = clarity)) +
   geom_boxplot(outlier.size = 0) +
   geom_point(pch = 21, position = position_jitterdodge())
+
+# Additional discrete aesthetics like colour no longer misalign
+# points with boxes — dodge grouping is inferred from fill:
+\donttest{
+set.seed(596)
+df <- data.frame(
+  x = rep(c("A", "B"), each = 20),
+  y = rnorm(40),
+  fill_var = rep(c("g1", "g2"), 20),
+  colour_var = sample(c(TRUE, FALSE), 40, replace = TRUE)
+)
+
+ggplot(df, aes(x, y, fill = fill_var)) +
+  geom_boxplot(outlier.shape = NA) +
+  geom_point(
+    aes(colour = colour_var),
+    position = position_jitterdodge()
+  )
+}
 }
 \seealso{
 Other position adjustments: 

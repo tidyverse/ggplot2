@@ -12,6 +12,17 @@
 #'   the default `position_dodge()` width.
 #' @inheritParams position_jitter
 #' @inheritParams position_dodge
+#'
+#' @section Dodge grouping:
+#' When a `fill` aesthetic is present and discrete, `position_jitterdodge()`
+#' uses it to determine dodge grouping. This ensures points align with dodged
+#' boxplots even when additional discrete aesthetics like `colour` are mapped,
+#' which would otherwise inflate the implicit group (see [aes_group_order]).
+#'
+#' If no discrete `fill` is present, dodging falls back to the standard
+#' `group` aesthetic. You can always override grouping explicitly with
+#' `aes(group = ...)`.
+#'
 #' @export
 #' @examples
 #' set.seed(596)
@@ -19,6 +30,25 @@
 #' ggplot(dsub, aes(x = cut, y = carat, fill = clarity)) +
 #'   geom_boxplot(outlier.size = 0) +
 #'   geom_point(pch = 21, position = position_jitterdodge())
+#'
+#' # Additional discrete aesthetics like colour no longer misalign
+#' # points with boxes — dodge grouping is inferred from fill:
+#' \donttest{
+#' set.seed(596)
+#' df <- data.frame(
+#'   x = rep(c("A", "B"), each = 20),
+#'   y = rnorm(40),
+#'   fill_var = rep(c("g1", "g2"), 20),
+#'   colour_var = sample(c(TRUE, FALSE), 40, replace = TRUE)
+#' )
+#'
+#' ggplot(df, aes(x, y, fill = fill_var)) +
+#'   geom_boxplot(outlier.shape = NA) +
+#'   geom_point(
+#'     aes(colour = colour_var),
+#'     position = position_jitterdodge()
+#'   )
+#' }
 position_jitterdodge <- function(jitter.width = NULL, jitter.height = 0,
                                  dodge.width = 0.75, reverse = FALSE,
                                  preserve = "total",
@@ -36,6 +66,15 @@ position_jitterdodge <- function(jitter.width = NULL, jitter.height = 0,
     reverse = reverse,
     seed = seed
   )
+}
+
+# Infer dodge grouping from fill when available, so points align with
+# dodged boxplots even when additional discrete aesthetics are present.
+jitterdodge_dodge_group <- function(data) {
+  if ("fill" %in% names(data) && is_discrete(data[["fill"]])) {
+    return(id(data["fill"], drop = TRUE))
+  }
+  data$group
 }
 
 #' @rdname Position
@@ -57,10 +96,14 @@ PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
     data <- flip_data(data, flipped_aes)
     width <- self$jitter.width %||% (resolution(data$x, zero = FALSE, TRUE) * 0.4)
 
+    dodge_group <- jitterdodge_dodge_group(data)
+
     if (identical(self$preserve, "total")) {
       n <- NULL
     } else {
-      n <- vec_unique(data[c("group", "PANEL", "x")])
+      dodge_data <- data
+      dodge_data$group <- dodge_group
+      n <- vec_unique(dodge_data[c("group", "PANEL", "x")])
       n <- vec_group_id(n[c("PANEL", "x")])
       n <- max(tabulate(n, attr(n, "n")))
     }
@@ -77,11 +120,17 @@ PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
   },
 
   setup_data = function(self, data, params) {
-    PositionDodge$setup_data(data = data, params = params)
+    original_group <- data$group
+    data$group <- jitterdodge_dodge_group(data)
+    data <- PositionDodge$setup_data(data = data, params = params)
+    data$group <- original_group
+    data
   },
 
   compute_panel = function(data, params, scales) {
     data <- flip_data(data, params$flipped_aes)
+    original_group <- data$group
+    data$group <- jitterdodge_dodge_group(data)
     data <- collide(
       data,
       params$dodge.width,
@@ -91,6 +140,7 @@ PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
       check.width = FALSE,
       reverse = !params$reverse # for consistency with `position_dodge2()`
     )
+    data$group <- original_group
     data <- flip_data(data, params$flipped_aes)
     compute_jitter(data, params$jitter.width, params$jitter.height, params$seed)
   }
