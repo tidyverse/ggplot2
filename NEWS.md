@@ -3,7 +3,7 @@
 * `position_jitterdodge()` now infers dodge grouping from the `fill`
   aesthetic when present, so points align correctly with dodged boxplots
   even when additional discrete aesthetics like `colour` are mapped
-  (@Jesssullivan, #XXXX).
+  (@Jesssullivan, #6824).
 * `geom_boxplot()`/`stat_boxplot()` gain a `quantile.type` parameter (default `7`) 
    to control the percentile definition used for hinges and median; set `quantile.type = 2` 
    to match SAS's default `PCTLDEF = 5`, enabling parity with SAS boxplots out-of-the-box. 
