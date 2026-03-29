@@ -18,7 +18,8 @@ template:
       data-project-name="ggplot2"
       data-modal-title="tidyverse AI ✨"
       data-project-logo="https://avatars.githubusercontent.com/u/22032646?s=200&u=235532df5cf8543246812f73db051b793f868807&v=4"
-      data-user-analytics-fingerprint-enabled="true"
+      data-user-analytics-fingerprint-enabled="false"
+      data-user-analytics-cookie-enabled="false"
       data-bot-protection-mechanism="hcaptcha"
       data-website-id="5dcac24a-bd5a-4874-9f5b-3341afddd8c3"
       ></script>
