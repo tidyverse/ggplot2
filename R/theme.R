@@ -1,4 +1,4 @@
-#' Modify components of a theme
+#' Modify and customize components of a theme including axis titles, legend positioning, margins, and layout elements.
 #'
 #' Themes are a powerful way to customize the non-data components of your plots:
 #' i.e. titles, labels, fonts, background, gridlines, and legends. Themes can be
