@@ -128,6 +128,18 @@ theme_sub_legend <- function(
 }
 
 #' @export
+#' @describeIn subtheme Theme specification for palettes.
+theme_sub_palette <- function(..., colour.continuous, colour.discrete,
+                              fill.continuous, fill.discrete, alpha.continuous,
+                              alpha.discrete, linewidth.continuous,
+                              linewidth.discrete, size.continuous,
+                              size.discrete, shape.continuous, shape.discrete,
+                              linetype.continuous, linetype.discrete) {
+  warn_dots_empty()
+  subtheme(find_args(), "palette.")
+}
+
+#' @export
 #' @describeIn subtheme Theme specification for the panels.
 theme_sub_panel <- function(..., background, border,
                             widths, heights, spacing, spacing.x, spacing.y,

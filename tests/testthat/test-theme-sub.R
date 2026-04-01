@@ -13,6 +13,8 @@ test_that("subtheme functions rename arguments as intended", {
   expect_equal(theme_sub_axis_left(ticks = line),   theme(axis.ticks.y.left = line))
   expect_equal(theme_sub_axis_right(ticks = line),  theme(axis.ticks.y.right = line))
   expect_equal(theme_sub_legend(key = rect),        theme(legend.key = rect))
+  expect_equal(theme_sub_palette(fill.discrete = c()),
+                                                    theme(palette.fill.discrete = c()))
   expect_equal(theme_sub_panel(border = rect),      theme(panel.border = rect))
   expect_equal(theme_sub_plot(background = rect),   theme(plot.background = rect))
   expect_equal(theme_sub_strip(background = rect),  theme(strip.background = rect))
@@ -41,6 +43,7 @@ test_that("theme elements are covered in `theme_sub_*()` functions", {
   fmls <- c(fmls, paste0("axis.",   fn_fmls_names(theme_sub_axis_right), ".y.right"))
   fmls <- c(fmls, paste0("legend.", fn_fmls_names(theme_sub_legend)))
   fmls <- c(fmls, paste0("plot.",   fn_fmls_names(theme_sub_plot)))
+  fmls <- c(fmls, paste0("palette.",fn_fmls_names(theme_sub_palette)))
   fmls <- c(fmls, paste0("panel.",  fn_fmls_names(theme_sub_panel)))
   fmls <- c(fmls, paste0("strip.",  fn_fmls_names(theme_sub_strip)))
 

@@ -10,6 +10,7 @@
 \alias{theme_sub_axis_left}
 \alias{theme_sub_axis_right}
 \alias{theme_sub_legend}
+\alias{theme_sub_palette}
 \alias{theme_sub_panel}
 \alias{theme_sub_plot}
 \alias{theme_sub_strip}
@@ -122,6 +123,24 @@ theme_sub_legend(
   box.spacing
 )
 
+theme_sub_palette(
+  ...,
+  colour.continuous,
+  colour.discrete,
+  fill.continuous,
+  fill.discrete,
+  alpha.continuous,
+  alpha.discrete,
+  linewidth.continuous,
+  linewidth.discrete,
+  size.continuous,
+  size.discrete,
+  shape.continuous,
+  shape.discrete,
+  linetype.continuous,
+  linetype.discrete
+)
+
 theme_sub_panel(
   ...,
   background,
@@ -205,6 +224,8 @@ keeping theme declarations more organised.
 \item \code{theme_sub_axis_right()}: Theme specification for the right y axis.
 
 \item \code{theme_sub_legend()}: Theme specification for the legend.
+
+\item \code{theme_sub_palette()}: Theme specification for palettes.
 
 \item \code{theme_sub_panel()}: Theme specification for the panels.
 
