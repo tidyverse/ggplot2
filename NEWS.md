@@ -33,6 +33,10 @@
 * New `position_dodge2(group.row)` argument that can be set to `"many"` to
   dodge groups with more than one row, such as in `geom_violin()` 
   (@teunbrand, #6663)
+* `palette.{aes}.discrete` and `palette.{aes}.continuous` are now documented
+  in `theme()` and have a new helper `theme_sub_palette()`.
+  `strip.position.x` and `strip.position.y` are also documented and work
+  with `theme_sub_strip()` (@arcresu, #6829).
 
 # ggplot2 4.0.2
 
