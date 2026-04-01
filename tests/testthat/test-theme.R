@@ -696,7 +696,7 @@ test_that("legends are placed correctly when using stretchy spacing", {
 
 test_that("all theme elements are documented", {
   all_elems <- names(.element_tree)
-  doc_fmls <- rlang::fn_fmls_names(theme)
+  doc_fmls <- fn_fmls_names(theme)
   missing_elems <- setdiff(all_elems, doc_fmls)
 
   expect(length(missing_elems) == 0, c(
