@@ -173,7 +173,7 @@ subtheme_param_doc <- function() {
   funs <- list(
     theme_sub_axis, theme_sub_axis_x, theme_sub_axis_y, theme_sub_axis_bottom,
     theme_sub_axis_top, theme_sub_axis_left, theme_sub_axis_right, theme_sub_legend,
-    theme_sub_panel, theme_sub_plot, theme_sub_strip
+    theme_sub_panel, theme_sub_plot, theme_sub_strip, theme_sub_palette
   )
   args <- sort(unique(unlist(lapply(funs, fn_fmls_names), use.names = FALSE)))
   args <- setdiff(args, "...")
