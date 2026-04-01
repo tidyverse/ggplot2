@@ -693,3 +693,14 @@ test_that("legends are placed correctly when using stretchy spacing", {
     p + theme(legend.position = "top", legend.spacing.x = unit(1, "null"))
   )
 })
+
+test_that("all theme elements are documented", {
+  all_elems <- names(.element_tree)
+  doc_fmls <- rlang::fn_fmls_names(theme)
+  missing_elems <- setdiff(all_elems, doc_fmls)
+
+  expect(length(missing_elems) == 0, c(
+    "Expected all elements in `.element_tree` to have corresponding parameters in `theme()`.",
+    sprintf("Element is missing from theme(): %s", paste(missing_elems))
+  ))
+})
