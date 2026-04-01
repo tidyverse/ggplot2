@@ -132,6 +132,21 @@
 #' @param legend.box.spacing The spacing between the plotting area and the
 #'   legend box (`unit`); inherits from `spacing`.
 #'
+#' @param palette.colour.discrete,palette.colour.continuous,palette.fill.discrete,palette.fill.continuous
+#'   default palettes for the colour and fill aesthetics to use for discrete or
+#'   continuous data. Can be a character vector of colours or a palette function
+#'   such as [scales::pal_hue()]. `palette.fill.discrete` inherits from
+#'   palette.colour.discrete` and `palette.fill.continuous` inherits from
+#'   `palette.colour.continuous`.
+#' @param palette.alpha.discrete,palette.linewidth.discrete,palette.size.discrete,palette.shape.discrete,palette.linetype.discrete
+#'   default palette to use for discrete scales for the corresponding aesthetic.
+#'   See the `palette` parameter of [discrete_scale()] and
+#'   `vignette("ggplot2-specs")` for allowed values.
+#' @param palette.alpha.continuous,palette.linewidth.continuous,palette.size.continuous,palette.shape.continuous,palette.linetype.continuous
+#'   default palette to use for continuous scales for the corresponding aesthetic.
+#'   See the `palette` parameter of [continuous_scale()] and
+#'   `vignette("ggplot2-specs")` for allowed values.
+#'
 #' @param panel.background background of plotting area, drawn underneath plot
 #'   ([element_rect()]; inherits from `rect`)
 #' @param panel.border border around plotting area, drawn on top of plot so that
@@ -446,6 +461,20 @@ theme <- function(...,
                   legend.box.margin,
                   legend.box.background,
                   legend.box.spacing,
+                  palette.colour.discrete,
+                  palette.colour.continuous,
+                  palette.fill.discrete,
+                  palette.fill.continuous,
+                  palette.alpha.discrete,
+                  palette.alpha.continuous,
+                  palette.linewidth.discrete,
+                  palette.linewidth.continuous,
+                  palette.size.discrete,
+                  palette.size.continuous,
+                  palette.shape.discrete,
+                  palette.shape.continuous,
+                  palette.linetype.discrete,
+                  palette.linetype.continuous,
                   panel.background,
                   panel.border,
                   panel.spacing,

@@ -111,6 +111,20 @@ theme(
   legend.box.margin,
   legend.box.background,
   legend.box.spacing,
+  palette.colour.discrete,
+  palette.colour.continuous,
+  palette.fill.discrete,
+  palette.fill.continuous,
+  palette.alpha.discrete,
+  palette.alpha.continuous,
+  palette.linewidth.discrete,
+  palette.linewidth.continuous,
+  palette.size.discrete,
+  palette.size.continuous,
+  palette.shape.discrete,
+  palette.shape.continuous,
+  palette.linetype.discrete,
+  palette.linetype.continuous,
   panel.background,
   panel.border,
   panel.spacing,
@@ -302,6 +316,19 @@ inherits from \code{rect})}
 
 \item{legend.box.spacing}{The spacing between the plotting area and the
 legend box (\code{unit}); inherits from \code{spacing}.}
+
+\item{palette.colour.discrete, palette.colour.continuous, palette.fill.discrete, palette.fill.continuous}{default palettes for the colour and fill aesthetics to use for discrete or
+continuous data. Can be a character vector of colours or a palette function
+such as \code{\link[scales:pal_hue]{scales::pal_hue()}}. \code{palette.fill.discrete} inherits from
+palette.colour.discrete\code{and}palette.fill.continuous\verb{inherits from}palette.colour.continuous`.}
+
+\item{palette.alpha.discrete, palette.linewidth.discrete, palette.size.discrete, palette.shape.discrete, palette.linetype.discrete}{default palette to use for discrete scales for the corresponding aesthetic.
+See the \code{palette} parameter of \code{\link[=discrete_scale]{discrete_scale()}} and
+\code{vignette("ggplot2-specs")} for allowed values.}
+
+\item{palette.alpha.continuous, palette.linewidth.continuous, palette.size.continuous, palette.shape.continuous, palette.linetype.continuous}{default palette to use for continuous scales for the corresponding aesthetic.
+See the \code{palette} parameter of \code{\link[=continuous_scale]{continuous_scale()}} and
+\code{vignette("ggplot2-specs")} for allowed values.}
 
 \item{panel.background}{background of plotting area, drawn underneath plot
 (\code{\link[=element_rect]{element_rect()}}; inherits from \code{rect})}
