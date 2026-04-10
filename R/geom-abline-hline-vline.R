@@ -74,7 +74,9 @@ geom_abline <- function(mapping = NULL, data = NULL,
                         intercept,
                         na.rm = FALSE,
                         show.legend = NA,
-                        inherit.aes = FALSE) {
+                        inherit.aes = NULL) {
+
+  inherit.aes <- inherit.aes %||% (missing(slope) && missing(intercept))
 
   # If nothing set, default to y = x
   if (is.null(mapping) && missing(slope) && missing(intercept)) {
@@ -129,7 +131,10 @@ geom_hline <- function(mapping = NULL, data = NULL,
                        yintercept,
                        na.rm = FALSE,
                        show.legend = NA,
-                       inherit.aes = FALSE) {
+                       inherit.aes = NULL) {
+
+    # if NJLL default is based on if xintercept is missing 
+  inherit.aes <- inherit.aes %||% missing(yintercept)
 
   # Act like an annotation
   if (!missing(yintercept)) {
@@ -169,7 +174,10 @@ geom_vline <- function(mapping = NULL, data = NULL,
                        xintercept,
                        na.rm = FALSE,
                        show.legend = NA,
-                       inherit.aes = FALSE) {
+                       inherit.aes = NULL) {
+
+    # if NJLL default is based on if xintercept is missing 
+    inherit.aes <- inherit.aes %||% missing(xintercept)
 
   # Act like an annotation
   if (!missing(xintercept)) {
