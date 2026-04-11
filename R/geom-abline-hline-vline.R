@@ -74,9 +74,7 @@ geom_abline <- function(mapping = NULL, data = NULL,
                         intercept,
                         na.rm = FALSE,
                         show.legend = NA,
-                        inherit.aes = NULL) {
-
-  inherit.aes <- inherit.aes %||% (missing(slope) && missing(intercept))
+                        inherit.aes = FALSE) {
 
   # If nothing set, default to y = x
   if (is.null(mapping) && missing(slope) && missing(intercept)) {
