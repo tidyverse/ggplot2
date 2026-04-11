@@ -301,11 +301,11 @@ news:
   - text: "Version 3.3.0"
     href: https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/
   - text: "Version 3.2.0"
-    href: https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/
+    href: https://www.tidyverse.org/blog/2019/06/ggplot2-3-2-0/
   - text: "Version 3.1.0"
-    href: https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/
+    href: https://www.tidyverse.org/blog/2018/10/ggplot2-3-1-0/
   - text: "Version 3.0.0"
-    href: https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/
+    href: https://www.tidyverse.org/blog/2018/07/ggplot2-3-0-0/
   - text: "Version 2.2.0"
     href: https://posit.co/blog/ggplot2-2-2-0/
   - text: "Version 2.1.0"
