@@ -114,10 +114,10 @@ continuous_scale <- function(aesthetics, scale_name = deprecated(), palette, nam
                              super = ScaleContinuous) {
   call <- call %||% current_call()
   if (lifecycle::is_present(scale_name)) {
-    deprecate_soft0("3.5.0", "continuous_scale(scale_name)")
+    deprecate("3.5.0", "continuous_scale(scale_name)")
   }
   if (lifecycle::is_present(trans)) {
-    deprecate_soft0("3.5.0", "continuous_scale(trans)", "continuous_scale(transform)")
+    deprecate("3.5.0", "continuous_scale(trans)", "continuous_scale(transform)")
     transform <- trans
   }
 
@@ -224,7 +224,7 @@ discrete_scale <- function(aesthetics, scale_name = deprecated(), palette, name 
                            super = ScaleDiscrete) {
   call <- call %||% current_call()
   if (lifecycle::is_present(scale_name)) {
-    deprecate_soft0("3.5.0", "discrete_scale(scale_name)")
+    deprecate("3.5.0", "discrete_scale(scale_name)")
   }
 
   aesthetics <- standardise_aes_names(aesthetics)
@@ -321,10 +321,10 @@ binned_scale <- function(aesthetics, scale_name = deprecated(), palette, name = 
                          call = caller_call(),
                          super = ScaleBinned) {
   if (lifecycle::is_present(scale_name)) {
-    deprecate_soft0("3.5.0", "binned_scale(scale_name)")
+    deprecate("3.5.0", "binned_scale(scale_name)")
   }
   if (lifecycle::is_present(trans)) {
-    deprecate_soft0("3.5.0", "binned_scale(trans)", "binned_scale(transform)")
+    deprecate("3.5.0", "binned_scale(trans)", "binned_scale(transform)")
     transform <- trans
   }
 
@@ -1793,11 +1793,6 @@ check_continuous_limits <- function(limits, ...,
   }
   check_numeric(limits, arg = arg, call = call, allow_na = TRUE)
   check_length(limits, 2L, arg = arg, call = call)
-}
-
-allow_lambda <- function(x) {
-  # we check the 'call' class to prevent interpreting `bquote()` calls as a function
-  if (is_formula(x, lhs = FALSE) && !inherits(x, "call")) as_function(x) else x
 }
 
 validate_fallback_palette <- function(pal, fallback, aesthetic = "x",

@@ -15,8 +15,7 @@ NULL
 #'   typically be created using [fortify()] on a spatial object.
 #'   It must contain columns `x` or `long`, `y` or
 #'   `lat`, and `region` or `id`.
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @examples
 #' # First, a made-up example containing a few polygons, to explain
 #' # how `geom_map()` works. It requires two data frames:

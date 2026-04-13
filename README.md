@@ -35,7 +35,7 @@ pak::pak("tidyverse/ggplot2")
 
 ## Cheatsheet
 
-<a href="https://github.com/rstudio/cheatsheets/blob/master/data-visualization.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-visualization-cheatsheet-thumbs.png" width="630" height="252" alt="ggplot2 cheatsheet" /></a>
+<a href="https://github.com/rstudio/cheatsheets/blob/main/data-visualization.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/main/pngs/thumbnails/data-visualization-cheatsheet-thumbs.png" width="630" height="252" alt="ggplot2 cheatsheet" /></a>
 
 ## Usage
 
@@ -59,7 +59,7 @@ ggplot(mpg, aes(displ, hwy, colour = class)) +
 
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 
-ggplot2 is now over 10 years old and is used by hundreds of thousands of
+ggplot2 is now 18 years old and is used by hundreds of thousands of
 people to make millions of plots. That means, by-and-large, ggplot2
 itself changes relatively little. When we do make changes, they will be
 generally to add new functions or arguments rather than changing the

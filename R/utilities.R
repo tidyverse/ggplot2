@@ -73,6 +73,11 @@ check_required_aesthetics <- function(required, present, name, call = caller_env
   )
 }
 
+allow_lambda <- function(x) {
+  # we check the 'call' class to prevent interpreting `bquote()` calls as a function
+  if (is_formula(x, lhs = FALSE) && !inherits(x, "call")) as_function(x) else x
+}
+
 # Concatenate a named list for output
 # Print a `list(a=1, b=2)` as `(a=1, b=2)`
 #
@@ -212,7 +217,7 @@ pal_binned <- function(palette) {
 #' @keywords internal
 #' @export
 gg_dep <- function(version, msg) {
-  deprecate_warn0("3.3.0", "gg_dep()")
+  deprecate("3.3.0", "gg_dep()")
   .Deprecated()
   v <- as.package_version(version)
   cv <- utils::packageVersion("ggplot2")
@@ -716,7 +721,7 @@ with_ordered_restart <- function(expr, .call) {
         ")"
       )
 
-      deprecate_soft0(
+      deprecate(
         "3.4.0",
         I(msg),
         details = desc
@@ -782,16 +787,6 @@ attach_plot_env <- function(env) {
 
 as_cli <- function(..., env = caller_env()) {
   cli::cli_fmt(cli::cli_text(..., .envir = env))
-}
-
-deprecate_soft0 <- function(..., user_env = NULL) {
-  user_env <- user_env %||% getOption("ggplot2_plot_env") %||% caller_env(2)
-  lifecycle::deprecate_soft(..., user_env = user_env)
-}
-
-deprecate_warn0 <- function(..., user_env = NULL) {
-  user_env <- user_env %||% getOption("ggplot2_plot_env") %||% caller_env(2)
-  lifecycle::deprecate_warn(..., user_env = user_env)
 }
 
 as_unordered_factor <- function(x) {
@@ -906,11 +901,11 @@ compute_data_size <- function(data, size, default = 0.9,
   panels <- arg_match0(panels, c("across", "by", "ignore"))
 
   if (panels == "across") {
-    res <- split(data[[var]], data$PANEL, drop = FALSE)
+    res <- split(data[[var]], data$PANEL, drop = TRUE)
     res <- vapply(res, resolution, FUN.VALUE = numeric(1), ...)
     res <- min(res, na.rm = TRUE)
   } else if (panels == "by") {
-    res <- stats::ave(data[[var]], data$PANEL, FUN = function(x) resolution(x, ...))
+    res <- vec_ave(data[[var]], data$PANEL, function(x) resolution(x, ...))
   } else {
     res <- resolution(data[[var]], ...)
   }
@@ -921,6 +916,15 @@ compute_data_size <- function(data, size, default = 0.9,
   data
 }
 
+add_class <- function(x, new_class) {
+  new_class <- setdiff(new_class, class(x))
+  if (length(new_class) < 1) {
+    return(x)
+  }
+  class(x) <- union(new_class, class(x))
+  x
+}
+
 try_prop <- function(object, name, default = NULL) {
   if (!S7::S7_inherits(object)) {
     return(default)
@@ -929,4 +933,15 @@ try_prop <- function(object, name, default = NULL) {
     return(default)
   }
   S7::prop(object, name)
+}
+
+vec_ave <- function(x, by, fn, ...) {
+  idx <- vec_group_loc(by)$loc
+  list_unchop(
+    lapply(
+      vec_chop(x, indices = idx),
+      FUN = fn, ...
+    ),
+    indices = idx
+  )
 }
