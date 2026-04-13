@@ -181,7 +181,7 @@ GuideBins <- ggproto(
     }
 
     key$.label <- labels
-    key <- vec_slice(key, !is.na(oob_censor_any(key$.value)))
+    key <- key[!is.na(oob_censor_any(key$.value)), , drop = FALSE]
 
     return(key)
   },
