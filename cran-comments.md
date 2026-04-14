@@ -1,2 +1,2 @@
-This is a patch release that resolves a built-time that might have occurred among different rlang versions.
-The change is so minimal that we expect no reverse dependencies to be affected.
+This is a patch release that resolves a failing test and supports some minimal bug fixes and a small uninvasive feature.
+We expect no problems with reverse dependencies.
