@@ -33,7 +33,7 @@ A [theme](https://ggplot2.tidyverse.org/dev/reference/theme.md) object.
 ``` r
 my_theme <- theme(line = element_line(colour = "red"))
 complete_theme(my_theme)
-#> <theme> List of 144
+#> <theme> List of 146
 #>  $ line                            : <ggplot2::element_line>
 #>   ..@ colour       : chr "red"
 #>   ..@ linewidth    : num 0.5

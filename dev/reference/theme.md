@@ -154,6 +154,8 @@ theme(
   strip.background.y,
   strip.clip,
   strip.placement,
+  strip.placement.x,
+  strip.placement.y,
   strip.text,
   strip.text.x,
   strip.text.x.bottom,
@@ -575,10 +577,13 @@ theme(
   disable clipping or `"inherit"` (default) to take the clipping setting
   from the parent viewport.
 
-- strip.placement:
+- strip.placement, strip.placement.x, strip.placement.y:
 
   placement of strip with respect to axes, either "inside" or "outside".
   Only important when axes and strips are on the same side of the plot.
+  Horizontal (`strip.placement.x`) & vertical (`strip.placement.y`)
+  placements inherit from `strip.placement` or can be specified
+  separately
 
 - strip.text, strip.text.x, strip.text.y, strip.text.x.top,
   strip.text.x.bottom, strip.text.y.left, strip.text.y.right:

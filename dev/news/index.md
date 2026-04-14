@@ -83,6 +83,11 @@
   [`geom_violin()`](https://ggplot2.tidyverse.org/dev/reference/geom_violin.md)
   ([@teunbrand](https://github.com/teunbrand),
   [\#6663](https://github.com/tidyverse/ggplot2/issues/6663))
+- `theme(strip.placement.x)` and `theme(strip.placement.y)` can be used
+  for more granular control of strip placement when facetting. These
+  have existed for some time but were not previously documented
+  ([@arcresu](https://github.com/arcresu),
+  [\#6827](https://github.com/tidyverse/ggplot2/issues/6827)).
 
 ## ggplot2 4.0.2
 

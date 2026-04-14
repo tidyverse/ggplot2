@@ -229,6 +229,8 @@ together according to inheritance, read more about theme inheritance below.</p>
 <span>  <span class="va">strip.background.y</span>,</span>
 <span>  <span class="va">strip.clip</span>,</span>
 <span>  <span class="va">strip.placement</span>,</span>
+<span>  <span class="va">strip.placement.x</span>,</span>
+<span>  <span class="va">strip.placement.y</span>,</span>
 <span>  <span class="va">strip.text</span>,</span>
 <span>  <span class="va">strip.text.x</span>,</span>
 <span>  <span class="va">strip.text.x.bottom</span>,</span>
@@ -594,10 +596,11 @@ to disable clipping or <code>"inherit"</code> (default) to take the clipping set
 from the parent viewport.</p></dd>
 
 
-<dt id="arg-strip-placement">strip.placement<a class="anchor" aria-label="anchor" href="#arg-strip-placement"></a></dt>
-<dd><p>placement of strip with respect to axes,
-either "inside" or "outside". Only important when axes and strips are
-on the same side of the plot.</p></dd>
+<dt id="arg-strip-placement-strip-placement-x-strip-placement-y">strip.placement, strip.placement.x, strip.placement.y<a class="anchor" aria-label="anchor" href="#arg-strip-placement-strip-placement-x-strip-placement-y"></a></dt>
+<dd><p>placement of strip with respect to axes, either "inside" or "outside".
+Only important when axes and strips are on the same side of the plot.
+Horizontal (<code>strip.placement.x</code>) &amp; vertical (<code>strip.placement.y</code>) placements
+inherit from <code>strip.placement</code> or can be specified separately</p></dd>
 
 
 <dt id="arg-strip-text-strip-text-x-strip-text-y-strip-text-x-top-strip-text-x-bottom-strip-text-y-left-strip-text-y-right">strip.text, strip.text.x, strip.text.y, strip.text.x.top, strip.text.x.bottom, strip.text.y.left, strip.text.y.right<a class="anchor" aria-label="anchor" href="#arg-strip-text-strip-text-x-strip-text-y-strip-text-x-top-strip-text-x-bottom-strip-text-y-left-strip-text-y-right"></a></dt>

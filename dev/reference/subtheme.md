@@ -155,6 +155,8 @@ theme_sub_strip(
   background.y,
   clip,
   placement,
+  placement.x,
+  placement.y,
   text,
   text.x,
   text.x.bottom,
@@ -181,11 +183,12 @@ theme_sub_strip(
   justification.left, justification.right, justification.top, key,
   key.height, key.justification, key.size, key.spacing, key.spacing.x,
   key.spacing.y, key.width, line, location, margin, minor.ticks,
-  minor.ticks.length, ontop, placement, position, position.inside,
-  spacing, spacing.x, spacing.y, subtitle, switch.pad.grid,
-  switch.pad.wrap, tag, tag.location, tag.position, text, text.position,
-  text.x, text.x.bottom, text.x.top, text.y, text.y.left, text.y.right,
-  ticks, ticks.length, title, title.position, widths:
+  minor.ticks.length, ontop, placement, placement.x, placement.y,
+  position, position.inside, spacing, spacing.x, spacing.y, subtitle,
+  switch.pad.grid, switch.pad.wrap, tag, tag.location, tag.position,
+  text, text.position, text.x, text.x.bottom, text.x.top, text.y,
+  text.y.left, text.y.right, ticks, ticks.length, title, title.position,
+  widths:
 
   Arguments that are renamed and passed on to
   [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md).
