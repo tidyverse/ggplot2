@@ -229,7 +229,11 @@ That means that the lines will be the same in all facets; if you want them
 to vary across facets, construct the data frame yourself and use aesthetics.</p>
 <p>Unlike most other geoms, these geoms do not inherit aesthetics from the plot
 default, because they do not understand x and y aesthetics which are
-commonly set in the plot. They also do not affect the x and y scales.</p>
+commonly set in the plot.</p>
+<p>Unlike <code>geom_abline()</code>, <code>geom_vline()</code> and <code>geom_hline()</code> include their
+intercepts in the position aesthetics. As a result, <code>xintercept</code> and
+<code>yintercept</code> values can affect the x and y scales, particularly when
+intercepts fall outside the range of the data.</p>
     </div>
     <div class="section level2">
     <h2 id="aesthetics">Aesthetics<a class="anchor" aria-label="anchor" href="#aesthetics"></a></h2>
