@@ -33,6 +33,9 @@
 * New `position_dodge2(group.row)` argument that can be set to `"many"` to
   dodge groups with more than one row, such as in `geom_violin()` 
   (@teunbrand, #6663)
+* `theme(strip.placement.x)` and `theme(strip.placement.y)` can be used for more
+  granular control of strip placement when facetting. These have existed for some
+  time but were not previously documented (@arcresu, #6827).
 
 # ggplot2 4.0.2
 
