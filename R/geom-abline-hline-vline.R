@@ -134,7 +134,10 @@ geom_hline <- function(mapping = NULL, data = NULL,
                        yintercept,
                        na.rm = FALSE,
                        show.legend = NA,
-                       inherit.aes = FALSE) {
+                       inherit.aes = NULL) {
+
+    # if NJLL default is based on if xintercept is missing 
+  inherit.aes <- inherit.aes %||% missing(yintercept)
 
   # Act like an annotation
   if (!missing(yintercept)) {
@@ -174,7 +177,10 @@ geom_vline <- function(mapping = NULL, data = NULL,
                        xintercept,
                        na.rm = FALSE,
                        show.legend = NA,
-                       inherit.aes = FALSE) {
+                       inherit.aes = NULL) {
+
+    # if NJLL default is based on if xintercept is missing 
+    inherit.aes <- inherit.aes %||% missing(xintercept)
 
   # Act like an annotation
   if (!missing(xintercept)) {
