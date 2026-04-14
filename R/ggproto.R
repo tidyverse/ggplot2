@@ -68,7 +68,7 @@ ggproto <- function(`_class` = NULL, `_inherit` = NULL, ...) {
   e <- new.env(parent = emptyenv())
 
   members <- list2(...)
-  check_named(members, I("Members of a {.cls ggproto} object"))
+  check_named(members, I("Members of a {.cls ggproto} object"), type = "warn")
 
   # R <3.1.2 will error when list2env() is given an empty list, so we need to
   # check length. https://github.com/tidyverse/ggplot2/issues/1444

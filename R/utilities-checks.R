@@ -126,7 +126,7 @@ check_length <- function(x, length = integer(), ..., min = 0, max = Inf,
   cli::cli_abort(msg, call = call, arg = arg)
 }
 
-check_named <- function(x, arg = caller_arg(x), call = caller_env()) {
+check_named <- function(x, arg = caller_arg(x), call = caller_env(), type = "abort") {
   if (missing(x)) {
     stop_input_type(x, "a vector", arg = arg, call = call)
   }
@@ -145,7 +145,12 @@ check_named <- function(x, arg = caller_arg(x), call = caller_env()) {
   if (length(msg) < 1) {
     return(invisible())
   }
-  cli::cli_abort(msg, call = call, arg = arg)
+  switch(
+    type,
+    # We allow for warnings due to compatibility with reverse dependencies
+    warn = cli::cli_warn(msg, call = call, arg = arg),
+    cli::cli_abort(msg, call = call, arg = arg)
+  )
 }
 
 #' Check graphics device capabilities
