@@ -84,7 +84,7 @@ Config/usethis/last-upkeep: 2025-04-23
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3.9000
+RoxygenNote: 7.3.3
 Collate:
     'aes-delayed-eval.R'
     'aes-variants.R'
