@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `position_jitterdodge()` now warns when dodge groups appear inflated by
+  additional discrete aesthetics beyond `fill`, with guidance to set
+  `aes(group = <fill variable>)` (@Jesssullivan, #6824).
 * `geom_boxplot()`/`stat_boxplot()` gain a `quantile.type` parameter (default `7`) 
    to control the percentile definition used for hinges and median; set `quantile.type = 2` 
    to match SAS's default `PCTLDEF = 5`, enabling parity with SAS boxplots out-of-the-box. 
