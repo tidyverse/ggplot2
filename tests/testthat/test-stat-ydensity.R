@@ -51,3 +51,15 @@ test_that("quantiles are based on actual data (#4120)", {
 
   expect_equal(ld$y[!is.na(ld$quantile)], 1:9)
 })
+
+test_that("weighted quantiles are correct", {
+
+  df <- data.frame(y = c(0:10, 20), weight = c(rep(1, 11), 0))
+  q <- seq(0.1, 0.9, by = 0.1)
+
+  p <- ggplot(df, aes("X", y, weight = weight)) +
+    stat_ydensity(quantiles = q)
+  ld <- get_layer_data(p)
+
+  expect_equal(ld$y[!is.na(ld$quantile)], 1:9)
+})
