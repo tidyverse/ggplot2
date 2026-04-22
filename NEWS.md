@@ -1,15 +1,5 @@
 # ggplot2 (development version)
-
-# ggplot2 4.0.3
-
-This is a hotfix release fixing a test, a bug and introducing a feature.
-
-* Adapt to changes in `rlang::warn_dots_used()` (@lionel-, #6830).
-* Fixed bug where `guide_axis_theta()` didn't anticipate old-style text elements (#6803).
-* `geom_boxplot()`/`stat_boxplot()` gain a `quantile.type` parameter (default `7`)
-   to control the percentile definition used for hinges and median; set `quantile.type = 2`
-   to match SAS's default `PCTLDEF = 5`, enabling parity with SAS boxplots out-of-the-box.
-   (@munoztd0, #6819)
+ 
 * `make_constructor()` no longer captures `rlang::list2()` at build time.
 * The `arrow` and `arrow.fill` arguments are now available in 
   `geom_linerange()` and `geom_pointrange()` layers (@teunbrand, #6481).
@@ -39,6 +29,20 @@ This is a hotfix release fixing a test, a bug and introducing a feature.
 * New `position_dodge2(group.row)` argument that can be set to `"many"` to
   dodge groups with more than one row, such as in `geom_violin()` 
   (@teunbrand, #6663)
+* `theme(strip.placement.x)` and `theme(strip.placement.y)` can be used for more
+  granular control of strip placement when facetting. These have existed for some
+  time but were not previously documented (@arcresu, #6827).
+  
+# ggplot2 4.0.3
+
+This is a hotfix release fixing a test, a bug and introducing a feature.
+
+* Adapt to changes in `rlang::warn_dots_used()` (@lionel-, #6830).
+* Fixed bug where `guide_axis_theta()` didn't anticipate old-style text elements (#6803).
+* `geom_boxplot()`/`stat_boxplot()` gain a `quantile.type` parameter (default `7`)
+  to control the percentile definition used for hinges and median; set `quantile.type = 2`
+  to match SAS's default `PCTLDEF = 5`, enabling parity with SAS boxplots out-of-the-box.
+  (@munoztd0, #6819)
 
 # ggplot2 4.0.2
 
