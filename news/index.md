@@ -1,6 +1,29 @@
 # Changelog
 
+## ggplot2 4.0.3
+
+CRAN release: 2026-04-22
+
+This is a hotfix release fixing a test, a bug and introducing a feature.
+
+- Adapt to changes in `rlang::warn_dots_used()`
+  ([@lionel-](https://github.com/lionel-),
+  [\#6830](https://github.com/tidyverse/ggplot2/issues/6830)).
+- Fixed bug where
+  [`guide_axis_theta()`](https://ggplot2.tidyverse.org/reference/guide_axis_theta.md)
+  didn’t anticipate old-style text elements
+  ([\#6803](https://github.com/tidyverse/ggplot2/issues/6803)).
+- [`geom_boxplot()`](https://ggplot2.tidyverse.org/reference/geom_boxplot.md)/[`stat_boxplot()`](https://ggplot2.tidyverse.org/reference/geom_boxplot.md)
+  gain a `quantile.type` parameter (default `7`) to control the
+  percentile definition used for hinges and median; set
+  `quantile.type = 2` to match SAS’s default `PCTLDEF = 5`, enabling
+  parity with SAS boxplots out-of-the-box.
+  ([@munoztd0](https://github.com/munoztd0),
+  [\#6819](https://github.com/tidyverse/ggplot2/issues/6819))
+
 ## ggplot2 4.0.2
+
+CRAN release: 2026-02-03
 
 This hotfix release makes ggplot2 more interoperable between rlang
 versions.
@@ -630,7 +653,7 @@ CRAN release: 2025-09-11
   [\#6121](https://github.com/tidyverse/ggplot2/issues/6121)).
 - Fixed regression in `guide_bins(reverse = TRUE)`
   ([@teunbrand](https://github.com/teunbrand),
-  [\#6183](https://github.com/tidyverse/ggplot2/issues/6183)).  
+  [\#6183](https://github.com/tidyverse/ggplot2/issues/6183)).
 - Binned guides now accept expressions as labels
   ([@teunbrand](https://github.com/teunbrand),
   [\#6005](https://github.com/tidyverse/ggplot2/issues/6005))
