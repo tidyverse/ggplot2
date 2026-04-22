@@ -1,3 +1,7 @@
+#' @include ggproto.R
+#' @include ggplot-global.R
+NULL
+
 # Docs -------------------------------------------------------------
 
 #' Class definitions
@@ -249,21 +253,8 @@ class_labels <- S7::new_class(
   "labels", parent = class_S3_gg,
   constructor = function(labels = list(), ...) {
     warn_dots_empty()
+    check_named(labels, I("labels"))
     S7::new_object(labels)
-  },
-  validator = function(self) {
-    if (!is.list(self)) {
-      return("labels must be a list.")
-    }
-    if (!is_named2(self)) {
-      return("every label must be named.")
-    }
-    dups <- unique(names(self)[duplicated(names(self))])
-    if (length(dups) > 0) {
-      dups <- oxford_comma(dups, final = "and")
-      return(paste0("labels cannot contain duplicate names (", dups, ")."))
-    }
-    return(NULL)
   }
 )
 
@@ -408,3 +399,34 @@ class_ggplot_built <- S7::new_class(
     )
   }
 )
+
+# Methods -----------------------------------------------------------------
+
+#' @importFrom S7 convert
+# S7 currently attaches the S3 method to the calling environment which gives `ggplot2:::as.list`
+# Wrap in `local()` to provide a temp environment which throws away the attachment
+local({
+  list_classes <- class_mapping | class_theme | class_labels
+  prop_classes <- class_ggplot | class_ggplot_built
+
+  S7::method(convert, list(from = prop_classes, to = S7::class_list)) <-
+    function(from, to, ...) S7::props(from)
+
+  S7::method(convert, list(from = list_classes, to = S7::class_list)) <-
+    function(from, to, ...) S7::S7_data(from)
+
+  # We're not using union classes here because of S7#510
+  S7::method(as.list, class_gg) <-
+    S7::method(as.list, class_mapping) <-
+    S7::method(as.list, class_theme) <-
+    S7::method(as.list, class_labels) <-
+    function(x, ...) convert(x, S7::class_list)
+
+  S7::method(convert, list(from = S7::class_list, to = prop_classes)) <-
+    function(from, to, ...) inject(to(!!!from))
+
+  S7::method(convert, list(from = S7::class_list, to = list_classes)) <-
+    function(from, to, ...) to(from)
+})
+
+

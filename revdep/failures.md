@@ -6936,7 +6936,7 @@ Run `revdepcheck::cloud_details(, "MultANOVA")` for more info
 * Date/Publication: 2026-04-13 19:10:07 UTC
 * Number of recursive dependencies: 152
 
-Run `revdepcheck::cloud_details(, "multinma")` for more info
+Run `revdepcheck::cloud_details(, "GRIDCOPULA")` for more info
 
 </details>
 
@@ -7020,7 +7020,27 @@ Run `revdepcheck::cloud_details(, "MultiResponseR")` for more info
 ### Devel
 
 ```
-
+* using log directory ‘/tmp/workdir/OpenMx/new/OpenMx.Rcheck’
+* using R version 4.4.0 (2024-04-24)
+* using platform: x86_64-pc-linux-gnu
+* R was compiled by
+    gcc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+    GNU Fortran (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+* running under: Ubuntu 24.04.3 LTS
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘OpenMx/DESCRIPTION’ ... OK
+...
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘OpenMx’ can be installed ... ERROR
+Installation failed.
+See ‘/tmp/workdir/OpenMx/new/OpenMx.Rcheck/00install.out’ for details.
+* DONE
+Status: 1 ERROR, 1 NOTE
 
 
 
@@ -7030,7 +7050,27 @@ Run `revdepcheck::cloud_details(, "MultiResponseR")` for more info
 ### CRAN
 
 ```
-
+* using log directory ‘/tmp/workdir/OpenMx/old/OpenMx.Rcheck’
+* using R version 4.4.0 (2024-04-24)
+* using platform: x86_64-pc-linux-gnu
+* R was compiled by
+    gcc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+    GNU Fortran (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+* running under: Ubuntu 24.04.3 LTS
+* using session charset: UTF-8
+* using option ‘--no-manual’
+* checking for file ‘OpenMx/DESCRIPTION’ ... OK
+...
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘OpenMx’ can be installed ... ERROR
+Installation failed.
+See ‘/tmp/workdir/OpenMx/old/OpenMx.Rcheck/00install.out’ for details.
+* DONE
+Status: 1 ERROR, 1 NOTE
 
 
 

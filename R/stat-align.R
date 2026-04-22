@@ -83,8 +83,7 @@ StatAlign <- ggproto(
   }
 )
 
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @export
 #' @rdname geom_ribbon
 stat_align <- make_constructor(

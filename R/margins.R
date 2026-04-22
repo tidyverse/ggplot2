@@ -31,7 +31,7 @@ margin <- S7::new_class(
 #' @export
 #' @rdname is_tests
 is_margin <- function(x) S7::S7_inherits(x, margin)
-is.margin <- function(x) lifecycle::deprecate_stop("3.5.2", "is.margin()", "is_margin()")
+is.margin <- function(x) deprecate("3.5.2", "is.margin()", "is_margin()", escalate = "abort")
 
 #' @rdname element
 #' @export
