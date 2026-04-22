@@ -62,28 +62,30 @@ some ramifications. Environments do not follow the 'copy on modify' semantics
 one might be accustomed to in regular objects. Instead they have
 \href{https://adv-r.hadley.nz/names-values.html#env-modify}{'modify in place'}
 semantics.
+
+In practice, most ggplot2 layer classes (Geoms, Stats, Scales) are
+stateless: their methods read from arguments rather than from
+\code{self} fields. Extension authors are encouraged to follow this
+pattern, reserving stateful fields for cases where a method
+genuinely needs to track values across calls.
 }
 
 \examples{
-Adder <- ggproto("Adder",
-  x = 0,
-  add = function(self, n) {
-    self$x <- self$x + n
-    self$x
-  }
- )
-is_ggproto(Adder)
-
-Adder$add(10)
-Adder$add(10)
-
-Doubler <- ggproto("Doubler", Adder,
-  add = function(self, n) {
-    ggproto_parent(Adder, self)$add(n * 2)
-  }
+# A stateless class with static methods (no use of `self` fields):
+Math <- ggproto("Math",
+  double = function(n) n * 2,
+  square = function(n) n * n
 )
-Doubler$x
-Doubler$add(10)
+is_ggproto(Math)
+Math$double(5)
+Math$square(5)
+
+# Inheritance: child overrides parent. `self` is threaded only to call
+# `ggproto_parent()` — the class remains stateless (no `self$*` access).
+Mather <- ggproto("Mather", Math,
+  square = function(self, n) ggproto_parent(Math, self)$double(n) * n
+)
+Mather$square(5)
 }
 \seealso{
 The \href{https://ggplot2-book.org/internals#sec-ggproto}{ggproto introduction section} of the online ggplot2 book.
