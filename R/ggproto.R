@@ -34,6 +34,12 @@
 #' ['modify in place'](https://adv-r.hadley.nz/names-values.html#env-modify)
 #' semantics.
 #'
+#' In practice, most ggplot2 layer classes (Geoms, Stats, Scales) are
+#' stateless: their methods read from arguments rather than from
+#' `self` fields. Extension authors are encouraged to follow this
+#' pattern, reserving stateful fields for cases where a method
+#' genuinely needs to track values across calls.
+#'
 #' @param _class Class name to assign to the object. This is stored as the class
 #'   attribute of the object. This is optional: if `NULL` (the default),
 #'   no class name will be added to the object.
@@ -45,25 +51,21 @@
 #' The `r link_book("ggproto introduction section", "internals#sec-ggproto")`
 #' @export
 #' @examples
-#' Adder <- ggproto("Adder",
-#'   x = 0,
-#'   add = function(self, n) {
-#'     self$x <- self$x + n
-#'     self$x
-#'   }
-#'  )
-#' is_ggproto(Adder)
-#'
-#' Adder$add(10)
-#' Adder$add(10)
-#'
-#' Doubler <- ggproto("Doubler", Adder,
-#'   add = function(self, n) {
-#'     ggproto_parent(Adder, self)$add(n * 2)
-#'   }
+#' # A stateless class with static methods (no use of `self` fields):
+#' Math <- ggproto("Math",
+#'   double = function(n) n * 2,
+#'   square = function(n) n * n
 #' )
-#' Doubler$x
-#' Doubler$add(10)
+#' is_ggproto(Math)
+#' Math$double(5)
+#' Math$square(5)
+#'
+#' # Inheritance: child overrides parent. `self` is threaded only to call
+#' # `ggproto_parent()` — the class remains stateless (no `self$*` access).
+#' Mather <- ggproto("Mather", Math,
+#'   square = function(self, n) ggproto_parent(Math, self)$double(n) * n
+#' )
+#' Mather$square(5)
 ggproto <- function(`_class` = NULL, `_inherit` = NULL, ...) {
   e <- new.env(parent = emptyenv())
 

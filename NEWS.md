@@ -36,6 +36,9 @@
 * `theme(strip.placement.x)` and `theme(strip.placement.y)` can be used for more
   granular control of strip placement when facetting. These have existed for some
   time but were not previously documented (@arcresu, #6827).
+* The example in `?ggproto` now demonstrates a stateless class,
+  with additional guidance noting that most ggplot2 layer classes
+  are stateless (@CuiweiG, #6582).
 
 # ggplot2 4.0.2
 
