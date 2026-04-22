@@ -1,3 +1,5 @@
+# ggplot2 (development version)
+
 # ggplot2 4.0.3
 
 This is a hotfix release fixing a test, a bug and introducing a feature.
