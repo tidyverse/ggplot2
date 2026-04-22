@@ -38,7 +38,7 @@ improvements to performance over time.
 To keep track of changes focused on improving the performance of gtable
 they are summarised below:
 
-### v4.0.2.9000
+### v4.0.3.9000
 
 - **Avoid costly factor construction in scale_apply** This issue only
   really appeared when plotting huge datasets (\>1e6 rows). In order to

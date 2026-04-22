@@ -2,13 +2,6 @@
 
 ## ggplot2 (development version)
 
-- [`geom_boxplot()`](https://ggplot2.tidyverse.org/dev/reference/geom_boxplot.md)/[`stat_boxplot()`](https://ggplot2.tidyverse.org/dev/reference/geom_boxplot.md)
-  gain a `quantile.type` parameter (default `7`) to control the
-  percentile definition used for hinges and median; set
-  `quantile.type = 2` to match SAS’s default `PCTLDEF = 5`, enabling
-  parity with SAS boxplots out-of-the-box.
-  ([@munoztd0](https://github.com/munoztd0),
-  [\#6819](https://github.com/tidyverse/ggplot2/issues/6819))
 - [`make_constructor()`](https://ggplot2.tidyverse.org/dev/reference/make_constructor.md)
   no longer captures
   [`rlang::list2()`](https://rlang.r-lib.org/reference/list2.html) at
@@ -89,6 +82,27 @@
   ([@arcresu](https://github.com/arcresu),
   [\#6827](https://github.com/tidyverse/ggplot2/issues/6827)).
 
+## ggplot2 4.0.3
+
+CRAN release: 2026-04-22
+
+This is a hotfix release fixing a test, a bug and introducing a feature.
+
+- Adapt to changes in `rlang::warn_dots_used()`
+  ([@lionel-](https://github.com/lionel-),
+  [\#6830](https://github.com/tidyverse/ggplot2/issues/6830)).
+- Fixed bug where
+  [`guide_axis_theta()`](https://ggplot2.tidyverse.org/dev/reference/guide_axis_theta.md)
+  didn’t anticipate old-style text elements
+  ([\#6803](https://github.com/tidyverse/ggplot2/issues/6803)).
+- [`geom_boxplot()`](https://ggplot2.tidyverse.org/dev/reference/geom_boxplot.md)/[`stat_boxplot()`](https://ggplot2.tidyverse.org/dev/reference/geom_boxplot.md)
+  gain a `quantile.type` parameter (default `7`) to control the
+  percentile definition used for hinges and median; set
+  `quantile.type = 2` to match SAS’s default `PCTLDEF = 5`, enabling
+  parity with SAS boxplots out-of-the-box.
+  ([@munoztd0](https://github.com/munoztd0),
+  [\#6819](https://github.com/tidyverse/ggplot2/issues/6819))
+
 ## ggplot2 4.0.2
 
 CRAN release: 2026-02-03
@@ -96,15 +110,26 @@ CRAN release: 2026-02-03
 This hotfix release makes ggplot2 more interoperable between rlang
 versions.
 
+- [`make_constructor()`](https://ggplot2.tidyverse.org/dev/reference/make_constructor.md)
+  no longer captures
+  [`rlang::list2()`](https://rlang.r-lib.org/reference/list2.html) at
+  build time.
+
 ## ggplot2 4.0.1
 
 CRAN release: 2025-11-14
+
+This is a smaller patch release focussed on fixing regressions from
+4.0.0 and \# ggplot2 4.0.1
 
 This is a smaller patch release focussed on fixing regressions from
 4.0.0 and polishing the recent features.
 
 ### Bug fixes
 
+- Fixed regression where
+  [`geom_area()`](https://ggplot2.tidyverse.org/dev/reference/geom_ribbon.md)
+  didn’t draw panels with single groups
 - Fixed regression where
   [`geom_area()`](https://ggplot2.tidyverse.org/dev/reference/geom_ribbon.md)
   didn’t draw panels with single groups when `stat = "align"`
@@ -135,6 +160,8 @@ This is a smaller patch release focussed on fixing regressions from
   ([@yutannihilation](https://github.com/yutannihilation),
   [\#6617](https://github.com/tidyverse/ggplot2/issues/6617)).
 - Fixed regression where the first (unnamed) argument to colour/fill
+  scales was
+- Fixed regression where the first (unnamed) argument to colour/fill
   scales was not passed as the `name` argument
   ([@teunbrand](https://github.com/teunbrand),
   [\#6623](https://github.com/tidyverse/ggplot2/issues/6623))
@@ -152,6 +179,34 @@ This is a smaller patch release focussed on fixing regressions from
 - Fixed axis misplacement in `coor_radial()` when labels are blank
   ([@teunbrand](https://github.com/teunbrand),
   [\#6574](https://github.com/tidyverse/ggplot2/issues/6574))
+
+### Improvements
+
+- Improved palette fallback mechanism in scales
+  ([@teunbrand](https://github.com/teunbrand),
+  [\#6669](https://github.com/tidyverse/ggplot2/issues/6669)).
+- Allow `stat` in `geom_hline`, `geom_vline`, and `geom_abline`.
+  ([@sierrajohnson](https://github.com/sierrajohnson),
+  [\#6559](https://github.com/tidyverse/ggplot2/issues/6559))
+- [`stat_boxplot()`](https://ggplot2.tidyverse.org/dev/reference/geom_boxplot.md)
+  treats `width` as an optional aesthetic
+  ([@Yunuuuu](https://github.com/Yunuuuu),
+  [\#6575](https://github.com/tidyverse/ggplot2/issues/6575))
+- The `theme(panel.widths, panel.heights)` setting attempts to preserve
+  the plot’s aspect ratio when only one of the two settings is given,
+  and the plot has a single panel
+  ([@teunbrand](https://github.com/teunbrand),
+  [\#6701](https://github.com/tidyverse/ggplot2/issues/6701)).
+- Logical values for the linetype aesthetic will be interpreted
+  numerically, so that `linetype = FALSE` becomes 0/‘blank’ and
+  `linetype = TRUE` becomes 1/‘solid’
+  ([@teunbrand](https://github.com/teunbrand),
+  [\#6641](https://github.com/tidyverse/ggplot2/issues/6641))
+- Out-of-bounds datapoints used as padding by
+  [`stat_align()`](https://ggplot2.tidyverse.org/dev/reference/geom_ribbon.md)
+  now get removed silently rather than verbosely
+  ([@teunbrand](https://github.com/teunbrand),
+  [\#6667](https://github.com/tidyverse/ggplot2/issues/6667))
 
 ### Improvements
 
@@ -718,7 +773,7 @@ CRAN release: 2025-09-11
   [\#6121](https://github.com/tidyverse/ggplot2/issues/6121)).
 - Fixed regression in `guide_bins(reverse = TRUE)`
   ([@teunbrand](https://github.com/teunbrand),
-  [\#6183](https://github.com/tidyverse/ggplot2/issues/6183)).  
+  [\#6183](https://github.com/tidyverse/ggplot2/issues/6183)).
 - Binned guides now accept expressions as labels
   ([@teunbrand](https://github.com/teunbrand),
   [\#6005](https://github.com/tidyverse/ggplot2/issues/6005))

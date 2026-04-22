@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ggplot2</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">4.0.2.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">4.0.3.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,8 +70,6 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
 <ul><li>
-<code><a href="../reference/geom_boxplot.html">geom_boxplot()</a></code>/<code><a href="../reference/geom_boxplot.html">stat_boxplot()</a></code> gain a <code>quantile.type</code> parameter (default <code>7</code>) to control the percentile definition used for hinges and median; set <code>quantile.type = 2</code> to match SAS’s default <code>PCTLDEF = 5</code>, enabling parity with SAS boxplots out-of-the-box. (<a href="https://github.com/munoztd0" class="external-link">@munoztd0</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6819" class="external-link">#6819</a>)</li>
-<li>
 <code><a href="../reference/make_constructor.html">make_constructor()</a></code> no longer captures <code><a href="https://rlang.r-lib.org/reference/list2.html" class="external-link">rlang::list2()</a></code> at build time.</li>
 <li>The <code>arrow</code> and <code>arrow.fill</code> arguments are now available in <code><a href="../reference/geom_linerange.html">geom_linerange()</a></code> and <code><a href="../reference/geom_linerange.html">geom_pointrange()</a></code> layers (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6481" class="external-link">#6481</a>).</li>
 <li>(internal) <code><a href="../reference/zeroGrob.html">zeroGrob()</a></code> now returns a <code><a href="https://rdrr.io/r/grid/grid.null.html" class="external-link">grid::nullGrob()</a></code> (<a href="https://github.com/tidyverse/ggplot2/issues/6390" class="external-link">#6390</a>).</li>
@@ -94,15 +92,27 @@
 <code>theme(strip.placement.x)</code> and <code>theme(strip.placement.y)</code> can be used for more granular control of strip placement when facetting. These have existed for some time but were not previously documented (<a href="https://github.com/arcresu" class="external-link">@arcresu</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6827" class="external-link">#6827</a>).</li>
 </ul></div>
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="4.0.3" id="ggplot2-403">ggplot2 4.0.3<a class="anchor" aria-label="anchor" href="#ggplot2-403"></a></h2><p class="text-muted">CRAN release: 2026-04-22</p>
+<p>This is a hotfix release fixing a test, a bug and introducing a feature.</p>
+<ul><li>Adapt to changes in <code>rlang::warn_dots_used()</code> (<a href="https://github.com/lionel-" class="external-link">@lionel-</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6830" class="external-link">#6830</a>).</li>
+<li>Fixed bug where <code><a href="../reference/guide_axis_theta.html">guide_axis_theta()</a></code> didn’t anticipate old-style text elements (<a href="https://github.com/tidyverse/ggplot2/issues/6803" class="external-link">#6803</a>).</li>
+<li>
+<code><a href="../reference/geom_boxplot.html">geom_boxplot()</a></code>/<code><a href="../reference/geom_boxplot.html">stat_boxplot()</a></code> gain a <code>quantile.type</code> parameter (default <code>7</code>) to control the percentile definition used for hinges and median; set <code>quantile.type = 2</code> to match SAS’s default <code>PCTLDEF = 5</code>, enabling parity with SAS boxplots out-of-the-box. (<a href="https://github.com/munoztd0" class="external-link">@munoztd0</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6819" class="external-link">#6819</a>)</li>
+</ul></div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="4.0.2" id="ggplot2-402">ggplot2 4.0.2<a class="anchor" aria-label="anchor" href="#ggplot2-402"></a></h2><p class="text-muted">CRAN release: 2026-02-03</p>
 <p>This hotfix release makes ggplot2 more interoperable between rlang versions.</p>
-</div>
+<ul><li>
+<code><a href="../reference/make_constructor.html">make_constructor()</a></code> no longer captures <code><a href="https://rlang.r-lib.org/reference/list2.html" class="external-link">rlang::list2()</a></code> at build time.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="4.0.1" id="ggplot2-401">ggplot2 4.0.1<a class="anchor" aria-label="anchor" href="#ggplot2-401"></a></h2><p class="text-muted">CRAN release: 2025-11-14</p>
+<p>This is a smaller patch release focussed on fixing regressions from 4.0.0 and # ggplot2 4.0.1</p>
 <p>This is a smaller patch release focussed on fixing regressions from 4.0.0 and polishing the recent features.</p>
 <div class="section level3">
 <h3 id="bug-fixes-4-0-1">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-4-0-1"></a></h3>
-<ul><li>Fixed regression where <code><a href="../reference/geom_ribbon.html">geom_area()</a></code> didn’t draw panels with single groups when <code>stat = "align"</code> (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6680" class="external-link">#6680</a>)</li>
+<ul><li>Fixed regression where <code><a href="../reference/geom_ribbon.html">geom_area()</a></code> didn’t draw panels with single groups</li>
+<li>Fixed regression where <code><a href="../reference/geom_ribbon.html">geom_area()</a></code> didn’t draw panels with single groups when <code>stat = "align"</code> (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6680" class="external-link">#6680</a>)</li>
 <li>Fixed regression where <code>position_stack(vjust)</code> was ignored when there are only single groups (<a href="https://github.com/tidyverse/ggplot2/issues/6692" class="external-link">#6692</a>)</li>
 <li>Fixed bug where <code>NA</code> handling in <code><a href="../reference/geom_path.html">geom_path()</a></code> was ignoring panels (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6533" class="external-link">#6533</a>)</li>
 <li>Fixed bug where <code>stat_bin(boundary)</code> was ignored (<a href="https://github.com/tidyverse/ggplot2/issues/6682" class="external-link">#6682</a>).</li>
@@ -110,6 +120,7 @@
 <code><a href="../reference/geom_text.html">geom_text()</a></code> and <code><a href="../reference/geom_text.html">geom_label()</a></code> accept expressions as the <code>label</code> aesthetic (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6638" class="external-link">#6638</a>)</li>
 <li>Fixed regression where <code><a href="../reference/draw_key.html">draw_key_rect()</a></code> stopped using <code>fill</code> colours (<a href="https://github.com/mitchelloharawild" class="external-link">@mitchelloharawild</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6609" class="external-link">#6609</a>).</li>
 <li>Fixed regression where <code>scale_{x,y}_*()</code> threw an error when an expression object is set to <code>labels</code> argument (<a href="https://github.com/yutannihilation" class="external-link">@yutannihilation</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6617" class="external-link">#6617</a>).</li>
+<li>Fixed regression where the first (unnamed) argument to colour/fill scales was</li>
 <li>Fixed regression where the first (unnamed) argument to colour/fill scales was not passed as the <code>name</code> argument (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6623" class="external-link">#6623</a>)</li>
 <li>Fixed issue where vectorised <code><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">arrow()</a></code>s caused errors in drawing the legend glyphs (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6594" class="external-link">#6594</a>)</li>
 <li>Fixed regression where <code>NULL</code>-aesthetics contributed to plot labels too insistently. Now they contribute only as fallback labels (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6616" class="external-link">#6616</a>)</li>
@@ -118,6 +129,16 @@
 </ul></div>
 <div class="section level3">
 <h3 id="improvements-4-0-1">Improvements<a class="anchor" aria-label="anchor" href="#improvements-4-0-1"></a></h3>
+<ul><li>Improved palette fallback mechanism in scales (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6669" class="external-link">#6669</a>).</li>
+<li>Allow <code>stat</code> in <code>geom_hline</code>, <code>geom_vline</code>, and <code>geom_abline</code>. (<a href="https://github.com/sierrajohnson" class="external-link">@sierrajohnson</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6559" class="external-link">#6559</a>)</li>
+<li>
+<code><a href="../reference/geom_boxplot.html">stat_boxplot()</a></code> treats <code>width</code> as an optional aesthetic (<a href="https://github.com/Yunuuuu" class="external-link">@Yunuuuu</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6575" class="external-link">#6575</a>)</li>
+<li>The <code>theme(panel.widths, panel.heights)</code> setting attempts to preserve the plot’s aspect ratio when only one of the two settings is given, and the plot has a single panel (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6701" class="external-link">#6701</a>).</li>
+<li>Logical values for the linetype aesthetic will be interpreted numerically, so that <code>linetype = FALSE</code> becomes 0/‘blank’ and <code>linetype = TRUE</code> becomes 1/‘solid’ (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6641" class="external-link">#6641</a>)</li>
+<li>Out-of-bounds datapoints used as padding by <code><a href="../reference/geom_ribbon.html">stat_align()</a></code> now get removed silently rather than verbosely (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6667" class="external-link">#6667</a>)</li>
+</ul></div>
+<div class="section level3">
+<h3 id="improvements-4-0-1-1">Improvements<a class="anchor" aria-label="anchor" href="#improvements-4-0-1-1"></a></h3>
 <ul><li>Improved palette fallback mechanism in scales (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6669" class="external-link">#6669</a>).</li>
 <li>Allow <code>stat</code> in <code>geom_hline</code>, <code>geom_vline</code>, and <code>geom_abline</code>. (<a href="https://github.com/sierrajohnson" class="external-link">@sierrajohnson</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6559" class="external-link">#6559</a>)</li>
 <li>
@@ -344,7 +365,7 @@
 <code><a href="../reference/guide_axis.html">guide_axis()</a></code> no longer reserves space for blank ticks (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/4722" class="external-link">#4722</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6069" class="external-link">#6069</a>).</li>
 <li>Fixed regression in axes where <code>breaks = NULL</code> caused the axes to disappear instead of just rendering the axis line (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/5816" class="external-link">#5816</a>).</li>
 <li>Better handling of the <code>guide_axis_logticks(negative.small)</code> parameter when scale limits have small maximum (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6121" class="external-link">#6121</a>).</li>
-<li>Fixed regression in <code>guide_bins(reverse = TRUE)</code> (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6183" class="external-link">#6183</a>).<br></li>
+<li>Fixed regression in <code>guide_bins(reverse = TRUE)</code> (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6183" class="external-link">#6183</a>).</li>
 <li>Binned guides now accept expressions as labels (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6005" class="external-link">#6005</a>)</li>
 <li>Fixed bug where binned scales wouldn’t simultaneously accept transformations and function-limits (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6144" class="external-link">#6144</a>).</li>
 <li>Fixed bug in out-of-bounds binned breaks (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6054" class="external-link">#6054</a>)</li>
