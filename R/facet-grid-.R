@@ -323,18 +323,23 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     axes   <- render_axes(ranges[cols], ranges[rows], coord, theme, transpose = TRUE)
     mtx    <- function(x, o) matrix(x[o], dim[1], dim[2], byrow = TRUE)
 
+    z <- 3L
+    if (!isTRUE(calc_element("axis.ontop", theme) %||% TRUE)) {
+      z <- 0L
+    }
+
     if (draw_axes$x) {
-      table <- weave_axes(table, lapply(axes$x, mtx, o = x_order))
+      table <- weave_axes(table, lapply(axes$x, mtx, o = x_order), z = z)
     } else {
-      table <- seam_table(table, axes$x$top,    side = "top",    name = "axis-t", z = 3)
-      table <- seam_table(table, axes$x$bottom, side = "bottom", name = "axis-b", z = 3)
+      table <- seam_table(table, axes$x$top,    side = "top",    name = "axis-t", z = z)
+      table <- seam_table(table, axes$x$bottom, side = "bottom", name = "axis-b", z = z)
     }
 
     if (draw_axes$y) {
-      table <- weave_axes(table, lapply(axes$y, mtx, o = y_order))
+      table <- weave_axes(table, lapply(axes$y, mtx, o = y_order), z = z)
     } else {
-      table <- seam_table(table, axes$y$left,  side = "left",  name = "axis-l", z = 3)
-      table <- seam_table(table, axes$y$right, side = "right", name = "axis-r", z = 3)
+      table <- seam_table(table, axes$y$left,  side = "left",  name = "axis-l", z = z)
+      table <- seam_table(table, axes$y$right, side = "right", name = "axis-r", z = z)
     }
 
     table
