@@ -31,6 +31,14 @@ ggplot_build <- function(plot, ...) {
   if (!is.null(env)) {
     attach_plot_env(env)
   }
+  if (!identical(try_prop(plot, "version"), current_version)) {
+    cli::cli_abort(c(
+      "The plot object was created with a different version of ggplot2. \\
+      Please reconstruct the plot.",
+      i = "Did you save the plot object to disk?"
+    ))
+  }
+
   UseMethod("ggplot_build")
 }
 
