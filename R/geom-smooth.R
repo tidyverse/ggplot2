@@ -30,8 +30,13 @@ GeomSmooth <- ggproto(
   # behavior predictable and sensible. The user will realize that they
   # need to set `se = TRUE` to obtain the ribbon and the legend key.
   draw_group = function(data, panel_params, coord, lineend = "butt", linejoin = "round",
-                        linemitre = 10, se = FALSE, flipped_aes = FALSE) {
-    ribbon <- transform(data, colour = NA)
+                        linemitre = 10, se = FALSE, band_gp = list(), flipped_aes = FALSE) {
+    ribbon <- transform(
+      data,
+      colour    = band_gp$colour    %||% data$colour    %||% NA,
+      linetype  = band_gp$linetype  %||% data$linetype  %||% 1L,
+      linewidth = band_gp$linewidth %||% data$linewidth %||% 0.5
+    )
     path <- transform(data, alpha = NA)
 
     ymin <- flipped_names(flipped_aes)$ymin
@@ -82,6 +87,8 @@ GeomSmooth <- ggproto(
 #'   `geom_smooth()` and `stat_smooth()`. For more information about overriding
 #'   these connections, see how the [stat][layer_stats] and [geom][layer_geoms]
 #'   arguments work.
+#' @param band.colour,band.color,band.linetype,band.linewidth Graphical
+#'   parameters for controlling the display of the confidence band outline.
 #' @seealso See individual modelling functions for more details:
 #'   [lm()] for linear smooths,
 #'   [glm()] for generalised linear smooths, and
@@ -151,15 +158,25 @@ geom_smooth <- function(mapping = NULL, data = NULL,
                         method = NULL,
                         formula = NULL,
                         se = TRUE,
+                        band.colour = NULL,
+                        band.color = NULL,
+                        band.linetype = "blank",
+                        band.linewidth = NULL,
                         na.rm = FALSE,
                         orientation = NA,
                         show.legend = NA,
                         inherit.aes = TRUE) {
+  band_gp <- list(
+    colour    = band.color %||% band.colour,
+    linetype  = band.linetype,
+    linewidth = band.linewidth
+  )
 
   params <- list2(
     na.rm = na.rm,
     orientation = orientation,
     se = se,
+    band_gp = band_gp,
     ...
   )
   if (identical(stat, "smooth")) {
