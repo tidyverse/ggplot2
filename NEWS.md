@@ -1,5 +1,9 @@
 # ggplot2 (development version)
  
+
+* `position_jitterdodge()` now warns when dodge groups appear inflated by
+  additional discrete aesthetics beyond `fill`, with guidance to set
+  `aes(group = <fill variable>)` (@Jesssullivan, #6824).
 * `make_constructor()` no longer captures `rlang::list2()` at build time.
 * The `arrow` and `arrow.fill` arguments are now available in 
   `geom_linerange()` and `geom_pointrange()` layers (@teunbrand, #6481).

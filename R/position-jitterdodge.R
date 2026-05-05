@@ -12,6 +12,20 @@
 #'   the default `position_dodge()` width.
 #' @inheritParams position_jitter
 #' @inheritParams position_dodge
+#'
+#' @section Interaction with grouping:
+#' When no explicit `group` aesthetic is set, ggplot2 computes groups from the
+#' interaction of all discrete aesthetics in the layer (see [aes_group_order]).
+#' If your point layer maps additional discrete aesthetics beyond the `fill`
+#' used for dodging (e.g., `colour`, `shape`, or `linetype`), the points will
+#' be split into more groups than the dodged boxplots, causing misalignment.
+#'
+#' To fix this, explicitly set `group` to the same variable used for dodging
+#' (typically the `fill` variable):
+#'
+#' \preformatted{geom_point(aes(colour = status, group = fill_var),
+#'            position = position_jitterdodge())}
+#'
 #' @export
 #' @examples
 #' set.seed(596)
@@ -19,6 +33,35 @@
 #' ggplot(dsub, aes(x = cut, y = carat, fill = clarity)) +
 #'   geom_boxplot(outlier.size = 0) +
 #'   geom_point(pch = 21, position = position_jitterdodge())
+#'
+#' # When mapping additional discrete aesthetics (e.g. colour), points
+#' # can misalign with boxes because the implicit groups are inflated.
+#' # Fix by setting group to the fill variable:
+#' \donttest{
+#' set.seed(596)
+#' df <- data.frame(
+#'   x = rep(c("A", "B"), each = 20),
+#'   y = rnorm(40),
+#'   fill_var = rep(c("g1", "g2"), 20),
+#'   colour_var = sample(c(TRUE, FALSE), 40, replace = TRUE)
+#' )
+#'
+#' # Misaligned: colour creates extra implicit groups
+#' ggplot(df, aes(x, y, fill = fill_var)) +
+#'   geom_boxplot(outlier.shape = NA) +
+#'   geom_point(
+#'     aes(colour = colour_var),
+#'     position = position_jitterdodge()
+#'   )
+#'
+#' # Fixed: explicit group aligns points with boxes
+#' ggplot(df, aes(x, y, fill = fill_var)) +
+#'   geom_boxplot(outlier.shape = NA) +
+#'   geom_point(
+#'     aes(colour = colour_var, group = fill_var),
+#'     position = position_jitterdodge()
+#'   )
+#' }
 position_jitterdodge <- function(jitter.width = NULL, jitter.height = 0,
                                  dodge.width = 0.75, reverse = FALSE,
                                  preserve = "total",
@@ -55,6 +98,28 @@ PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
   setup_params = function(self, data) {
     flipped_aes <- has_flipped_aes(data)
     data <- flip_data(data, flipped_aes)
+
+    # Warn when additional discrete aesthetics inflate groups beyond fill
+    if ("fill" %in% names(data) && is_discrete(data[["fill"]])) {
+      groups_per_pos <- vec_unique(data[c("group", "PANEL", "x")])
+      n_groups <- max(tabulate(vec_group_id(groups_per_pos[c("PANEL", "x")])))
+      fills_per_pos <- vec_unique(data[c("fill", "PANEL", "x")])
+      n_fills <- max(tabulate(vec_group_id(fills_per_pos[c("PANEL", "x")])))
+      if (n_groups > n_fills) {
+        cli::cli_warn(c(
+          "Dodge groups are larger than the number of {.field fill} values.",
+          "i" = paste(
+            "This can happen when additional discrete aesthetics (e.g.,",
+            "{.field colour}) inflate the implicit grouping."
+          ),
+          "i" = paste(
+            "Set {.code aes(group = <fill variable>)} to align points",
+            "with the dodged layer."
+          )
+        ))
+      }
+    }
+
     width <- self$jitter.width %||% (resolution(data$x, zero = FALSE, TRUE) * 0.4)
 
     if (identical(self$preserve, "total")) {
