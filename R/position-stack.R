@@ -130,14 +130,14 @@
 #'   geom_col(aes(fill = grp)) +
 #'   geom_hline(yintercept = 0) +
 #'   geom_text(aes(label = grp), position = position_stack(vjust = 0.5))
-position_stack <- function(vjust = 1, reverse = FALSE) {
-  ggproto(NULL, PositionStack, vjust = vjust, reverse = reverse)
+position_stack <- function(vjust = 1, reverse = FALSE, padding = 0) {
+  ggproto(NULL, PositionStack, vjust = vjust, reverse = reverse, padding = padding)
 }
 
 #' @export
 #' @rdname position_stack
-position_fill <- function(vjust = 1, reverse = FALSE) {
-  ggproto(NULL, PositionFill, vjust = vjust, reverse = reverse)
+position_fill <- function(vjust = 1, reverse = FALSE, padding = 0) {
+  ggproto(NULL, PositionFill, vjust = vjust, reverse = reverse, padding = padding)
 }
 
 #' @rdname Position
@@ -149,6 +149,7 @@ PositionStack <- ggproto("PositionStack", Position,
   vjust = 1,
   fill = FALSE,
   reverse = FALSE,
+  padding = 0,
 
   setup_params = function(self, data) {
     flipped_aes <- has_flipped_aes(data)
@@ -166,6 +167,7 @@ PositionStack <- ggproto("PositionStack", Position,
       fill = self$fill,
       vjust = self$vjust,
       reverse = self$reverse,
+      padding = self$padding,
       flipped_aes = flipped_aes
     )
   },
@@ -200,18 +202,30 @@ PositionStack <- ggproto("PositionStack", Position,
     neg <- data[negative, , drop = FALSE]
     pos <- data[!negative, , drop = FALSE]
 
+    panel_span <- if (params$fill || params$padding == 0) {
+      NULL
+    } else {
+      y <- ifelse(is.na(data$y), 0, data$y)
+      bucket <- interaction(data$xmin %||% data$x, negative, drop = TRUE)
+      max(abs(stats::ave(y, bucket, FUN = sum)))
+    }
+
     if (any(negative)) {
       neg <- collide(neg, NULL, "position_stack", pos_stack,
         vjust = params$vjust,
         fill = params$fill,
-        reverse = params$reverse
+        reverse = params$reverse,
+        padding = params$padding,
+        panel_span = panel_span
       )
     }
     if (!all(negative)) {
       pos <- collide(pos, NULL, "position_stack", pos_stack,
         vjust = params$vjust,
         fill = params$fill,
-        reverse = params$reverse
+        reverse = params$reverse,
+        padding = params$padding,
+        panel_span = panel_span
       )
     }
 
@@ -220,7 +234,7 @@ PositionStack <- ggproto("PositionStack", Position,
   }
 )
 
-pos_stack <- function(df, width, vjust = 1, fill = FALSE) {
+pos_stack <- function(df, width, vjust = 1, fill = FALSE, padding = 0, panel_span = NULL) {
   n <- nrow(df) + 1
   y <- ifelse(is.na(df$y), 0, df$y)
   heights <- c(0, cumsum(y))
@@ -237,8 +251,24 @@ pos_stack <- function(df, width, vjust = 1, fill = FALSE) {
   } else {
     max_is_lower <- rep(FALSE, nrow(df))
   }
-  ymin <- pmin(heights[-n], heights[-1])
-  ymax <- pmax(heights[-n], heights[-1])
+
+  # ymin <- pmin(heights[-n], heights[-1])
+  # ymax <- pmax(heights[-n], heights[-1])
+  lo <- heights[-n]
+  hi <- heights[-1]
+
+  if (padding > 0 && nrow(df) > 1) {
+    ref <- if (fill) {1} else {
+      panel_span %||% abs(heights[n] - heights[1])
+    }
+    half_gap <- sign(hi[1] - lo[1]) * ref * padding / 2
+    lo[-1] <- lo[-1] + half_gap
+    hi[-nrow(df)] <- hi[-nrow(df)] - half_gap
+  }
+
+  ymin <- pmin(lo, hi)
+  ymax <- pmax(lo, hi)
+
   df$y <- (1 - vjust) * ymin + vjust * ymax
   df$ymin <- as.numeric(ifelse(max_is_lower, ymax, ymin))
   df$ymax <- as.numeric(ifelse(max_is_lower, ymin, ymax))
