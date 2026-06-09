@@ -228,3 +228,10 @@ test_that("list conversion works for ggplot classes", {
   # Plot should still be buildable
   expect_s3_class(ggplotGrob(x), "gtable")
 })
+
+test_that("as_cli returns a single one-line string", {
+  text <- as_cli("I am a really long string but despite that {.fn as_cli}
+                 will return me as one string without line breaks")
+  expect_length(text, 1)
+  expect_no_match(text, "\n", fixed = TRUE)
+})
