@@ -21,6 +21,7 @@ test_that("property_choice works as intended", {
   expect_length(choice$validator(NULL), 0)
   expect_length(choice$validator("B"), 0)
   # Bad input
+  withr::local_options(cli.width = 20)
   expect_length(choice$validator("X"), 1)
   expect_length(choice$validator(12), 1)
 })
@@ -37,6 +38,7 @@ test_that("property_fontface works as intended", {
   expect_length(fontface$validator(2), 0)
   expect_length(fontface$validator("italic"), 0)
   # Bad input
+  withr::local_options(cli.width = 20)
   expect_length(fontface$validator(10), 1)
   expect_length(fontface$validator("foobar"), 1)
 })
