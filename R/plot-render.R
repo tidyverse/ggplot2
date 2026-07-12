@@ -279,6 +279,7 @@ table_add_tag <- function(table, label, theme) {
   if (location %in% c("plot", "panel")) {
     if (!is.numeric(position)) {
       hjust <- try_prop(element, "hjust", default = 0.5)
+      vjust <- try_prop(element, "vjust", default = 0.5)
       if (right || left) {
         x <- (1 - hjust) * width
         if (right) {
@@ -288,7 +289,6 @@ table_add_tag <- function(table, label, theme) {
         x <- unit(hjust, "npc")
       }
       if (top || bottom) {
-        vjust <- try_prop(element, "vjust", default = 0.5)
         y <- (1 - vjust) * height
         if (top) {
           y <- unit(1, "npc") - y
