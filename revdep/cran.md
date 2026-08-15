@@ -1,120 +1,31 @@
 ## revdepcheck results
 
-We checked 6069 reverse dependencies (6057 from CRAN + 12 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
+We checked 6300 reverse dependencies (6276 from CRAN + 24 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 32 new problems
- * We failed to check 132 packages
+ * We saw 2 new problems
+ * We failed to check 160 packages
 
 Issues with CRAN packages are summarised below.
 
 ### New problems
 (This reports the first line of each new failure)
 
-* bfw
-  checking Rd cross-references ... WARNING
-
-* crayons
-  checking Rd cross-references ... WARNING
-
-* cycleTrendR
-  checking tests ... ERROR
-
-* flexoki
-  checking Rd cross-references ... WARNING
-
-* geomtextpath
-  checking tests ... ERROR
-
-* ggalluvial
-  checking Rd cross-references ... WARNING
-
-* GGally
-  checking tests ... ERROR
-
-* ggarchery
-  checking Rd cross-references ... WARNING
-
 * ggdibbler
   checking for code/documentation mismatches ... WARNING
 
-* ggdist
-  checking Rd cross-references ... WARNING
-
-* ggfields
-  checking Rd cross-references ... WARNING
-
-* ggformula
-  checking examples ... ERROR
-
-* ggfortify
+* simRestore
   checking tests ... ERROR
-
-* gggda
-  checking Rd cross-references ... WARNING
-
-* gghexsize
-  checking Rd cross-references ... WARNING
-
-* ggiraph
-  checking examples ... ERROR
-
-* ggpattern
-  checking Rd cross-references ... WARNING
-
-* ggpmisc
-  checking Rd cross-references ... WARNING
-
-* ggpp
-  checking Rd cross-references ... WARNING
-
-* ggraph
-  checking examples ... ERROR
-  checking re-building of vignette outputs ... ERROR
-
-* ggsankeyfier
-  checking Rd cross-references ... WARNING
-
-* ggspectra
-  checking Rd cross-references ... WARNING
-
-* ggtricks
-  checking Rd cross-references ... WARNING
-
-* ggvfields
-  checking Rd cross-references ... WARNING
-
-* NHSRplotthedots
-  checking tests ... ERROR
-
-* NMF
-  checking installed package size ... NOTE
-
-* ordr
-  checking Rd cross-references ... WARNING
-
-* rticulate
-  checking re-building of vignette outputs ... ERROR
-
-* simaerep
-  checking tests ... ERROR
-
-* statgenGxE
-  checking tests ... ERROR
-
-* unusualprofile
-  checking tests ... ERROR
-
-* wacolors
-  checking Rd cross-references ... WARNING
 
 ### Failed to check
 
 * apsimx                (NA)
-* asremlPlus            (NA)
+* aridagri              (NA)
 * autovi                (NA)
 * AVGAS                 (NA)
 * bayesdfa              (NA)
 * BGGM                  (NA)
+* BGmisc                (NA)
+* bmm                   (NA)
 * boinet                (NA)
 * brms                  (NA)
 * BSL                   (NA)
@@ -122,7 +33,6 @@ Issues with CRAN packages are summarised below.
 * cases                 (NA)
 * cassowaryr            (NA)
 * cdcatR                (NA)
-* cdmTools              (NA)
 * cheem                 (NA)
 * ChillModels           (NA)
 * chouca                (NA)
@@ -130,12 +40,13 @@ Issues with CRAN packages are summarised below.
 * ClustAssess           (NA)
 * ClusterGVis           (NA)
 * clusterMI             (NA)
-* coFAST                (NA)
+* ClustImpute           (NA)
 * CompAREdesign         (NA)
 * copulaSim             (NA)
 * correlation           (NA)
 * ctsem                 (NA)
 * cylcop                (NA)
+* daltoolbox            (NA)
 * decisionSupport       (NA)
 * deepSTRAPP            (NA)
 * DFD                   (NA)
@@ -146,49 +57,59 @@ Issues with CRAN packages are summarised below.
 * eda4treeR             (NA)
 * EFDR                  (NA)
 * EGAnet                (NA)
-* eks                   (NA)
 * ER                    (NA)
 * FAfA                  (NA)
 * fastei                (NA)
+* fastqrs               (NA)
 * FCPS                  (NA)
 * fddm                  (NA)
+* FeatureImpCluster     (NA)
 * ferrn                 (NA)
+* ffp                   (NA)
 * fio                   (NA)
+* gasmodel              (NA)
 * GDINA                 (NA)
 * gemR                  (NA)
 * genekitr              (NA)
 * GeneralizedUmatrixGPU (NA)
-* ggChernoff            (NA)
 * ggpicrust2            (NA)
 * ggsem                 (NA)
 * GJRM                  (NA)
 * grandR                (NA)
+* gratia                (NA)
 * GRIDCOPULA            (NA)
+* harbinger             (NA)
 * hbsaems               (NA)
+* heimdall              (NA)
 * IndGenErrors          (NA)
+* ivolcano              (NA)
 * jmv                   (NA)
 * latentFactoR          (NA)
 * lcsm                  (NA)
-* lemon                 (NA)
 * linkspotter           (NA)
 * lionfish              (NA)
+* LMMstar               (NA)
 * LongDecompHE          (NA)
 * manymome              (NA)
+* MD2sample             (NA)
+* MDgof                 (NA)
+* measureR              (NA)
 * metrica               (NA)
 * mgc                   (NA)
 * micemd                (NA)
 * MiscMetabar           (NA)
 * MixedIndTests         (NA)
+* MixMashNet            (NA)
 * modelbased            (NA)
 * ModStatR              (NA)
+* morepls               (NA)
 * mulgar                (NA)
+* multinma              (NA)
 * MVN                   (NA)
-* neatStats             (NA)
 * negligible            (NA)
 * numbat                (NA)
 * OlinkAnalyze          (NA)
 * OpenMx                (NA)
-* opGMMassessment       (NA)
 * outstandR             (NA)
 * pandemonium           (NA)
 * parameters            (NA)
@@ -197,9 +118,12 @@ Issues with CRAN packages are summarised below.
 * phylosem              (NA)
 * polarisR              (NA)
 * predictionInterval    (NA)
+* prefviz               (NA)
 * projectLSA            (NA)
 * psychonetrics         (NA)
+* pvars                 (NA)
 * qad                   (NA)
+* qmd                   (NA)
 * QuadratiK             (NA)
 * quollr                (NA)
 * rattle                (NA)
@@ -208,6 +132,7 @@ Issues with CRAN packages are summarised below.
 * Revticulate           (NA)
 * RGENERATEPREC         (NA)
 * ridgetorus            (NA)
+* rmedsem               (NA)
 * RMOPI                 (NA)
 * rmsb                  (NA)
 * rSDR                  (NA)
@@ -218,11 +143,16 @@ Issues with CRAN packages are summarised below.
 * SCpubr                (NA)
 * semtree               (NA)
 * Signac                (NA)
+* simcausal             (NA)
+* SimDesign             (NA)
 * spareg                (NA)
 * spinebil              (NA)
 * spinifex              (NA)
+* Spower                (NA)
 * sprtt                 (NA)
 * SRscore               (NA)
+* STCCGEV               (NA)
+* STCYP                 (NA)
 * streamDAG             (NA)
 * SurprisalAnalysis     (NA)
 * Surrogate             (NA)
@@ -230,14 +160,21 @@ Issues with CRAN packages are summarised below.
 * TCIU                  (NA)
 * TDAkit                (NA)
 * TELP                  (NA)
+* tepr                  (NA)
 * TestAnaAPP            (NA)
+* tidybins              (NA)
 * tidycomm              (NA)
+* tidylearn             (NA)
 * tidySEM               (NA)
 * tinyarray             (NA)
 * tourr                 (NA)
 * TransProR             (NA)
 * TriDimRegression      (NA)
 * ufs                   (NA)
+* VecDep                (NA)
+* WINS                  (NA)
+* wmwAUC                (NA)
 * woylier               (NA)
 * WQM                   (NA)
 * XYomics               (NA)
+* zenplots              (NA)

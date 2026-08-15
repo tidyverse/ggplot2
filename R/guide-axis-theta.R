@@ -198,7 +198,11 @@ GuideAxisTheta <- ggproto(
 
     # Resolve text angle
     if (is_waiver(params$angle) || is.null(params$angle)) {
-      angle <- elements$text@angle
+      angle <- if (S7::S7_inherits(elements$text)) {
+        elements$text@angle
+      } else {
+        elements$text$angle
+      }
     } else {
       angle <- flip_text_angle(params$angle - rad2deg(key$theta))
     }
