@@ -75,7 +75,7 @@ StatYdensity <- ggproto(
         cli::cli_abort("{.arg quantiles} must be between 0 and 1.")
       }
       if (!is.null(data[["weight"]]) || !all(data[["weight"]] == 1)) {
-        check_installed("Hmisc")
+        check_installed("Hmisc", "for weighted quantiles.")
         quants <- Hmisc::wtd.quantile(data$y, weights = data$weight, probs = quantiles)
       } else {
         quants <- stats::quantile(data$y, probs = quantiles)
