@@ -53,7 +53,7 @@ test_that("quantiles are based on actual data (#4120)", {
 })
 
 test_that("weighted quantiles are correct", {
-
+skip_if_not_installed("Hmisc")
   df <- data.frame(y = c(0:10, 20), weight = c(rep(1, 11), 0))
   q <- seq(0.1, 0.9, by = 0.1)
 
