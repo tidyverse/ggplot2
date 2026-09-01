@@ -43,6 +43,7 @@ while allowing cross package inheritance to work.
 Here’s a quick demo of ggproto in action:
 
 ``` r
+
 A <- ggproto("A", NULL,
   x = 1,
   inc = function(self) {
@@ -55,6 +56,7 @@ A$x
     #> [1] 1
 
 ``` r
+
 A$inc()
 A$x
 ```
@@ -62,6 +64,7 @@ A$x
     #> [1] 2
 
 ``` r
+
 A$inc()
 A$inc()
 A$x
@@ -93,6 +96,7 @@ hull (the *c* hull) of a set of points. First we create a new ggproto
 object that inherits from `Stat`:
 
 ``` r
+
 StatChull <- ggproto("StatChull", Stat,
   compute_group = function(data, scales) {
     data[chull(data$x, data$y), , drop = FALSE]
@@ -127,6 +131,7 @@ care of teasing the different parameters apart and making sure they’re
 stored in the right place.
 
 ``` r
+
 stat_chull <- function(mapping = NULL, data = NULL, geom = "polygon",
                        position = "identity", na.rm = FALSE, show.legend = NA, 
                        inherit.aes = TRUE, ...) {
@@ -152,6 +157,7 @@ function to build one for you. There is no sensible default geom for a
 stat, so you have to set the default one yourself.
 
 ``` r
+
 stat_chull <- make_constructor(StatChull, geom = "polygon")
 print(stat_chull)
 ```
@@ -163,11 +169,12 @@ print(stat_chull)
     #>         position = position, show.legend = show.legend, inherit.aes = inherit.aes,
     #>         params = list2(na.rm = na.rm, ...))
     #> }
-    #> <environment: 0x559073eeef30>
+    #> <environment: 0x560cf56f4b88>
 
 Once we have a layer function we can try our new stat:
 
 ``` r
+
 ggplot(mpg, aes(displ, hwy)) + 
   geom_point() + 
   stat_chull(fill = NA, colour = "black")
@@ -186,6 +193,7 @@ example, ggplot2 automatically preserves aesthetics that are constant
 within each group:
 
 ``` r
+
 ggplot(mpg, aes(displ, hwy, colour = drv)) + 
   geom_point() + 
   stat_chull(fill = NA)
@@ -201,6 +209,7 @@ We can also override the default geom to display the convex hull in a
 different way:
 
 ``` r
+
 ggplot(mpg, aes(displ, hwy)) + 
   stat_chull(geom = "point", size = 4, colour = "red") +
   geom_point()
@@ -220,6 +229,7 @@ that adds a line of best fit to a plot. We create a `StatLm` that
 inherits from `Stat` and a layer function, `stat_lm()`:
 
 ``` r
+
 StatLm <- ggproto("StatLm", Stat, 
   required_aes = c("x", "y"),
   
@@ -253,6 +263,7 @@ used to generate the grid. To do so, we add arguments to the
 [`make_constructor()`](https://ggplot2.tidyverse.org/dev/reference/make_constructor.md).
 
 ``` r
+
 StatLm <- ggproto("StatLm", Stat, 
   required_aes = c("x", "y"),
   
@@ -291,6 +302,7 @@ documentation for all the parameters also defined for
 [`stat_identity()`](https://ggplot2.tidyverse.org/dev/reference/stat_identity.md).
 
 ``` r
+
 #' @export
 #' @inheritParams ggplot2::stat_identity
 #' @param formula The modelling formula passed to \code{lm}. Should only 
@@ -328,6 +340,7 @@ To do this we override the `setup_params()` method. It’s passed the data
 and a list of params, and returns an updated list.
 
 ``` r
+
 StatDensityCommon <- ggproto("StatDensityCommon", Stat, 
   required_aes = "x",
   
@@ -362,6 +375,7 @@ little bit
 wobbly.](extending-ggplot2_files/figure-html/unnamed-chunk-10-1.png)
 
 ``` r
+
 ggplot(mpg, aes(displ, colour = drv)) + 
   stat_density_common(bandwidth = 0.5)
 ```
@@ -387,6 +401,7 @@ automatically map `density` to `y`, which allows the user to override it
 to use with different geoms:
 
 ``` r
+
 StatDensityCommon <- ggproto("StatDensity2", Stat, 
   required_aes = "x",
   default_aes = aes(y = after_stat(density)),
@@ -411,6 +426,7 @@ However, using this stat with the area geom doesn’t work quite right.
 The areas don’t stack on top of each other:
 
 ``` r
+
 ggplot(mpg, aes(displ, fill = drv)) + 
   stat_density_common(bandwidth = 1, geom = "area", position = "stack")
 ```
@@ -426,6 +442,7 @@ estimated `x`s don’t line up. We can resolve that issue by computing the
 range of the data once in `setup_params()`.
 
 ``` r
+
 StatDensityCommon <- ggproto("StatDensityCommon", Stat, 
   required_aes = "x",
   default_aes = aes(y = after_stat(density)),
@@ -459,6 +476,7 @@ one another and show no
 overlap.](extending-ggplot2_files/figure-html/unnamed-chunk-13-1.png)
 
 ``` r
+
 ggplot(mpg, aes(displ, drv, fill = after_stat(density))) + 
   stat_density_common(bandwidth = 1, geom = "raster")
 ```
@@ -513,6 +531,7 @@ simplified version of
 [`geom_point()`](https://ggplot2.tidyverse.org/dev/reference/geom_point.md):
 
 ``` r
+
 GeomSimplePoint <- ggproto("GeomSimplePoint", Geom,
   required_aes = c("x", "y"),
   default_aes = aes(shape = 19, colour = "black"),
@@ -583,6 +602,7 @@ case, you should instead override `draw_group()`.
 The following code makes a simplified version of `GeomPolygon`:
 
 ``` r
+
 GeomSimplePolygon <- ggproto("GeomPolygon", Geom,
   required_aes = c("x", "y"),
   
@@ -655,6 +675,7 @@ from an existing subclass. For example, we might want to change the
 defaults for `GeomPolygon` to work better with `StatChull`:
 
 ``` r
+
 GeomPolygonHollow <- ggproto("GeomPolygonHollow", GeomPolygon,
   default_aes = aes(colour = "black", fill = NA, linewidth = 0.5, linetype = 1,
     alpha = NA)
@@ -709,6 +730,7 @@ the
 helper:
 
 ``` r
+
 StatBoxplot$setup_params
 ```
 
@@ -749,6 +771,7 @@ the code can then simply assume that the data is in a specific
 orientation. The same thing happens in `setup_data()`:
 
 ``` r
+
 StatBoxplot$setup_data
 ```
 
@@ -789,6 +812,7 @@ together with a stat that doesn’t handle orientation (often
 [`stat_identity()`](https://ggplot2.tidyverse.org/dev/reference/stat_identity.md)):
 
 ``` r
+
 GeomBoxplot$setup_data
 ```
 
@@ -846,6 +870,7 @@ classes understands the `|` (or) operator. Looking at `GeomBoxplot` we
 can see how it is used:
 
 ``` r
+
 GeomBoxplot$required_aes
 ```
 
@@ -869,6 +894,7 @@ with `ambiguous = TRUE` to cancel any guessing based on data format. As
 an example we can see the `setup_params()` method of `GeomLine`:
 
 ``` r
+
 GeomLine$setup_params
 ```
 
@@ -902,12 +928,14 @@ the existing theme. For example, the following code sets the key colour
 to red, but it inherits the existing fill colour:
 
 ``` r
+
 theme_grey()$legend.key
 ```
 
     #> NULL
 
 ``` r
+
 new_theme <- theme_grey() + theme(legend.key = element_rect(colour = "red"))
 new_theme$legend.key
 ```
@@ -923,6 +951,7 @@ new_theme$legend.key
 To override it completely, use `%+replace%` instead of `+`:
 
 ``` r
+
 new_theme <- theme_grey() %+replace% theme(legend.key = element_rect(colour = "red"))
 new_theme$legend.key
 ```
@@ -939,18 +968,19 @@ new_theme$legend.key
 
 There are four elements that affect the global appearance of the plot:
 
-| Element | Theme function                                                             | Description                                      |
-|---------|----------------------------------------------------------------------------|--------------------------------------------------|
-| line    | [`element_line()`](https://ggplot2.tidyverse.org/dev/reference/element.md) | all line elements                                |
-| rect    | [`element_rect()`](https://ggplot2.tidyverse.org/dev/reference/element.md) | all rectangular elements                         |
-| text    | [`element_text()`](https://ggplot2.tidyverse.org/dev/reference/element.md) | all text                                         |
-| title   | [`element_text()`](https://ggplot2.tidyverse.org/dev/reference/element.md) | all text in title elements (plot, axes & legend) |
+| Element | Theme function | Description |
+|----|----|----|
+| line | [`element_line()`](https://ggplot2.tidyverse.org/dev/reference/element.md) | all line elements |
+| rect | [`element_rect()`](https://ggplot2.tidyverse.org/dev/reference/element.md) | all rectangular elements |
+| text | [`element_text()`](https://ggplot2.tidyverse.org/dev/reference/element.md) | all text |
+| title | [`element_text()`](https://ggplot2.tidyverse.org/dev/reference/element.md) | all text in title elements (plot, axes & legend) |
 
 These set default properties that are inherited by more specific
 settings. These are most useful for setting an overall “background”
 colour and overall font settings (e.g. family and size).
 
 ``` r
+
 df <- data.frame(x = 1:3, y = 1:3)
 base <- ggplot(df, aes(x, y)) + 
   geom_point() + 
@@ -964,6 +994,7 @@ base
 black](extending-ggplot2_files/figure-html/axis-line-ex-1.png)
 
 ``` r
+
 base + theme(text = element_text(colour = "red"))
 ```
 
@@ -1056,6 +1087,7 @@ will e.g. also return the faceting variables associated with each
 panel). Let’s make a function that defines a duplicate layout:
 
 ``` r
+
 layout <- function(data, params) {
   data.frame(PANEL = c(1L, 2L), SCALE_X = 1L, SCALE_Y = 1L)
 }
@@ -1072,6 +1104,7 @@ assign a `PANEL` column to the layer data identifying which panel it
 belongs to.
 
 ``` r
+
 mapping <- function(data, layout, params) {
   if (is.null(data) || nrow(data) == 0) {
     return(cbind(data, PANEL = integer(0)))
@@ -1094,6 +1127,7 @@ one is going to take some more work. Our goal is to draw two panels
 beside (or above) each other with axes etc.
 
 ``` r
+
 render <- function(panels, layout, x_scales, y_scales, ranges, coord, data,
                    theme, params) {
   # Place panels according to settings
@@ -1170,6 +1204,7 @@ could go through each in turn. All that remains is to assign our
 functions to the correct methods as well as making a constructor
 
 ``` r
+
 # Constructor: shrink is required to govern whether scales are trained on 
 # Stat-transformed data or not.
 facet_duplicate <- function(horizontal = TRUE, shrink = TRUE) {
@@ -1191,6 +1226,7 @@ FacetDuplicate <- ggproto("FacetDuplicate", Facet,
 Now with everything assembled, lets test it out:
 
 ``` r
+
 p <- ggplot(mtcars, aes(x = hp, y = mpg)) + geom_point()
 p
 ```
@@ -1199,6 +1235,7 @@ p
 cars.](extending-ggplot2_files/figure-html/unnamed-chunk-27-1.png)
 
 ``` r
+
 p + facet_duplicate()
 ```
 
@@ -1213,6 +1250,7 @@ to add some actual usability. We are going to make a faceting that adds
 panels with y-transformed axes:
 
 ``` r
+
 library(scales)
 
 facet_trans <- function(trans, horizontal = TRUE, shrink = TRUE) {
@@ -1399,6 +1437,7 @@ meticulous when writing these methods.
 Enough talk - lets see if our new and powerful faceting extension works:
 
 ``` r
+
 ggplot(mtcars, aes(x = hp, y = mpg)) + geom_point() + facet_trans('sqrt')
 ```
 
@@ -1419,6 +1458,7 @@ to make a `facet_bootstrap()` class that splits the input data into a
 number of panels at random.
 
 ``` r
+
 facet_bootstrap <- function(n = 9, prop = 0.2, nrow = NULL, ncol = NULL, 
   scales = "fixed", shrink = TRUE, strip.position = "top") {
   
@@ -1508,6 +1548,7 @@ is used in computations. To avoid interpreting the values and labels as
 aesthetics, it is customary to prefix these with `.`.
 
 ``` r
+
 p <- ggplot(mpg, aes(displ, hwy, colour = drv)) +
   geom_point() +
   scale_colour_discrete(
@@ -1534,6 +1575,7 @@ transferred from the scale to the guide. In our class, we reject the
 scale’s reality and substitute our own.
 
 ``` r
+
 GuideKey <- ggproto(
   "Guide", GuideAxis,
   
@@ -1561,6 +1603,7 @@ function automatically rejects any parameters that are not in the class’
 `params` field, so it is important to declare these.
 
 ``` r
+
 guide_key <- function(
   aesthetic, value = aesthetic, label = as.character(aesthetic),
   ...,
@@ -1586,6 +1629,7 @@ Our new guide can now be used inside the
 function or as the `guide` argument in a position scale.
 
 ``` r
+
 ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
   scale_x_continuous(
@@ -1618,6 +1662,7 @@ guides is that a lot of settings depend on the guide’s `position`
 parameter.
 
 ``` r
+
 # Same as before
 GuideKey <- ggproto(
   "Guide", GuideAxis,
@@ -1651,6 +1696,7 @@ check that are guide looks correct in the different positions around the
 panel.
 
 ``` r
+
 ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
   guides(

@@ -14,6 +14,7 @@ See example
 In the following plot the labels on the x-axis are overlapping.
 
 ``` r
+
 ggplot(msleep, aes(x = order, y = sleep_total)) +
   geom_boxplot()
 ```
@@ -31,6 +32,7 @@ unreadable.](faq-axes_files/figure-html/msleep-order-sleep-total-1.png)
   here we set it to 90 degrees.
 
 ``` r
+
 ggplot(msleep, aes(x = order, y = sleep_total)) +
   geom_boxplot() +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
@@ -44,6 +46,7 @@ readable.](faq-axes_files/figure-html/msleep-order-sleep-total-rotate-1.png)
 - Flip the axes: Use the y-axis for long labels.
 
 ``` r
+
 ggplot(msleep, aes(y = order, x = sleep_total)) +
   geom_boxplot()
 ```
@@ -69,6 +72,7 @@ readable.](faq-axes_files/figure-html/msleep-order-sleep-total-flip-1.png)
   3 rows to render the labels.
 
 ``` r
+
 ggplot(msleep, aes(x = order, y = sleep_total)) +
   geom_boxplot() +
   scale_x_discrete(guide = guide_axis(n.dodge = 3))
@@ -88,6 +92,7 @@ readable.](faq-axes_files/figure-html/msleep-order-sleep-total-dodge-1.png)
   is not the case for the following plot.)
 
 ``` r
+
 ggplot(msleep, aes(x = order, y = sleep_total)) +
   geom_boxplot() +
   scale_x_discrete(guide = guide_axis(check.overlap = TRUE))
@@ -110,6 +115,7 @@ See example
 Suppose we want to remove the axis labels entirely.
 
 ``` r
+
 ggplot(msleep, aes(x = order, y = sleep_total)) +
   geom_boxplot()
 ```
@@ -130,6 +136,7 @@ unreadable.](faq-axes_files/figure-html/unnamed-chunk-2-1.png)
   accompanying each of the ticks.
 
 ``` r
+
 ggplot(msleep, aes(x = order, y = sleep_total)) +
   geom_boxplot() +
   theme(
@@ -149,6 +156,7 @@ x-axis is absent.](faq-axes_files/figure-html/unnamed-chunk-3-1.png)
   features than you like. For finer control over the theme, see below.
 
 ``` r
+
 ggplot(msleep, aes(x = order, y = sleep_total)) +
   geom_boxplot() + 
   theme_void()
@@ -172,6 +180,7 @@ Suppose you have the following data on sales for each quarter across two
 years.
 
 ``` r
+
 library(tibble)
 
 sales <- tribble(
@@ -191,6 +200,7 @@ You can create a line plot of these data and facet by `year` to group
 the quarters for each year together.
 
 ``` r
+
 ggplot(sales, aes(x = quarter, y = value, group = 1)) +
   geom_line() +
   facet_wrap(~year)
@@ -210,6 +220,7 @@ To achieve this, map the
 and `year` to the `x` aesthetic.
 
 ``` r
+
 ggplot(sales, aes(x = interaction(quarter, year), y = value, group = 1)) +
   geom_line()
 ```
@@ -232,6 +243,7 @@ you had many more years, you might write some logic to calculate their
 placement.
 
 ``` r
+
 ggplot(sales, aes(x = interaction(quarter, year), y = value, group = 1)) +
   geom_line() +
   coord_cartesian(ylim = c(9, 32), expand = FALSE, clip = "off") +
@@ -253,6 +265,7 @@ This approach works with other geoms as well. For example, you might can
 create a bar plot representing the same data using the following.
 
 ``` r
+
 ggplot(sales, aes(x = interaction(quarter, year), y = value)) +
   geom_col() +
   coord_cartesian(ylim = c(0, 32), expand = FALSE, clip = "off") +
@@ -277,6 +290,7 @@ plot. However note that the space between the bars for 2020 Q4 and 2021
 Q1 is greater than the space between the other bars.
 
 ``` r
+
 ggplot(sales, aes(x = quarter, y = value)) +
   geom_col() +
   facet_wrap(~year, strip.position = "bottom") +
@@ -309,6 +323,7 @@ Suppose you want to give more informative labels for the type of drive
 train.
 
 ``` r
+
 ggplot(mpg, aes(y = drv)) +
   geom_bar()
 ```
@@ -329,6 +344,7 @@ trains are labelled from top-to-bottom as 'r', 'f' and
   variable was numeric/continuous.
 
 ``` r
+
 ggplot(mpg, aes(y = drv)) +
   geom_bar() +
   scale_y_discrete(
@@ -347,6 +363,7 @@ drive'.](faq-axes_files/figure-html/unnamed-chunk-12-1.png)
   worry about the order of the levels.
 
 ``` r
+
 ggplot(mpg, aes(y = drv)) +
   geom_bar() +
   scale_y_discrete(
@@ -381,6 +398,7 @@ By default, large numbers on the axis labels in the following plot are
 shown in scientific notation.
 
 ``` r
+
 ggplot(txhousing, aes(x = median, y = volume)) +
   geom_point()
 #> Warning: Removed 617 rows containing missing values or values outside the scale range
@@ -402,6 +420,7 @@ notation or use
 to insert a comma every three digits.
 
 ``` r
+
 library(scales)
 ggplot(txhousing, aes(x = median, y = volume)) +
   geom_point() +
@@ -436,6 +455,7 @@ Suppose you want to increase/decrease the number of decimal spaces shown
 in the axis text in the following plot.
 
 ``` r
+
 ggplot(seals, aes(x = delta_long, y = delta_lat)) +
   geom_point()
 ```
@@ -454,6 +474,7 @@ where the `accuracy` argument indicates the number to round to, e.g. 0.1
 to show 1 decimal place, 0.0001 to show 4 decimal places, etc.
 
 ``` r
+
 library(scales)
 ggplot(seals, aes(x = delta_long, y = delta_lat)) +
   geom_point() +
@@ -486,6 +507,7 @@ The variable on the y-axis of the following line plot (`psavert`)
 indicates the personal savings rate, which is in percentages.
 
 ``` r
+
 ggplot(economics, aes(x = date, y = psavert, group = 1)) +
   geom_line()
 ```
@@ -499,6 +521,7 @@ you can add `%`s after the numbers shown on the axis to make the units
 more clear.
 
 ``` r
+
 ggplot(economics, aes(x = date, y = psavert, group = 1)) +
   geom_line() +
   scale_y_continuous(labels = scales::label_percent(scale = 1, accuracy = 1))
@@ -523,6 +546,7 @@ See example
 In the following plot `cty` is squared and `hwy` is log transformed.
 
 ``` r
+
 ggplot(mpg, aes(x = cty^2, y = log(hwy))) +
   geom_point()
 ```
@@ -535,6 +559,7 @@ cars.](faq-axes_files/figure-html/unnamed-chunk-20-1.png)
   mathematical expressions.
 
 ``` r
+
 ggplot(mpg, aes(x = cty^2, y = log(hwy, base = 10))) +
   geom_point() +
   labs(
@@ -558,6 +583,7 @@ x-axis.](faq-axes_files/figure-html/unnamed-chunk-21-1.png)
   [`ggtext::element_markdown()`](https://wilkelab.org/ggtext/reference/element_markdown.html).
 
 ``` r
+
 ggplot(mpg, aes(x = cty^2, y = log(hwy, base = 10))) +
   geom_point() +
   labs(
@@ -585,6 +611,7 @@ Suppose you want to customise the major and minor grid lines on both the
 x and the y axes of the following plot.
 
 ``` r
+
 ggplot(mpg, aes(x = cty, y = hwy)) +
   geom_point()
 ```
@@ -606,6 +633,7 @@ best practice) and we have completely turned off minor grid lines by
 setting `minor_breaks` to `NULL`.
 
 ``` r
+
 ggplot(mpg, aes(x = cty, y = hwy)) +
   geom_point() +
   scale_x_continuous(
@@ -654,6 +682,7 @@ See example
   heat map so it’s flush against the axes.
 
 ``` r
+
 ggplot(faithfuld, aes(waiting, eruptions)) +
   geom_raster(aes(fill = density))
 ```
@@ -669,6 +698,7 @@ and
 [`scale_y_continuous()`](https://ggplot2.tidyverse.org/dev/reference/scale_continuous.md).
 
 ``` r
+
 ggplot(faithfuld, aes(waiting, eruptions)) +
   geom_raster(aes(fill = density)) +
   scale_x_continuous(expand = c(0, 0)) +
@@ -683,6 +713,7 @@ edges.](faq-axes_files/figure-html/unnamed-chunk-26-1.png)
   below the bars and the x-axis only.
 
 ``` r
+
 ggplot(mpg, aes(drv)) +
   geom_bar()
 ```
@@ -696,6 +727,7 @@ You would make this adjustment on
 since that padding is in the vertical direction.
 
 ``` r
+
 ggplot(mpg, aes(drv)) +
   geom_bar() +
   scale_y_continuous(expand = c(0, 0))
@@ -717,6 +749,7 @@ takes a multiplicative range expansion factors. Given a vector of length
 upper limit is expanded by `mult[2]` (in this case 0.05).
 
 ``` r
+
 ggplot(mpg, aes(drv)) +
   geom_bar() +
   scale_y_continuous(expand = expansion(mult = c(0, 0.05)))

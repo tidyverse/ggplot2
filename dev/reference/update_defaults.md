@@ -51,6 +51,7 @@ are as follows:
 ## Examples
 
 ``` r
+
 # updating a geom's default aesthetic settings
 # example: change geom_point()'s default color
 GeomPoint$default_aes

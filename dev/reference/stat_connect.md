@@ -173,11 +173,11 @@ stat_connect(
 aesthetics are displayed in bold and defaults are displayed for optional
 aesthetics:
 
-|     |                                                                                                                                                                                                                              |            |
-|-----|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|
-| •   | **[`x`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md) *or* [`xmin`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md) *or* [`xmax`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)** |            |
-| •   | **[`y`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md) *or* [`ymin`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md) *or* [`ymax`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)** |            |
-| •   | [`group`](https://ggplot2.tidyverse.org/dev/reference/aes_group_order.md)                                                                                                                                                    | → inferred |
+|  |  |  |
+|----|----|----|
+| • | **[`x`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md) *or* [`xmin`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md) *or* [`xmax`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)** |  |
+| • | **[`y`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md) *or* [`ymin`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md) *or* [`ymax`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)** |  |
+| • | [`group`](https://ggplot2.tidyverse.org/dev/reference/aes_group_order.md) | → inferred |
 
 Learn more about setting these aesthetics in
 [`vignette("ggplot2-specs")`](https://ggplot2.tidyverse.org/dev/articles/ggplot2-specs.md).

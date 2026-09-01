@@ -45,6 +45,7 @@ plotting system. For example, if we intend to make a graphic about the
 `mpg` dataset, we would start as follows:
 
 ``` r
+
 ggplot(data = mpg)
 ```
 
@@ -62,6 +63,7 @@ the `cty` and `hwy` columns to map to the x- and y-coordinates in the
 plot, we can do that as follows:
 
 ``` r
+
 ggplot(mpg, mapping = aes(x = cty, y = hwy))
 ```
 
@@ -91,6 +93,7 @@ use two layers to display the `cty` and `hwy` columns of the `mpg`
 dataset as points and stack a trend line on top.
 
 ``` r
+
 ggplot(mpg, aes(cty, hwy)) +
   # to create a scatterplot
   geom_point() +
@@ -118,6 +121,7 @@ column in the `mpg` dataset to the viridis colour palette, we can write
 the following:
 
 ``` r
+
 ggplot(mpg, aes(cty, hwy, colour = class)) +
   geom_point() +
   scale_colour_viridis_d()
@@ -142,6 +146,7 @@ plot subsets of the `mpg` dataset based on levels of the `drv` and
 as follows:
 
 ``` r
+
 ggplot(mpg, aes(cty, hwy)) +
   geom_point() +
   facet_grid(year ~ drv)
@@ -167,6 +172,7 @@ so that one unit has the same length in both the x and y directions. The
 function sets this ratio automatically.
 
 ``` r
+
 ggplot(mpg, aes(cty, hwy)) +
   geom_point() +
   coord_fixed()
@@ -194,6 +200,7 @@ function. The `element_*()` functions control the graphical attributes
 of theme components.
 
 ``` r
+
 ggplot(mpg, aes(cty, hwy, colour = class)) +
   geom_point() +
   theme_minimal() +
@@ -217,6 +224,7 @@ customized plot of your data, like the one shown at the beginning of
 this vignette:
 
 ``` r
+
 ggplot(mpg, aes(cty, hwy)) +
   geom_point(mapping = aes(colour = displ)) +
   geom_smooth(formula = y ~ x, method = "lm") +

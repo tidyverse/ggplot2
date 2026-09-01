@@ -1,11 +1,9 @@
 # Build ggplot for rendering.
 
-`build_ggplot()` takes the plot object, and performs all steps necessary
+`ggplot_build()` takes the plot object, and performs all steps necessary
 to produce an object that can be rendered. This function outputs two
 pieces: a list of data frames (one for each layer), and a panel object,
-which contain all information about axis limits, breaks etc. The
-`ggplot_build()` function is vestigial and `build_ggplot()` should be
-used instead.
+which contain all information about axis limits, breaks etc.
 
 ## Usage
 

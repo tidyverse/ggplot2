@@ -4,6 +4,7 @@ In order to continuously monitor the performance of ggplot2 the
 following piece of code is used to generate a profile and inspect it:
 
 ``` r
+
 library(ggplot2)
 library(profvis)
 

@@ -327,57 +327,57 @@ factor depending on whether lines or bands are calculated.
 aesthetics are displayed in bold and defaults are displayed for optional
 aesthetics:
 
-|     |                                                                                       |                                                                         |
-|-----|---------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
-| •   | **[`x`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)**                |                                                                         |
-| •   | **[`y`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)**                |                                                                         |
-| •   | [`alpha`](https://ggplot2.tidyverse.org/dev/reference/aes_colour_fill_alpha.md)       | → `NA`                                                                  |
-| •   | [`colour`](https://ggplot2.tidyverse.org/dev/reference/aes_colour_fill_alpha.md)      | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
-| •   | [`group`](https://ggplot2.tidyverse.org/dev/reference/aes_group_order.md)             | → inferred                                                              |
-| •   | [`linetype`](https://ggplot2.tidyverse.org/dev/reference/aes_linetype_size_shape.md)  | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
-| •   | [`linewidth`](https://ggplot2.tidyverse.org/dev/reference/aes_linetype_size_shape.md) | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
-| •   | `weight`                                                                              | → `1`                                                                   |
+|  |  |  |
+|----|----|----|
+| • | **[`x`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)** |  |
+| • | **[`y`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)** |  |
+| • | [`alpha`](https://ggplot2.tidyverse.org/dev/reference/aes_colour_fill_alpha.md) | → `NA` |
+| • | [`colour`](https://ggplot2.tidyverse.org/dev/reference/aes_colour_fill_alpha.md) | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
+| • | [`group`](https://ggplot2.tidyverse.org/dev/reference/aes_group_order.md) | → inferred |
+| • | [`linetype`](https://ggplot2.tidyverse.org/dev/reference/aes_linetype_size_shape.md) | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
+| • | [`linewidth`](https://ggplot2.tidyverse.org/dev/reference/aes_linetype_size_shape.md) | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
+| • | `weight` | → `1` |
 
 `geom_contour_filled()` understands the following aesthetics. Required
 aesthetics are displayed in bold and defaults are displayed for optional
 aesthetics:
 
-|     |                                                                                       |                                                                         |
-|-----|---------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
-| •   | **[`x`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)**                |                                                                         |
-| •   | **[`y`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)**                |                                                                         |
-| •   | [`alpha`](https://ggplot2.tidyverse.org/dev/reference/aes_colour_fill_alpha.md)       | → `NA`                                                                  |
-| •   | [`colour`](https://ggplot2.tidyverse.org/dev/reference/aes_colour_fill_alpha.md)      | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
-| •   | [`fill`](https://ggplot2.tidyverse.org/dev/reference/aes_colour_fill_alpha.md)        | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
-| •   | [`group`](https://ggplot2.tidyverse.org/dev/reference/aes_group_order.md)             | → inferred                                                              |
-| •   | [`linetype`](https://ggplot2.tidyverse.org/dev/reference/aes_linetype_size_shape.md)  | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
-| •   | [`linewidth`](https://ggplot2.tidyverse.org/dev/reference/aes_linetype_size_shape.md) | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
-| •   | `subgroup`                                                                            | → `NULL`                                                                |
+|  |  |  |
+|----|----|----|
+| • | **[`x`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)** |  |
+| • | **[`y`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)** |  |
+| • | [`alpha`](https://ggplot2.tidyverse.org/dev/reference/aes_colour_fill_alpha.md) | → `NA` |
+| • | [`colour`](https://ggplot2.tidyverse.org/dev/reference/aes_colour_fill_alpha.md) | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
+| • | [`fill`](https://ggplot2.tidyverse.org/dev/reference/aes_colour_fill_alpha.md) | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
+| • | [`group`](https://ggplot2.tidyverse.org/dev/reference/aes_group_order.md) | → inferred |
+| • | [`linetype`](https://ggplot2.tidyverse.org/dev/reference/aes_linetype_size_shape.md) | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
+| • | [`linewidth`](https://ggplot2.tidyverse.org/dev/reference/aes_linetype_size_shape.md) | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
+| • | `subgroup` | → `NULL` |
 
 `stat_contour()` understands the following aesthetics. Required
 aesthetics are displayed in bold and defaults are displayed for optional
 aesthetics:
 
-|     |                                                                           |                       |
-|-----|---------------------------------------------------------------------------|-----------------------|
-| •   | **[`x`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)**    |                       |
-| •   | **[`y`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)**    |                       |
-| •   | **`z`**                                                                   |                       |
-| •   | [`group`](https://ggplot2.tidyverse.org/dev/reference/aes_group_order.md) | → inferred            |
-| •   | `order`                                                                   | → `after_stat(level)` |
+|  |  |  |
+|----|----|----|
+| • | **[`x`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)** |  |
+| • | **[`y`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)** |  |
+| • | **`z`** |  |
+| • | [`group`](https://ggplot2.tidyverse.org/dev/reference/aes_group_order.md) | → inferred |
+| • | `order` | → `after_stat(level)` |
 
 `stat_contour_filled()` understands the following aesthetics. Required
 aesthetics are displayed in bold and defaults are displayed for optional
 aesthetics:
 
-|     |                                                                                |                       |
-|-----|--------------------------------------------------------------------------------|-----------------------|
-| •   | **[`x`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)**         |                       |
-| •   | **[`y`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)**         |                       |
-| •   | **`z`**                                                                        |                       |
-| •   | [`fill`](https://ggplot2.tidyverse.org/dev/reference/aes_colour_fill_alpha.md) | → `after_stat(level)` |
-| •   | [`group`](https://ggplot2.tidyverse.org/dev/reference/aes_group_order.md)      | → inferred            |
-| •   | `order`                                                                        | → `after_stat(level)` |
+|  |  |  |
+|----|----|----|
+| • | **[`x`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)** |  |
+| • | **[`y`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)** |  |
+| • | **`z`** |  |
+| • | [`fill`](https://ggplot2.tidyverse.org/dev/reference/aes_colour_fill_alpha.md) | → `after_stat(level)` |
+| • | [`group`](https://ggplot2.tidyverse.org/dev/reference/aes_group_order.md) | → inferred |
+| • | `order` | → `after_stat(level)` |
 
 Learn more about setting these aesthetics in
 [`vignette("ggplot2-specs")`](https://ggplot2.tidyverse.org/dev/articles/ggplot2-specs.md).

@@ -193,12 +193,12 @@ Sci. 28 (1) 1 - 39, February 2013. URL:
 aesthetics are displayed in bold and defaults are displayed for optional
 aesthetics:
 
-|     |                                                                           |            |
-|-----|---------------------------------------------------------------------------|------------|
-| •   | **[`x`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)**    |            |
-| •   | **[`y`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)**    |            |
-| •   | [`group`](https://ggplot2.tidyverse.org/dev/reference/aes_group_order.md) | → inferred |
-| •   | `weight`                                                                  |            |
+|  |  |  |
+|----|----|----|
+| • | **[`x`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)** |  |
+| • | **[`y`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)** |  |
+| • | [`group`](https://ggplot2.tidyverse.org/dev/reference/aes_group_order.md) | → inferred |
+| • | `weight` |  |
 
 Learn more about setting these aesthetics in
 [`vignette("ggplot2-specs")`](https://ggplot2.tidyverse.org/dev/articles/ggplot2-specs.md).

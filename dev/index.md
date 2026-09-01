@@ -11,6 +11,7 @@ graphical primitives to use, and it takes care of the details.
 ## Installation
 
 ``` r
+
 # The easiest way to get ggplot2 is to install the whole tidyverse:
 install.packages("tidyverse")
 
@@ -46,6 +47,7 @@ and coordinate systems (like
 [`coord_flip()`](https://ggplot2.tidyverse.org/dev/reference/coord_flip.md)).
 
 ``` r
+
 library(ggplot2)
 
 ggplot(mpg, aes(displ, hwy, colour = class)) +

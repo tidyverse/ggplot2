@@ -339,15 +339,15 @@ CRAN release: 2025-09-11
   ([@teunbrand](https://github.com/teunbrand),
   [\#5568](https://github.com/tidyverse/ggplot2/issues/5568)).
 
-  | New name                                                                            | Old name                                                                        |
-  |-------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
-  | [`get_theme()`](https://ggplot2.tidyverse.org/dev/reference/get_theme.md)           | [`theme_get()`](https://ggplot2.tidyverse.org/dev/reference/get_theme.md)       |
-  | [`set_theme()`](https://ggplot2.tidyverse.org/dev/reference/get_theme.md)           | [`theme_set()`](https://ggplot2.tidyverse.org/dev/reference/get_theme.md)       |
-  | [`replace_theme()`](https://ggplot2.tidyverse.org/dev/reference/get_theme.md)       | [`theme_replace()`](https://ggplot2.tidyverse.org/dev/reference/get_theme.md)   |
-  | [`update_theme()`](https://ggplot2.tidyverse.org/dev/reference/get_theme.md)        | [`theme_update()`](https://ggplot2.tidyverse.org/dev/reference/get_theme.md)    |
-  | [`get_last_plot()`](https://ggplot2.tidyverse.org/dev/reference/get_last_plot.md)   | [`last_plot()`](https://ggplot2.tidyverse.org/dev/reference/get_last_plot.md)   |
-  | [`get_layer_data()`](https://ggplot2.tidyverse.org/dev/reference/ggplot_build.md)   | [`layer_data()`](https://ggplot2.tidyverse.org/dev/reference/ggplot_build.md)   |
-  | [`get_layer_grob()`](https://ggplot2.tidyverse.org/dev/reference/ggplot_build.md)   | [`layer_grob()`](https://ggplot2.tidyverse.org/dev/reference/ggplot_build.md)   |
+  | New name | Old name |
+  |----|----|
+  | [`get_theme()`](https://ggplot2.tidyverse.org/dev/reference/get_theme.md) | [`theme_get()`](https://ggplot2.tidyverse.org/dev/reference/get_theme.md) |
+  | [`set_theme()`](https://ggplot2.tidyverse.org/dev/reference/get_theme.md) | [`theme_set()`](https://ggplot2.tidyverse.org/dev/reference/get_theme.md) |
+  | [`replace_theme()`](https://ggplot2.tidyverse.org/dev/reference/get_theme.md) | [`theme_replace()`](https://ggplot2.tidyverse.org/dev/reference/get_theme.md) |
+  | [`update_theme()`](https://ggplot2.tidyverse.org/dev/reference/get_theme.md) | [`theme_update()`](https://ggplot2.tidyverse.org/dev/reference/get_theme.md) |
+  | [`get_last_plot()`](https://ggplot2.tidyverse.org/dev/reference/get_last_plot.md) | [`last_plot()`](https://ggplot2.tidyverse.org/dev/reference/get_last_plot.md) |
+  | [`get_layer_data()`](https://ggplot2.tidyverse.org/dev/reference/ggplot_build.md) | [`layer_data()`](https://ggplot2.tidyverse.org/dev/reference/ggplot_build.md) |
+  | [`get_layer_grob()`](https://ggplot2.tidyverse.org/dev/reference/ggplot_build.md) | [`layer_grob()`](https://ggplot2.tidyverse.org/dev/reference/ggplot_build.md) |
   | [`get_panel_scales()`](https://ggplot2.tidyverse.org/dev/reference/ggplot_build.md) | [`layer_scales()`](https://ggplot2.tidyverse.org/dev/reference/ggplot_build.md) |
 
 - [`facet_wrap()`](https://ggplot2.tidyverse.org/dev/reference/facet_wrap.md)
@@ -3681,6 +3681,7 @@ CRAN release: 2018-07-03
   method signature.
 
   ``` r
+
   # old
   guide_train.legend <- function(guide, scale) {...}
 
@@ -3693,6 +3694,7 @@ CRAN release: 2018-07-03
   in the rlang package).
 
   ``` r
+
   # old
   setNames(list(scale$map(breaks)), scale$aesthetics[1])
 
@@ -3754,6 +3756,7 @@ CRAN release: 2018-07-03
   [`coord_sf()`](https://ggplot2.tidyverse.org/dev/reference/ggsf.md):
 
   ``` r
+
   nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
   ggplot(nc) +
     geom_sf(aes(fill = AREA))
@@ -3867,6 +3870,7 @@ CRAN release: 2018-07-03
   leave some (automatically calculated amount of) space above them:
 
   ``` r
+
   ggplot(mtcars) +
       geom_bar(aes(x = factor(cyl))) +
       scale_y_continuous(expand = expand_scale(mult = c(0, .1)))
@@ -5181,6 +5185,7 @@ All defunct functions have been removed.
   [`guide_legend()`](https://ggplot2.tidyverse.org/dev/reference/guide_legend.md)
 
   ``` r
+
   p <- ggplot(mpg, aes(displ,hwy, colour = model)) + geom_point()
   p
   p + theme(legend.position = "bottom")

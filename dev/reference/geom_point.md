@@ -186,17 +186,17 @@ Another technique is to make the points transparent (e.g.
 are displayed in bold and defaults are displayed for optional
 aesthetics:
 
-|     |                                                                                   |                                                                         |
-|-----|-----------------------------------------------------------------------------------|-------------------------------------------------------------------------|
-| •   | **[`x`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)**            |                                                                         |
-| •   | **[`y`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)**            |                                                                         |
-| •   | [`alpha`](https://ggplot2.tidyverse.org/dev/reference/aes_colour_fill_alpha.md)   | → `NA`                                                                  |
-| •   | [`colour`](https://ggplot2.tidyverse.org/dev/reference/aes_colour_fill_alpha.md)  | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
-| •   | [`fill`](https://ggplot2.tidyverse.org/dev/reference/aes_colour_fill_alpha.md)    | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
-| •   | [`group`](https://ggplot2.tidyverse.org/dev/reference/aes_group_order.md)         | → inferred                                                              |
-| •   | [`shape`](https://ggplot2.tidyverse.org/dev/reference/aes_linetype_size_shape.md) | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
-| •   | [`size`](https://ggplot2.tidyverse.org/dev/reference/aes_linetype_size_shape.md)  | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
-| •   | `stroke`                                                                          | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
+|  |  |  |
+|----|----|----|
+| • | **[`x`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)** |  |
+| • | **[`y`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)** |  |
+| • | [`alpha`](https://ggplot2.tidyverse.org/dev/reference/aes_colour_fill_alpha.md) | → `NA` |
+| • | [`colour`](https://ggplot2.tidyverse.org/dev/reference/aes_colour_fill_alpha.md) | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
+| • | [`fill`](https://ggplot2.tidyverse.org/dev/reference/aes_colour_fill_alpha.md) | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
+| • | [`group`](https://ggplot2.tidyverse.org/dev/reference/aes_group_order.md) | → inferred |
+| • | [`shape`](https://ggplot2.tidyverse.org/dev/reference/aes_linetype_size_shape.md) | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
+| • | [`size`](https://ggplot2.tidyverse.org/dev/reference/aes_linetype_size_shape.md) | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
+| • | `stroke` | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
 
 The `fill` aesthetic only applies to shapes 21-25.
 

@@ -261,21 +261,21 @@ online ggplot2 book.
 are displayed in bold and defaults are displayed for optional
 aesthetics:
 
-|     |                                                                                  |                                                                         |
-|-----|----------------------------------------------------------------------------------|-------------------------------------------------------------------------|
-| •   | **[`x`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)**           |                                                                         |
-| •   | **[`y`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)**           |                                                                         |
-| •   | **`label`**                                                                      |                                                                         |
-| •   | [`alpha`](https://ggplot2.tidyverse.org/dev/reference/aes_colour_fill_alpha.md)  | → `NA`                                                                  |
-| •   | `angle`                                                                          | → `0`                                                                   |
-| •   | [`colour`](https://ggplot2.tidyverse.org/dev/reference/aes_colour_fill_alpha.md) | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
-| •   | `family`                                                                         | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
-| •   | `fontface`                                                                       | → `1`                                                                   |
-| •   | [`group`](https://ggplot2.tidyverse.org/dev/reference/aes_group_order.md)        | → inferred                                                              |
-| •   | `hjust`                                                                          | → `0.5`                                                                 |
-| •   | `lineheight`                                                                     | → `1.2`                                                                 |
-| •   | [`size`](https://ggplot2.tidyverse.org/dev/reference/aes_linetype_size_shape.md) | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
-| •   | `vjust`                                                                          | → `0.5`                                                                 |
+|  |  |  |
+|----|----|----|
+| • | **[`x`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)** |  |
+| • | **[`y`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)** |  |
+| • | **`label`** |  |
+| • | [`alpha`](https://ggplot2.tidyverse.org/dev/reference/aes_colour_fill_alpha.md) | → `NA` |
+| • | `angle` | → `0` |
+| • | [`colour`](https://ggplot2.tidyverse.org/dev/reference/aes_colour_fill_alpha.md) | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
+| • | `family` | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
+| • | `fontface` | → `1` |
+| • | [`group`](https://ggplot2.tidyverse.org/dev/reference/aes_group_order.md) | → inferred |
+| • | `hjust` | → `0.5` |
+| • | `lineheight` | → `1.2` |
+| • | [`size`](https://ggplot2.tidyverse.org/dev/reference/aes_linetype_size_shape.md) | → via [`theme()`](https://ggplot2.tidyverse.org/dev/reference/theme.md) |
+| • | `vjust` | → `0.5` |
 
 Learn more about setting these aesthetics in
 [`vignette("ggplot2-specs")`](https://ggplot2.tidyverse.org/dev/articles/ggplot2-specs.md).

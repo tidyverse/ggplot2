@@ -15,6 +15,7 @@ title of your legend using
 [`labs()`](https://ggplot2.tidyverse.org/dev/reference/labs.md).
 
 ``` r
+
 ggplot(mpg, aes(x = hwy, y = cty, color = drv)) +
   geom_point() +
   labs(color = "Drive train")
@@ -29,6 +30,7 @@ If a legend is drawn for multiple aesthetics, you’ll want to update the
 title for all of them.
 
 ``` r
+
 #|
 # not this
 ggplot(mpg, aes(x = hwy, y = cty, color = drv, shape = drv)) +
@@ -43,6 +45,7 @@ displayed in separate legends titled 'drv' and 'Drive train'
 respectively.](faq-customising_files/figure-html/unnamed-chunk-3-1.png)
 
 ``` r
+
 
 # but this
 ggplot(mpg, aes(x = hwy, y = cty, color = drv, shape = drv)) +
@@ -75,6 +78,7 @@ between legend keys. See the documentation for
 units.
 
 ``` r
+
 ggplot(mpg, aes(x = hwy, y = cty, color = drv)) +
   geom_point() +
   theme(
@@ -94,6 +98,7 @@ between the legend title and the keys, but not between the keys,
 e.g. see the large space between the legend title and keys.
 
 ``` r
+
 ggplot(mpg, aes(x = hwy, y = cty, color = drv)) +
   geom_point() +
   theme(legend.spacing.y = unit(3.0, "cm"))
@@ -110,6 +115,7 @@ the key size bigger with `legend.key.size` and then remove the grey
 background color with `legend.key`.
 
 ``` r
+
 ggplot(mpg, aes(x = hwy, y = cty, color = drv)) +
   geom_point() +
   theme(
@@ -130,6 +136,7 @@ approach. You can also shift it over with the `hjust` setting of
 `legend.title`.
 
 ``` r
+
 ggplot(mpg, aes(x = hwy, y = cty, color = drv)) +
   geom_point() +
   theme(
@@ -163,6 +170,7 @@ named lists allows you to declare explicitly which label is assigned to
 which level, without having to keep track of level order.
 
 ``` r
+
 ggplot(mpg, aes(x = hwy, y = cty, color = drv)) +
   geom_point() +
   scale_color_discrete(
@@ -198,6 +206,7 @@ pleasing legend, by default ggplot2 uses a larger font size for the
 legend title than the legend text.)
 
 ``` r
+
 ggplot(mpg, aes(x = hwy, y = cty, color = class)) +
   geom_point() +
   theme(
@@ -217,6 +226,7 @@ For further customization of legend text, see the documentation for
 e.g. you can change font colors or font face as well.
 
 ``` r
+
 ggplot(mpg, aes(x = hwy, y = cty, color = class)) +
   geom_point() +
   theme(
@@ -249,6 +259,7 @@ You can set the background colour of the plot with `panel.background` in
 the following example the border is made thicker with `linewidth = 3` to
 
 ``` r
+
 ggplot(mpg, aes(x = hwy, y = cty)) +
   geom_point() +
   theme(panel.background = element_rect(fill = "lightblue", colour = "red", linewidth = 3))
@@ -263,6 +274,7 @@ If you want to change the colour of the plotting area but not the panel
 where the panel, you can so the same thing with `plot.background`.
 
 ``` r
+
 ggplot(mpg, aes(x = hwy, y = cty)) +
   geom_point() +
   theme(plot.background = element_rect(fill = "lightblue", colour = "red", linewidth = 3))
@@ -281,6 +293,7 @@ might try
 [`theme_minimal()`](https://ggplot2.tidyverse.org/dev/reference/ggtheme.md).
 
 ``` r
+
 ggplot(mpg, aes(x = hwy, y = cty)) +
   geom_point() +
   theme_minimal()
@@ -294,6 +307,7 @@ grey.](faq-customising_files/figure-html/unnamed-chunk-13-1.png)
 And you can continue customization based on one of these themes.
 
 ``` r
+
 ggplot(mpg, aes(x = hwy, y = cty)) +
   geom_point() +
   theme_minimal() +
@@ -322,6 +336,7 @@ Suppose you have the following data frame with two discrete variables,
 one of which has an `NA`.
 
 ``` r
+
 df <- tibble::tribble(
   ~group, ~outcome,
   1,      "yes",
@@ -336,6 +351,7 @@ df <- tibble::tribble(
 By default, ggplot2 uses grey to represent `NA`s.
 
 ``` r
+
 ggplot(df, aes(x = group, fill = outcome)) +
   geom_bar()
 ```
@@ -350,6 +366,7 @@ You can change the color of `NA` with
 in this case, e.g. make it purple.
 
 ``` r
+
 ggplot(df, aes(x = group, fill = outcome)) +
   geom_bar() +
   scale_fill_discrete(na.value = "purple")
@@ -369,6 +386,7 @@ such wouldn’t be recommended in this particular case as it gives the
 appearance of a floating bar.
 
 ``` r
+
 ggplot(df, aes(x = group, fill = outcome)) +
   geom_bar() +
   scale_fill_discrete(na.value = "transparent") +
@@ -397,6 +415,7 @@ documentation](https://ggplot2.tidyverse.org/reference/ggtheme.html) for
 more high level options you can set.
 
 ``` r
+
 ggplot(mpg, aes(x = hwy, y = cty, color = class)) +
   geom_point() +
   theme_gray(base_size = 18)
@@ -414,6 +433,7 @@ Run the following at the beginning of your session or include on top of
 your R Markdown document.
 
 ``` r
+
 set_theme(theme_gray(base_size = 18))
 ```
 
@@ -434,6 +454,7 @@ can use the following for 20 pts text for the plot title and 15 pts text
 for the plot subtitle.
 
 ``` r
+
 ggplot(mpg, aes(x = hwy, y = cty)) +
   geom_point() +
   labs(
@@ -458,6 +479,7 @@ documentation for
 e.g. you can change font colors or font face as well.
 
 ``` r
+
 ggplot(mpg, aes(x = hwy, y = cty)) +
   geom_point() +
   labs(
@@ -491,6 +513,7 @@ Font characteristics of axis labels can be controlled with
 settings for both axes).
 
 ``` r
+
 ggplot(mpg, aes(x = hwy, y = cty)) +
   geom_point() +
   labs(
@@ -515,6 +538,7 @@ documentation for
 e.g. you can change font colors or font face as well.
 
 ``` r
+
 ggplot(mpg, aes(x = hwy, y = cty)) +
   geom_point() +
   labs(
@@ -538,6 +562,7 @@ ticks) using `axis.text` (or `axis.text.x` and `axis.text.y` if you want
 to set different sizes).
 
 ``` r
+
 ggplot(mpg, aes(x = hwy, y = cty)) +
   geom_point() +
   labs(
@@ -563,6 +588,7 @@ The default font size of
 is about 3.87.
 
 ``` r
+
 get_geom_defaults(geom_text)$size
 #> [1] 3.866058
 ```
@@ -592,6 +618,7 @@ See example
 Suppose you have the following data frame and visualization.
 
 ``` r
+
 df <- tibble::tribble(
   ~x, ~y, ~name,
   2,  2,  "two",
@@ -610,6 +637,7 @@ ggplot(df, aes(x = x, y = y, label = name)) +
 You can set the size of the text with the following.
 
 ``` r
+
 ggplot(df, aes(x = x, y = y, label = name)) +
   geom_text(size = 6)
 ```
@@ -623,6 +651,7 @@ determined by the `x` value with
 [`scale_size_identity()`](https://ggplot2.tidyverse.org/dev/reference/scale_identity.md).
 
 ``` r
+
 ggplot(df, aes(x = x, y = y, label = name)) +
   geom_text(aes(size = x)) +
   scale_size_identity()

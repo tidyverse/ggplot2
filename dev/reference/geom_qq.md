@@ -245,23 +245,23 @@ Variables computed by `stat_qq_line()`:
 are displayed in bold and defaults are displayed for optional
 aesthetics:
 
-|     |                                                                           |                             |
-|-----|---------------------------------------------------------------------------|-----------------------------|
-| •   | **`sample`**                                                              |                             |
-| •   | [`group`](https://ggplot2.tidyverse.org/dev/reference/aes_group_order.md) | → inferred                  |
-| •   | [`x`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)        | → `after_stat(theoretical)` |
-| •   | [`y`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)        | → `after_stat(sample)`      |
+|  |  |  |
+|----|----|----|
+| • | **`sample`** |  |
+| • | [`group`](https://ggplot2.tidyverse.org/dev/reference/aes_group_order.md) | → inferred |
+| • | [`x`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md) | → `after_stat(theoretical)` |
+| • | [`y`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md) | → `after_stat(sample)` |
 
 `stat_qq_line()` understands the following aesthetics. Required
 aesthetics are displayed in bold and defaults are displayed for optional
 aesthetics:
 
-|     |                                                                           |                   |
-|-----|---------------------------------------------------------------------------|-------------------|
-| •   | **`sample`**                                                              |                   |
-| •   | [`group`](https://ggplot2.tidyverse.org/dev/reference/aes_group_order.md) | → inferred        |
-| •   | [`x`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)        | → `after_stat(x)` |
-| •   | [`y`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md)        | → `after_stat(y)` |
+|  |  |  |
+|----|----|----|
+| • | **`sample`** |  |
+| • | [`group`](https://ggplot2.tidyverse.org/dev/reference/aes_group_order.md) | → inferred |
+| • | [`x`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md) | → `after_stat(x)` |
+| • | [`y`](https://ggplot2.tidyverse.org/dev/reference/aes_position.md) | → `after_stat(y)` |
 
 Learn more about setting these aesthetics in
 [`vignette("ggplot2-specs")`](https://ggplot2.tidyverse.org/dev/articles/ggplot2-specs.md).
