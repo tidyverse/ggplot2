@@ -19,7 +19,7 @@ GeomPath <- ggproto("GeomPath", Geom,
     # middle since you expect those to be shown by a break in the line
     aesthetics <- c(self$required_aes, self$non_missing_aes)
     complete <- stats::complete.cases(data[names(data) %in% aesthetics])
-    kept <- stats::ave(complete, data$group, FUN = keep_mid_true)
+    kept <- vec_ave(complete, interaction(data$group, data$PANEL, drop = TRUE), keep_mid_true)
     data <- data[kept, ]
 
     if (!all(kept) && !params$na.rm) {
@@ -48,7 +48,7 @@ GeomPath <- ggproto("GeomPath", Geom,
     munched <- coord_munch(coord, data, panel_params)
 
     # Silently drop lines with less than two points, preserving order
-    rows <- stats::ave(seq_len(nrow(munched)), munched$group, FUN = length)
+    rows <- vec_ave(seq_len(nrow(munched)), munched$group, length)
     munched <- munched[rows >= 2, ]
     if (nrow(munched) < 2) return(zeroGrob())
 
@@ -178,17 +178,10 @@ GeomStep <- ggproto(
 #' An alternative parameterisation is [geom_segment()], where each line
 #' corresponds to a single case which provides the start and end coordinates.
 #'
-#' @eval rd_orientation()
+#' @inheritSection shared_layer_parameters Orientation
 #'
 #' @aesthetics GeomPath
-#' @inheritParams layer
-#' @inheritParams geom_bar
-#' @param lineend Line end style (round, butt, square).
-#' @param linejoin Line join style (round, mitre, bevel).
-#' @param linemitre Line mitre limit (number greater than 1).
-#' @param arrow Arrow specification, as created by [grid::arrow()].
-#' @param arrow.fill fill colour to use for the arrow head (if closed). `NULL`
-#'        means use `colour` aesthetic.
+#' @inheritParams shared_layer_parameters
 #' @seealso
 #'  [geom_polygon()]: Filled paths (polygons);
 #'  [geom_segment()]: Line segments

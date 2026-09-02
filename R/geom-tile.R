@@ -57,9 +57,7 @@ GeomTile <- ggproto(
 #' @aesthetics GeomRect
 #' `geom_tile()` understands only the `x`/`width` and `y`/`height` combinations.
 #' Note that `geom_raster()` ignores `colour`.
-#' @inheritParams layer
-#' @inheritParams geom_point
-#' @inheritParams geom_segment
+#' @inheritParams shared_layer_parameters
 #' @export
 #'
 #' @details

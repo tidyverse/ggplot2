@@ -50,12 +50,14 @@ test_that("data with no extent is stacked correctly", {
     y = c(-40, -75),
     group = letters[1:2]
   )
-  base <- ggplot(df, aes(x, y, group = group))
-  p0 <- base + geom_text(aes(label = y), position = position_stack(vjust = 0))
-  p1 <- base + geom_text(aes(label = y), position = position_stack(vjust = 1))
+  base <- ggplot(df, aes(x, y, group = group, label = y))
+  p0 <- base + geom_text(position = position_stack(vjust = 0))
+  p1 <- base + geom_text(position = position_stack(vjust = 1))
+  p2 <- base + geom_text(aes(group = 1L), position = position_stack(vjust = 0.5))
 
   expect_equal(get_layer_data(p0)$y, c(-115, -75))
   expect_equal(get_layer_data(p1)$y, c(-75, 0))
+  expect_equal(get_layer_data(p2)$y, c(df$y[1] / 2, df$y[1] + df$y[2] / 2))
 })
 
 test_that("position_stack() can stack correctly when ymax is NA", {

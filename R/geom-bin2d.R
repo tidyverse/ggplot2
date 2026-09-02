@@ -17,14 +17,11 @@ GeomBin2d <- ggproto("GeomBin2d", GeomTile)
 #' @aesthetics GeomBin2d
 #'
 #' @export
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @param geom,stat Use to override the default connection between
 #'   `geom_bin_2d()` and `stat_bin_2d()`. For more information about overriding
 #'   these connections, see how the [stat][layer_stats] and [geom][layer_geoms]
 #'   arguments work.
-#' @param lineend Line end style (round, butt, square).
-#' @param linejoin Line join style (round, mitre, bevel).
 #' @seealso [stat_bin_hex()] for hexagonal binning
 #' @examples
 #' d <- ggplot(diamonds, aes(x, y)) + xlim(4, 10) + ylim(4, 10)

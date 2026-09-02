@@ -125,6 +125,10 @@ test_that("geom_violin draws correctly", {
         quantile.linewidth = 2
       )
   )
+  expect_doppelganger("dodge2", {
+    ggplot(dat, aes(x = "foo", y = y, fill = x)) +
+      geom_violin(position = position_dodge2(group.row = "many"))
+  })
 
   dat2 <- data_frame(x = rep(factor(LETTERS[1:3]), 30), y = rnorm(90), g = rep(factor(letters[5:6]), 45))
   expect_doppelganger("grouping on x and fill",

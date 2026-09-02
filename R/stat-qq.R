@@ -39,8 +39,7 @@ StatQq <- ggproto(
 #' @param distribution Distribution function to use, if x not specified
 #' @param dparams Additional parameters passed on to `distribution`
 #'   function.
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @eval rd_computed_vars(
 #'  .details = "\\cr Variables computed by `stat_qq()`:",
 #'  sample      = "Sample quantiles.",

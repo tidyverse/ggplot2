@@ -74,11 +74,10 @@ GeomSmooth <- ggproto(
 #' `glm()`, where the normal confidence band is constructed on the link
 #' scale and then back-transformed to the response scale.
 #'
-#' @eval rd_orientation()
+#' @inheritSection shared_layer_parameters Orientation
 #'
 #' @aesthetics GeomSmooth
-#' @inheritParams layer
-#' @inheritParams geom_bar
+#' @inheritParams shared_layer_parameters
 #' @param geom,stat Use to override the default connection between
 #'   `geom_smooth()` and `stat_smooth()`. For more information about overriding
 #'   these connections, see how the [stat][layer_stats] and [geom][layer_geoms]

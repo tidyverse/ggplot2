@@ -731,17 +731,23 @@ Facet <- ggproto("Facet", NULL,
       return(table)
     }
 
-    if (isTRUE(table$respect)) {
-      args <- !c(is.null(new_widths), is.null(new_heights))
-      args <- c("panel.widths", "panel.heights")[args]
-      cli::cli_warn(
-        "Aspect ratios are overruled by {.arg {args}} theme element{?s}."
-      )
-      table$respect <- FALSE
-    }
-
     rows <- panel_rows(table)
     cols <- panel_cols(table)
+
+    if (isTRUE(table$respect) && # Has fixed aspect ratio
+        xor(is.null(new_widths), is.null(new_heights)) && # One dimension is set
+        nrow(rows) == 1 && nrow(cols) == 1) { # Just a single panel
+      old_width <- table$widths[cols$l]
+      old_height <- table$heights[rows$t]
+      # Try to reconstruct aspect ratio from panel size
+      # We shouldn't attempt this with mixed or compound (e.g. "sum") units
+      if (identical(unitType(old_width),  "null") &&
+          identical(unitType(old_height), "null")) {
+        ratio <- as.numeric(old_height) / as.numeric(old_width)
+        new_widths  <- (new_widths  %||% (new_heights / ratio))[1]
+        new_heights <- (new_heights %||% (new_widths  * ratio))[1]
+      }
+    }
 
     if (length(new_widths) == 1L && nrow(cols) > 1L) {
       # Get total size of non-panel widths in between panels
@@ -933,7 +939,7 @@ is_facet <- function(x) inherits(x, "Facet")
 #' @rdname is_tests
 #' @usage is.facet(x) # Deprecated
 is.facet <- function(x) {
-  deprecate_soft0("3.5.2", "is.facet()", "is_facet()")
+  deprecate("3.5.2", "is.facet()", "is_facet()")
   is_facet(x)
 }
 
@@ -1415,14 +1421,14 @@ censor_labels <- function(ranges, layout, labels) {
   )
 
   if (!labels$x) {
-    xmax <- stats::ave(layout$ROW, layout$COL, FUN = max)
-    xmin <- stats::ave(layout$ROW, layout$COL, FUN = min)
+    xmax <- vec_ave(layout$ROW, layout$COL, max)
+    xmin <- vec_ave(layout$ROW, layout$COL, min)
     draw[which(layout$ROW != xmax), "bottom"] <- FALSE
     draw[which(layout$ROW != xmin), "top"] <- FALSE
   }
   if (!labels$y) {
-    ymax <- stats::ave(layout$COL, layout$ROW, FUN = max)
-    ymin <- stats::ave(layout$COL, layout$ROW, FUN = min)
+    ymax <- vec_ave(layout$COL, layout$ROW, max)
+    ymin <- vec_ave(layout$COL, layout$ROW, min)
     draw[which(layout$COL != ymax), "right"] <- FALSE
     draw[which(layout$COL != ymin), "left"] <- FALSE
   }

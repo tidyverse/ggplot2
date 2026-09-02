@@ -27,15 +27,14 @@
 #' `scale_x_binned()` with [geom_bar()]. This method by default plots tick marks
 #' in between each bar.
 #'
-#' @eval rd_orientation()
+#' @inheritSection shared_layer_parameters Orientation
 #'
 #' @section Aesthetics:
 #' `geom_histogram()` uses the same aesthetics as [geom_bar()];
 #' `geom_freqpoly()` uses the same aesthetics as [geom_line()].
 #'
 #' @export
-#' @inheritParams layer
-#' @inheritParams geom_bar
+#' @inheritParams shared_layer_parameters
 #' @param geom,stat Use to override the default connection between
 #'   `geom_histogram()`/`geom_freqpoly()` and `stat_bin()`. For more information
 #'   at overriding these connections, see how the [stat][layer_stats] and

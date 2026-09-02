@@ -84,7 +84,7 @@ StatContourFilled <- ggproto(
   }
 )
 
-#' @inheritParams stat_identity
+#' @inheritParams shared_layer_parameters
 #' @inheritParams geom_contour
 #' @export
 #' @aesthetics StatContour

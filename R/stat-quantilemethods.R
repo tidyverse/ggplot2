@@ -66,8 +66,7 @@ StatQuantile <- ggproto(
 #' @param formula formula relating y variables to x variables
 #' @param method Quantile regression method to use. Available options are `"rq"` (for
 #'    [`quantreg::rq()`]) and `"rqss"` (for [`quantreg::rqss()`]).
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @eval rd_computed_vars(
 #'   quantile = "Quantile of distribution."
 #' )

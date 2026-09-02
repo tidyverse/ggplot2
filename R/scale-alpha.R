@@ -33,7 +33,11 @@
 #' p + scale_alpha("cylinders")
 scale_alpha <- function(name = waiver(), ..., range = NULL, aesthetics = "alpha") {
   palette <- if (!is.null(range)) pal_rescale(range) else NULL
-  continuous_scale(aesthetics, name = name, palette = palette, ...)
+  continuous_scale(
+    aesthetics, name = name, palette = palette,
+    fallback.palette = pal_rescale(c(0.1, 1)),
+    ...
+  )
 }
 
 #' @rdname scale_alpha
@@ -44,7 +48,11 @@ scale_alpha_continuous <- scale_alpha
 #' @export
 scale_alpha_binned <- function(name = waiver(), ..., range = NULL, aesthetics = "alpha") {
   palette <- if (!is.null(range)) pal_rescale(range) else NULL
-  binned_scale(aesthetics, name = name, palette = palette, ...)
+  binned_scale(
+    aesthetics, name = name, palette = palette,
+    fallback.palette = pal_rescale(c(0.1, 1)),
+    ...
+  )
 }
 
 #' @rdname scale_alpha
@@ -64,7 +72,11 @@ scale_alpha_ordinal <- function(name = waiver(), ..., range = NULL, aesthetics =
   } else {
     NULL
   }
-  discrete_scale(aesthetics, name = name, palette = palette, ...)
+  discrete_scale(
+    aesthetics, name = name, palette = palette,
+    fallback.palette = function(n) seq(0.1, 1, length.out = n),
+    ...
+  )
 }
 
 #' @rdname scale_alpha
@@ -74,7 +86,8 @@ scale_alpha_datetime <- function(name = waiver(), ..., range = NULL, aesthetics 
   palette <- if (!is.null(range)) pal_rescale(range) else NULL
   datetime_scale(
     aesthetics = aesthetics, transform = "time", name = name,
-    palette = palette, ...
+    palette = palette, fallback.palette = pal_rescale(c(0.1, 1)),
+    ...
   )
 }
 
@@ -85,6 +98,7 @@ scale_alpha_date <- function(name = waiver(), ..., range = NULL, aesthetics = "a
   palette <- if (!is.null(range)) pal_rescale(range) else NULL
   datetime_scale(
     aesthetics = aesthetics, transform = "date", name = name,
-    palette = palette, ...
+    palette = palette, fallback.palette = pal_rescale(c(0.1, 1)),
+    ...
   )
 }

@@ -99,7 +99,7 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
 
 #' @rdname geom_boxplot
 #' @param coef Length of the whiskers as multiple of IQR. Defaults to 1.5.
-#' @inheritParams stat_identity
+#' @inheritParams shared_layer_parameters
 #' @export
 #' @eval rd_computed_vars(
 #'   .details = "`stat_boxplot()` provides the following variables, some of

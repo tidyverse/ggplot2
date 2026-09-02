@@ -68,9 +68,7 @@ ggproto <- function(`_class` = NULL, `_inherit` = NULL, ...) {
   e <- new.env(parent = emptyenv())
 
   members <- list2(...)
-  if (length(members) != sum(nzchar(names(members)))) {
-    cli::cli_abort("All members of a {.cls ggproto} object must be named.")
-  }
+  check_named(members, I("Members of a {.cls ggproto} object"))
 
   # R <3.1.2 will error when list2env() is given an empty list, so we need to
   # check length. https://github.com/tidyverse/ggplot2/issues/1444
@@ -113,7 +111,7 @@ is_ggproto <- function(x) inherits(x, "ggproto")
 #' @rdname is_tests
 #' @usage is.ggproto(x) # Deprecated
 is.ggproto <- function(x) {
-  deprecate_soft0("3.5.2", "is.ggproto()", "is_ggproto()")
+  deprecate("3.5.2", "is.ggproto()", "is_ggproto()")
   is_ggproto(x)
 }
 

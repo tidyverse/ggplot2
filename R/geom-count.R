@@ -13,8 +13,7 @@ NULL
 #'   these connections, see how the [stat][layer_stats] and [geom][layer_geoms]
 #'   arguments work.
 #' @seealso For continuous `x` and `y`, use [geom_bin_2d()].
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @export
 #' @examples
 #' ggplot(mpg, aes(cty, hwy)) +

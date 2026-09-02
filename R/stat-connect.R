@@ -105,8 +105,7 @@ StatConnect <- ggproto(
 #'
 #' Connect successive points with lines of different shapes.
 #'
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @param connection A specification of how two points are connected. Can be one
 #'  of the folloing:
 #'  * A string giving a named connection. These options are:

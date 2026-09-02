@@ -33,6 +33,18 @@ test_that("geom_text() rejects exotic units", {
   )
 })
 
+test_that("geom_text() can display expressions", {
+
+  df <- data_frame0(x = 1:2, y = 1:2)
+  df$exp <- expression(alpha + beta^2, gamma * sqrt(delta))
+
+  expect_doppelganger(
+    "geom_text with expressions",
+    ggplot(df, aes(x, y, label = exp)) +
+      geom_text()
+  )
+})
+
 # compute_just ------------------------------------------------------------
 
 test_that("vertical and horizontal positions are equivalent", {

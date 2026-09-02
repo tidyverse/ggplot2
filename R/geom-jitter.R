@@ -6,8 +6,7 @@
 #' overplotting caused by discreteness in smaller datasets.
 #'
 #' @aesthetics GeomPoint
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @inheritParams position_jitter
 #' @seealso
 #'  [geom_point()] for regular, unjittered points,

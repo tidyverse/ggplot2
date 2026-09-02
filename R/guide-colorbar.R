@@ -45,6 +45,10 @@ NULL
 #' @param available_aes A vector of character strings listing the aesthetics
 #'   for which a colourbar can be drawn.
 #' @param ... ignored.
+#' @details
+#' The `legend.ticks.length` theme option can be set to a length 2 unit to
+#' control ticks at the right/bottom and left/top sides independently.
+#'
 #' @return A guide object
 #' @export
 #' @family guides
@@ -135,7 +139,7 @@ guide_colourbar <- function(
   ...
 ) {
   if (lifecycle::is_present(raster)) {
-    deprecate_soft0("3.5.0", "guide_colourbar(raster)", "guide_colourbar(display)")
+    deprecate("3.5.0", "guide_colourbar(raster)", "guide_colourbar(display)")
     check_bool(raster)
     display <- if (raster) "raster" else "rectangles"
   }

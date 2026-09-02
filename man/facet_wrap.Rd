@@ -93,7 +93,7 @@ When \code{"margins"} (default), axes will be drawn at the exterior margins.
 panels too, whereas \code{"all"} will draw all axes at all panels.}
 
 \item{axis.labels}{Determines whether to draw labels for interior axes when
-the scale is fixed and the \code{axis} argument is not \code{"margins"}. When
+the scale is fixed and the \code{axes} argument is not \code{"margins"}. When
 \code{"all"} (default), all interior axes get labels. When \code{"margins"}, only
 the exterior axes get labels, and the interior axes get none. When
 \code{"all_x"} or \code{"all_y"}, only draws the labels at the interior axes in the

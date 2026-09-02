@@ -14,14 +14,6 @@
       Error in `check_vars()`:
       ! Please use `vars()` to supply facet variables.
 
-# facet_grid() fails if passed both a formula and a vars()
-
-    `rows` must be `NULL` or a `vars()` list if `cols` is a `vars()` list.
-
-# can't pass formulas to `cols`
-
-    `cols` must be a `vars()` specification or `NULL`, not a <formula> object.
-
 # facet gives clear error if 
 
     Faceting variables can only appear in `rows` or `cols`, not both.
@@ -85,4 +77,19 @@
 # check_layout() throws meaningful errors
 
     Facet layout has a bad format. It must contain columns `PANEL`, `SCALE_X`, and `SCALE_Y`.
+
+# facet_wrap and facet_grid throws errors when using reserved words
+
+    "ROW" is not an allowed name for faceting variables.
+    i Change the name of your data columns to not be "PANEL", "ROW", "COL", "SCALE_X", or "SCALE_Y".
+
+---
+
+    "ROW" and "PANEL" are not allowed names for faceting variables.
+    i Change the name of your data columns to not be "PANEL", "ROW", "COL", "SCALE_X", or "SCALE_Y".
+
+---
+
+    "ROW" is not an allowed name for faceting variables.
+    i Change the name of your data columns to not be "PANEL", "ROW", "COL", "SCALE_X", or "SCALE_Y".
 

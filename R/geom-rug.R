@@ -133,14 +133,12 @@ GeomRug <- ggproto("GeomRug", Geom,
 #' any data points under the default settings.
 #'
 #' @aesthetics GeomRug
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @param sides A string that controls which sides of the plot the rugs appear on.
 #'   It can be set to a string containing any of `"trbl"`, for top, right,
 #'   bottom, and left.
 #' @param outside logical that controls whether to move the rug tassels outside of the plot area. Default is off (FALSE). You will also need to use `coord_cartesian(clip = "off")`. When set to TRUE, also consider changing the sides argument to "tr". See examples.
 #' @param length A [grid::unit()] object that sets the length of the rug lines. Use scale expansion to avoid overplotting of data.
-#' @param lineend Line end style (round, butt, square).
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(wt, mpg)) +
