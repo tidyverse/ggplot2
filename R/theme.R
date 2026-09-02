@@ -919,7 +919,7 @@ S7::method(merge_element, list(element, S7::class_any)) <-
     S7::props(new)[idx] <- S7::props(old, idx)
 
     new
-}
+  }
 
 S7::method(merge_element, list(margin, S7::class_any)) <-
   function(new, old, ...) {
@@ -944,98 +944,136 @@ S7::method(merge_element, list(S7::new_S3_class("element"), S7::class_any)) <-
 
 #' Combine the properties of two elements
 #'
-#' @param e1 An element object
-#' @param e2 An element object from which e1 inherits
+#' Resolves an element's properties against a parent element, applying
+#' inheritance for any unspecified properties and resolving deferred values like
+#' [rel()] and [margin_part()]. This is the mechanism used internally by
+#' [calc_element()] at each step of the element tree traversal.
 #'
-#' @noRd
+#' Note that the similarly named [merge_element()] behaves differently: If
+#' passed two element objects, it does not resolve properties with deferred
+#' values like [rel()] or [margin_part()]. See the examples.
+#' 
+#' @param child A child element object, or a property value such as a [rel()] or
+#' [margin()] object. Can also be `NULL` to inherit everything from `parent`.
+#' @param parent A parent element object or property value from which `child`
+#' inherits. Can be `NULL` if there is nothing to inherit from.
 #'
-combine_elements <- function(e1, e2) {
-
-  # If e2 is NULL, nothing to inherit
-  if (is.null(e2) || is_theme_element(e1, "blank")) {
-    return(e1)
+#' @keywords internal
+#' @export
+#' @examples
+#' child <- element_text(
+#'   colour = "red",
+#'   size = rel(1.5),
+#'   margin = margin_part(t = 10)
+#' )
+#' parent <- element_text(
+#'   family = "mono",
+#'   colour = "blue",
+#'   size = 10,
+#'   margin = margin(1, 2, 3, 4)
+#' )
+#' 
+#' # compare combine_elements() with merge_element()
+#' combine_elements(child, parent)
+#' merge_element(child, parent)
+#' 
+#' # pass properties directly
+#' combine_elements(child@size, parent@size)
+#' merge_element(child@size, parent@size)
+#' 
+#' combine_elements(child@margin, parent@margin)
+#' merge_element(child@margin, parent@margin)
+combine_elements <- function(child, parent) {
+  # If parent is NULL, nothing to inherit
+  if (is.null(parent) || is_theme_element(child, "blank")) {
+    return(child)
   }
 
-  # If e1 is NULL inherit everything from e2
-  if (is.null(e1)) {
-    return(e2)
+  # If child is NULL inherit everything from parent
+  if (is.null(child)) {
+    return(parent)
   }
 
   # Inheritance of rel objects
-  if (is_rel(e1)) {
-    # Both e1 and e2 are rel, give product as another rel
-    if (is_rel(e2)) {
-      return(rel(unclass(e1) * unclass(e2)))
+  if (is_rel(child)) {
+    # Both child and parent are rel, give product as another rel
+    if (is_rel(parent)) {
+      return(rel(unclass(child) * unclass(parent)))
     }
-    # If e2 is a unit/numeric, return modified unit/numeric
+    # If parent is a unit/numeric, return modified unit/numeric
     # Note that unit objects are considered numeric
-    if (is.numeric(e2) || is.unit(e2)) {
-      return(unclass(e1) * e2)
+    if (is.numeric(parent) || is.unit(parent)) {
+      return(unclass(child) * parent)
     }
-    return(e1)
+    return(child)
   }
 
-  if (is_margin(e1) && is_margin(e2)) {
-    if (anyNA(e2)) {
-      e2[is.na(e2)] <- unit(0, "pt")
+  if (is_margin(child) && is_margin(parent)) {
+    if (anyNA(parent)) {
+      parent[is.na(parent)] <- unit(0, "pt")
     }
-    if (anyNA(e1)) {
-      e1[is.na(e1)] <- e2[is.na(e1)]
+    if (anyNA(child)) {
+      child[is.na(child)] <- parent[is.na(child)]
     }
   }
 
   # Backward compatbility
   # TODO: deprecate next release cycle
-  is_old_element <- !S7::S7_inherits(e1) && inherits(e1, "element")
-  if (is_old_element && (is_theme_element(e2) || inherits(e2, "element"))) {
-    return(combine_s3_elements(e1, e2))
+  is_child_old <- !S7::S7_inherits(child) && inherits(child, "element")
+  is_parent_element <- is_theme_element(parent) || inherits(parent, "element")
+  if (is_child_old && is_parent_element) {
+    return(combine_s3_elements(child, parent))
   }
 
-  # If neither of e1 or e2 are element_* objects, return e1
-  if (!is_theme_element(e1) && !is_theme_element(e2)) {
-    return(e1)
+  # If neither of child or parent are element_* objects, return child
+  if (!is_theme_element(child) && !is_theme_element(parent)) {
+    return(child)
   }
 
-  # If e2 is element_blank, and e1 inherits blank inherit everything from e2,
-  # otherwise ignore e2
-  if (is_theme_element(e2, "blank")) {
-    if (isTRUE(try_prop(e1, "inherit.blank"))) {
-      return(e2)
+  # If parent is element_blank, and child inherits blank inherit everything from
+  # parent, otherwise ignore parent
+  if (is_theme_element(parent, "blank")) {
+    if (isTRUE(try_prop(child, "inherit.blank"))) {
+      return(parent)
     } else {
-      return(e1)
+      return(child)
     }
   }
 
-  parent_props <- if (S7::S7_inherits(e2)) S7::props(e2) else unclass(e2)
+  parent_props <- if (S7::S7_inherits(parent)) {
+    S7::props(parent)
+  } else {
+    unclass(parent)
+  }
 
-  # If e1 has any NULL properties, inherit them from e2
-  n <- S7::prop_names(e1)[lengths(S7::props(e1)) == 0]
-  S7::props(e1)[n] <- parent_props[n]
+  # If child has any NULL properties, inherit them from parent
+  n <- S7::prop_names(child)[lengths(S7::props(child)) == 0]
+  S7::props(child)[n] <- parent_props[n]
 
   # Calculate relative sizes
-  if (is_rel(try_prop(e1, "size"))) {
-    e1@size <- parent_props$size * unclass(e1@size)
+  if (is_rel(try_prop(child, "size"))) {
+    child@size <- parent_props$size * unclass(child@size)
   }
 
   # Calculate relative linewidth
-  if (is_rel(try_prop(e1, "linewidth"))) {
-    e1@linewidth <- parent_props$linewidth * unclass(e1@linewidth)
+  if (is_rel(try_prop(child, "linewidth"))) {
+    child@linewidth <- parent_props$linewidth * unclass(child@linewidth)
   }
 
-  if (is_theme_element(e1, "text")) {
-    e1@margin <- combine_elements(e1@margin, parent_props$margin)
+  if (is_theme_element(child, "text")) {
+    child@margin <- combine_elements(child@margin, parent_props$margin)
   }
 
-  # If e2 is 'richer' than e1, fill e2 with e1 parameters
-  is_subclass <- !any(inherits(e2, class(e1), which = TRUE) == 0)
-  is_subclass <- is_subclass && length(setdiff(class(e2), class(e1))) > 0
+  # If parent is 'richer' than child, fill parent with child parameters
+  is_subclass <- !any(inherits(parent, class(child), which = TRUE) == 0)
+  is_subclass <- is_subclass && length(setdiff(class(parent), class(child))) > 0
   if (is_subclass) {
-    new <- defaults(S7::props(e1), S7::props(e2))
-    S7::props(e2)[names(new)] <- new
-    return(e2)
+    new <- defaults(S7::props(child), S7::props(parent))
+    S7::props(parent)[names(new)] <- new
+    return(parent)
   }
 
-  e1
+  child
 }
 
 # For backward compatibility
