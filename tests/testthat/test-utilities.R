@@ -230,6 +230,7 @@ test_that("list conversion works for ggplot classes", {
 })
 
 test_that("as_cli returns a single one-line string", {
+  withr::local_options(cli.width = 20)
   text <- as_cli("I am a really long string but despite that {.fn as_cli}
                  will return me as one string without line breaks")
   expect_length(text, 1)
