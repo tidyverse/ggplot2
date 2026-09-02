@@ -162,6 +162,8 @@ theme_sub_strip(
   background.y,
   clip,
   placement,
+  placement.x,
+  placement.y,
   text,
   text.x,
   text.x.bottom,
@@ -176,7 +178,7 @@ theme_sub_strip(
 \arguments{
 \item{...}{Not in use, expected to be empty.}
 
-\item{axis.line, background, background.x, background.y, border, box, box.background, box.just, box.margin, box.spacing, byrow, caption, caption.position, clip, direction, frame, grid, grid.major, grid.major.x, grid.major.y, grid.minor, grid.minor.x, grid.minor.y, heights, justification, justification.bottom, justification.inside, justification.left, justification.right, justification.top, key, key.height, key.justification, key.size, key.spacing, key.spacing.x, key.spacing.y, key.width, line, location, margin, minor.ticks, minor.ticks.length, ontop, placement, position, position.inside, spacing, spacing.x, spacing.y, subtitle, switch.pad.grid, switch.pad.wrap, tag, tag.location, tag.position, text, text.position, text.x, text.x.bottom, text.x.top, text.y, text.y.left, text.y.right, ticks, ticks.length, title, title.position, widths}{Arguments that are renamed and passed on to \code{\link[=theme]{theme()}}.}
+\item{axis.line, background, background.x, background.y, border, box, box.background, box.just, box.margin, box.spacing, byrow, caption, caption.position, clip, direction, frame, grid, grid.major, grid.major.x, grid.major.y, grid.minor, grid.minor.x, grid.minor.y, heights, justification, justification.bottom, justification.inside, justification.left, justification.right, justification.top, key, key.height, key.justification, key.size, key.spacing, key.spacing.x, key.spacing.y, key.width, line, location, margin, minor.ticks, minor.ticks.length, ontop, placement, placement.x, placement.y, position, position.inside, spacing, spacing.x, spacing.y, subtitle, switch.pad.grid, switch.pad.wrap, tag, tag.location, tag.position, text, text.position, text.x, text.x.bottom, text.x.top, text.y, text.y.left, text.y.right, ticks, ticks.length, title, title.position, widths}{Arguments that are renamed and passed on to \code{\link[=theme]{theme()}}.}
 }
 \value{
 A \code{theme}-class object that can be added to a plot.
