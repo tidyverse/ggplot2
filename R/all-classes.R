@@ -52,6 +52,7 @@ NULL
 #' recycled into new classes.
 #'
 #' @name class_definitions
+#' @aliases ggplot2-ggproto
 #' @keywords internal
 NULL
 
