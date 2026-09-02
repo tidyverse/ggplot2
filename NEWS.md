@@ -1,5 +1,8 @@
 # ggplot2 (development version)
  
+* (internal) Secondary axis tests now meaningfully assert break positions.
+  Misplaced parentheses previously made the tolerance checks one-sided, and
+  four position checks were tautological self-comparisons (@sims1253).
 * `make_constructor()` no longer captures `rlang::list2()` at build time.
 * The `arrow` and `arrow.fill` arguments are now available in 
   `geom_linerange()` and `geom_pointrange()` layers (@teunbrand, #6481).
