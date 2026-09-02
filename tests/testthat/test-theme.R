@@ -158,8 +158,8 @@ test_that("calculating theme element inheritance works", {
 
   theme <- theme_gray() +
     theme(strip.text = element_blank(), strip.text.x = element_text(inherit.blank = TRUE))
-  e1 <- ggplot2:::calc_element("strip.text.x", theme)
-  e2 <- ggplot2:::calc_element("strip.text", theme)
+  e1 <- calc_element("strip.text.x", theme)
+  e2 <- calc_element("strip.text", theme)
   expect_identical(e1, e2)
 
   # Check that rel units are computed appropriately
