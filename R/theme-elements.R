@@ -353,14 +353,17 @@ element_geom <- S7::new_class(
   }
 )
 
-.default_geom_element <- element_geom(
-  ink = "black", paper = "white", accent = "#3366FF",
-  linewidth = 0.5, borderwidth = 0.5,
-  linetype = 1L, bordertype = 1L,
-  family = "", fontsize = 11,
-  pointsize = 1.5, pointshape = 19,
-  fill = NULL, colour = NULL
-)
+.default_geom_element <- NULL
+on_load({
+  .default_geom_element <- element_geom(
+    ink = "black", paper = "white", accent = "#3366FF",
+    linewidth = 0.5, borderwidth = 0.5,
+    linetype = 1L, bordertype = 1L,
+    family = "", fontsize = 11,
+    pointsize = 1.5, pointshape = 19,
+    fill = NULL, colour = NULL
+  )
+})
 
 local({
   S7::method(print, element) <- function(x, ...) {

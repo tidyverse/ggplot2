@@ -1,4 +1,8 @@
 # ggplot2 (development version)
+
+* Meaningless change to trigger GHA workflow again (#6704)
+
+### Bug fixes
  
 * `make_constructor()` no longer captures `rlang::list2()` at build time.
 * The `arrow` and `arrow.fill` arguments are now available in 
