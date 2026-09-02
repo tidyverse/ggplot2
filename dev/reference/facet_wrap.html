@@ -172,13 +172,21 @@ will be shown, regardless of whether or not they appear in the data.</p></dd>
 
 
 <dt id="arg-dir">dir<a class="anchor" aria-label="anchor" href="#arg-dir"></a></dt>
-<dd><p>Direction: either <code>"h"</code> for horizontal, the default, or <code>"v"</code>,
-for vertical. When <code>"h"</code> or <code>"v"</code> will be combined with <code>as.table</code> to
-set final layout. Alternatively, a combination of <code>"t"</code> (top) or
-<code>"b"</code> (bottom) with <code>"l"</code> (left) or <code>"r"</code> (right) to set a layout directly.
-These two letters give the starting position and the first letter gives
-the growing direction. For example <code>"rt"</code> will place the first panel in
-the top-right and starts filling in panels right-to-left.</p></dd>
+<dd><p>Direction in which panels are laid out. Must be one of
+the following two-letter codes, where the first letter indicates
+the initial fill direction and the pair identifies the starting
+corner:</p><ul><li><p><code>"lt"</code>: start in the top-left, fill left-to-right.</p></li>
+<li><p><code>"tl"</code>: start in the top-left, fill top-to-bottom.</p></li>
+<li><p><code>"lb"</code>: start in the bottom-left, fill left-to-right.</p></li>
+<li><p><code>"bl"</code>: start in the bottom-left, fill bottom-to-top.</p></li>
+<li><p><code>"rt"</code>: start in the top-right, fill right-to-left.</p></li>
+<li><p><code>"tr"</code>: start in the top-right, fill top-to-bottom.</p></li>
+<li><p><code>"rb"</code>: start in the bottom-right, fill right-to-left.</p></li>
+<li><p><code>"br"</code>: start in the bottom-right, fill bottom-to-top.</p></li>
+</ul><p>Use <code>nrow</code> or <code>ncol</code> to control the shape of the grid; <code>dir</code>
+controls the fill order within that shape. The shorthand values
+<code>"h"</code> and <code>"v"</code> are superseded and retained only for backward
+compatibility.</p></dd>
 
 
 <dt id="arg-strip-position">strip.position<a class="anchor" aria-label="anchor" href="#arg-strip-position"></a></dt>

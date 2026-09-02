@@ -85,6 +85,12 @@
   have existed for some time but were not previously documented
   ([@arcresu](https://github.com/arcresu),
   [\#6827](https://github.com/tidyverse/ggplot2/issues/6827)).
+- The `dir` argument of
+  [`facet_wrap()`](https://ggplot2.tidyverse.org/dev/reference/facet_wrap.md)
+  is now documented with all eight two-letter codes, clarifying their
+  starting corner and fill order
+  ([@CuiweiG](https://github.com/CuiweiG),
+  [\#6837](https://github.com/tidyverse/ggplot2/issues/6837)).
 
 ## ggplot2 4.0.3
 
