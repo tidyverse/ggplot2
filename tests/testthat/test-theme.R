@@ -678,6 +678,10 @@ test_that("legends are placed correctly when using stretchy spacing", {
 
   p <- ggplot(df, aes(x, y, colour = a, shape = factor(x))) +
     geom_point() +
+    guides(
+      colour = guide_legend(order = 1),
+      shape = guide_legend(order = 2)
+    ) +
     theme(
       legend.box.background = element_rect(colour = "blue", fill = NA),
       legend.background = element_rect(colour = "red", fill = NA)
@@ -692,4 +696,9 @@ test_that("legends are placed correctly when using stretchy spacing", {
     "horizontal legends placed apart",
     p + theme(legend.position = "top", legend.spacing.x = unit(1, "null"))
   )
+})
+
+test_that("all expected theme elements are documented", {
+  extra_elements <- setdiff(names(.element_tree), fn_fmls_names(theme))
+  expect_snapshot(extra_elements)
 })

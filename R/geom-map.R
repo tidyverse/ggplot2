@@ -142,14 +142,17 @@ GeomMap <- ggproto("GeomMap", GeomPolygon,
     data_rows <- match(coords$id[!duplicated(grob_id)], data$map_id)
     data <- data[data_rows, , drop = FALSE]
 
-    polygonGrob(coords$x, coords$y, default.units = "native", id = grob_id,
-      gp = gg_par(
-        col = data$colour,
-        fill = fill_alpha(data$fill, data$alpha),
-        lwd = data$linewidth,
-        lineend = lineend,
-        linejoin = linejoin,
-        linemitre = linemitre
+    ggname(
+      "geom_map",
+      polygonGrob(coords$x, coords$y, default.units = "native", id = grob_id,
+        gp = gg_par(
+          col = data$colour,
+          fill = fill_alpha(data$fill, data$alpha),
+          lwd = data$linewidth,
+          lineend = lineend,
+          linejoin = linejoin,
+          linemitre = linemitre
+        )
       )
     )
   },

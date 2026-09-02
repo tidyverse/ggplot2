@@ -140,7 +140,7 @@ make_constructor.Geom <- function(x, ..., checks = exprs(), omit = character(),
   body <- call2("{", !!!checks, body)
 
   # We encapsulate rlang::list2
-  new_env <- new_environment(list(list2 = list2), env)
+  new_env <- new_environment(list(list2 = list2_wrapper), env)
 
   new_function(fmls, body, new_env)
 }
@@ -225,8 +225,11 @@ make_constructor.Stat <- function(x, ..., checks = exprs(), omit = character(),
   body <- call2("{", !!!checks, body)
 
   # We encapsulate rlang::list2
-  new_env <- new_environment(list(list2 = list2), env)
+  new_env <- new_environment(list(list2 = list2_wrapper), env)
 
   new_function(fmls, body, new_env)
 }
 
+list2_wrapper = function(...) {
+  rlang::list2(...)
+}
