@@ -1,6 +1,6 @@
 # ggplot2 (development version)
 
-* Meaningless change to trigger GHA workflow (#6704)
+* Meaningless change to trigger GHA workflow again (#6704)
 
 ### Bug fixes
 
