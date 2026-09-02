@@ -85,6 +85,10 @@
   have existed for some time but were not previously documented
   ([@arcresu](https://github.com/arcresu),
   [\#6827](https://github.com/tidyverse/ggplot2/issues/6827)).
+- Added support for weighted quantiles in
+  [`geom_violin()`](https://ggplot2.tidyverse.org/dev/reference/geom_violin.md)
+  ([@hughjonesd](https://github.com/hughjonesd),
+  [\#6853](https://github.com/tidyverse/ggplot2/issues/6853))
 - The `dir` argument of
   [`facet_wrap()`](https://ggplot2.tidyverse.org/dev/reference/facet_wrap.md)
   is now documented with all eight two-letter codes, clarifying their

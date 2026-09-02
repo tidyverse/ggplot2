@@ -20,27 +20,27 @@ benchplot(x)
 ``` r
 benchplot(ggplot(mtcars, aes(mpg, wt)) + geom_point())
 #>        step user.self sys.self elapsed
-#> 1 construct     0.004        0   0.005
-#> 2     build     0.023        0   0.022
-#> 3    render     0.031        0   0.031
-#> 4      draw     0.013        0   0.014
-#> 5     TOTAL     0.071        0   0.072
+#> 1 construct     0.006        0   0.006
+#> 2     build     0.027        0   0.028
+#> 3    render     0.044        0   0.043
+#> 4      draw     0.020        0   0.019
+#> 5     TOTAL     0.097        0   0.096
 benchplot(ggplot(mtcars, aes(mpg, wt)) + geom_point() + facet_grid(. ~ cyl))
 #>        step user.self sys.self elapsed
-#> 1 construct     0.004        0   0.004
-#> 2     build     0.023        0   0.023
-#> 3    render     0.072        0   0.071
-#> 4      draw     0.024        0   0.025
-#> 5     TOTAL     0.123        0   0.123
+#> 1 construct     0.005        0   0.006
+#> 2     build     0.029        0   0.029
+#> 3    render     0.091        0   0.091
+#> 4      draw     0.033        0   0.034
+#> 5     TOTAL     0.158        0   0.160
 
 # With tidy eval:
 p <- expr(ggplot(mtcars, aes(mpg, wt)) + geom_point())
 benchplot(!!p)
 
 #>        step user.self sys.self elapsed
-#> 1 construct     0.003        0   0.004
-#> 2     build     0.021        0   0.022
-#> 3    render     0.031        0   0.030
-#> 4      draw     0.014        0   0.014
-#> 5     TOTAL     0.069        0   0.070
+#> 1 construct     0.005        0   0.005
+#> 2     build     0.028        0   0.029
+#> 3    render     0.041        0   0.041
+#> 4      draw     0.019        0   0.019
+#> 5     TOTAL     0.093        0   0.094
 ```
