@@ -74,13 +74,25 @@ labels will be displayed to the left. Can also be set to
 data will automatically be dropped. If \code{FALSE}, all factor levels
 will be shown, regardless of whether or not they appear in the data.}
 
-\item{dir}{Direction: either \code{"h"} for horizontal, the default, or \code{"v"},
-for vertical. When \code{"h"} or \code{"v"} will be combined with \code{as.table} to
-set final layout. Alternatively, a combination of \code{"t"} (top) or
-\code{"b"} (bottom) with \code{"l"} (left) or \code{"r"} (right) to set a layout directly.
-These two letters give the starting position and the first letter gives
-the growing direction. For example \code{"rt"} will place the first panel in
-the top-right and starts filling in panels right-to-left.}
+\item{dir}{Direction in which panels are laid out. Must be one of
+the following two-letter codes, where the first letter indicates
+the initial fill direction and the pair identifies the starting
+corner:
+\itemize{
+\item \code{"lt"}: start in the top-left, fill left-to-right.
+\item \code{"tl"}: start in the top-left, fill top-to-bottom.
+\item \code{"lb"}: start in the bottom-left, fill left-to-right.
+\item \code{"bl"}: start in the bottom-left, fill bottom-to-top.
+\item \code{"rt"}: start in the top-right, fill right-to-left.
+\item \code{"tr"}: start in the top-right, fill top-to-bottom.
+\item \code{"rb"}: start in the bottom-right, fill right-to-left.
+\item \code{"br"}: start in the bottom-right, fill bottom-to-top.
+}
+
+Use \code{nrow} or \code{ncol} to control the shape of the grid; \code{dir}
+controls the fill order within that shape. The shorthand values
+\code{"h"} and \code{"v"} are superseded and retained only for backward
+compatibility.}
 
 \item{strip.position}{By default, the labels are displayed on the top of
 the plot. Using \code{strip.position} it is possible to place the labels on
