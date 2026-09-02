@@ -2,6 +2,10 @@
 
 ## ggplot2 (development version)
 
+- (internal) Secondary axis tests now meaningfully assert break
+  positions. Misplaced parentheses previously made the tolerance checks
+  one-sided, and four position checks were tautological self-comparisons
+  ([@sims1253](https://github.com/sims1253)).
 - [`make_constructor()`](https://ggplot2.tidyverse.org/dev/reference/make_constructor.md)
   no longer captures
   [`rlang::list2()`](https://rlang.r-lib.org/reference/list2.html) at
