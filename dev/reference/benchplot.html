@@ -22,13 +22,13 @@ Broken down into construct, build, render and draw times."><meta property="og:im
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-news" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">News</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-news"><li><h6 class="dropdown-header" data-toc-skip>Releases</h6></li>
-    <li><a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2025/09/ggplot2-4-0-0/">Version 4.0.0</a></li>
-    <li><a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2024/02/ggplot2-3-5-0/">Version 3.5.0</a></li>
-    <li><a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2022/11/ggplot2-3-4-0/">Version 3.4.0</a></li>
-    <li><a class="external-link dropdown-item" href="https://www.tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a></li>
-    <li><a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/">Version 3.2.0</a></li>
-    <li><a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/">Version 3.1.0</a></li>
-    <li><a class="external-link dropdown-item" href="https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/">Version 3.0.0</a></li>
+    <li><a class="external-link dropdown-item" href="https://tidyverse.org/blog/2025/09/ggplot2-4-0-0/">Version 4.0.0</a></li>
+    <li><a class="external-link dropdown-item" href="https://tidyverse.org/blog/2024/02/ggplot2-3-5-0/">Version 3.5.0</a></li>
+    <li><a class="external-link dropdown-item" href="https://tidyverse.org/blog/2022/11/ggplot2-3-4-0/">Version 3.4.0</a></li>
+    <li><a class="external-link dropdown-item" href="https://tidyverse.org/blog/2020/03/ggplot2-3-3-0/">Version 3.3.0</a></li>
+    <li><a class="external-link dropdown-item" href="https://tidyverse.org/blog/2019/06/ggplot2-3-2-0/">Version 3.2.0</a></li>
+    <li><a class="external-link dropdown-item" href="https://tidyverse.org/blog/2018/10/ggplot2-3-1-0/">Version 3.1.0</a></li>
+    <li><a class="external-link dropdown-item" href="https://tidyverse.org/blog/2018/07/ggplot2-3-0-0/">Version 3.0.0</a></li>
     <li><a class="external-link dropdown-item" href="https://posit.co/blog/ggplot2-2-2-0/">Version 2.2.0</a></li>
     <li><a class="external-link dropdown-item" href="https://posit.co/blog/ggplot2-2-1-0/">Version 2.1.0</a></li>
     <li><a class="external-link dropdown-item" href="https://posit.co/blog/ggplot2-2-0-0/">Version 2.0.0</a></li>
@@ -94,17 +94,17 @@ Broken down into construct, build, render and draw times.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">benchplot</span><span class="op">(</span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">wt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        step user.self sys.self elapsed</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 construct     0.005        0   0.005</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     build     0.025        0   0.026</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    render     0.038        0   0.037</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      draw     0.017        0   0.018</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     TOTAL     0.085        0   0.086</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     build     0.028        0   0.027</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    render     0.042        0   0.041</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      draw     0.019        0   0.018</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     TOTAL     0.094        0   0.091</span>
 <span class="r-in"><span><span class="fu">benchplot</span><span class="op">(</span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">wt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">.</span> <span class="op">~</span> <span class="va">cyl</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        step user.self sys.self elapsed</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 construct     0.005        0   0.005</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     build     0.027        0   0.026</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    render     0.082        0   0.082</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      draw     0.029        0   0.029</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     TOTAL     0.143        0   0.142</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     build     0.029        0   0.030</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    render     0.094        0   0.095</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      draw     0.034        0   0.034</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     TOTAL     0.162        0   0.164</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># With tidy eval:</span></span></span>
 <span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="tidyeval.html">expr</a></span><span class="op">(</span><span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">wt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -112,10 +112,10 @@ Broken down into construct, build, render and draw times.</p>
 <span class="r-plt img"><img src="benchplot-1.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        step user.self sys.self elapsed</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 construct     0.005        0   0.004</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     build     0.025        0   0.026</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    render     0.037        0   0.038</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      draw     0.017        0   0.017</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     TOTAL     0.084        0   0.085</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     build     0.028        0   0.028</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    render     0.041        0   0.041</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      draw     0.019        0   0.020</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     TOTAL     0.093        0   0.093</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
