@@ -786,12 +786,10 @@ attach_plot_env <- function(env) {
 }
 
 as_cli <- function(..., env = caller_env()) {
-  withr::local_options(cli.width = 1e9)
-  cli::cli_fmt(
+  inject(paste(!!!cli::cli_fmt(
     cli::cli_text(..., .envir = env),
-    collapse = TRUE,
     strip_newline = TRUE
-  )
+  ), collapse = ""))
 }
 
 as_unordered_factor <- function(x) {
