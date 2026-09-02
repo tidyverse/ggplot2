@@ -678,6 +678,10 @@ test_that("legends are placed correctly when using stretchy spacing", {
 
   p <- ggplot(df, aes(x, y, colour = a, shape = factor(x))) +
     geom_point() +
+    guides(
+      colour = guide_legend(order = 1),
+      shape = guide_legend(order = 2)
+    ) +
     theme(
       legend.box.background = element_rect(colour = "blue", fill = NA),
       legend.background = element_rect(colour = "red", fill = NA)
