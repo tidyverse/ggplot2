@@ -1,3 +1,40 @@
+#' Geometry scale
+#'
+#' The geometry scale is a translation scale, transforming feature identifiers
+#' into geometry using sf objects.
+#'
+#' @param data An sf object with a simple feature list (geometry) column.
+#' @param id A string giving a column name in `data` to use as feature identifiers.
+#' @param ... Passed on to [discrete_scale].
+#'
+#' @export
+#' @include scale-identity.R
+#'
+#' @examplesIf require("rnaturalearth")
+#' world <- rnaturalearth::ne_countries()
+#'
+#' # 1:1 mapping using three-letter country codes
+#' iso_a3 <- data.frame(id = c("AUS", "NZL", "PNG", "IDN"))
+#'
+#' ggplot(iso_a3) +
+#'   geom_sf(aes(geometry = id, fill = id)) +
+#'   scale_geometry_discrete(world, "iso_a3")
+#'
+#' # 1:many mapping using regions
+#' regions <- data.frame(id = c("Asia", "Europe"))
+#'
+#' ggplot(regions) +
+#'   geom_sf(aes(geometry = id, fill = id)) +
+#'   scale_geometry_discrete(world, "region_un")
+#'
+#' # Subnational identities
+#' states <- rnaturalearth::ne_states(country = "united states of america")
+#'
+#' west_us <- data.frame(id = c("WA", "OR", "CA"))
+#'
+#' ggplot(west_us) +
+#'   geom_sf(aes(geometry = id, fill = id)) +
+#'   scale_geometry_discrete(states, "postal")
 scale_geometry_discrete <- function(data = NULL, id = NULL, ...) {
   check_installed("sf")
   transform <- new_geometry_transform(data, id)
