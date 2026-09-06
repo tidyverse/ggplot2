@@ -1,4 +1,8 @@
 # ggplot2 (development version)
+
+* Meaningless change to trigger GHA workflow again (#6704)
+
+### Bug fixes
  
 * (internal) Secondary axis tests now meaningfully assert break positions.
   Misplaced parentheses previously made the tolerance checks one-sided, and
