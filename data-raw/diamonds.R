@@ -7,4 +7,4 @@ diamonds <- read_csv("data-raw/diamonds.csv", col_types =
   )
 )
 
-devtools::use_data(diamonds, overwrite = TRUE)
+usethis::use_data(diamonds, overwrite = TRUE)
