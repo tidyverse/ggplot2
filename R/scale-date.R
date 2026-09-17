@@ -30,7 +30,7 @@
 #'     output
 #' @param limits One of:
 #'   - `NULL` to use the default scale range
-#'   - A numeric vector of length two providing limits of the scale.
+#'   - A date vector of length two providing limits of the scale.
 #'   - To refer to the existing minimum or maximum use `lubridate::NA_Date_` or `lubridate::NA_POSIXct_`
 #'   - A function that accepts the existing (automatic) limits and returns
 #'     new limits. Also accepts rlang [lambda][rlang::as_function()] function
