@@ -28,6 +28,16 @@
 #'   - A `Date`/`POSIXct` vector giving positions of minor breaks
 #'   - A function that takes the limits as input and returns minor breaks as
 #'     output
+#' @param limits One of:
+#'   - `NULL` to use the default scale range
+#'   - A numeric vector of length two providing limits of the scale.
+#'   - To refer to the existing minimum or maximum use `lubridate::NA_Date_` or `lubridate::NA_POSIXct_`
+#'   - A function that accepts the existing (automatic) limits and returns
+#'     new limits. Also accepts rlang [lambda][rlang::as_function()] function
+#'     notation.
+#'   Note that setting limits on positional scales will **remove** data outside of the limits.
+#'   If the purpose is to zoom, use the limit argument in the coordinate system
+#'   (see [coord_cartesian()]).
 #' @param date_labels A string giving the formatting specification for the
 #'   labels. Codes are defined in [strftime()]. If both `labels`
 #'   and `date_labels` are specified, `date_labels` wins.
@@ -66,20 +76,21 @@ NULL
 
 #' @rdname scale_date
 #' @export
-scale_x_date <- function(name = waiver(),
-                         breaks = waiver(),
-                         date_breaks = waiver(),
-                         labels = waiver(),
-                         date_labels = waiver(),
-                         minor_breaks = waiver(),
-                         date_minor_breaks = waiver(),
-                         limits = NULL,
-                         expand = waiver(),
-                         oob = censor,
-                         guide = waiver(),
-                         position = "bottom",
-                         sec.axis = waiver()) {
-
+scale_x_date <- function(
+  name = waiver(),
+  breaks = waiver(),
+  date_breaks = waiver(),
+  labels = waiver(),
+  date_labels = waiver(),
+  minor_breaks = waiver(),
+  date_minor_breaks = waiver(),
+  limits = NULL,
+  expand = waiver(),
+  oob = censor,
+  guide = waiver(),
+  position = "bottom",
+  sec.axis = waiver()
+) {
   sc <- datetime_scale(
     ggplot_global$x_aes,
     "date",
@@ -103,20 +114,21 @@ scale_x_date <- function(name = waiver(),
 
 #' @rdname scale_date
 #' @export
-scale_y_date <- function(name = waiver(),
-                         breaks = waiver(),
-                         date_breaks = waiver(),
-                         labels = waiver(),
-                         date_labels = waiver(),
-                         minor_breaks = waiver(),
-                         date_minor_breaks = waiver(),
-                         limits = NULL,
-                         expand = waiver(),
-                         oob = censor,
-                         guide = waiver(),
-                         position = "left",
-                         sec.axis = waiver()) {
-
+scale_y_date <- function(
+  name = waiver(),
+  breaks = waiver(),
+  date_breaks = waiver(),
+  labels = waiver(),
+  date_labels = waiver(),
+  minor_breaks = waiver(),
+  date_minor_breaks = waiver(),
+  limits = NULL,
+  expand = waiver(),
+  oob = censor,
+  guide = waiver(),
+  position = "left",
+  sec.axis = waiver()
+) {
   sc <- datetime_scale(
     ggplot_global$y_aes,
     "date",
@@ -140,21 +152,22 @@ scale_y_date <- function(name = waiver(),
 
 #' @export
 #' @rdname scale_date
-scale_x_datetime <- function(name = waiver(),
-                             breaks = waiver(),
-                             date_breaks = waiver(),
-                             labels = waiver(),
-                             date_labels = waiver(),
-                             minor_breaks = waiver(),
-                             date_minor_breaks = waiver(),
-                             timezone = NULL,
-                             limits = NULL,
-                             expand = waiver(),
-                             oob = censor,
-                             guide = waiver(),
-                             position = "bottom",
-                             sec.axis = waiver()) {
-
+scale_x_datetime <- function(
+  name = waiver(),
+  breaks = waiver(),
+  date_breaks = waiver(),
+  labels = waiver(),
+  date_labels = waiver(),
+  minor_breaks = waiver(),
+  date_minor_breaks = waiver(),
+  timezone = NULL,
+  limits = NULL,
+  expand = waiver(),
+  oob = censor,
+  guide = waiver(),
+  position = "bottom",
+  sec.axis = waiver()
+) {
   sc <- datetime_scale(
     ggplot_global$x_aes,
     "time",
@@ -180,21 +193,22 @@ scale_x_datetime <- function(name = waiver(),
 
 #' @rdname scale_date
 #' @export
-scale_y_datetime <- function(name = waiver(),
-                             breaks = waiver(),
-                             date_breaks = waiver(),
-                             labels = waiver(),
-                             date_labels = waiver(),
-                             minor_breaks = waiver(),
-                             date_minor_breaks = waiver(),
-                             timezone = NULL,
-                             limits = NULL,
-                             expand = waiver(),
-                             oob = censor,
-                             guide = waiver(),
-                             position = "left",
-                             sec.axis = waiver()) {
-
+scale_y_datetime <- function(
+  name = waiver(),
+  breaks = waiver(),
+  date_breaks = waiver(),
+  labels = waiver(),
+  date_labels = waiver(),
+  minor_breaks = waiver(),
+  date_minor_breaks = waiver(),
+  timezone = NULL,
+  limits = NULL,
+  expand = waiver(),
+  oob = censor,
+  guide = waiver(),
+  position = "left",
+  sec.axis = waiver()
+) {
   sc <- datetime_scale(
     ggplot_global$y_aes,
     "time",
@@ -218,24 +232,24 @@ scale_y_datetime <- function(name = waiver(),
 }
 
 
-
 #' @export
 #' @rdname scale_date
-scale_x_time <- function(name = waiver(),
-                         breaks = waiver(),
-                         date_breaks = waiver(),
-                         minor_breaks = waiver(),
-                         date_minor_breaks = waiver(),
-                         labels = waiver(),
-                         date_labels = waiver(),
-                         limits = NULL,
-                         expand = waiver(),
-                         oob = censor,
-                         na.value = NA_real_,
-                         guide = waiver(),
-                         position = "bottom",
-                         sec.axis = waiver()) {
-
+scale_x_time <- function(
+  name = waiver(),
+  breaks = waiver(),
+  date_breaks = waiver(),
+  minor_breaks = waiver(),
+  date_minor_breaks = waiver(),
+  labels = waiver(),
+  date_labels = waiver(),
+  limits = NULL,
+  expand = waiver(),
+  oob = censor,
+  na.value = NA_real_,
+  guide = waiver(),
+  position = "bottom",
+  sec.axis = waiver()
+) {
   sc <- datetime_scale(
     ggplot_global$x_aes,
     "hms",
@@ -260,21 +274,22 @@ scale_x_time <- function(name = waiver(),
 
 #' @rdname scale_date
 #' @export
-scale_y_time <- function(name = waiver(),
-                         breaks = waiver(),
-                         date_breaks = waiver(),
-                         minor_breaks = waiver(),
-                         date_minor_breaks = waiver(),
-                         labels = waiver(),
-                         date_labels = waiver(),
-                         limits = NULL,
-                         expand = waiver(),
-                         oob = censor,
-                         na.value = NA_real_,
-                         guide = waiver(),
-                         position = "left",
-                         sec.axis = waiver()) {
-
+scale_y_time <- function(
+  name = waiver(),
+  breaks = waiver(),
+  date_breaks = waiver(),
+  minor_breaks = waiver(),
+  date_minor_breaks = waiver(),
+  labels = waiver(),
+  date_labels = waiver(),
+  limits = NULL,
+  expand = waiver(),
+  oob = censor,
+  na.value = NA_real_,
+  guide = waiver(),
+  position = "left",
+  sec.axis = waiver()
+) {
   sc <- datetime_scale(
     ggplot_global$y_aes,
     "hms",
@@ -306,17 +321,31 @@ scale_y_time <- function(name = waiver(),
 #'
 #' @export
 #' @keywords internal
-datetime_scale <- function(aesthetics, transform, trans = deprecated(),
-                           palette, breaks = pretty_breaks(), minor_breaks = waiver(),
-                           labels = waiver(), date_breaks = waiver(),
-                           date_labels = waiver(),
-                           date_minor_breaks = waiver(), timezone = NULL,
-                           guide = "legend", call = caller_call(), ...) {
+datetime_scale <- function(
+  aesthetics,
+  transform,
+  trans = deprecated(),
+  palette,
+  breaks = pretty_breaks(),
+  minor_breaks = waiver(),
+  labels = waiver(),
+  date_breaks = waiver(),
+  date_labels = waiver(),
+  date_minor_breaks = waiver(),
+  timezone = NULL,
+  guide = "legend",
+  call = caller_call(),
+  ...
+) {
   call <- call %||% current_call()
 
   # Backward compatibility
-  if (is.character(breaks)) breaks <- breaks_width(breaks)
-  if (is.character(minor_breaks)) minor_breaks <- breaks_width(minor_breaks)
+  if (is.character(breaks)) {
+    breaks <- breaks_width(breaks)
+  }
+  if (is.character(minor_breaks)) {
+    minor_breaks <- breaks_width(minor_breaks)
+  }
 
   if (!is_waiver(date_breaks)) {
     check_string(date_breaks)
@@ -351,10 +380,11 @@ datetime_scale <- function(aesthetics, transform, trans = deprecated(),
     scale_class <- ScaleContinuous
   }
 
-  transform <- switch(transform,
+  transform <- switch(
+    transform,
     date = transform_date(),
     time = transform_time(timezone),
-    hms  = transform_hms()
+    hms = transform_hms()
   )
 
   sc <- continuous_scale(
@@ -378,7 +408,9 @@ datetime_scale <- function(aesthetics, transform, trans = deprecated(),
 #' @format NULL
 #' @usage NULL
 #' @export
-ScaleContinuousDatetime <- ggproto("ScaleContinuousDatetime", ScaleContinuous,
+ScaleContinuousDatetime <- ggproto(
+  "ScaleContinuousDatetime",
+  ScaleContinuous,
   secondary.axis = waiver(),
   timezone = NULL,
   transform = function(self, x) {
@@ -389,10 +421,13 @@ ScaleContinuousDatetime <- ggproto("ScaleContinuousDatetime", ScaleContinuous,
     }
     if (is_bare_numeric(x)) {
       x <- self$trans$inverse(x)
-      cli::cli_warn(c(
-        "A {.cls numeric} value was passed to a {.field Datetime} scale.",
-        i = "The value was converted to {obj_type_friendly(x)}."
-      ), call = self$call)
+      cli::cli_warn(
+        c(
+          "A {.cls numeric} value was passed to a {.field Datetime} scale.",
+          i = "The value was converted to {obj_type_friendly(x)}."
+        ),
+        call = self$call
+      )
     }
     if (inherits(x, "Date")) {
       x <- as.POSIXct(x)
@@ -424,14 +459,15 @@ ScaleContinuousDatetime <- ggproto("ScaleContinuousDatetime", ScaleContinuous,
       ggproto_parent(ScaleContinuous, self)$make_sec_title(...)
     }
   }
-
 )
 
 #' @rdname Scale
 #' @format NULL
 #' @usage NULL
 #' @export
-ScaleContinuousDate <- ggproto("ScaleContinuousDate", ScaleContinuous,
+ScaleContinuousDate <- ggproto(
+  "ScaleContinuousDate",
+  ScaleContinuous,
   secondary.axis = waiver(),
   map = function(self, x, limits = self$get_limits()) {
     self$oob(x, limits)
@@ -439,10 +475,13 @@ ScaleContinuousDate <- ggproto("ScaleContinuousDate", ScaleContinuous,
   transform = function(self, x) {
     if (is_bare_numeric(x)) {
       x <- self$trans$inverse(x)
-      cli::cli_warn(c(
-        "A {.cls numeric} value was passed to a {.field Date} scale.",
-        i = "The value was converted to {obj_type_friendly(x)}."
-      ), call = self$call)
+      cli::cli_warn(
+        c(
+          "A {.cls numeric} value was passed to a {.field Date} scale.",
+          i = "The value was converted to {obj_type_friendly(x)}."
+        ),
+        call = self$call
+      )
     }
     if (inherits(x, "POSIXct")) {
       x <- as.Date(x)
