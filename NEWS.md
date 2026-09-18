@@ -1,5 +1,10 @@
 # ggplot2 (development version)
  
+* Layers whose data is entirely removed by scale limits no longer error when
+  the plot has multiple panels. `dapply()` now returns an empty data frame for
+  empty input instead of splitting, which previously aborted with
+  `seq_len(): argument must be coercible to non-negative integer`
+  (@GuangchuangYu, #6899).
 * (internal) Secondary axis tests now meaningfully assert break positions.
   Misplaced parentheses previously made the tolerance checks one-sided, and
   four position checks were tautological self-comparisons (@sims1253).

@@ -218,6 +218,14 @@ dapply <- function(df, by, fun, ..., drop = TRUE) {
     data_frame0(!!!res)
   }
 
+  # With zero rows there are zero groups, so `fun()` must not be called at all.
+  # Splitting would also fail: `id()` returns `integer(0)`, and
+  # `split_with_index()` then does `seq_len(max(integer(0)))`, i.e.
+  # `seq_len(-Inf)`.
+  if (nrow(df) == 0L) {
+    return(data_frame0())
+  }
+
   # Shortcut when only one group
   has_single_group <- all(vapply(
     grouping_cols,
