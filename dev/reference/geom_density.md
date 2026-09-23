@@ -316,14 +316,14 @@ ggplot(diamonds, aes(carat)) +
 ggplot(diamonds, aes(depth, colour = cut)) +
   geom_density() +
   xlim(55, 70)
-#> Warning: Removed 45 rows containing non-finite outside the scale range
-#> (`stat_density()`).
+#> Warning: Removed 45 rows containing non-finite values or values outside the
+#> scale range (`stat_density()`).
 
 ggplot(diamonds, aes(depth, fill = cut, colour = cut)) +
   geom_density(alpha = 0.1) +
   xlim(55, 70)
-#> Warning: Removed 45 rows containing non-finite outside the scale range
-#> (`stat_density()`).
+#> Warning: Removed 45 rows containing non-finite values or values outside the
+#> scale range (`stat_density()`).
 
 
 # Use `bounds` to adjust computation for known data limits

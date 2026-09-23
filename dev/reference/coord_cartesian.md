@@ -82,8 +82,8 @@ p
 # Setting the limits on a scale converts all values outside the range to NA.
 p + scale_x_continuous(limits = c(325, 500))
 #> `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
-#> Warning: Removed 24 rows containing non-finite outside the scale range
-#> (`stat_smooth()`).
+#> Warning: Removed 24 rows containing non-finite values or values outside the
+#> scale range (`stat_smooth()`).
 #> Warning: Removed 24 rows containing missing values or values outside the scale
 #> range (`geom_point()`).
 
@@ -122,8 +122,8 @@ d
 # When zooming the scale, the we get 25 new bins that are the same
 # size on the plot, but represent smaller regions of the data space
 d + scale_x_continuous(limits = c(0, 1))
-#> Warning: Removed 17502 rows containing non-finite outside the scale range
-#> (`stat_bin2d()`).
+#> Warning: Removed 17502 rows containing non-finite values or values outside the
+#> scale range (`stat_bin2d()`).
 
 
 # When zooming the coordinate system, we see a subset of original 50 bins,

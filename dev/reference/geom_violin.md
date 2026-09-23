@@ -400,8 +400,8 @@ ggplot(movies, aes(year, budget)) +
 ggplot(movies, aes(year, budget)) +
   geom_violin(aes(group = cut_width(year, 10)), scale = "width")
 }
-#> Warning: Removed 53573 rows containing non-finite outside the scale range
-#> (`stat_ydensity()`).
+#> Warning: Removed 53573 rows containing non-finite values or values outside the
+#> scale range (`stat_ydensity()`).
 #> Warning: Groups with fewer than two datapoints have been dropped.
 #> ℹ Set `drop = FALSE` to consider such groups for position adjustment
 #>   purposes.

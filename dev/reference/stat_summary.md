@@ -344,8 +344,8 @@ p <- ggplot(mtcars, aes(cyl, mpg)) +
 p
 
 p + ylim(15, 30)
-#> Warning: Removed 9 rows containing non-finite outside the scale range
-#> (`stat_summary()`).
+#> Warning: Removed 9 rows containing non-finite values or values outside the
+#> scale range (`stat_summary()`).
 
 # Instead use coord_cartesian
 p + coord_cartesian(ylim = c(15, 30))

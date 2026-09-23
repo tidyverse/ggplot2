@@ -110,8 +110,8 @@ p
 # Setting the limits with the scale discards all data outside the range.
 p + lims(x= c(Sys.Date() - 30, NA), y = c(10, 20))
 #> `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
-#> Warning: Removed 30 rows containing non-finite outside the scale range
-#> (`stat_smooth()`).
+#> Warning: Removed 30 rows containing non-finite values or values outside the
+#> scale range (`stat_smooth()`).
 #> Warning: Removed 30 rows containing missing values or values outside the scale
 #> range (`geom_line()`).
 

@@ -296,8 +296,8 @@ for example <code>list(x = 10, y = 20)</code>.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">diamonds</span>, <span class="fu"><a href="aes.html">aes</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="lims.html">xlim</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">10</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="lims.html">ylim</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">d</span> <span class="op">+</span> <span class="fu">geom_bin_2d</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> `stat_bin2d()` using `bins = 30`. Pick better value `binwidth`.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 478 rows containing non-finite outside the scale range</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> (`stat_bin2d()`).</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 478 rows containing non-finite values or values outside the</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> scale range (`stat_bin2d()`).</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 5 rows containing missing values or values outside the scale</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> range (`geom_bin2d()`).</span>
 <span class="r-plt img"><img src="geom_bin_2d-1.png" alt="" width="700" height="433"></span>
@@ -305,20 +305,20 @@ for example <code>list(x = 10, y = 20)</code>.</p>
 <span class="r-in"><span><span class="co"># You can control the size of the bins by specifying the number of</span></span></span>
 <span class="r-in"><span><span class="co"># bins in each direction:</span></span></span>
 <span class="r-in"><span><span class="va">d</span> <span class="op">+</span> <span class="fu">geom_bin_2d</span><span class="op">(</span>bins <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 478 rows containing non-finite outside the scale range</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> (`stat_bin2d()`).</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 478 rows containing non-finite values or values outside the</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> scale range (`stat_bin2d()`).</span>
 <span class="r-plt img"><img src="geom_bin_2d-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="va">d</span> <span class="op">+</span> <span class="fu">geom_bin_2d</span><span class="op">(</span>bins <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">30</span>, y <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 478 rows containing non-finite outside the scale range</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> (`stat_bin2d()`).</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 478 rows containing non-finite values or values outside the</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> scale range (`stat_bin2d()`).</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 2 rows containing missing values or values outside the scale</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> range (`geom_bin2d()`).</span>
 <span class="r-plt img"><img src="geom_bin_2d-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Or by specifying the width of the bins</span></span></span>
 <span class="r-in"><span><span class="va">d</span> <span class="op">+</span> <span class="fu">geom_bin_2d</span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 478 rows containing non-finite outside the scale range</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> (`stat_bin2d()`).</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 478 rows containing non-finite values or values outside the</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> scale range (`stat_bin2d()`).</span>
 <span class="r-plt img"><img src="geom_bin_2d-4.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>

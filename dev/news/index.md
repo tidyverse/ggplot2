@@ -2,6 +2,10 @@
 
 ## ggplot2 (development version)
 
+- Fixed wording of warning emitted by `remove missing()` when non-finite
+  values are removed: it now reads “non-finite values or values outside
+  the scale range” instead of “non-finite outside the scale range”
+  ([@osorensen](https://github.com/osorensen)).
 - (internal) Secondary axis tests now meaningfully assert break
   positions. Misplaced parentheses previously made the tolerance checks
   one-sided, and four position checks were tautological self-comparisons
