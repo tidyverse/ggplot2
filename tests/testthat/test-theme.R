@@ -330,6 +330,25 @@ test_that("Element subclasses are inherited", {
   )
 })
 
+test_that("Element properties with deferred values are inherited", {
+  child  <- element_text(size = rel(1.5), margin = margin_part(t = 10))
+  parent <- element_text(size = 10,       margin = margin(1, 2, 3, 4))
+
+  test <- combine_elements(child, parent)
+
+  expect_equal(test@size, 15)
+  expect_equal(test@margin, margin(10, 2, 3, 4))
+
+  expect_equal(
+    combine_elements(rel(1.5), 10),
+    15
+  )
+  expect_equal(
+    combine_elements(margin_part(t = 10), margin(1, 2, 3, 4)),
+    margin(10, 2, 3, 4)
+  )
+})
+
 test_that("complete_theme completes a theme", {
   # `NULL` should match default
   gray <- theme_gray()
