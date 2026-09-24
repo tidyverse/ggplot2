@@ -58,3 +58,16 @@
 
     Unknown arguments to `element_text()`: `italic`, `fontweight`, and `fontwidth`.
 
+# all expected theme elements are documented
+
+    Code
+      extra_elements
+    Output
+       [1] "palette.colour.discrete"      "palette.colour.continuous"   
+       [3] "palette.fill.discrete"        "palette.fill.continuous"     
+       [5] "palette.alpha.discrete"       "palette.alpha.continuous"    
+       [7] "palette.linewidth.discrete"   "palette.linewidth.continuous"
+       [9] "palette.size.discrete"        "palette.size.continuous"     
+      [11] "palette.shape.discrete"       "palette.shape.continuous"    
+      [13] "palette.linetype.discrete"    "palette.linetype.continuous" 
+

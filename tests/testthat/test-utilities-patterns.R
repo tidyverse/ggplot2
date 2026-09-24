@@ -60,6 +60,12 @@ test_that("fill_alpha works as expected", {
 
 test_that("geoms can use pattern fills", {
 
+  # This prevents deletion of snapshots when skipped
+  announce_snapshot_file("pattern-fills-no-alpha.svg")
+  announce_snapshot_file("pattern-fills-through-scale.svg")
+  announce_snapshot_file("pattern-fills-with-alpha.svg")
+  announce_snapshot_file("single-pattern-fill.svg")
+
   skip_if_not_installed("grid", "4.2.0")
   skip_if_not_installed("svglite", "2.1.2")
   # TODO: ideally we should test this on all platforms, but currently they
