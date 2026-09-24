@@ -138,6 +138,16 @@ test_that("Using `scale_name` prompts deprecation message", {
 
 })
 
+test_that("mismatch between `na.value` and `palette` throws error", {
+  x <- c("A", "B", "C", NA)
+  sc <- scale_shape_manual(
+    values = c("circle", "triangle", "square"),
+    na.value = 4
+  )
+  sc$train(x)
+  expect_snapshot(sc$map(x), error = TRUE)
+})
+
 # Continuous scales -------------------------------------------------------
 
 test_that("limits with NA are replaced with the min/max of the data for continuous scales", {
