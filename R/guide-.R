@@ -284,7 +284,7 @@ Guide <- ggproto(
 
     if (is.numeric(breaks)) {
       range <- scale$continuous_range %||% scale$get_limits()
-      key <- vec_slice(key, is.finite(oob_censor_any(breaks, range)))
+      key <- key[is.finite(oob_censor_any(breaks, range)), , drop = FALSE]
     } else {
       key
     }

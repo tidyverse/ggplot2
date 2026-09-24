@@ -488,7 +488,7 @@ write_icon("scale_colour_brewer", {
   rectGrob(
     c(0.1, 0.3, 0.5, 0.7, 0.9),
     width = 0.21,
-    gp = gpar(fill = RColorBrewer::brewer.pal(5, "PuOr"), col = NA)
+    gp = gpar(fill = scales::pal_brewer(palette = "PuOr")(5), col = NA)
   )
 })
 
@@ -510,6 +510,7 @@ write_icon("scale_colour_continuous", {
 })
 
 write_icon("scale_colour_viridis_d", {
+  g <- scale_colour_viridis_d()
   rectGrob(
     c(0.1, 0.3, 0.5, 0.7, 0.9),
     width = 0.21,

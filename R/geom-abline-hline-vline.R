@@ -17,7 +17,12 @@ NULL
 #'
 #' Unlike most other geoms, these geoms do not inherit aesthetics from the plot
 #' default, because they do not understand x and y aesthetics which are
-#' commonly set in the plot. They also do not affect the x and y scales.
+#' commonly set in the plot.
+#'
+#' Unlike [geom_abline()], [geom_vline()] and [geom_hline()] include their
+#' intercepts in the position aesthetics. As a result, `xintercept` and
+#' `yintercept` values can affect the x and y scales, particularly when
+#' intercepts fall outside the range of the data.
 #'
 #' @section Aesthetics:
 #' These geoms are drawn using [geom_line()] so they support the

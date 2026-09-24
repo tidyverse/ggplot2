@@ -33,10 +33,14 @@ test_that("dup_axis() works", {
 
   # these aren't exactly equal because the sec_axis trans is based on a
   # (default) 1000-point approximation
-  expect_true(all(abs(breaks$major_source - round(breaks$sec.major_source) <= 1)))
-  expect_true(all(abs(breaks$minor_source - round(breaks$sec.minor_source) <= 1)))
-  expect_equal(round(breaks$major, 3), round(breaks$major, 3))
-  expect_equal(round(breaks$minor, 3), round(breaks$minor, 3))
+  expect_true(all(
+    abs(breaks$major_source - round(breaks$sec.major_source)) <= 1
+  ))
+  expect_true(all(
+    abs(breaks$minor_source - round(breaks$sec.minor_source)) <= 1
+  ))
+  expect_equal(round(breaks$major, 3), round(breaks$sec.major, 3))
+  expect_equal(round(breaks$minor, 3), round(breaks$sec.minor, 3))
 })
 
 test_that("sec_axis() works with subtraction", {
@@ -53,10 +57,16 @@ test_that("sec_axis() works with subtraction", {
 
   # these aren't exactly equal because the sec_axis trans is based on a
   # (default) 1000-point approximation
-  expect_true(all(abs(breaks$major_source - round(breaks$sec.major_source) <= 1)))
-  expect_true(all(abs(breaks$minor_source - round(breaks$sec.minor_source) <= 1)))
-  expect_equal(round(breaks$major, 3), round(breaks$major, 3))
-  expect_equal(round(breaks$minor, 3), round(breaks$minor, 3))
+  expect_true(all(
+    abs(breaks$major_source - round(breaks$sec.major_source)) <= 1
+  ))
+  expect_true(all(
+    abs(breaks$minor_source - round(breaks$sec.minor_source)) <= 1
+  ))
+  # the transform (~1-.) reverses the axis, so secondary break positions are
+  # the primary positions in reverse order
+  expect_equal(round(breaks$major, 3), round(rev(breaks$sec.major), 3))
+  expect_equal(round(breaks$minor, 3), round(rev(breaks$sec.minor), 3))
 })
 
 test_that("sex axis works with division (#1804)", {

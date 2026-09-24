@@ -6,7 +6,9 @@ StatBindot <- ggproto("StatBindot", Stat,
   required_aes = "x",
   non_missing_aes = "weight",
   default_aes = aes(y = after_stat(count)),
-  dropped_aes = c("bin", "bincenter"), # these are temporary variables that are created and then removed by the stat
+
+  # these are temporary variables that are created and then removed by the stat
+  dropped_aes = c("weight", "bin", "bincenter"),
 
   setup_params = function(data, params) {
     if (is.null(params$binwidth)) {
@@ -122,9 +124,7 @@ StatBindot <- ggproto("StatBindot", Stat,
       data$x <- midline
     }
     return(data)
-  },
-
-  dropped_aes = c("weight", "bin", "bincenter")
+  }
 )
 
 

@@ -153,13 +153,13 @@ ggplot(mpg, aes(x = hwy, y = cty, color = drv)) +
 
 ### How can I change the key labels in the legend?
 
-If you don't want to change the levels of the variable the legend is being drawn for, you can change the key labels at the time of drawing the plot using the `labels` argument in the appropriate `scale_*()` function, e.g. `scale_colour_discrete()` if the legend is for a discrete variable mapped to the fill aesthetic.
+If you don't want to change the levels of the variable the legend is being drawn for, you can change the key labels at the time of drawing the plot using the `labels` argument in the appropriate `scale_*()` function, e.g. `scale_colour_discrete()` if the legend is for a discrete variable mapped to the colour aesthetic.
 
 <details>
 
 <summary>See example</summary>
 
-The `labels` argument of `scale_*` functions takes named vectors, which what we would recommend using for relabeling keys in a legend.
+The `labels` argument of `scale_*` functions takes named vectors, which is what we would recommend using for relabeling keys in a legend.
 Using named lists allows you to declare explicitly which label is assigned to which level, without having to keep track of level order.
 
 ```{r}

@@ -83,7 +83,6 @@ check_length <- function(x, length = integer(), ..., min = 0, max = Inf,
   if (n %in% length) {
     return(invisible(NULL))
   }
-  fmt <- if (inherits(arg, "AsIs")) identity else function(x) sprintf("`%s`", x)
   if (length(length) > 0) {
     type <- paste0("a vector of length ", oxford_comma(length))
     if (length(length) == 1) {
@@ -96,7 +95,7 @@ check_length <- function(x, length = integer(), ..., min = 0, max = Inf,
     }
     msg <- sprintf(
       "%s must be %s, not length %d.",
-      fmt(arg), type, n
+      fmt_arg(arg), type, n
     )
     cli::cli_abort(msg, call = call, arg = arg)
   }
@@ -122,8 +121,30 @@ check_length <- function(x, length = integer(), ..., min = 0, max = Inf,
 
   msg <- sprintf(
     "`%s` must be a %s with %s, not length %d.",
-    fmt(arg), type, what, n
+    fmt_arg(arg), type, what, n
   )
+  cli::cli_abort(msg, call = call, arg = arg)
+}
+
+check_named <- function(x, arg = caller_arg(x), call = caller_env()) {
+  if (missing(x)) {
+    stop_input_type(x, "a vector", arg = arg, call = call)
+  }
+  if (length(x) < 1) {
+    return(invisible())
+  }
+  msg <- character()
+  if (!is_named2(x)) {
+    msg <- sprintf("%s must have names.", fmt_arg(arg))
+  } else if (anyDuplicated(names2(x))) {
+    dups <- names2(x)
+    dups <- sprintf('"%s"', unique(dups[duplicated(dups)]))
+    dups <- oxford_comma(dups, final = "and")
+    msg  <- sprintf("%s cannot have duplicate names (%s).", fmt_arg(arg), dups)
+  }
+  if (length(msg) < 1) {
+    return(invisible())
+  }
   cli::cli_abort(msg, call = call, arg = arg)
 }
 
@@ -419,3 +440,10 @@ check_device <- function(feature, action = "warn", op = NULL, maybe = FALSE,
 .blend_ops <- c("multiply", "screen", "overlay", "darken", "lighten",
                 "color.dodge", "color.burn", "hard.light", "soft.light",
                 "difference", "exclusion")
+
+fmt_arg <- function(x) {
+  if (inherits(x, "AsIs")) {
+    return(x)
+  }
+  sprintf("`%s`", x)
+}

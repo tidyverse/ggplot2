@@ -54,6 +54,7 @@ stat_boxplot(
   orientation = NA,
   coef = 1.5,
   min.group.n = 1L,
+  quantile.type = 7,
   na.rm = FALSE,
   show.legend = NA,
   inherit.aes = TRUE
@@ -186,6 +187,9 @@ overriding these connections, see how the \link[=layer_stats]{stat} and
 the box and whiskers. Groups with less observations will be displayed as
 points styled like outliers without box and whiskers. The default (1) draws
 box and whiskers for all groups.}
+
+\item{quantile.type}{An integer between 1 and 9 setting the quantile algorithm
+per \code{\link[stats:quantile]{stats::quantile(type)}}. Defaults to \code{7}}
 }
 \description{
 The boxplot compactly displays the distribution of a continuous variable.

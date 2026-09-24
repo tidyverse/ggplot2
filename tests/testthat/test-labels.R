@@ -140,6 +140,23 @@ test_that("plot.tag.position rejects invalid input", {
 
 })
 
+test_that("left and right plot tags can be rendered inside plot regions", {
+  p <- ggplot(mtcars, aes(mpg, disp)) + geom_point() + labs(tag = "Fig. A)")
+
+  for (position in c("left", "right")) {
+    for (location in c("plot", "panel")) {
+      expect_no_error(
+        ggplotGrob(
+          p + theme(
+            plot.tag.position = position,
+            plot.tag.location = location
+          )
+        )
+      )
+    }
+  }
+})
+
 test_that("position axis label hierarchy works as intended", {
   df <- data_frame(foo = c(1e1, 1e5), bar = c(0, 100))
 
