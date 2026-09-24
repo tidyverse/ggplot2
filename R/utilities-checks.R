@@ -126,31 +126,33 @@ check_length <- function(x, length = integer(), ..., min = 0, max = Inf,
   cli::cli_abort(msg, call = call, arg = arg)
 }
 
-check_named <- function(x, arg = caller_arg(x), call = caller_env(), type = "abort") {
+check_named <- function(x, arg = caller_arg(x), call = caller_env(), tolerate_duplicates = FALSE) {
   if (missing(x)) {
     stop_input_type(x, "a vector", arg = arg, call = call)
   }
   if (length(x) < 1) {
     return(invisible())
   }
+  action <- cli::cli_abort
   msg <- character()
   if (!is_named2(x)) {
     msg <- sprintf("%s must have names.", fmt_arg(arg))
   } else if (anyDuplicated(names2(x))) {
+    phrase <- "cannot have duplicate names"
+    if (tolerate_duplicates) {
+      # `action` should be escalated over time
+      action <- cli::cli_inform
+      phrase <- "has duplicate names"
+    }
     dups <- names2(x)
     dups <- sprintf('"%s"', unique(dups[duplicated(dups)]))
     dups <- oxford_comma(dups, final = "and")
-    msg  <- sprintf("%s cannot have duplicate names (%s).", fmt_arg(arg), dups)
+    msg  <- sprintf("%s %s (%s).", fmt_arg(arg), phrase, dups)
   }
   if (length(msg) < 1) {
     return(invisible())
   }
-  switch(
-    type,
-    # We allow for warnings due to compatibility with reverse dependencies
-    warn = cli::cli_warn(msg, call = call, arg = arg),
-    cli::cli_abort(msg, call = call, arg = arg)
-  )
+  action(msg, call = call, arg = arg)
 }
 
 #' Check graphics device capabilities

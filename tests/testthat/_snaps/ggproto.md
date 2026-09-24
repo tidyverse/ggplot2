@@ -12,7 +12,13 @@
 
 ---
 
-    Members of a <ggproto> object cannot have duplicate names ("foo").
+    Code
+      ggproto("Test", NULL, foo = 20, foo = "A")
+    Message
+      Members of a <ggproto> object has duplicate names ("foo").
+    Output
+      <ggproto object: Class Test, gg>
+          foo: A
 
 # ggproto objects print well
 
