@@ -314,12 +314,17 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       right[, -dim[2]] <- list(zeroGrob())
     }
 
+    z <- 3L
+    if (!isTRUE(calc_element("axis.ontop", theme) %||% TRUE)) {
+      z <- 0L
+    }
+
     # Check for empty panels and exit early if there are none
     empty <- matrix(TRUE, dim[1], dim[2])
     empty[index] <- FALSE
     if (!any(empty)) {
       axes <- list(top = top, bottom = bottom, left = left, right = right)
-      return(weave_axes(table, axes, empty))
+      return(weave_axes(table, axes, empty, z = z))
     }
 
     # Match empty table to layout
@@ -383,9 +388,8 @@ FacetWrap <- ggproto("FacetWrap", Facet,
         {.code strip.placement = \"outside\".}"
       )
     }
-
     axes <- list(top = top, bottom = bottom, left = left, right = right)
-    weave_axes(table, axes, empty)
+    weave_axes(table, axes, empty, z = z)
   },
 
   attach_strips = function(self, table, layout, params, theme) {
