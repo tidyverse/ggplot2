@@ -255,8 +255,8 @@ optionally followed by 's'.</p></dd>
 
 <dt id="arg-limits">limits<a class="anchor" aria-label="anchor" href="#arg-limits"></a></dt>
 <dd><p>One of:</p><ul><li><p><code>NULL</code> to use the default scale range</p></li>
-<li><p>A numeric vector of length two providing limits of the scale.
-Use <code>NA</code> to refer to the existing minimum or maximum</p></li>
+<li><p>A date vector of length two providing limits of the scale.</p></li>
+<li><p>To refer to the existing minimum or maximum use <code>lubridate::NA_Date_</code> or <code>lubridate::NA_POSIXct_</code></p></li>
 <li><p>A function that accepts the existing (automatic) limits and returns
 new limits. Also accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function
 notation.
