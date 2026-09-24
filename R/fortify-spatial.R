@@ -146,7 +146,7 @@ fortify.Lines <- function(model, data, ...) {
 #' @method fortify Line
 fortify.Line <- function(model, data, ...) {
   deprecate(
-    "3.4.4", escalate = "warn",,
+    "3.4.4", escalate = "warn",
     I("`fortify(<Line>)`"),
     details = "Please migrate to sf."
   )

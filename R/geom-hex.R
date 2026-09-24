@@ -28,7 +28,9 @@ GeomHex <- ggproto("GeomHex", Geom,
     n <- nrow(data)
     hexC <- hexbin::hexcoords(dx, dy, n = n)
 
-    hexdata <- vec_rep_each(data[c("x", "y", "radius")], times = 6L)
+    columns <- intersect(c("x", "y", "radius"), names(data))
+    hexdata <- vec_rep_each(data[columns], times = 6L)
+    hexdata$radius <- hexdata$radius %||% 1
     hexdata$x <- hexC$x * hexdata$radius + hexdata$x
     hexdata$y <- hexC$y * hexdata$radius + hexdata$y
 

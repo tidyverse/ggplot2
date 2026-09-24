@@ -3,6 +3,7 @@
 \docType{data}
 \name{class_definitions}
 \alias{class_definitions}
+\alias{ggplot2-ggproto}
 \alias{class_gg}
 \alias{class_ggproto}
 \alias{class_scale}
