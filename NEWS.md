@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `annotate()` now treats the `group` argument as a per-observation aesthetic
+  instead of a fixed parameter, fixing an error when combined with facets
+  (@taekop, #6862).
 * Fixed wording of warning emitted by `remove missing()` when non-finite values
   are removed: it now reads "non-finite values or values outside the scale 
   range" instead of "non-finite outside the scale range" (@osorensen).

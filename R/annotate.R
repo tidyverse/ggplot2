@@ -50,11 +50,19 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
     ))
   }
 
+  params <- list2(...)
+  # `group` should be treated as a per-observation aesthetic, not a fixed
+  # parameter, so that it lines up correctly when facets duplicate the data
+  # (#6862).
+  group <- params$group
+  params$group <- NULL
+
   position <- compact(list(
     x = x, xmin = xmin, xmax = xmax, xend = xend,
-    y = y, ymin = ymin, ymax = ymax, yend = yend
+    y = y, ymin = ymin, ymax = ymax, yend = yend,
+    group = group
   ))
-  aesthetics <- c(position, list(...))
+  aesthetics <- c(position, params)
 
   # Check that all aesthetic have compatible lengths
   lengths <- lengths(aesthetics)
@@ -74,7 +82,7 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
 
   data <- data_frame0(!!!position, .size = n)
 
-  params <- list2(na.rm = na.rm, ...)
+  params <- list2(na.rm = na.rm, !!!params)
   reject <- intersect(names(params), c("position", "stat"))
   if (length(reject) > 0) {
     cli::cli_warn(
