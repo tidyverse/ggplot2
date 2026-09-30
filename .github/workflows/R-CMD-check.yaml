@@ -24,7 +24,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macos-latest,   r: 'oldrel-3'}
+          - {os: macos-latest,   r: '4.2'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
