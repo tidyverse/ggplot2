@@ -1,9 +1,11 @@
 # ggplot2 (development version)
 
-* Meaningless change to trigger GHA workflow again (#6704)
-
-### Bug fixes
- 
+* Fixed wording of warning emitted by `remove missing()` when non-finite values
+  are removed: it now reads "non-finite values or values outside the scale 
+  range" instead of "non-finite outside the scale range" (@osorensen).
+* (internal) Secondary axis tests now meaningfully assert break positions.
+  Misplaced parentheses previously made the tolerance checks one-sided, and
+  four position checks were tautological self-comparisons (@sims1253).
 * `make_constructor()` no longer captures `rlang::list2()` at build time.
 * The `arrow` and `arrow.fill` arguments are now available in 
   `geom_linerange()` and `geom_pointrange()` layers (@teunbrand, #6481).
@@ -36,6 +38,10 @@
 * `theme(strip.placement.x)` and `theme(strip.placement.y)` can be used for more
   granular control of strip placement when facetting. These have existed for some
   time but were not previously documented (@arcresu, #6827).
+* Added support for weighted quantiles in `geom_violin()` (@hughjonesd, #6853)
+* The `dir` argument of `facet_wrap()` is now documented with all
+  eight two-letter codes, clarifying their starting corner and fill
+  order (@CuiweiG, #6837).
   
 # ggplot2 4.0.3
 

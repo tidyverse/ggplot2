@@ -65,7 +65,6 @@ Suggests:
     quantreg,
     quarto,
     ragg (>= 1.2.6),
-    RColorBrewer,
     roxygen2,
     rpart,
     sf (>= 0.7-3),
