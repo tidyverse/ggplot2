@@ -2,7 +2,7 @@
 % Please edit documentation in R/stat-chain.R
 \name{link_stat}
 \alias{link_stat}
-\title{Parameterise a statistic computation}
+\title{Parametrise a statistic computation}
 \usage{
 link_stat(stat, ..., after.stat = aes())
 }
