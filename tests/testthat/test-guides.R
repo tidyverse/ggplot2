@@ -239,14 +239,16 @@ test_that("guides are positioned correctly", {
               theme = theme(
                 legend.position.inside = c(0, 1),
                 legend.justification.inside = c(0, 1)
-              )
+              ),
+              order = 2
           ),
           fill = guide_legend(
               position = "inside",
               theme = theme(
                 legend.position.inside = c(1, 0),
                 legend.justification.inside = c(1, 0)
-              )
+              ),
+              order = 1
           )
       )
   )
