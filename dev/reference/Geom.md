@@ -284,7 +284,7 @@ more of the following:
   A single grob or
   [`zeroGrob()`](https://ggplot2.tidyverse.org/dev/reference/zeroGrob.md)
   when there is nothing to draw. For `draw_panel()` this can be a
-  [gTree](https://rdrr.io/r/grid/grid-defunct.html) holding individual
+  [gTree](https://rdrr.io/r/grid/grid.grob.html) holding individual
   grobs from the `draw_group()` method.
 
 - `parameters`:

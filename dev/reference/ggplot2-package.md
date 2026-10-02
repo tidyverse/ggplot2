@@ -22,6 +22,9 @@ Useful links:
 
 Authors:
 
+- Thomas Lin Pedersen <thomas.pedersen@posit.co>
+  ([ORCID](https://orcid.org/0000-0002-5147-4711))
+
 - Hadley Wickham <hadley@posit.co>
   ([ORCID](https://orcid.org/0000-0003-4757-117X))
 

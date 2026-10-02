@@ -169,7 +169,7 @@ print(stat_chull)
     #>         position = position, show.legend = show.legend, inherit.aes = inherit.aes,
     #>         params = list2(na.rm = na.rm, ...))
     #> }
-    #> <environment: 0x5652d3e29cc0>
+    #> <environment: 0x55cba8306ec8>
 
 Once we have a layer function we can try our new stat:
 
@@ -852,8 +852,9 @@ GeomBoxplot$setup_data
     #>         data$xmax <- data$x + data$relvarwidth * data$width/2
     #>     }
     #>     data$width <- NULL
-    #>     if (!is.null(data$relvarwidth))
+    #>     if (!is.null(data$relvarwidth)) {
     #>         data$relvarwidth <- NULL
+    #>     }
     #>     flip_data(data, params$flipped_aes)
     #> }
 

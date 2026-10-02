@@ -5,12 +5,12 @@ to see their documentation.
 
 - grid:
 
-  [`arrow`](https://rdrr.io/r/grid/arrow.html),
-  [`unit`](https://rdrr.io/r/grid/unit.html)
+  [`arrow()`](https://rdrr.io/r/grid/arrow.html),
+  [`unit()`](https://rdrr.io/r/grid/unit.html)
 
 - scales:
 
-  [`alpha`](https://scales.r-lib.org/reference/alpha.html)
+  [`alpha()`](https://scales.r-lib.org/reference/alpha.html)
 
 ## Examples
 

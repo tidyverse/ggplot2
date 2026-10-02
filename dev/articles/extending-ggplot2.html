@@ -195,7 +195,7 @@
 <span><span class="co">#&gt;         position = position, show.legend = show.legend, inherit.aes = inherit.aes,</span></span>
 <span><span class="co">#&gt;         params = list2(na.rm = na.rm, ...))</span></span>
 <span><span class="co">#&gt; }</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x5652d3e29cc0&gt;</span></span></code></pre>
+<span><span class="co">#&gt; &lt;environment: 0x55cba8306ec8&gt;</span></span></code></pre>
 </div>
 </div>
 <p>Once we have a layer function we can try our new stat:</p>
@@ -697,8 +697,9 @@
 <span><span class="co">#&gt;         data$xmax &lt;- data$x + data$relvarwidth * data$width/2</span></span>
 <span><span class="co">#&gt;     }</span></span>
 <span><span class="co">#&gt;     data$width &lt;- NULL</span></span>
-<span><span class="co">#&gt;     if (!is.null(data$relvarwidth))</span></span>
+<span><span class="co">#&gt;     if (!is.null(data$relvarwidth)) {</span></span>
 <span><span class="co">#&gt;         data$relvarwidth &lt;- NULL</span></span>
+<span><span class="co">#&gt;     }</span></span>
 <span><span class="co">#&gt;     flip_data(data, params$flipped_aes)</span></span>
 <span><span class="co">#&gt; }</span></span></code></pre>
 </div>

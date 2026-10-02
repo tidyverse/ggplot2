@@ -10,9 +10,3 @@ that grid uses internally for `lwd` and `fontsize`.
 
 .stroke
 ```
-
-## Format
-
-An object of class `numeric` of length 1.
-
-An object of class `numeric` of length 1.
