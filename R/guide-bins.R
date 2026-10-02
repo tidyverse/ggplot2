@@ -106,7 +106,7 @@ guide_bins <- function(
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Guide
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -181,7 +181,7 @@ GuideBins <- ggproto(
     }
 
     key$.label <- labels
-    key <- vec_slice(key, !is.na(oob_censor_any(key$.value)))
+    key <- key[!is.na(oob_censor_any(key$.value)), , drop = FALSE]
 
     return(key)
   },
@@ -341,7 +341,7 @@ GuideBins <- ggproto(
 
 parse_binned_breaks <- function(scale, breaks = scale$get_breaks()) {
 
-  if (is.waiver(scale$labels) || is.function(scale$labels)) {
+  if (is_waiver(scale$labels) || is.function(scale$labels)) {
     breaks <- breaks[!is.na(breaks)]
   }
   if (length(breaks) == 0) {

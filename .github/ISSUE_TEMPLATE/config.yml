@@ -1,4 +1,4 @@
 contact_links:
   - name: Help or discussion
-    url: https://community.rstudio.com/
-    about: "Check out options for getting help on the RStudio Community."
+    url: https://forum.posit.co/
+    about: "Check out options for getting help on the Posit Community (formerly RStudio Community)."

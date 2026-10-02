@@ -180,7 +180,7 @@ test_that("palettes work for discrete scales", {
   # Check discsrete expansion is applied
   b <- ggplot_build(p)
   expect_equal(
-    b$layout$panel_params[[1]]$x.range,
+    b@layout$panel_params[[1]]$x.range,
     range(values) + c(-0.6, 0.6)
   )
 })

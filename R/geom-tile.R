@@ -1,3 +1,50 @@
+#' @rdname Geom
+#' @format NULL
+#' @usage NULL
+#' @export
+#' @include geom-rect.R
+GeomTile <- ggproto(
+  "GeomTile", GeomRect,
+  extra_params = c("na.rm"),
+
+  setup_data = function(self, data, params) {
+
+    data <- compute_data_size(
+      data, params$width,
+      default = self$default_aes$width,
+      panels = "by", target = "width",
+      zero = FALSE, discrete = TRUE
+    )
+    data <- compute_data_size(
+      data, params$height,
+      default = self$default_aes$height,
+      panels = "by", target = "height",
+      zero = FALSE, discrete = TRUE
+    )
+    transform(data,
+              xmin = x - width / 2,  xmax = x + width / 2,  width = NULL,
+              ymin = y - height / 2, ymax = y + height / 2, height = NULL
+    )
+  },
+
+  default_aes = aes(
+    fill = from_theme(fill %||% col_mix(ink, paper, 0.2)),
+    colour = from_theme(colour %||% NA),
+    linewidth = from_theme(0.4 * borderwidth),
+    linetype = from_theme(bordertype),
+    alpha = NA, width = 1, height = 1
+  ),
+
+  required_aes = c("x", "y"),
+
+  # These aes columns are created by setup_data(). They need to be listed here so
+  # that GeomRect$handle_na() properly removes any bars that fall outside the defined
+  # limits, not just those for which x and y are outside the limits
+  non_missing_aes = c("xmin", "xmax", "ymin", "ymax"),
+
+  draw_key = draw_key_polygon
+)
+
 #' Rectangles
 #'
 #' `geom_rect()` and `geom_tile()` do the same thing, but are
@@ -7,14 +54,10 @@
 #' `geom_raster()` is a high performance special case for when all the tiles
 #' are the same size, and no pattern fills are applied.
 #'
-#' @eval rd_aesthetics(
-#'   "geom", "rect",
-#'   "`geom_tile()` understands only the `x`/`width` and `y`/`height` combinations.
-#'   Note that `geom_raster()` ignores `colour`."
-#' )
-#' @inheritParams layer
-#' @inheritParams geom_point
-#' @inheritParams geom_segment
+#' @aesthetics GeomRect
+#' `geom_tile()` understands only the `x`/`width` and `y`/`height` combinations.
+#' Note that `geom_raster()` ignores `colour`.
+#' @inheritParams shared_layer_parameters
 #' @export
 #'
 #' @details
@@ -78,71 +121,4 @@
 #'     position = "identity"
 #'   )
 #' }
-geom_tile <- function(mapping = NULL, data = NULL,
-                      stat = "identity", position = "identity",
-                      ...,
-                      linejoin = "mitre",
-                      na.rm = FALSE,
-                      show.legend = NA,
-                      inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomTile,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      linejoin = linejoin,
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
-
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
-#' @include geom-rect.R
-GeomTile <- ggproto("GeomTile", GeomRect,
-  extra_params = c("na.rm"),
-
-  setup_data = function(self, data, params) {
-
-    data <- compute_data_size(
-      data, params$width,
-      default = self$default_aes$width,
-      panels = "by", target = "width",
-      zero = FALSE, discrete = TRUE
-    )
-    data <- compute_data_size(
-      data, params$height,
-      default = self$default_aes$height,
-      panels = "by", target = "height",
-      zero = FALSE, discrete = TRUE
-    )
-    transform(data,
-      xmin = x - width / 2,  xmax = x + width / 2,  width = NULL,
-      ymin = y - height / 2, ymax = y + height / 2, height = NULL
-    )
-  },
-
-  default_aes = aes(
-    fill = from_theme(col_mix(ink, paper, 0.2)),
-    colour = NA,
-    linewidth = from_theme(0.4 * borderwidth),
-    linetype = from_theme(bordertype),
-    alpha = NA, width = 1, height = 1
-  ),
-
-  required_aes = c("x", "y"),
-
-  # These aes columns are created by setup_data(). They need to be listed here so
-  # that GeomRect$handle_na() properly removes any bars that fall outside the defined
-  # limits, not just those for which x and y are outside the limits
-  non_missing_aes = c("xmin", "xmax", "ymin", "ymax"),
-
-  draw_key = draw_key_polygon
-)
+geom_tile <- make_constructor(GeomTile)

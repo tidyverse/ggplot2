@@ -11,6 +11,9 @@ expand_limits(...)
 should be included in each scale.}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}: It is recommended to pass a function to
+the \code{limits} argument in scales instead. For example:
+\code{scale_x_continuous(limits = ~range(.x, 0))} to include zero.\cr\cr
 Sometimes you may want to ensure limits include a single value, for all
 panels or all plots.  This function is a thin wrapper around
 \code{\link[=geom_blank]{geom_blank()}} that makes it easy to add such values.

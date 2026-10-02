@@ -32,7 +32,8 @@ the \code{legend}-prefix. Arguments that apply to combined legends
 \verb{legend.justification.*}, \code{legend.location} and \verb{legend.box.*}.}
 
 \item{position}{A character string indicating where the legend should be
-placed relative to the plot panels.}
+placed relative to the plot panels.
+One of "top", "right", "bottom", "left", or "inside".}
 
 \item{order}{positive integer less than 99 that specifies the order of
 this guide among multiple guides. This controls the order in which

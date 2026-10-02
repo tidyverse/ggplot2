@@ -74,6 +74,7 @@ theme(
   axis.line.y.right,
   axis.line.theta,
   axis.line.r,
+  axis.ontop,
   legend.background,
   legend.margin,
   legend.spacing,
@@ -141,6 +142,8 @@ theme(
   strip.background.y,
   strip.clip,
   strip.placement,
+  strip.placement.x,
+  strip.placement.y,
   strip.text,
   strip.text.x,
   strip.text.x.bottom,
@@ -213,6 +216,9 @@ for each axis (using \code{axis.line.x.bottom}, \code{axis.line.x.top},
 \code{axis.line.y.left}, \code{axis.line.y.right}). \verb{axis.line.*.*} inherits from
 \verb{axis.line.*} which inherits from \code{axis.line}, which in turn inherits
 from \code{line}}
+
+\item{axis.ontop}{Controls whether axes are displayed above panel elements
+(\code{TRUE}, default) or below panel elements (\code{FALSE}).}
 
 \item{legend.background}{background of legend (\code{\link[=element_rect]{element_rect()}}; inherits
 from \code{rect})}
@@ -327,7 +333,10 @@ the data layers (\code{logical}). Usually used with a transparent or blank
 
 \item{panel.widths, panel.heights}{Sizes for panels (\code{units}). Can be a
 single unit to set the total size for the panel area, or a unit vector to
-set the size of individual panels.}
+set the size of individual panels. Using this setting overrides the
+aspect ratio set by the theme, coord or facets. An exception is made when
+the plot has a single panel and exactly one of the width \emph{or} height is
+set, in which case an attempt is made to preserve the aspect ratio.}
 
 \item{plot.background}{background of the entire plot (\code{\link[=element_rect]{element_rect()}};
 inherits from \code{rect})}
@@ -375,9 +384,10 @@ to the extend of the strip background? Options are \code{"on"} to clip, \code{"o
 to disable clipping or \code{"inherit"} (default) to take the clipping setting
 from the parent viewport.}
 
-\item{strip.placement}{placement of strip with respect to axes,
-either "inside" or "outside". Only important when axes and strips are
-on the same side of the plot.}
+\item{strip.placement, strip.placement.x, strip.placement.y}{placement of strip with respect to axes, either "inside" or "outside".
+Only important when axes and strips are on the same side of the plot.
+Horizontal (\code{strip.placement.x}) & vertical (\code{strip.placement.y}) placements
+inherit from \code{strip.placement} or can be specified separately}
 
 \item{strip.text, strip.text.x, strip.text.y, strip.text.x.top, strip.text.x.bottom, strip.text.y.left, strip.text.y.right}{facet labels (\code{\link[=element_text]{element_text()}}; inherits from  \code{text}). Horizontal facet labels (\code{strip.text.x}) & vertical
 facet labels (\code{strip.text.y}) inherit from \code{strip.text} or can be specified
@@ -516,10 +526,25 @@ p3 + theme(strip.text.x = element_text(colour = "white", face = "bold"))
 # as in the facet_wrap the default strip.position is "top"
 p3 + theme(strip.text.x.top = element_text(colour = "white", face = "bold"))
 p3 + theme(panel.spacing = unit(1, "lines"))
+
+# Colours -------------------------------------------------------------------
+
+p4 <- ggplot(mtcars, aes(wt, mpg)) +
+  geom_point() +
+  annotate(label = "Text Annotation", x = 5, y = 30, geom = "text")
+
+# You can use the 'ink' setting to set colour defaults for all layers
+p4 + theme(geom = element_geom(ink = "dodgerblue"))
+# Alternate colours are derived from the 'accent' and 'paper' settings
+p4 + geom_smooth(method = "lm", formula = y ~ x) +
+  theme(geom = element_geom(accent = "tomato", paper = "orchid"))
+# You can also set default palettes in the theme
+p4 + aes(colour = drat) +
+  theme(palette.colour.continuous = c("white", "pink", "hotpink"))
 }
 }
 \seealso{
-\code{\link[=+.gg]{+.gg()}} and \link{\%+replace\%},
+\code{\link[=add_gg]{add_gg()}} and \code{\link[=get_theme]{\%+replace\%}},
 \code{\link[=element_blank]{element_blank()}}, \code{\link[=element_line]{element_line()}},
 \code{\link[=element_rect]{element_rect()}}, and \code{\link[=element_text]{element_text()}} for
 details of the specific theme elements.

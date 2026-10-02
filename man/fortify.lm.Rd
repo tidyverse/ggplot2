@@ -32,7 +32,7 @@ If you have missing values in your model data, you may need to refit
 the model with \code{na.action = na.exclude}.
 }
 \examples{
-\dontshow{if (require("broom")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (require("broom")) withAutoprint(\{ # examplesIf}
 mod <- lm(mpg ~ wt, data = mtcars)
 
 # Show augmented model

@@ -14,6 +14,12 @@ before statistical summary.}
 \description{
 Facet specification: a single panel.
 }
+\section{Layer layout}{
+
+The \code{\link[=layer]{layer(layout)}} argument in context of \code{facet_null()} is
+completely ignored.
+}
+
 \examples{
 # facet_null is the default faceting specification if you
 # don't override it with facet_grid or facet_wrap

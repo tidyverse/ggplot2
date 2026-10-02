@@ -6,6 +6,9 @@ NULL
 #' @inheritParams facet_grid
 #' @keywords internal
 #' @export
+#' @section Layer layout:
+#' The [`layer(layout)`][layer()] argument in context of `facet_null()` is
+#' completely ignored.
 #' @examples
 #' # facet_null is the default faceting specification if you
 #' # don't override it with facet_grid or facet_wrap
@@ -16,7 +19,7 @@ facet_null <- function(shrink = TRUE) {
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Facet
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -27,9 +30,9 @@ FacetNull <- ggproto("FacetNull", Facet,
     layout_null()
   },
   map_data = function(data, layout, params) {
-    # Need the is.waiver check for special case where no data, but aesthetics
+    # Need the is_waiver check for special case where no data, but aesthetics
     # are mapped to vectors
-    if (is.waiver(data))
+    if (is_waiver(data))
       return(data_frame0(PANEL = factor()))
 
     if (empty(data))
@@ -59,7 +62,14 @@ FacetNull <- ggproto("FacetNull", Facet,
       axis_v$left, panels[[1]],   axis_v$right,
       zeroGrob(),  axis_h$bottom, zeroGrob()
     ), ncol = 3, byrow = TRUE)
-    z_matrix <- matrix(c(5, 6, 4, 7, 1, 8, 3, 9, 2), ncol = 3, byrow = TRUE)
+
+    if (isTRUE(calc_element("axis.ontop", theme) %||% TRUE)) {
+      z_matrix <- matrix(c(5, 6, 4, 7, 1, 8, 3, 9, 2), ncol = 3, byrow = TRUE)
+    } else {
+      # Panel (index = 5) has higher value than other cells
+      z_matrix <- matrix(c(4, 5, 3, 6, 9, 7, 2, 8, 1), ncol = 3, byrow = TRUE)
+    }
+
     grob_widths <- unit.c(grobWidth(axis_v$left), unit(1, "null"), grobWidth(axis_v$right))
     grob_heights <- unit.c(grobHeight(axis_h$top), unit(abs(aspect_ratio), "null"), grobHeight(axis_h$bottom))
     grob_names <- c("spacer", "axis-l", "spacer", "axis-t", "panel", "axis-b", "spacer", "axis-r", "spacer")

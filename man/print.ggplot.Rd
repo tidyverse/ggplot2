@@ -4,11 +4,6 @@
 \alias{print.ggplot}
 \alias{plot.ggplot}
 \title{Explicitly draw plot}
-\usage{
-\method{print}{ggplot}(x, newpage = is.null(vp), vp = NULL, ...)
-
-\method{plot}{ggplot}(x, newpage = is.null(vp), vp = NULL, ...)
-}
 \arguments{
 \item{x}{plot to display}
 
@@ -28,18 +23,17 @@ to call \code{print()} explicitly if you want to draw a plot inside a
 function or for loop.
 }
 \examples{
-colours <- list(~class, ~drv, ~fl)
+colours <- c("class", "drv", "fl")
 
 # Doesn't seem to do anything!
 for (colour in colours) {
-  ggplot(mpg, aes_(~ displ, ~ hwy, colour = colour)) +
+  ggplot(mpg, aes(displ, hwy, colour = .data[[colour]])) +
     geom_point()
 }
 
-# Works when we explicitly print the plots
 for (colour in colours) {
-  print(ggplot(mpg, aes_(~ displ, ~ hwy, colour = colour)) +
-    geom_point())
+  print(ggplot(mpg, aes(displ, hwy, colour = .data[[colour]])) +
+          geom_point())
 }
 }
 \keyword{hplot}

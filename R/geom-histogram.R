@@ -27,15 +27,14 @@
 #' `scale_x_binned()` with [geom_bar()]. This method by default plots tick marks
 #' in between each bar.
 #'
-#' @eval rd_orientation()
+#' @inheritSection shared_layer_parameters Orientation
 #'
 #' @section Aesthetics:
 #' `geom_histogram()` uses the same aesthetics as [geom_bar()];
 #' `geom_freqpoly()` uses the same aesthetics as [geom_line()].
 #'
 #' @export
-#' @inheritParams layer
-#' @inheritParams geom_bar
+#' @inheritParams shared_layer_parameters
 #' @param geom,stat Use to override the default connection between
 #'   `geom_histogram()`/`geom_freqpoly()` and `stat_bin()`. For more information
 #'   at overriding these connections, see how the [stat][layer_stats] and
@@ -113,11 +112,11 @@
 #' # no observations have 0 ratings.
 #' m +
 #'   geom_histogram(boundary = 0) +
-#'   coord_trans(x = "log10")
+#'   coord_transform(x = "log10")
 #' # Use boundary = 0, to make sure we don't take sqrt of negative values
 #' m +
 #'   geom_histogram(boundary = 0) +
-#'   coord_trans(x = "sqrt")
+#'   coord_transform(x = "sqrt")
 #'
 #' # You can also transform the y axis.  Remember that the base of the bars
 #' # has value 0, so log transformations are not appropriate
@@ -132,32 +131,9 @@
 #' # different ranges because the function will be called once per facet
 #' ggplot(economics_long, aes(value)) +
 #'   facet_wrap(~variable, scales = 'free_x') +
-#'   geom_histogram(binwidth = function(x) 2 * IQR(x) / (length(x)^(1/3)))
-geom_histogram <- function(mapping = NULL, data = NULL,
-                           stat = "bin", position = "stack",
-                           ...,
-                           binwidth = NULL,
-                           bins = NULL,
-                           na.rm = FALSE,
-                           orientation = NA,
-                           show.legend = NA,
-                           inherit.aes = TRUE) {
-
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomBar,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      binwidth = binwidth,
-      bins = bins,
-      na.rm = na.rm,
-      orientation = orientation,
-      pad = FALSE,
-      ...
-    )
-  )
-}
+#'   geom_histogram(binwidth = \(x) 2 * IQR(x) / (length(x)^(1/3)))
+geom_histogram <- make_constructor(
+  GeomBar, stat = "bin", position = "stack",
+  # Passed to bin stat:
+  binwidth = NULL, bins = NULL, orientation = NA
+)

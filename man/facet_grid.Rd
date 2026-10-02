@@ -100,6 +100,20 @@ faceting variables. It is most useful when you have two discrete
 variables, and all combinations of the variables exist in the data.
 If you have only one variable with many levels, try \code{\link[=facet_wrap]{facet_wrap()}}.
 }
+\section{Layer layout}{
+
+The \code{\link[=layer]{layer(layout)}} argument in context of \code{facet_grid()} can take
+the following values:
+\itemize{
+\item \code{NULL} (default) to use the faceting variables to assign panels.
+\item An integer vector to include selected panels. Panel numbers not included in
+the integer vector are excluded.
+\item \code{"fixed"} to repeat data across every panel.
+\item \code{"fixed_rows"} to repeat data across rows.
+\item \code{"fixed_cols"} to repeat data across columns.
+}
+}
+
 \examples{
 p <- ggplot(mpg, aes(displ, cty)) + geom_point()
 

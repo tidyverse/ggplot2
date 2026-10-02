@@ -19,7 +19,17 @@ unrowname <- function(x) {
   } else if (is.matrix(x)) {
     dimnames(x)[1] <- list(NULL)
   } else {
-    cli::cli_abort("Can only remove rownames from {.cls data.frame} and {.cls matrix} objects.")
+    try_fetch(
+      {
+        rownames(x) <- NULL
+      },
+      error = function(cnd) {
+        cli::cli_abort(
+          "Can only remove rownames from {.cls data.frame} and {.cls matrix} objects.",
+          parent = cnd
+        )
+      }
+    )
   }
   x
 }

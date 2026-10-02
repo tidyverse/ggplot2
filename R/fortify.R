@@ -94,7 +94,7 @@ fortify.default <- function(model, data, ...) {
     "or an object coercible by {.fn fortify}, or a valid ",
     "{.cls data.frame}-like object coercible by {.fn as.data.frame}"
   )
-  if (is.mapping(model)) {
+  if (is_mapping(model)) {
     msg <- c(
       paste0(msg, ", not ", obj_type_friendly(model), "."),
       "i" = "Did you accidentally pass {.fn aes} to the {.arg data} argument?"

@@ -28,7 +28,7 @@ geom_label <- function(mapping = NULL, data = NULL,
 
   extra_args <- list2(...)
   if (lifecycle::is_present(label.size)) {
-    deprecate_warn0("3.5.0", "geom_label(label.size)", "geom_label(linewidth)")
+    deprecate("3.5.0", "geom_label(label.size)", "geom_label(linewidth)")
     extra_args$linewidth <- extra_args$linewidth %||% label.size
   }
 
@@ -53,8 +53,7 @@ geom_label <- function(mapping = NULL, data = NULL,
   )
 }
 
-
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -62,7 +61,8 @@ GeomLabel <- ggproto("GeomLabel", Geom,
   required_aes = c("x", "y", "label"),
 
   default_aes = aes(
-    colour = from_theme(ink), fill = from_theme(paper),
+    colour = from_theme(colour %||% ink),
+    fill = from_theme(fill %||% paper),
     family = from_theme(family),
     size = from_theme(fontsize),
     angle = 0,
@@ -83,11 +83,12 @@ GeomLabel <- ggproto("GeomLabel", Geom,
     if (parse) {
       lab <- parse_safe(as.character(lab))
     }
+    lab <- validate_labels(lab)
 
     data <- coord$transform(data, panel_params)
     data$vjust <- compute_just(data$vjust, data$y, data$x, data$angle)
     data$hjust <- compute_just(data$hjust, data$x, data$y, data$angle)
-    if (!is.margin("margin")) {
+    if (!is_margin(label.padding)) {
       label.padding <- rep(label.padding, length.out = 4)
     }
 

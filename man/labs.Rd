@@ -28,7 +28,14 @@ ggtitle(label, subtitle = waiver())
 get_labs(plot = get_last_plot())
 }
 \arguments{
-\item{...}{A list of new name-value pairs. The name should be an aesthetic.}
+\item{...}{New name-value pairs. The name should be an aesthetic. The values can be
+one of the following:
+\itemize{
+\item A string or expression to set a label verbatim.
+\item A function to use as formatter for the default label.
+\item \code{NULL} to remove a label.
+\item A \code{\link[=waiver]{waiver()}} to use the default label.
+}}
 
 \item{title}{The text for the title.}
 
@@ -64,6 +71,10 @@ main findings. It's common to use the \code{caption} to provide information
 about the data source. \code{tag} can be used for adding identification tags
 to differentiate between multiple plots.
 
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}: \code{xlab()}, \code{ylab()} and \code{ggtitle()} are
+superseded. It is recommended to use the \code{labs(x, y, title, subtitle)}
+arguments instead.
+
 \code{get_labs()} retrieves completed labels from a plot.
 }
 \details{
@@ -82,7 +93,7 @@ p + labs(colour = "Cylinders")
 p + labs(x = "New x label")
 
 # Set labels by variable name instead of aesthetic
-p + labs(dict = c(
+p + labs(dictionary = c(
   disp = "Displacment", # Not in use
   cyl  = "Number of cylinders",
   mpg  = "Miles per gallon",

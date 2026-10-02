@@ -44,13 +44,9 @@ LayerSf <- ggproto("LayerSf", Layer,
 
     # automatically determine the name of the geometry column
     # and add the mapping if it doesn't exist
-    if ((isTRUE(self$inherit.aes) && is.null(self$computed_mapping$geometry) &&
-         is.null(plot$computed_mapping$geometry)) ||
-        (!isTRUE(self$inherit.aes) && is.null(self$computed_mapping$geometry))) {
-      if (is_sf(data)) {
-        geometry_col <- attr(data, "sf_column")
-        self$computed_mapping$geometry <- sym(geometry_col)
-      }
+    if (is.null(self$computed_mapping$geometry) && is_sf(data)) {
+      geometry_col <- attr(data, "sf_column")
+      self$computed_mapping$geometry <- sym(geometry_col)
     }
     data
   },
@@ -82,7 +78,12 @@ LayerSf <- ggproto("LayerSf", Layer,
 geom_column <- function(data) {
   w <- which(vapply(data, inherits, TRUE, what = "sfc"))
   if (length(w) == 0) {
-    "geometry" # avoids breaks when objects without geometry list-column are examined
+    if (!is.character(data[["geometry"]])) {
+      "geometry" # avoids breaks when objects without geometry list-column are examined
+    } else {
+      # Avoids a rare case where computed_geom_params$legend is present but there is no actual geometry column
+      ""
+    }
   } else {
     # this may not be best in case more than one geometry list-column is present:
     if (length(w) > 1)

@@ -61,7 +61,7 @@ annotation_raster <- function(raster, xmin, xmax, ymin, ymax,
 
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export

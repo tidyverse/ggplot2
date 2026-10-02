@@ -15,7 +15,7 @@
 benchplot <- function(x) {
   x <- enquo(x)
   construct <- system.time(x <- eval_tidy(x))
-  check_inherits(x, "ggplot")
+  check_inherits(x, "ggplot2::ggplot")
 
   build <- system.time(data <- ggplot_build(x))
   render <- system.time(grob <- ggplot_gtable(data))

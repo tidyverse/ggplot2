@@ -9,11 +9,12 @@
 
 random_tip <- function() {
   tips <- c(
-    "RStudio Community is a great place to get help: https://forum.posit.co/c/tidyverse",
+    "Posit Community (formerly RStudio Community) is a great place to get help: https://forum.posit.co/c/tidyverse",
     "Learn more about the underlying theory at https://ggplot2-book.org/",
     "Keep up to date with changes at https://tidyverse.org/blog/",
     "Use suppressPackageStartupMessages() to eliminate package startup messages",
     "Need help? Try Stackoverflow: https://stackoverflow.com/tags/ggplot2",
+    "Explore the ggplot2 extension gallery to extend your plotting capabilities: https://exts.ggplot2.tidyverse.org/",
     "Need help getting started? Try the R Graphics Cookbook: https://r-graphics.org",
     "Want to understand how all the pieces fit together? Read R for Data Science: https://r4ds.hadley.nz/"
   )
@@ -30,6 +31,14 @@ on_load(
     vars <- dplyr::vars
   }
 )
+
+# In R >= 4.3.0, S7 methods fall back to base Ops behavior when one of the
+# arguments is not an S7 object. This ensures compatibility in such cases.
+on_load(
+  if (getRversion() >= "4.3.0") registerS3method("+", "gg", add_gg)
+)
+
+on_load(S7::methods_register())
 .onLoad <- function(...) {
   run_on_load()
 }

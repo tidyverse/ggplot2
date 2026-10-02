@@ -1,3 +1,59 @@
+#' @rdname Geom
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomSegment <- ggproto(
+  "GeomSegment", Geom,
+  required_aes = c("x", "y", "xend|yend"),
+  non_missing_aes = c("linetype", "linewidth"),
+
+  default_aes = GeomPath$default_aes,
+
+  draw_panel = function(self, data, panel_params, coord, arrow = NULL, arrow.fill = NULL,
+                        lineend = "butt", linejoin = "round", na.rm = FALSE) {
+    data$xend <- data$xend %||% data$x
+    data$yend <- data$yend %||% data$y
+    data <- fix_linewidth(data, snake_class(self))
+    data <- remove_missing(data, na.rm = na.rm,
+                           c("x", "y", "xend", "yend", "linetype", "linewidth"),
+                           name = "geom_segment"
+    )
+
+    if (empty(data)) return(zeroGrob())
+
+    if (coord$is_linear()) {
+      coord <- coord$transform(data, panel_params)
+      arrow.fill <- arrow.fill %||% coord$colour
+      return(segmentsGrob(coord$x, coord$y, coord$xend, coord$yend,
+                          default.units = "native",
+                          gp = gg_par(
+                            col = alpha(coord$colour, coord$alpha),
+                            fill = alpha(arrow.fill, coord$alpha),
+                            lwd = coord$linewidth,
+                            lty = coord$linetype,
+                            lineend = lineend,
+                            linejoin = linejoin
+                          ),
+                          arrow = arrow
+      ))
+    }
+
+    data$group <- seq_len(nrow(data))
+    starts <- subset(data, select = c(-xend, -yend))
+    ends <- rename(subset(data, select = c(-x, -y)), c("xend" = "x", "yend" = "y"))
+
+    pieces <- vec_rbind0(starts, ends)
+    pieces <- pieces[order(pieces$group),]
+
+    GeomPath$draw_panel(pieces, panel_params, coord, arrow = arrow,
+                        lineend = lineend)
+  },
+
+  draw_key = draw_key_path,
+
+  rename_size = TRUE
+)
+
 #' Line segments and curves
 #'
 #' `geom_segment()` draws a straight line between points (x, y) and
@@ -8,14 +64,8 @@
 #' Both geoms draw a single segment/curve per case. See `geom_path()` if you
 #' need to connect points across multiple cases.
 #'
-#' @eval rd_aesthetics("geom", "segment")
-#' @inheritParams layer
-#' @inheritParams geom_point
-#' @param arrow specification for arrow heads, as created by [grid::arrow()].
-#' @param arrow.fill fill colour to use for the arrow head (if closed). `NULL`
-#'        means use `colour` aesthetic.
-#' @param lineend Line end style (round, butt, square).
-#' @param linejoin Line join style (round, mitre, bevel).
+#' @aesthetics GeomSegment
+#' @inheritParams shared_layer_parameters
 #' @seealso [geom_path()] and [geom_line()] for multi-
 #'   segment lines and paths.
 #' @seealso [geom_spoke()] for a segment parameterised by a location
@@ -38,11 +88,28 @@
 #'   arrow = arrow(length = unit(0.03, "npc"))
 #' )
 #'
+#' # The `shape` and `ncp` arguments of geom_curve control the sharpness of the spline
+#' b +
+#'   geom_curve(
+#'     aes(x = x1, y = y1, xend = x2, yend = y2, colour = "ncp = 5"),
+#'     data = df,
+#'     curvature = 1,
+#'     shape = 0,
+#'     ncp = 5
+#'   ) +
+#'   geom_curve(
+#'     aes(x = x1, y = y1, xend = x2, yend = y2, colour = "ncp = 1"),
+#'     data = df,
+#'     curvature = 1,
+#'     shape = 0,
+#'     ncp = 1
+#'   )
+#'
 #' if (requireNamespace('maps', quietly = TRUE)) {
 #' ggplot(seals, aes(long, lat)) +
 #'   geom_segment(aes(xend = long + delta_long, yend = lat + delta_lat),
 #'     arrow = arrow(length = unit(0.1,"cm"))) +
-#'   borders("state")
+#'   annotation_borders("state")
 #' }
 #'
 #' # Use lineend and linejoin to change the style of the segments
@@ -68,91 +135,4 @@
 #'
 #' ggplot(counts, aes(x, Freq)) +
 #'   geom_segment(aes(xend = x, yend = 0), linewidth = 10, lineend = "butt")
-geom_segment <- function(mapping = NULL, data = NULL,
-                         stat = "identity", position = "identity",
-                         ...,
-                         arrow = NULL,
-                         arrow.fill = NULL,
-                         lineend = "butt",
-                         linejoin = "round",
-                         na.rm = FALSE,
-                         show.legend = NA,
-                         inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomSegment,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      arrow = arrow,
-      arrow.fill = arrow.fill,
-      lineend = lineend,
-      linejoin = linejoin,
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
-
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
-GeomSegment <- ggproto("GeomSegment", Geom,
-  required_aes = c("x", "y", "xend|yend"),
-  non_missing_aes = c("linetype", "linewidth"),
-
-  default_aes = aes(
-    colour = from_theme(ink),
-    linewidth = from_theme(linewidth),
-    linetype = from_theme(linetype),
-    alpha = NA
-  ),
-
-  draw_panel = function(self, data, panel_params, coord, arrow = NULL, arrow.fill = NULL,
-                        lineend = "butt", linejoin = "round", na.rm = FALSE) {
-    data$xend <- data$xend %||% data$x
-    data$yend <- data$yend %||% data$y
-    data <- fix_linewidth(data, snake_class(self))
-    data <- remove_missing(data, na.rm = na.rm,
-      c("x", "y", "xend", "yend", "linetype", "linewidth"),
-      name = "geom_segment"
-    )
-
-    if (empty(data)) return(zeroGrob())
-
-    if (coord$is_linear()) {
-      coord <- coord$transform(data, panel_params)
-      arrow.fill <- arrow.fill %||% coord$colour
-      return(segmentsGrob(coord$x, coord$y, coord$xend, coord$yend,
-        default.units = "native",
-        gp = gg_par(
-          col = alpha(coord$colour, coord$alpha),
-          fill = alpha(arrow.fill, coord$alpha),
-          lwd = coord$linewidth,
-          lty = coord$linetype,
-          lineend = lineend,
-          linejoin = linejoin
-        ),
-        arrow = arrow
-      ))
-    }
-
-    data$group <- seq_len(nrow(data))
-    starts <- subset(data, select = c(-xend, -yend))
-    ends <- rename(subset(data, select = c(-x, -y)), c("xend" = "x", "yend" = "y"))
-
-    pieces <- vec_rbind0(starts, ends)
-    pieces <- pieces[order(pieces$group),]
-
-    GeomPath$draw_panel(pieces, panel_params, coord, arrow = arrow,
-      lineend = lineend)
-  },
-
-  draw_key = draw_key_path,
-
-  rename_size = TRUE
-)
+geom_segment <- make_constructor(GeomSegment)

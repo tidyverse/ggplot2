@@ -57,6 +57,7 @@
 #'   geom_area() +
 #'   coord_flip()
 coord_flip <- function(xlim = NULL, ylim = NULL, expand = TRUE, clip = "on") {
+  supersede("2026", "coord_flip()", with = I("swapping x and y aesthetics"))
   check_coord_limits(xlim)
   check_coord_limits(ylim)
   ggproto(NULL, CoordFlip,
@@ -66,7 +67,7 @@ coord_flip <- function(xlim = NULL, ylim = NULL, expand = TRUE, clip = "on") {
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Coord
 #' @format NULL
 #' @usage NULL
 #' @export

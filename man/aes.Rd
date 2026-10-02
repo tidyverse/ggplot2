@@ -17,8 +17,8 @@ The names for x and y aesthetics are typically omitted because they are so
 common; all other aesthetics must be named.}
 }
 \value{
-A list with class \code{uneval}. Components of the list are either
-quosures or constants.
+An S7 object representing a list with class \code{mapping}. Components of
+the list are either quosures or constants.
 }
 \description{
 Aesthetic mappings describe how variables in the data are mapped to visual

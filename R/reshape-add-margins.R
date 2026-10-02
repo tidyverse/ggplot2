@@ -8,7 +8,7 @@ reshape_add_margins <- function(df, vars, margins = TRUE) {
   # Prepare data frame for addition of margins
   addAll <- function(x) {
     x <- addNA(x, TRUE)
-    factor(x, levels = c(levels(x), "(all)"), exclude = NULL)
+    factor(x, levels = c(levels(x), "(all)"), exclude = NULL, ordered = FALSE)
   }
   vars <- unique0(unlist(margin_vars))
   df[vars] <- lapply(df[vars], addAll)

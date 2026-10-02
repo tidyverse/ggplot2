@@ -24,7 +24,6 @@ test_that("geom_smooth works in both directions", {
 })
 
 test_that("default smoothing methods for small and large data sets work", {
-  skip_if(packageVersion("base") < "3.6.0") # warnPartialMatchArgs didn't accept FALSE
   withr::local_options(warnPartialMatchArgs = FALSE)
   # Numeric differences on the MLK machine on CRAN makes these test fail
   # on that particular machine
@@ -126,4 +125,18 @@ test_that("geom_smooth() works with alternative stats", {
     ggplot(df, aes(x, y, color = fill, fill = fill)) +
       geom_smooth(stat = "summary", se = FALSE, fun.data = mean_se) # ribbon is turned off via `se = FALSE`
   })
+})
+
+test_that("geom_smooth() band properties can be tweaked", {
+  df <- data.frame(x = 1:2)
+
+  p <- ggplot(df, aes(x, x, ymin = x - 1, ymax = x + 1, fill = "A")) +
+    geom_smooth(
+      stat = "identity",
+      band.colour = "red",
+      band.linetype = 2,
+      band.linewidth = 0.25
+    )
+
+  expect_doppelganger("custom ribbon properties", p)
 })

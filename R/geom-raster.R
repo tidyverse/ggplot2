@@ -1,50 +1,15 @@
 #' @include geom-.R
 NULL
 
-#' @export
-#' @rdname geom_tile
-#' @param hjust,vjust horizontal and vertical justification of the grob.  Each
-#'   justification value should be a number between 0 and 1.  Defaults to 0.5
-#'   for both, centering each pixel over its data location.
-#' @param interpolate If `TRUE` interpolate linearly, if `FALSE`
-#'   (the default) don't interpolate.
-geom_raster <- function(mapping = NULL, data = NULL,
-                        stat = "identity", position = "identity",
-                        ...,
-                        hjust = 0.5,
-                        vjust = 0.5,
-                        interpolate = FALSE,
-                        na.rm = FALSE,
-                        show.legend = NA,
-                        inherit.aes = TRUE)
-{
-  check_number_decimal(hjust)
-  check_number_decimal(vjust)
-
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomRaster,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      hjust = hjust,
-      vjust = vjust,
-      interpolate = interpolate,
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
-
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export
 GeomRaster <- ggproto("GeomRaster", Geom,
-  default_aes = aes(fill = from_theme(col_mix(ink, paper, 0.2)), alpha = NA),
+  default_aes = aes(
+    fill = from_theme(fill %||% col_mix(ink, paper, 0.2)),
+    alpha = NA
+  ),
   non_missing_aes = c("fill", "xmin", "xmax", "ymin", "ymax"),
   required_aes = c("x", "y"),
 
@@ -87,9 +52,10 @@ GeomRaster <- ggproto("GeomRaster", Geom,
 
   draw_panel = function(self, data, panel_params, coord, interpolate = FALSE,
                         hjust = 0.5, vjust = 0.5) {
-    if (!inherits(coord, "CoordCartesian")) {
+    if (!coord$is_linear()) {
       cli::cli_inform(c(
-        "{.fn {snake_class(self)}} only works with {.fn coord_cartesian}.",
+        "{.fn {snake_class(self)}} only works with linear coordinate systems, \\
+        not {.fn {snake_class(coord)}}.",
         i = "Falling back to drawing as {.fn {snake_class(GeomRect)}}."
       ))
       data$linewidth <- 0.3 # preventing anti-aliasing artefacts
@@ -124,5 +90,20 @@ GeomRaster <- ggproto("GeomRaster", Geom,
       default.units = "native", interpolate = interpolate
     )
   },
-  draw_key = draw_key_rect
+  draw_key = draw_key_polygon
+)
+
+#' @export
+#' @rdname geom_tile
+#' @param hjust,vjust horizontal and vertical justification of the grob.  Each
+#'   justification value should be a number between 0 and 1.  Defaults to 0.5
+#'   for both, centering each pixel over its data location.
+#' @param interpolate If `TRUE` interpolate linearly, if `FALSE`
+#'   (the default) don't interpolate.
+geom_raster <- make_constructor(
+  GeomRaster,
+  checks = exprs(
+    check_number_decimal(hjust),
+    check_number_decimal(vjust)
+  )
 )

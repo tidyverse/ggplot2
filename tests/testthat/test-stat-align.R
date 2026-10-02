@@ -50,3 +50,24 @@ test_that("alignment adjusts per panel", {
   expect_equal(diff(ld$x[1:2]), 1e-3, tolerance = 1e-4)
 
 })
+
+test_that("out-of-bounds padding is removed (#6667)", {
+  df <- data_frame0(
+    g = rep(c("a", "b"), each = 3L),
+    x = c(1, 3, 5, 2, 4, 6),
+    y = c(2, 5, 1, 3, 6, 7)
+  )
+  p <- ggplot(df, aes(x, y, fill = g)) + geom_area()
+  ld <- layer_data(p)
+  expect_equal(sum(ld$align_padding), 4)
+  # The first and last datapoints should be padding
+  expect_equal(ld$align_padding[c(1, nrow(ld))], c(TRUE, TRUE))
+
+
+  ld <- layer_data(
+    p + scale_x_continuous(limits = range(df$x), expand = c(0, 0))
+  )
+  expect_equal(sum(ld$align_padding), 2)
+  # The first and last datapoints should not be padding
+  expect_equal(ld$align_padding[c(1, nrow(ld))], c(FALSE, FALSE))
+})

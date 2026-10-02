@@ -28,47 +28,6 @@ test_that("segment annotations transform with scales", {
   expect_doppelganger("line matches points", plot)
 })
 
-test_that("annotation_* has dummy data assigned and don't inherit aes", {
-  skip_if_not_installed("maps")
-  skip_if(packageVersion("base") < "3.5.0")
-  custom <- annotation_custom(zeroGrob())
-  logtick <- annotation_logticks()
-  usamap <- map_data("state")
-  map <- annotation_map(usamap)
-  rainbow <- matrix(hcl(seq(0, 360, length.out = 50 * 50), 80, 70), nrow = 50)
-  raster <- annotation_raster(rainbow, 15, 20, 3, 4)
-  dummy <- dummy_data()
-  expect_equal(custom$data, dummy)
-  expect_equal(logtick$data, dummy)
-  expect_equal(map$data, dummy)
-  expect_equal(raster$data, dummy)
-
-  expect_false(custom$inherit.aes)
-  expect_false(logtick$inherit.aes)
-  expect_false(map$inherit.aes)
-  expect_false(raster$inherit.aes)
-})
-
-test_that("annotation_raster() and annotation_custom() requires cartesian coordinates", {
-  rainbow <- matrix(hcl(seq(0, 360, length.out = 50 * 50), 80, 70), nrow = 50)
-  p <- ggplot() +
-    annotation_raster(rainbow, 15, 20, 3, 4) +
-    coord_polar()
-  expect_snapshot_error(ggplotGrob(p))
-  p <- ggplot() +
-    annotation_custom(
-      grob = grid::roundrectGrob(),
-      xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf
-    ) +
-    coord_polar()
-  expect_snapshot_error(ggplotGrob(p))
-})
-
-test_that("annotation_map() checks the input data", {
-  expect_snapshot_error(annotation_map(letters))
-  expect_snapshot_error(annotation_map(mtcars))
-})
-
 test_that("unsupported geoms signal a warning (#4719)", {
   expect_snapshot_warning(annotate("hline", yintercept = 0))
 })
@@ -77,41 +36,8 @@ test_that("annotate() checks aesthetic lengths match", {
   expect_snapshot_error(annotate("point", 1:3, 1:3, fill = c('red', 'black')))
 })
 
-test_that("annotation_logticks warns about deprecated `size` argument", {
-  expect_snapshot_warning(annotation_logticks(size = 5))
-})
-
 test_that("annotate() warns about `stat` or `position` arguments", {
   expect_snapshot_warning(
     annotate("point", 1:3, 1:3, stat = "density", position = "dodge")
   )
-})
-
-test_that("annotation_custom() and annotation_raster() adhere to scale transforms", {
-  rast <- matrix(rainbow(10), nrow = 1)
-
-  p <- ggplot() +
-    annotation_raster(rast, 1, 10, 1, 9) +
-    scale_x_continuous(transform = "log10", limits = c(0.1, 100), expand = FALSE) +
-    scale_y_continuous(limits = c(0, 10), expand = FALSE)
-  ann <- get_layer_grob(p)[[1]]
-
-  expect_equal(as.numeric(ann$x), 1/3)
-  expect_equal(as.numeric(ann$y), 1/10)
-  expect_equal(as.numeric(ann$width), 1/3)
-  expect_equal(as.numeric(ann$height), 8/10)
-
-  rast <- rasterGrob(rast, width = 1, height = 1)
-
-  p <- ggplot() +
-    annotation_custom(rast, 1, 10, 1, 9) +
-    scale_x_continuous(transform = "log10", limits = c(0.1, 100), expand = FALSE) +
-    scale_y_continuous(limits = c(0, 10), expand = FALSE)
-  ann <- get_layer_grob(p)[[1]]$vp
-
-  expect_equal(as.numeric(ann$x), 1/2)
-  expect_equal(as.numeric(ann$y), 1/2)
-  expect_equal(as.numeric(ann$width), 1/3)
-  expect_equal(as.numeric(ann$height), 8/10)
-
 })

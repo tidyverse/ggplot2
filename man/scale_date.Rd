@@ -164,8 +164,8 @@ optionally followed by 's'.}
 \item{limits}{One of:
 \itemize{
 \item \code{NULL} to use the default scale range
-\item A numeric vector of length two providing limits of the scale.
-Use \code{NA} to refer to the existing minimum or maximum
+\item A date vector of length two providing limits of the scale.
+\item To refer to the existing minimum or maximum use \code{lubridate::NA_Date_} or \code{lubridate::NA_POSIXct_}
 \item A function that accepts the existing (automatic) limits and returns
 new limits. Also accepts rlang \link[rlang:as_function]{lambda} function
 notation.

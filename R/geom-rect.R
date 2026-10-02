@@ -1,35 +1,11 @@
-#' @export
-#' @rdname geom_tile
-geom_rect <- function(mapping = NULL, data = NULL,
-                      stat = "identity", position = "identity",
-                      ...,
-                      linejoin = "mitre",
-                      na.rm = FALSE,
-                      show.legend = NA,
-                      inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomRect,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      linejoin = linejoin,
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
-
-#' @rdname ggplot2-ggproto
+#' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export
 GeomRect <- ggproto("GeomRect", Geom,
   default_aes = aes(
-    colour = NA, fill = from_theme(col_mix(ink, paper, 0.35)),
+    colour = from_theme(colour %||% NA),
+    fill = from_theme(fill %||% col_mix(ink, paper, 0.35)),
     linewidth = from_theme(borderwidth), linetype = from_theme(bordertype),
     alpha = NA
   ),
@@ -108,6 +84,10 @@ GeomRect <- ggproto("GeomRect", Geom,
 
   rename_size = TRUE
 )
+
+#' @export
+#' @rdname geom_tile
+geom_rect <- make_constructor(GeomRect)
 
 resolve_rect <- function(min = NULL, max = NULL, center = NULL, length = NULL,
                          fun, type) {

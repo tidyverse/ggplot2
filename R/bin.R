@@ -105,7 +105,12 @@ bin_breaks_bins <- function(x_range, bins = 30, center = NULL,
   } else {
     width <- (x_range[2] - x_range[1]) / (bins - 1)
     if (is.null(center)) {
-      boundary <- boundary %||% x_range[1] - width / 2
+      boundary <- boundary %||% (x_range[1] - width / 2)
+    }
+    # If `x_range` coincides with boundary we should
+    # use exact `bins` instead of `bins - 1` to prevent misalignments.
+    if (!is.null(boundary) && any(x_range %% width == boundary %% width)) {
+      width <- (x_range[2] - x_range[1]) / bins
     }
   }
 
@@ -120,7 +125,7 @@ compute_bins <- function(x, scale = NULL, breaks = NULL, binwidth = NULL, bins =
                          center = NULL, boundary = NULL,
                          closed = c("right", "left")) {
 
-  range <- if (is.scale(scale)) scale$dimension() else range(x)
+  range <- if (is_scale(scale)) scale$dimension() else range(x)
   check_length(range, 2L)
 
   if (!is.null(breaks)) {
@@ -128,7 +133,7 @@ compute_bins <- function(x, scale = NULL, breaks = NULL, binwidth = NULL, bins =
     if (is.function(breaks)) {
       breaks <- breaks(x)
     }
-    if (is.scale(scale) && !scale$is_discrete()) {
+    if (is_scale(scale) && !scale$is_discrete()) {
       breaks <- scale$transform(breaks)
     }
     check_numeric(breaks)
@@ -240,18 +245,18 @@ bin_loc <- function(x, id) {
   )
 }
 
-fix_bin_params = function(params, fun, version) {
+fix_bin_params <- function(params, fun, version) {
 
   if (!is.null(params$origin)) {
     args <- paste0(fun, c("(origin)", "(boundary)"))
-    deprecate_warn0(version, args[1], args[2])
-    params$boudnary <- params$origin
+    deprecate(version, args[1], args[2])
+    params$boundary <- params$origin
     params$origin <- NULL
   }
 
   if (!is.null(params$right)) {
     args <- paste0(fun, c("(right)", "(closed)"))
-    deprecate_warn0(version, args[1], args[2])
+    deprecate(version, args[1], args[2])
     params$closed <- if (isTRUE(params$right)) "right" else "left"
     params$right <- NULL
   }

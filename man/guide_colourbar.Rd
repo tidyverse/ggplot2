@@ -89,7 +89,8 @@ representing the text angle in degrees, or \code{NULL} to not overrule the
 settings (default).}
 
 \item{position}{A character string indicating where the legend should be
-placed relative to the plot panels.}
+placed relative to the plot panels.
+One of "top", "right", "bottom", "left", or "inside".}
 
 \item{direction}{A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."}
@@ -113,8 +114,6 @@ A guide object
 \description{
 Colour bar guide shows continuous colour scales mapped onto values.
 Colour bar is available with \code{scale_fill} and \code{scale_colour}.
-For more information, see the inspiration for this function:
-\href{http://www.mathworks.com/help/techdoc/ref/colorbar.html}{Matlab's colorbar function}.
 }
 \details{
 Guides can be specified in each \verb{scale_*} or in \code{\link[=guides]{guides()}}.
@@ -122,6 +121,9 @@ Guides can be specified in each \verb{scale_*} or in \code{\link[=guides]{guides
 \code{guide=guide_legend()} (e.g. \code{scale_colour_manual(guide = "legend")}).
 As for how to specify the guide for each scale in more detail,
 see \code{\link[=guides]{guides()}}.
+
+The \code{legend.ticks.length} theme option can be set to a length 2 unit to
+control ticks at the right/bottom and left/top sides independently.
 }
 \examples{
 df <- expand.grid(X1 = 1:10, X2 = 1:10)

@@ -5,8 +5,6 @@ NULL
 #'
 #' Colour bar guide shows continuous colour scales mapped onto values.
 #' Colour bar is available with `scale_fill` and `scale_colour`.
-#' For more information, see the inspiration for this function:
-#' \href{http://www.mathworks.com/help/techdoc/ref/colorbar.html}{Matlab's colorbar function}.
 #'
 #' Guides can be specified in each `scale_*` or in [guides()].
 #' `guide="legend"` in `scale_*` is syntactic sugar for
@@ -47,6 +45,10 @@ NULL
 #' @param available_aes A vector of character strings listing the aesthetics
 #'   for which a colourbar can be drawn.
 #' @param ... ignored.
+#' @details
+#' The `legend.ticks.length` theme option can be set to a length 2 unit to
+#' control ticks at the right/bottom and left/top sides independently.
+#'
 #' @return A guide object
 #' @export
 #' @family guides
@@ -137,7 +139,7 @@ guide_colourbar <- function(
   ...
 ) {
   if (lifecycle::is_present(raster)) {
-    deprecate_soft0("3.5.0", "guide_colourbar(raster)", "guide_colourbar(display)")
+    deprecate("3.5.0", "guide_colourbar(raster)", "guide_colourbar(display)")
     check_bool(raster)
     display <- if (raster) "raster" else "rectangles"
   }
@@ -172,7 +174,7 @@ guide_colourbar <- function(
 #' @rdname guide_colourbar
 guide_colorbar <- guide_colourbar
 
-#' @rdname ggplot2-ggproto
+#' @rdname Guide
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -293,10 +295,10 @@ GuideColourbar <- ggproto(
     # We set the defaults in `theme` so that the `params$theme` can still
     # overrule defaults given here
     if (params$direction == "horizontal") {
-      theme$legend.key.width  <- theme$legend.key.width * 5
+      theme$legend.key.width <- (theme$legend.key.width %||% rel(1)) * 5
       valid_position <- c("bottom", "top")
     } else {
-      theme$legend.key.height <- theme$legend.key.height * 5
+      theme$legend.key.height <- (theme$legend.key.height %||% rel(1)) * 5
       valid_position <- c("right", "left")
     }
 

@@ -12,10 +12,10 @@ test_that("Colorbar respects show.legend in layer", {
   df <- data_frame(x = 1:3, y = 1)
   p <- ggplot(df, aes(x = x, y = y, color = x)) +
     geom_point(size = 20, shape = 21, show.legend = FALSE)
-  expect_length(ggplot_build(p)$plot$guides$guides, 0L)
+  expect_length(ggplot_build(p)@plot@guides$guides, 0L)
   p <- ggplot(df, aes(x = x, y = y, color = x)) +
     geom_point(size = 20, shape = 21, show.legend = TRUE)
-  expect_length(ggplot_build(p)$plot$guides$guides, 1L)
+  expect_length(ggplot_build(p)@plot@guides$guides, 1L)
 })
 
 test_that("colorsteps and bins checks the breaks format", {
@@ -78,7 +78,7 @@ test_that("colorbar can be styled", {
         theme = theme(
           legend.frame = element_rect(colour = "green", linewidth = 1.5 / .pt),
           legend.ticks = element_line("black", linewidth = 2.5 / .pt),
-          legend.ticks.length = unit(0.4, "npc")
+          legend.ticks.length = unit(c(0.2, 0.4), "npc")
         ), alpha = 0.75
       )
     ) + labs(subtitle = "white-to-red semitransparent colorbar, long thick black ticks, green frame")

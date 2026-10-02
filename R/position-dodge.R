@@ -19,7 +19,7 @@
 #' @param reverse If `TRUE`, will reverse the default stacking order.
 #'   This is useful if you're rotating both the plot and legend.
 #' @family position adjustments
-#' @eval rd_aesthetics("position", "dodge")
+#' @aesthetics PositionDodge
 #'
 #' @export
 #' @examples
@@ -97,7 +97,7 @@ position_dodge <- function(width = NULL, preserve = "total", orientation = "x",
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Position
 #' @format NULL
 #' @usage NULL
 #' @export
@@ -128,9 +128,10 @@ PositionDodge <- ggproto("PositionDodge", Position,
       n <- NULL
     } else {
       data$xmin <- data$xmin %||% data$x
-      cols <- intersect(colnames(data), c("group", "PANEL", "xmin"))
+      cols <- intersect(colnames(data), c("PANEL", "xmin"))
+      cols <- c(cols, if ("order" %in% names(data)) "order" else "group")
       n <- vec_unique(data[cols])
-      n <- vec_group_id(n[setdiff(cols, "group")])
+      n <- vec_group_id(n[setdiff(cols, c("group", "order"))])
       n <- max(tabulate(n, attr(n, "n")))
     }
 
@@ -150,13 +151,13 @@ PositionDodge <- ggproto("PositionDodge", Position,
     }
 
     data$order <- xtfrm( # xtfrm makes anything 'sortable'
-      data$order %||% ave(data$group, data$x, data$PANEL, FUN = match_sorted)
+      data$order %||% vec_ave(data$group, data[c("x", "PANEL")], fn = match_sorted)
     )
-    if (params$reverse) {
+    if (isTRUE(params$reverse)) {
       data$order <- -data$order
     }
     if (is.null(params$n)) { # preserve = "total"
-      data$order <- ave(data$order, data$x, data$PANEL, FUN = match_sorted)
+      data$order <- vec_ave(data$order, data[c("x", "PANEL")], fn = match_sorted)
     } else { # preserve = "single"
       data$order <- match_sorted(data$order)
     }

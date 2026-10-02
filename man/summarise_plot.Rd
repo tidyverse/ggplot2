@@ -54,7 +54,7 @@ returned by \code{summarise_plot()}.
 
 
 The function \code{summarise_coord()} returns information about the log base for
-coordinates that are log-transformed in \code{coord_trans()}, and it also indicates
+coordinates that are log-transformed in \code{coord_transform()}, and it also indicates
 whether the coord has flipped the x and y axes.
 }
 

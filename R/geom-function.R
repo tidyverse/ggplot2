@@ -1,3 +1,26 @@
+#' @rdname Geom
+#' @format NULL
+#' @usage NULL
+#' @export
+#' @include geom-path.R
+GeomFunction <- ggproto("GeomFunction", GeomPath,
+  draw_panel = function(self, data, panel_params, coord, arrow = NULL, arrow.fill = NULL,
+                        lineend = "butt", linejoin = "round", linemitre = 10,
+                        na.rm = FALSE) {
+    groups <- unique0(data$group)
+    if (length(groups) > 1) {
+      cli::cli_warn(c(
+        "Multiple drawing groups in {.fn {snake_class(self)}}",
+        "i" = "Did you use the correct {.field group}, {.field colour}, or {.field fill} aesthetics?"
+      ))
+    }
+
+    ggproto_parent(GeomPath, self)$draw_panel(
+      data, panel_params, coord, arrow, arrow.fill, lineend, linejoin, linemitre, na.rm
+    )
+  }
+)
+
 #' Draw a function as a continuous curve
 #'
 #' Computes and draws a function as a continuous curve. This makes it easy to
@@ -5,10 +28,9 @@
 #' with a grid of evenly spaced values along the x axis, and the results are
 #' drawn (by default) with a line.
 #'
-#' @eval rd_aesthetics("geom", "function")
+#' @aesthetics GeomFunction
 #' @param data Ignored by `stat_function()`, do not use.
-#' @inheritParams layer
-#' @inheritParams geom_path
+#' @inheritParams shared_layer_parameters
 #' @examples
 #'
 #' # geom_function() is useful for overlaying functions
@@ -42,11 +64,9 @@
 #'   geom_function(aes(colour = "t, df = 1"), fun = dt, args = list(df = 1))
 #'
 #' # Using a custom anonymous function
-#' base + geom_function(fun = function(x) 0.5 * exp(-abs(x)))
+#' base + geom_function(fun = \(x) 0.5 * exp(-abs(x)))
 #' # or using lambda syntax:
 #' # base + geom_function(fun = ~ 0.5 * exp(-abs(.x)))
-#' # or in R4.1.0 and above:
-#' # base + geom_function(fun = \(x) 0.5 * exp(-abs(x)))
 #' # or using a custom named function:
 #' # f <- function(x) 0.5 * exp(-abs(x))
 #' # base + geom_function(fun = f)
@@ -62,47 +82,7 @@
 #' geom_function(fun = dnorm, colour = "red", xlim=c(-7, 7))
 #'
 #' @export
-geom_function <- function(mapping = NULL, data = NULL, stat = "function",
-                          position = "identity", ..., na.rm = FALSE,
-                          show.legend = NA, inherit.aes = TRUE) {
-  if (is.null(data)) {
-    data <- ensure_nonempty_data
-  }
-
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = stat,
-    geom = GeomFunction,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list2(
-      na.rm = na.rm,
-      ...
-    )
-  )
-}
-
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
-#' @include geom-path.R
-GeomFunction <- ggproto("GeomFunction", GeomPath,
-  draw_panel = function(self, data, panel_params, coord, arrow = NULL, arrow.fill = NULL,
-                        lineend = "butt", linejoin = "round", linemitre = 10,
-                        na.rm = FALSE) {
-    groups <- unique0(data$group)
-    if (length(groups) > 1) {
-      cli::cli_warn(c(
-        "Multiple drawing groups in {.fn {snake_class(self)}}",
-        "i" = "Did you use the correct {.field group}, {.field colour}, or {.field fill} aesthetics?"
-      ))
-    }
-
-    ggproto_parent(GeomPath, self)$draw_panel(
-      data, panel_params, coord, arrow, arrow.fill, lineend, linejoin, linemitre, na.rm
-    )
-  }
+geom_function <- make_constructor(
+  GeomFunction, stat = "function",
+  checks = exprs(data <- data %||% ensure_nonempty_data)
 )

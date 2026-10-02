@@ -14,6 +14,14 @@
 
     `vjust` must be a number, not the string "a".
 
+---
+
+    Code
+      b <- ggplotGrob(p)
+    Message
+      `geom_raster()` only works with linear coordinate systems, not `coord_polar()`.
+      i Falling back to drawing as `geom_rect()`.
+
 # geom_raster() fails with pattern fills
 
     Problem while converting geom to grob.

@@ -58,9 +58,11 @@ functions for different kind of labels, for example use \code{\link[=label_parse
 formatting facet labels. \code{\link[=label_value]{label_value()}} is used by default,
 check it for more details and pointers to other options.}
 
-\item{as.table}{If \code{TRUE}, the default, the facets are laid out like
-a table with highest values at the bottom-right. If \code{FALSE}, the
-facets are laid out like a plot with the highest value at the top-right.}
+\item{as.table}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}} The \code{as.table} argument
+is now absorbed into the \code{dir} argument via the two letter options.
+If \code{TRUE}, the facets are laid out like a table with highest values at the
+bottom-right. If \code{FALSE}, the facets are laid out like a plot with the
+highest value at the top-right.}
 
 \item{switch}{By default, the labels are displayed on the top and
 right of the plot. If \code{"x"}, the top labels will be
@@ -72,13 +74,25 @@ labels will be displayed to the left. Can also be set to
 data will automatically be dropped. If \code{FALSE}, all factor levels
 will be shown, regardless of whether or not they appear in the data.}
 
-\item{dir}{Direction: either \code{"h"} for horizontal, the default, or \code{"v"},
-for vertical. When \code{"h"} or \code{"v"} will be combined with \code{as.table} to
-set final layout. Alternatively, a combination of \code{"t"} (top) or
-\code{"b"} (bottom) with \code{"l"} (left) or \code{"r"} (right) to set a layout directly.
-These two letters give the starting position and the first letter gives
-the growing direction. For example \code{"rt"} will place the first panel in
-the top-right and starts filling in panels right-to-left.}
+\item{dir}{Direction in which panels are laid out. Must be one of
+the following two-letter codes, where the first letter indicates
+the initial fill direction and the pair identifies the starting
+corner:
+\itemize{
+\item \code{"lt"}: start in the top-left, fill left-to-right.
+\item \code{"tl"}: start in the top-left, fill top-to-bottom.
+\item \code{"lb"}: start in the bottom-left, fill left-to-right.
+\item \code{"bl"}: start in the bottom-left, fill bottom-to-top.
+\item \code{"rt"}: start in the top-right, fill right-to-left.
+\item \code{"tr"}: start in the top-right, fill top-to-bottom.
+\item \code{"rb"}: start in the bottom-right, fill right-to-left.
+\item \code{"br"}: start in the bottom-right, fill bottom-to-top.
+}
+
+Use \code{nrow} or \code{ncol} to control the shape of the grid; \code{dir}
+controls the fill order within that shape. The shorthand values
+\code{"h"} and \code{"v"} are superseded and retained only for backward
+compatibility.}
 
 \item{strip.position}{By default, the labels are displayed on the top of
 the plot. Using \code{strip.position} it is possible to place the labels on
@@ -91,7 +105,7 @@ When \code{"margins"} (default), axes will be drawn at the exterior margins.
 panels too, whereas \code{"all"} will draw all axes at all panels.}
 
 \item{axis.labels}{Determines whether to draw labels for interior axes when
-the scale is fixed and the \code{axis} argument is not \code{"margins"}. When
+the scale is fixed and the \code{axes} argument is not \code{"margins"}. When
 \code{"all"} (default), all interior axes get labels. When \code{"margins"}, only
 the exterior axes get labels, and the interior axes get none. When
 \code{"all_x"} or \code{"all_y"}, only draws the labels at the interior axes in the
@@ -102,6 +116,18 @@ x- or y-direction respectively.}
 a better use of screen space than \code{\link[=facet_grid]{facet_grid()}} because most
 displays are roughly rectangular.
 }
+\section{Layer layout}{
+
+The \code{\link[=layer]{layer(layout)}} argument in context of \code{facet_wrap()} can take
+the following values:
+\itemize{
+\item \code{NULL} (default) to use the faceting variables to assign panels.
+\item An integer vector to include selected panels. Panel numbers not included in
+the integer vector are excluded.
+\item \code{"fixed"} to repeat data across every panel.
+}
+}
+
 \examples{
 p <- ggplot(mpg, aes(displ, hwy)) + geom_point()
 

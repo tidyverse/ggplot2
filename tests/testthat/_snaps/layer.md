@@ -1,22 +1,24 @@
 # layer() checks its input
 
-    The `geom` argument cannot be empty.
+    `geom` must be either a string or a <Geom> object, not `NULL`.
 
 ---
 
-    The `stat` argument cannot be empty.
+    `stat` must be either a string or a <Stat> object, not `NULL`.
 
 ---
 
-    The `position` argument cannot be empty.
-
----
-
-    `mapping` must be created by `aes()`.
+    `position` must be either a string or a <Position> object, not `NULL`.
 
 ---
 
     `mapping` must be created by `aes()`.
+    x You've supplied an integer vector.
+
+---
+
+    `mapping` must be created by `aes()`.
+    x You've supplied a <ggplot2::ggplot> object.
     i Did you use `%>%` or `|>` instead of `+`?
 
 ---
@@ -25,7 +27,13 @@
 
 ---
 
-    `x` must be either a string or a <geom> object, not an environment.
+    `environment()` must be either a string or a <geom> object, not an environment.
+
+---
+
+    Failed to retrieve a <Geom> object from `geom_foo()`.
+    Caused by error in `geom_foo()`:
+    ! This function is unconstructable.
 
 # unknown params create warning
 
@@ -38,6 +46,11 @@
 # empty aesthetics create warning
 
     Ignoring empty aesthetics: `fill` and `shape`.
+
+# aesthetics defined twice create warning
+
+    The size aesthetic is defined twice: once in `mapping` and once as a static aesthetic.
+    i The static aesthetic overrules the mapped aesthetic.
 
 # invalid aesthetics throws errors
 
@@ -136,4 +149,31 @@
 # layer_data returns a data.frame
 
     `layer_data()` must return a <data.frame>.
+
+# layers with empty data are silently omitted with facet_wrap
+
+    Code
+      get_layer_data(d)
+    Condition
+      Error in `combine_vars()`:
+      ! Faceting variables must have at least one value.
+
+# layers with empty data are silently omitted with facet_grid
+
+    Code
+      get_layer_data(d)
+    Condition
+      Error in `combine_vars()`:
+      ! Faceting variables must have at least one value.
+
+# empty data overrides plot defaults
+
+    Code
+      get_layer_data(d)
+    Condition
+      Error in `geom_point()`:
+      ! Problem while computing aesthetics.
+      i Error occurred in the 2nd layer.
+      Caused by error:
+      ! object 'wt' not found
 

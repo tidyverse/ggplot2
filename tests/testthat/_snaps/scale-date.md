@@ -6,7 +6,7 @@
 ---
 
     A <numeric> value was passed to a Datetime scale.
-    i The value was converted to a <POSIXt> object.
+    i The value was converted to a <POSIXct> object.
 
 ---
 

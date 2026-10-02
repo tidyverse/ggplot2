@@ -65,7 +65,7 @@ guide_gengrob.default <- guide_train.default
 #' @export
 #' @rdname old_guide
 old_guide <- function(guide) {
-  deprecate_soft0(
+  deprecate(
     when = "3.5.0",
     what = I("The S3 guide system"),
     details = c(
@@ -80,7 +80,7 @@ old_guide <- function(guide) {
   )
 }
 
-#' @rdname ggplot2-ggproto
+#' @rdname Guide
 #' @format NULL
 #' @usage NULL
 #' @export

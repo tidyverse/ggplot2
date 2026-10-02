@@ -119,7 +119,7 @@ breaks are given explicitly.}
 \description{
 \code{scale_linewidth} scales the width of lines and polygon strokes. Due to
 historical reasons, it is also possible to control this with the \code{size}
-aesthetic, but using \code{linewidth} is encourage to clearly differentiate area
+aesthetic, but using \code{linewidth} is encouraged to clearly differentiate area
 aesthetics from stroke width aesthetics.
 }
 \examples{
