@@ -323,26 +323,27 @@ validate_device <- function(
     jpeg_dev <- grDevices::jpeg
     tiff_dev <- grDevices::tiff
   }
+  # skipping formatting because `text converted to function` test expects
+  # equality of function bodies
+  # fmt: skip
   devices <- list(
     eps = eps,
-    ps = eps,
+    ps  = eps,
     tex = function(filename, ...) grDevices::pictex(file = filename, ...),
-    pdf = function(filename, ..., version = "1.4") {
-      grDevices::pdf(file = filename, ..., version = version)
-    },
+    pdf = function(filename, ..., version = "1.4") grDevices::pdf(file = filename, ..., version = version),
     svg = function(filename, ...) {
       check_installed("svglite", reason = "to save as SVG.")
       svglite::svglite(file = filename, ...)
     },
     # win.metafile() doesn't have `bg` arg so we need to absorb it before passing `...`
-    emf = function(..., bg = NULL) grDevices::win.metafile(...),
-    wmf = function(..., bg = NULL) grDevices::win.metafile(...),
-    png = function(...) png_dev(..., res = dpi, units = "in"),
-    jpg = function(...) jpeg_dev(..., res = dpi, units = "in"),
+    emf  = function(..., bg = NULL) grDevices::win.metafile(...),
+    wmf  = function(..., bg = NULL) grDevices::win.metafile(...),
+    png  = function(...) png_dev(..., res = dpi, units = "in"),
+    jpg  = function(...) jpeg_dev(..., res = dpi, units = "in"),
     jpeg = function(...) jpeg_dev(..., res = dpi, units = "in"),
-    bmp = function(...) grDevices::bmp(..., res = dpi, units = "in"),
+    bmp  = function(...) grDevices::bmp(..., res = dpi, units = "in"),
     tiff = function(...) tiff_dev(..., res = dpi, units = "in"),
-    tif = function(...) tiff_dev(..., res = dpi, units = "in")
+    tif  = function(...) tiff_dev(..., res = dpi, units = "in")
   )
 
   if (is.null(device)) {
