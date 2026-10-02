@@ -115,8 +115,8 @@ remove_missing <- function(df, na.rm = FALSE, vars = names(df), name = "",
       if (name != "") name <- paste(" ({.fn ", name, "})", sep = "")
       msg <- paste0(
         "Removed {sum(missing)} row{?s} containing ",
-        if (finite) "non-finite" else "missing values or values",
-        " outside the scale range", name, "."
+        if (finite) "non-finite" else "missing",
+        " values or values outside the scale range", name, "."
       )
       cli::cli_warn(msg)
     }
@@ -786,7 +786,10 @@ attach_plot_env <- function(env) {
 }
 
 as_cli <- function(..., env = caller_env()) {
-  cli::cli_fmt(cli::cli_text(..., .envir = env))
+  inject(paste(!!!cli::cli_fmt(
+    cli::cli_text(..., .envir = env),
+    strip_newline = TRUE
+  ), collapse = ""))
 }
 
 as_unordered_factor <- function(x) {

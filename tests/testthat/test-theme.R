@@ -158,8 +158,8 @@ test_that("calculating theme element inheritance works", {
 
   theme <- theme_gray() +
     theme(strip.text = element_blank(), strip.text.x = element_text(inherit.blank = TRUE))
-  e1 <- ggplot2:::calc_element("strip.text.x", theme)
-  e2 <- ggplot2:::calc_element("strip.text", theme)
+  e1 <- calc_element("strip.text.x", theme)
+  e2 <- calc_element("strip.text", theme)
   expect_identical(e1, e2)
 
   # Check that rel units are computed appropriately
@@ -678,6 +678,10 @@ test_that("legends are placed correctly when using stretchy spacing", {
 
   p <- ggplot(df, aes(x, y, colour = a, shape = factor(x))) +
     geom_point() +
+    guides(
+      colour = guide_legend(order = 1),
+      shape = guide_legend(order = 2)
+    ) +
     theme(
       legend.box.background = element_rect(colour = "blue", fill = NA),
       legend.background = element_rect(colour = "red", fill = NA)
@@ -692,4 +696,9 @@ test_that("legends are placed correctly when using stretchy spacing", {
     "horizontal legends placed apart",
     p + theme(legend.position = "top", legend.spacing.x = unit(1, "null"))
   )
+})
+
+test_that("all expected theme elements are documented", {
+  extra_elements <- setdiff(names(.element_tree), fn_fmls_names(theme))
+  expect_snapshot(extra_elements)
 })

@@ -149,7 +149,8 @@ theme_sub_plot <- function(..., background, title, title.position, subtitle, cap
 #' @export
 #' @describeIn subtheme Theme specification for facet strips.
 theme_sub_strip <- function(..., background, background.x, background.y, clip,
-                            placement, text, text.x, text.x.bottom, text.x.top,
+                            placement, placement.x, placement.y,
+                            text, text.x, text.x.bottom, text.x.top,
                             text.y, text.y.left, text.y.right,
                             switch.pad.grid, switch.pad.wrap) {
   warn_dots_empty()

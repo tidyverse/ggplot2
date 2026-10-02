@@ -238,7 +238,10 @@ p + geom_violin(aes(fill = factor(am)))
 p + geom_violin(fill = "grey80", colour = "#3366FF")
 
 # Show quartiles
-p + geom_violin(draw_quantiles = c(0.25, 0.5, 0.75))
+p + geom_violin(quantile.linetype = 'solid')
+
+# Show different quantiles
+p + geom_violin(quantiles = c(0.2, 0.4, 0.6, 0.8), quantile.linetype = 'solid')
 
 # Scales vs. coordinate transforms -------
 if (require("ggplot2movies")) {

@@ -75,11 +75,11 @@ StatYdensity <- ggproto(
         cli::cli_abort("{.arg quantiles} must be between 0 and 1.")
       }
       if (!is.null(data[["weight"]]) || !all(data[["weight"]] == 1)) {
-        cli::cli_warn(
-          "{.arg quantiles} for weighted data is not implemented."
-        )
+        check_installed("Hmisc", "for weighted quantiles.")
+        quants <- Hmisc::wtd.quantile(data$y, weights = data$weight, probs = quantiles)
+      } else {
+        quants <- stats::quantile(data$y, probs = quantiles)
       }
-      quants <- quantile(data$y, probs = quantiles)
       quants <- data_frame0(
         y = unname(quants),
         quantile = quantiles
@@ -88,7 +88,7 @@ StatYdensity <- ggproto(
       # Interpolate other metrics
       for (var in setdiff(names(dens), names(quants))) {
         quants[[var]] <-
-          approx(dens$y, dens[[var]], xout = quants$y, ties = "ordered")$y
+          stats::approx(dens$y, dens[[var]], xout = quants$y, ties = "ordered")$y
       }
 
       dens <- vec_slice(dens, !dens$y %in% quants$y)

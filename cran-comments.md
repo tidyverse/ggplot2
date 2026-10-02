@@ -1,13 +1,22 @@
-This is a patch release fixing a range of regressions reported after the 4.0.0
-release. While no breaking changes in the API we did detect a few packages that
-breaks with this release due to either making assumptions about ggplot2 internal
-behaviour, or requiring documentation updates that can only happen after release
-of 4.0.1
+This is a patch release that resolves a failing test and supports some minimal
+bug fixes and a small uninvasive feature. We detected a single failure
+(ggdibbler) where a package needs to redocument. They have been notified. A
+second failure (simRestore) seems unrelated to ggplot2
 
-The packages are:
-- adproplus: https://github.com/henry-heppe/adproclus/issues/3
-- ggsurveillance: https://github.com/biostats-dev/ggsurveillance/issues/1
-- ggformula: https://github.com/ProjectMOSAIC/ggformula/issues/187
-- ggside: https://github.com/jtlandis/ggside/issues/71
+## revdepcheck results
 
-They have all been notified in advance of this submission
+We checked 6300 reverse dependencies (6276 from CRAN + 24 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
+
+ * We saw 2 new problems
+ * We failed to check 160 packages
+
+Issues with CRAN packages are summarised below.
+
+### New problems
+(This reports the first line of each new failure)
+
+* ggdibbler
+  checking for code/documentation mismatches ... WARNING
+
+* simRestore
+  checking tests ... ERROR

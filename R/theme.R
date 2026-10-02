@@ -192,9 +192,11 @@
 #'   inherits from `rect`). Horizontal facet background (`strip.background.x`)
 #'   & vertical facet background (`strip.background.y`) inherit from
 #'   `strip.background` or can be specified separately
-#' @param strip.placement placement of strip with respect to axes,
-#'    either "inside" or "outside". Only important when axes and strips are
-#'    on the same side of the plot.
+#' @param strip.placement,strip.placement.x,strip.placement.y
+#'    placement of strip with respect to axes, either "inside" or "outside".
+#'    Only important when axes and strips are on the same side of the plot.
+#'    Horizontal (`strip.placement.x`) & vertical (`strip.placement.y`) placements
+#'    inherit from `strip.placement` or can be specified separately
 #' @param strip.clip should strip background edges and strip labels be clipped
 #'   to the extend of the strip background? Options are `"on"` to clip, `"off"`
 #'   to disable clipping or `"inherit"` (default) to take the clipping setting
@@ -474,6 +476,8 @@ theme <- function(...,
                   strip.background.y,
                   strip.clip,
                   strip.placement,
+                  strip.placement.x,
+                  strip.placement.y,
                   strip.text,
                   strip.text.x,
                   strip.text.x.bottom,

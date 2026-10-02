@@ -24,7 +24,7 @@
 
 # characters survive remove_missing
 
-    Removed 1 row containing non-finite outside the scale range.
+    Removed 1 row containing non-finite values or values outside the scale range.
 
 # tolower() and toupper() has been masked
 

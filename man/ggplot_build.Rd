@@ -37,11 +37,10 @@ plot). In \code{get_panel_scales()} (only integers allowed), the row of a facet 
 scales for.}
 }
 \description{
-\code{build_ggplot()} takes the plot object, and performs all steps necessary
+\code{ggplot_build()} takes the plot object, and performs all steps necessary
 to produce an object that can be rendered.  This function outputs two pieces:
 a list of data frames (one for each layer), and a panel object, which
-contain all information about axis limits, breaks etc. The \code{ggplot_build()}
-function is vestigial and \code{build_ggplot()} should be used instead.
+contain all information about axis limits, breaks etc.
 }
 \details{
 \code{get_layer_data()}, \code{get_layer_grob()}, and \code{get_panel_scales()} are helper
