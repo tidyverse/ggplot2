@@ -38,7 +38,6 @@
   wrong dimension with flipped geoms (@teunbrand, #6535).
 * New `geom_smooth(band.colour, band.linetype, band.linewidth)` arguments 
   control graphical parameters of the (confidence) band (@teunbrand, #6551)
-  
 * New `position_dodge2(group.row)` argument that can be set to `"many"` to
   dodge groups with more than one row, such as in `geom_violin()` 
   (@teunbrand, #6663)
@@ -51,6 +50,8 @@
   order (@CuiweiG, #6837).
 * Fixed bug in `width` computation when `position_dodge(preserve = "single")` 
   had duplicated `order` aesthetic values (@teunbrand, #6775).
+* New `stat_chain()` to combine multiple stat computations. It comes with a 
+  `link_stat()` helper to feed parameters and mappings (@teunbrand, #6325).
   
 # ggplot2 4.0.3
 
