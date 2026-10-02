@@ -2,53 +2,68 @@
 
 ## ggplot2 (development version)
 
+- Layers whose data is entirely removed by scale limits no longer error
+  when the plot has multiple panels
+  ([@GuangchuangYu](https://github.com/GuangchuangYu),
+  [\#6899](https://github.com/tidyverse/ggplot2/issues/6899)).
+
 - [`annotate()`](https://ggplot2.tidyverse.org/dev/reference/annotate.md)
   now treats the `group` argument as a per-observation aesthetic instead
   of a fixed parameter, fixing an error when combined with facets
   ([@taekop](https://github.com/taekop),
   [\#6862](https://github.com/tidyverse/ggplot2/issues/6862)).
+
 - New `theme(axis.ontop)` theme setting to control axis drawing order
   relative to panel ([@teunbrand](https://github.com/teunbrand),
   [\#6456](https://github.com/tidyverse/ggplot2/issues/6456)).
+
 - New `stat_boxplot(min.group.n)` argument, which skips drawing the box
   and whiskers for small groups
   ([@teunbrand](https://github.com/teunbrand) based on code by
   [@dicook](https://github.com/dicook),
   [\#6776](https://github.com/tidyverse/ggplot2/issues/6776))
+
 - Fixed wording of warning emitted by `remove missing()` when non-finite
   values are removed: it now reads “non-finite values or values outside
   the scale range” instead of “non-finite outside the scale range”
   ([@osorensen](https://github.com/osorensen)).
+
 - (internal) Secondary axis tests now meaningfully assert break
   positions. Misplaced parentheses previously made the tolerance checks
   one-sided, and four position checks were tautological self-comparisons
   ([@sims1253](https://github.com/sims1253)).
+
 - [`make_constructor()`](https://ggplot2.tidyverse.org/dev/reference/make_constructor.md)
   no longer captures
   [`rlang::list2()`](https://rlang.r-lib.org/reference/list2.html) at
   build time.
+
 - The `arrow` and `arrow.fill` arguments are now available in
   [`geom_linerange()`](https://ggplot2.tidyverse.org/dev/reference/geom_linerange.md)
   and
   [`geom_pointrange()`](https://ggplot2.tidyverse.org/dev/reference/geom_linerange.md)
   layers ([@teunbrand](https://github.com/teunbrand),
   [\#6481](https://github.com/tidyverse/ggplot2/issues/6481)).
+
 - (internal)
   [`zeroGrob()`](https://ggplot2.tidyverse.org/dev/reference/zeroGrob.md)
   now returns a
   [`grid::nullGrob()`](https://rdrr.io/r/grid/grid.null.html)
   ([\#6390](https://github.com/tidyverse/ggplot2/issues/6390)).
+
 - [`stat_ydensity()`](https://ggplot2.tidyverse.org/dev/reference/geom_violin.md)
   now only requires the `x` or `y` aesthetic. The other will be
   populated with 0, similar to
   [`stat_boxplot()`](https://ggplot2.tidyverse.org/dev/reference/geom_boxplot.md)
   ([@teunbrand](https://github.com/teunbrand),
   [\#6600](https://github.com/tidyverse/ggplot2/issues/6600))
+
 - Implemented [`as.list()`](https://rdrr.io/r/base/list.html) and
   [`S7::convert()`](https://rconsortium.github.io/S7/reference/convert.html)
   methods for lists and classes in ggplot2
   ([@teunbrand](https://github.com/teunbrand),
   [\#6695](https://github.com/tidyverse/ggplot2/issues/6695))
+
 - The default linetype in
   [`geom_sf()`](https://ggplot2.tidyverse.org/dev/reference/ggsf.md) is
   derived from
@@ -57,69 +72,84 @@
   [`geom_line()`](https://ggplot2.tidyverse.org/dev/reference/geom_path.md)
   for (multi)linestrings ([@teunbrand](https://github.com/teunbrand),
   [\#6543](https://github.com/tidyverse/ggplot2/issues/6543)).
+
 - Using infinite `radius` aesthetic in
   [`geom_spoke()`](https://ggplot2.tidyverse.org/dev/reference/geom_spoke.md)
   now throws a warning
   ([\#6671](https://github.com/tidyverse/ggplot2/issues/6671))
+
 - Scales and guides specified by a string can now use package name
   prefixes to indicate a namespace wherein to look for the scale/guide.
   For example, one can use
   `scale_x_continuous(guide = "legendry::axis_base")`
   ([@teunbrand](https://github.com/teunbrand),
   [\#4705](https://github.com/tidyverse/ggplot2/issues/4705)).
+
 - [`get_layer_data()`](https://ggplot2.tidyverse.org/dev/reference/ggplot_build.md)
   and
   [`get_layer_grob()`](https://ggplot2.tidyverse.org/dev/reference/ggplot_build.md)
   now accept layer names as index
   ([@lgaborini](https://github.com/lgaborini),
   [\#6724](https://github.com/tidyverse/ggplot2/issues/6724))
+
 - Added new argument `geom_curve(shape)` that will be passed down to
   [`grid::curveGrob()`](https://rdrr.io/r/grid/grid.curve.html)
   ([@fmarotta](https://github.com/fmarotta),
   [\#5998](https://github.com/tidyverse/ggplot2/issues/5998)).
+
 - Fixed a regression where default `width` was miscalculated when some
   panels are empty ([@teunbrand](https://github.com/teunbrand),
   [\#6758](https://github.com/tidyverse/ggplot2/issues/6758))
+
 - [`geom_hex()`](https://ggplot2.tidyverse.org/dev/reference/geom_hex.md)
   has a new `radius` aesthetic, representing the relative size of the
   hexagons ([@teunbrand](https://github.com/teunbrand),
   [\#6727](https://github.com/tidyverse/ggplot2/issues/6727))
+
 - Added `preserve` argument to
   [`position_jitterdodge()`](https://ggplot2.tidyverse.org/dev/reference/position_jitterdodge.md)
   ([@teunbrand](https://github.com/teunbrand),
   [\#6584](https://github.com/tidyverse/ggplot2/issues/6584)).
+
 - Fixed `position_jitterdodge(jitter.height, jitter.width)` applying to
   the wrong dimension with flipped geoms
   ([@teunbrand](https://github.com/teunbrand),
   [\#6535](https://github.com/tidyverse/ggplot2/issues/6535)).
+
 - New `geom_smooth(band.colour, band.linetype, band.linewidth)`
   arguments control graphical parameters of the (confidence) band
   ([@teunbrand](https://github.com/teunbrand),
   [\#6551](https://github.com/tidyverse/ggplot2/issues/6551))
+
 - New `position_dodge2(group.row)` argument that can be set to `"many"`
   to dodge groups with more than one row, such as in
   [`geom_violin()`](https://ggplot2.tidyverse.org/dev/reference/geom_violin.md)
   ([@teunbrand](https://github.com/teunbrand),
   [\#6663](https://github.com/tidyverse/ggplot2/issues/6663))
+
 - `theme(strip.placement.x)` and `theme(strip.placement.y)` can be used
   for more granular control of strip placement when facetting. These
   have existed for some time but were not previously documented
   ([@arcresu](https://github.com/arcresu),
   [\#6827](https://github.com/tidyverse/ggplot2/issues/6827)).
+
 - Added support for weighted quantiles in
   [`geom_violin()`](https://ggplot2.tidyverse.org/dev/reference/geom_violin.md)
   ([@hughjonesd](https://github.com/hughjonesd),
   [\#6853](https://github.com/tidyverse/ggplot2/issues/6853))
+
 - The `dir` argument of
   [`facet_wrap()`](https://ggplot2.tidyverse.org/dev/reference/facet_wrap.md)
   is now documented with all eight two-letter codes, clarifying their
   starting corner and fill order
   ([@CuiweiG](https://github.com/CuiweiG),
   [\#6837](https://github.com/tidyverse/ggplot2/issues/6837)).
+
 - Fixed bug in `width` computation when
   `position_dodge(preserve = "single")` had duplicated `order` aesthetic
   values ([@teunbrand](https://github.com/teunbrand),
   [\#6775](https://github.com/tidyverse/ggplot2/issues/6775)).
+
 - New
   [`stat_chain()`](https://ggplot2.tidyverse.org/dev/reference/stat_chain.md)
   to combine multiple stat computations. It comes with a
