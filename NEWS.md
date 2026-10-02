@@ -44,6 +44,8 @@
 * The `dir` argument of `facet_wrap()` is now documented with all
   eight two-letter codes, clarifying their starting corner and fill
   order (@CuiweiG, #6837).
+* Fixed bug in `width` computation when `position_dodge(preserve = "single")` 
+  had duplicated `order` aesthetic values (@teunbrand, #6775).
   
 # ggplot2 4.0.3
 
