@@ -1,4 +1,7 @@
 # ggplot2 (development version)
+ 
+* Layers whose data is entirely removed by scale limits no longer error when
+  the plot has multiple panels (@GuangchuangYu, #6899).
 
 * `annotate()` now treats the `group` argument as a per-observation aesthetic
   instead of a fixed parameter, fixing an error when combined with facets
