@@ -126,25 +126,21 @@
 #' m2 + coord_transform(y="log10")
 #' }
 #' }
-stat_summary <- function(
-  mapping = NULL,
-  data = NULL,
-  geom = "pointrange",
-  position = "identity",
-  ...,
-  fun.data = NULL,
-  fun = NULL,
-  fun.max = NULL,
-  fun.min = NULL,
-  fun.args = list(),
-  na.rm = FALSE,
-  orientation = NA,
-  show.legend = NA,
-  inherit.aes = TRUE,
-  fun.y = deprecated(),
-  fun.ymin = deprecated(),
-  fun.ymax = deprecated()
-) {
+stat_summary <- function(mapping = NULL, data = NULL,
+                         geom = "pointrange", position = "identity",
+                         ...,
+                         fun.data = NULL,
+                         fun = NULL,
+                         fun.max = NULL,
+                         fun.min = NULL,
+                         fun.args = list(),
+                         na.rm = FALSE,
+                         orientation = NA,
+                         show.legend = NA,
+                         inherit.aes = TRUE,
+                         fun.y = deprecated(),
+                         fun.ymin = deprecated(),
+                         fun.ymax = deprecated()) {
   if (lifecycle::is_present(fun.y)) {
     deprecate_warn0("3.3.0", "stat_summary(fun.y)", "stat_summary(fun)")
     fun <- fun %||% fun.y
@@ -182,39 +178,23 @@ stat_summary <- function(
 #' @format NULL
 #' @usage NULL
 #' @export
-StatSummary <- ggproto(
-  "StatSummary",
-  Stat,
+StatSummary <- ggproto("StatSummary", Stat,
   required_aes = c("x", "y"),
 
-  extra_params = c(
-    "na.rm",
-    "orientation",
-    "fun.data",
-    "fun.max",
-    "fun.min",
-    "fun.args"
-  ),
+  extra_params = c("na.rm", "orientation", "fun.data", "fun.max", "fun.min", "fun.args"),
 
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params)
     params[["fun"]] <- make_summary_fun(
-      params$fun.data,
-      params[["fun"]],
-      params$fun.max,
-      params$fun.min,
+      params$fun.data, params[["fun"]],
+      params$fun.max, params$fun.min,
       params$fun.args %||% list()
     )
     params
   },
 
-  compute_panel = function(
-    data,
-    scales,
-    fun = NULL,
-    na.rm = FALSE,
-    flipped_aes = FALSE
-  ) {
+  compute_panel = function(data, scales, fun = NULL,
+                           na.rm = FALSE, flipped_aes = FALSE) {
     data <- flip_data(data, flipped_aes)
     summarised <- summarise_by_x(data, fun %||% function(df) mean_se(df$y))
     summarised$flipped_aes <- flipped_aes
@@ -280,6 +260,7 @@ uniquecols <- function(df) {
 NULL
 
 wrap_hmisc <- function(fun) {
+
   function(x, ...) {
     check_installed("Hmisc")
 

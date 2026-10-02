@@ -36,9 +36,7 @@ coord_equal <- coord_fixed
 #' @format NULL
 #' @usage NULL
 #' @export
-CoordFixed <- ggproto(
-  "CoordFixed",
-  CoordCartesian,
+CoordFixed <- ggproto("CoordFixed", CoordCartesian,
   is_free = function() {
     FALSE
   },

@@ -1,14 +1,10 @@
 test_that("data is ordered by x", {
   df <- data_frame(x = c(1, 5, 2, 3, 4), y = 1:5)
 
-  ps <- ggplot(df, aes(x, y)) +
+  ps <- ggplot(df, aes(x, y))+
     geom_smooth(stat = "identity", se = FALSE)
 
-  expect_equal(
-    get_layer_data(ps)[c("x", "y")],
-    df[order(df$x), ],
-    ignore_attr = TRUE
-  )
+  expect_equal(get_layer_data(ps)[c("x", "y")], df[order(df$x), ], ignore_attr = TRUE)
 })
 
 test_that("geom_smooth works in both directions", {
@@ -24,7 +20,7 @@ test_that("geom_smooth works in both directions", {
 
   x$flipped_aes <- NULL
   y$flipped_aes <- NULL
-  expect_identical(x, flip_data(y, TRUE)[, names(x)])
+  expect_identical(x, flip_data(y, TRUE)[,names(x)])
 })
 
 test_that("default smoothing methods for small and large data sets work", {
@@ -108,8 +104,7 @@ test_that("a fallback message is thrown when `method = 'gam'` and {mgcv} is abse
 
   with_mocked_bindings(
     expect_message(
-      ggplot_build(p),
-      regexp = "Falling back to `method = \"lm\"`"
+      ggplot_build(p), regexp = "Falling back to `method = \"lm\"`"
     ),
     is_installed = function(...) FALSE
   )
@@ -118,11 +113,9 @@ test_that("a fallback message is thrown when `method = 'gam'` and {mgcv} is abse
 # Visual tests ------------------------------------------------------------
 
 test_that("geom_smooth() works with alternative stats", {
-  df <- data_frame(
-    x = c(1, 1, 2, 2, 1, 1, 2, 2),
-    y = c(1, 2, 2, 3, 2, 3, 1, 2),
-    fill = c(rep("A", 4), rep("B", 4))
-  )
+  df <- data_frame(x = c(1, 1, 2, 2, 1, 1, 2, 2),
+                   y = c(1, 2, 2, 3, 2, 3, 1, 2),
+                   fill = c(rep("A", 4), rep("B", 4)))
 
   expect_doppelganger("ribbon turned on in geom_smooth", {
     ggplot(df, aes(x, y, color = fill, fill = fill)) +

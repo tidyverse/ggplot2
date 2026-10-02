@@ -1,4 +1,6 @@
+
 test_that("check_device checks R versions correctly", {
+
   # Most widely supported device
   file <- withr::local_tempfile(fileext = ".pdf")
   withr::local_pdf(file)
@@ -63,4 +65,5 @@ test_that("check_device finds device capabilities", {
     expect_snapshot_warning(check_device(".test_feature")),
     .package = "grDevices"
   )
+
 })

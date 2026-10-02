@@ -73,24 +73,14 @@
 #'   geom_point() +
 #'   scale_x_discrete(labels = abbreviate)
 #' }
-scale_x_discrete <- function(
-  name = waiver(),
-  ...,
-  palette = seq_len,
-  expand = waiver(),
-  guide = waiver(),
-  position = "bottom",
-  sec.axis = waiver(),
-  continuous.limits = NULL
-) {
+scale_x_discrete <- function(name = waiver(), ..., palette = seq_len,
+                             expand = waiver(), guide = waiver(),
+                             position = "bottom", sec.axis = waiver(),
+                             continuous.limits = NULL) {
   sc <- discrete_scale(
-    aesthetics = ggplot_global$x_aes,
-    name = name,
-    palette = palette,
-    ...,
-    expand = expand,
-    guide = guide,
-    position = position,
+    aesthetics = ggplot_global$x_aes, name = name,
+    palette = palette, ...,
+    expand = expand, guide = guide, position = position,
     super = ScaleDiscretePosition
   )
 
@@ -100,24 +90,14 @@ scale_x_discrete <- function(
 }
 #' @rdname scale_discrete
 #' @export
-scale_y_discrete <- function(
-  name = waiver(),
-  ...,
-  palette = seq_len,
-  expand = waiver(),
-  guide = waiver(),
-  position = "left",
-  sec.axis = waiver(),
-  continuous.limits = NULL
-) {
+scale_y_discrete <- function(name = waiver(), ..., palette = seq_len,
+                             expand = waiver(), guide = waiver(),
+                             position = "left", sec.axis = waiver(),
+                             continuous.limits = NULL) {
   sc <- discrete_scale(
-    aesthetics = ggplot_global$y_aes,
-    name = name,
-    palette = palette,
-    ...,
-    expand = expand,
-    guide = guide,
-    position = position,
+    aesthetics = ggplot_global$y_aes, name = name,
+    palette = palette, ...,
+    expand = expand, guide = guide, position = position,
     super = ScaleDiscretePosition
   )
 
@@ -135,9 +115,7 @@ scale_y_discrete <- function(
 #' @format NULL
 #' @usage NULL
 #' @export
-ScaleDiscretePosition <- ggproto(
-  "ScaleDiscretePosition",
-  ScaleDiscrete,
+ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
   continuous_limits = NULL,
 
   train = function(self, x) {
@@ -155,7 +133,7 @@ ScaleDiscretePosition <- ggproto(
     }
 
     # if self$limits is not NULL and is a function, apply it to range
-    if (is.function(self$limits)) {
+    if (is.function(self$limits)){
       return(self$limits(self$range$range))
     }
 
@@ -198,20 +176,11 @@ ScaleDiscretePosition <- ggproto(
     mapped_discrete(x)
   },
 
-  rescale = function(
-    self,
-    x,
-    limits = self$get_limits(),
-    range = self$dimension(limits = limits)
-  ) {
+  rescale = function(self, x, limits = self$get_limits(), range = self$dimension(limits = limits)) {
     rescale(self$map(x, limits = limits), from = range)
   },
 
-  dimension = function(
-    self,
-    expand = expansion(0, 0),
-    limits = self$get_limits()
-  ) {
+  dimension = function(self, expand = expansion(0, 0), limits = self$get_limits()) {
     expand_limits_scale(self, expand, limits)
   },
 
@@ -239,9 +208,7 @@ new_mapped_discrete <- function(x = double()) {
   x
 }
 mapped_discrete <- function(x = double()) {
-  if (is.null(x)) {
-    return(NULL)
-  }
+  if (is.null(x)) return(NULL)
   new_mapped_discrete(vec_cast(x, double()))
 }
 is_mapped_discrete <- function(x) inherits(x, "mapped_discrete")
@@ -262,14 +229,12 @@ c.mapped_discrete <- function(..., recursive = FALSE) {
   mapped_discrete(NextMethod())
 }
 #' @export
-as.data.frame.mapped_discrete <- function(x, ...) {
+as.data.frame.mapped_discrete <- function (x, ...) {
   as.data.frame.vector(x = unclass(x), ...)
 }
 
 #' @export
-vec_ptype2.mapped_discrete.mapped_discrete <- function(x, y, ...) {
-  new_mapped_discrete()
-}
+vec_ptype2.mapped_discrete.mapped_discrete <- function(x, y, ...) new_mapped_discrete()
 #' @export
 vec_ptype2.mapped_discrete.double <- function(x, y, ...) new_mapped_discrete()
 #' @export
@@ -291,24 +256,17 @@ vec_cast.mapped_discrete.mapped_discrete <- function(x, to, ...) x
 #' @export
 vec_cast.mapped_discrete.integer <- function(x, to, ...) mapped_discrete(x)
 #' @export
-vec_cast.integer.mapped_discrete <- function(x, to, ...) {
-  as.integer(as.vector(x))
-}
+vec_cast.integer.mapped_discrete <- function(x, to, ...) as.integer(as.vector(x))
 #' @export
 vec_cast.mapped_discrete.double <- function(x, to, ...) new_mapped_discrete(x)
 #' @export
 vec_cast.double.mapped_discrete <- function(x, to, ...) as.vector(x)
 #' @export
-vec_cast.character.mapped_discrete <- function(x, to, ...) {
-  as.character(as.vector(x))
-}
+vec_cast.character.mapped_discrete <- function(x, to, ...) as.character(as.vector(x))
 #' @export
-vec_cast.mapped_discrete.factor <- function(x, to, ...) {
-  mapped_discrete(as.vector(unclass(x)))
-}
+vec_cast.mapped_discrete.factor <- function(x, to, ...) mapped_discrete(as.vector(unclass(x)))
 #' @export
-vec_cast.factor.mapped_discrete <- function(x, to, ...) {
-  factor(as.vector(x), ...)
-}
+vec_cast.factor.mapped_discrete <- function(x, to, ...) factor(as.vector(x), ...)
 #' @export
 vec_cast.mapped_discrete.logical <- function(x, to, ...) mapped_discrete(x)
+

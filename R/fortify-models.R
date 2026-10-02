@@ -39,9 +39,7 @@
 #'   geom_point()
 fortify.lm <- function(model, data = model$model, ...) {
   lifecycle::deprecate_warn(
-    "3.6.0",
-    I("`fortify(<lm>)`"),
-    I("`broom::augment(<lm>)`")
+    "3.6.0", I("`fortify(<lm>)`"), I("`broom::augment(<lm>)`")
   )
   infl <- stats::influence(model, do.coef = FALSE)
   data$.hat <- infl$hat
@@ -104,9 +102,7 @@ NULL
 #' @export
 fortify.glht <- function(model, data, ...) {
   lifecycle::deprecate_warn(
-    "3.6.0",
-    I("`fortify(<glht>)`"),
-    I("`broom::tidy(<glht>)`")
+    "3.6.0", I("`fortify(<glht>)`"), I("`broom::tidy(<glht>)`")
   )
   base::data.frame(
     lhs = rownames(model$linfct),
@@ -122,9 +118,7 @@ fortify.glht <- function(model, data, ...) {
 #' @export
 fortify.confint.glht <- function(model, data, ...) {
   lifecycle::deprecate_warn(
-    "3.6.0",
-    I("`fortify(<confint.glht>)`"),
-    I("`broom::tidy(<confint.glht>)`")
+    "3.6.0", I("`fortify(<confint.glht>)`"), I("`broom::tidy(<confint.glht>)`")
   )
   coef <- model$confint
   colnames(coef) <- to_lower_ascii(colnames(coef))
@@ -143,13 +137,10 @@ fortify.confint.glht <- function(model, data, ...) {
 #' @export
 fortify.summary.glht <- function(model, data, ...) {
   lifecycle::deprecate_warn(
-    "3.6.0",
-    I("`fortify(<summary.glht>)`"),
-    I("`broom::tidy(<summary.glht>)`")
+    "3.6.0", I("`fortify(<summary.glht>)`"), I("`broom::tidy(<summary.glht>)`")
   )
   coef <- as.data.frame(
-    model$test[c("coefficients", "sigma", "tstat", "pvalues")]
-  )
+    model$test[c("coefficients", "sigma", "tstat", "pvalues")])
   names(coef) <- c("estimate", "se", "t", "p")
 
   base::data.frame(
@@ -167,9 +158,7 @@ fortify.summary.glht <- function(model, data, ...) {
 #' @export
 fortify.cld <- function(model, data, ...) {
   lifecycle::deprecate_warn(
-    "3.6.0",
-    I("`fortify(<summary.glht>)`"),
-    I("`broom::tidy(<summary.glht>)`")
+    "3.6.0", I("`fortify(<summary.glht>)`"), I("`broom::tidy(<summary.glht>)`")
   )
   base::data.frame(
     lhs = names(model$mcletters$Letters),

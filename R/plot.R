@@ -115,34 +115,35 @@ ggplot <- function(
 #' @export
 ggplot.default <-
   function(data, mapping = aes(), ..., environment = parent.frame()) {
-    if (!missing(mapping)) {
-      mapping <- validate_mapping(mapping)
-    }
-    if (missing(data)) {
-      data <- NULL
-    }
 
-    data <- fortify(data, ...)
-
-    p <- class_ggplot(
-      data = data,
-      mapping = mapping,
-      plot_env = environment
-    )
-    class(p) <- union(union(c("ggplot2::ggplot", "ggplot"), class(p)), "gg")
-
-    set_last_plot(p)
-    p
+  if (!missing(mapping)) {
+    mapping <- validate_mapping(mapping)
   }
+  if (missing(data)) {
+    data <- NULL
+  }
+
+  data <- fortify(data, ...)
+
+  p <- class_ggplot(
+    data = data,
+    mapping = mapping,
+    plot_env = environment
+  )
+  class(p) <- union(union(c("ggplot2::ggplot", "ggplot"), class(p)), "gg")
+
+  set_last_plot(p)
+  p
+}
 
 #' @export
 ggplot.function <- function(data, ...) {
-  # Added to avoid functions end in ggplot.default
-  cli::cli_abort(c(
-    "{.arg data} cannot be a function.",
-    "i" = "Have you misspelled the {.arg data} argument in {.fn ggplot}?"
-  ))
-}
+    # Added to avoid functions end in ggplot.default
+    cli::cli_abort(c(
+      "{.arg data} cannot be a function.",
+      "i" = "Have you misspelled the {.arg data} argument in {.fn ggplot}?"
+    ))
+  }
 
 plot_clone <- function(plot) {
   p <- plot
@@ -197,9 +198,7 @@ local({
   S7::method(print, class_ggplot) <- S7::method(plot, class_ggplot) <-
     function(x, newpage = is.null(vp), vp = NULL, ...) {
       set_last_plot(x)
-      if (newpage) {
-        grid.newpage()
-      }
+      if (newpage) grid.newpage()
 
       # Record dependency on 'ggplot2' on the display list
       # (AFTER grid.newpage())
@@ -215,11 +214,7 @@ local({
       if (is.null(vp)) {
         grid.draw(gtable)
       } else {
-        if (is.character(vp)) {
-          seekViewport(vp)
-        } else {
-          pushViewport(vp)
-        }
+        if (is.character(vp)) seekViewport(vp) else pushViewport(vp)
         grid.draw(gtable)
         upViewport()
       }

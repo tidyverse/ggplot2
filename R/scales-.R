@@ -6,17 +6,11 @@ scales_list <- function() {
   ggproto(NULL, ScalesList)
 }
 
-ScalesList <- ggproto(
-  "ScalesList",
-  NULL,
+ScalesList <- ggproto("ScalesList", NULL,
   scales = NULL,
 
   find = function(self, aesthetic) {
-    vapply(
-      self$scales,
-      function(x) any(aesthetic %in% x$aesthetics),
-      logical(1)
-    )
+    vapply(self$scales, function(x) any(aesthetic %in% x$aesthetics), logical(1))
   },
 
   has_scale = function(self, aesthetic) {
@@ -63,9 +57,7 @@ ScalesList <- ggproto(
 
   get_scales = function(self, output) {
     scale <- self$scales[self$find(output)]
-    if (length(scale) == 0) {
-      return()
-    }
+    if (length(scale) == 0) return()
     scale[[1]]
   },
 
@@ -81,13 +73,10 @@ ScalesList <- ggproto(
       return(df)
     }
 
-    mapped <- unlist(
-      lapply(
-        self$scales,
-        function(scale) scale$map_df(df = df)
-      ),
-      recursive = FALSE
-    )
+    mapped <- unlist(lapply(
+      self$scales,
+      function(scale) scale$map_df(df = df)
+    ), recursive = FALSE)
 
     df[names(mapped)] <- mapped
     df
@@ -100,29 +89,21 @@ ScalesList <- ggproto(
 
     # If the scale contains to trans or trans is identity, there is no need
     # to transform anything
-    idx_skip <- vapply(
-      self$scales,
-      function(x) {
-        transformation <- x$get_transformation()
-        has_default_transform(x) &&
-          (is.null(transformation) ||
-            identical(transformation$transform, identity))
-      },
-      logical(1L)
-    )
+    idx_skip <- vapply(self$scales, function(x) {
+      transformation <- x$get_transformation()
+      has_default_transform(x) &&
+        (is.null(transformation) || identical(transformation$transform, identity))
+    }, logical(1L))
     scales <- self$scales[!idx_skip]
 
     if (length(scales) == 0) {
       return(df)
     }
 
-    transformed <- unlist(
-      lapply(
-        scales,
-        function(scale) scale$transform_df(df = df)
-      ),
-      recursive = FALSE
-    )
+    transformed <- unlist(lapply(
+      scales,
+      function(scale) scale$transform_df(df = df)
+    ), recursive = FALSE)
 
     df[names(transformed)] <- transformed
     df
@@ -134,39 +115,31 @@ ScalesList <- ggproto(
 
     # If the scale contains to trans or trans is identity, there is no need
     # to transform anything
-    idx_skip <- vapply(
-      self$scales,
-      function(x) {
-        transformation <- x$get_transformation()
-        has_default_transform(x) &&
-          (is.null(transformation) ||
-            identical(transformation$transform, identity))
-      },
-      logical(1)
-    )
+    idx_skip <- vapply(self$scales, function(x) {
+      transformation <- x$get_transformation()
+      has_default_transform(x) &&
+        (is.null(transformation) || identical(transformation$transform, identity))
+    }, logical(1))
     scales <- self$scales[!idx_skip]
 
     if (length(scales) == 0) {
       return(df)
     }
 
-    backtransformed <- unlist(
-      lapply(
-        scales,
-        function(scale) {
-          aesthetics <- intersect(scale$aesthetics, names(df))
-          if (length(aesthetics) == 0) {
-            return()
-          }
-          inverse <- scale$get_transformation()$inverse
-          if (is.null(inverse)) {
-            return()
-          }
-          lapply(df[aesthetics], inverse)
+    backtransformed <- unlist(lapply(
+      scales,
+      function(scale) {
+        aesthetics <- intersect(scale$aesthetics, names(df))
+        if (length(aesthetics) == 0) {
+          return()
         }
-      ),
-      recursive = FALSE
-    )
+        inverse <- scale$get_transformation()$inverse
+        if (is.null(inverse)) {
+          return()
+        }
+        lapply(df[aesthetics], inverse)
+      }
+    ), recursive = FALSE)
 
     df[names(backtransformed)] <- backtransformed
     df
@@ -180,6 +153,7 @@ ScalesList <- ggproto(
     if (is.null(new_aesthetics)) {
       return()
     }
+
 
     for (aes in new_aesthetics) {
       self$add(find_scale(aes, data[[aes]], env))
@@ -212,7 +186,7 @@ ScalesList <- ggproto(
       elem <- elem %||% fallback_palette(scale)
       palette <- switch(
         type,
-        discrete = as_discrete_pal(elem),
+        discrete   = as_discrete_pal(elem),
         continuous = as_continuous_pal(elem)
       )
       if (!is.function(palette)) {
@@ -230,3 +204,4 @@ ScalesList <- ggproto(
     }
   }
 )
+

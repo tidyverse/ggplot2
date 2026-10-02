@@ -92,25 +92,22 @@
 #'   geom_violin(aes(group = cut_width(year, 10)), scale = "width")
 #' }
 #' }
-geom_violin <- function(
-  mapping = NULL,
-  data = NULL,
-  stat = "ydensity",
-  position = "dodge",
-  ...,
-  trim = TRUE,
-  bounds = c(-Inf, Inf),
-  quantile.colour = NULL,
-  quantile.color = NULL,
-  quantile.linetype = 0L,
-  quantile.linewidth = NULL,
-  draw_quantiles = deprecated(),
-  scale = "area",
-  na.rm = FALSE,
-  orientation = NA,
-  show.legend = NA,
-  inherit.aes = TRUE
-) {
+geom_violin <- function(mapping = NULL, data = NULL,
+                        stat = "ydensity", position = "dodge",
+                        ...,
+                        trim = TRUE,
+                        bounds = c(-Inf, Inf),
+                        quantile.colour = NULL,
+                        quantile.color = NULL,
+                        quantile.linetype = 0L,
+                        quantile.linewidth = NULL,
+                        draw_quantiles = deprecated(),
+                        scale = "area",
+                        na.rm = FALSE,
+                        orientation = NA,
+                        show.legend = NA,
+                        inherit.aes = TRUE) {
+
   extra <- list()
   if (lifecycle::is_present(draw_quantiles)) {
     deprecate_soft0(
@@ -133,8 +130,8 @@ geom_violin <- function(
   }
 
   quantile_gp <- list(
-    colour = quantile.color %||% quantile.colour,
-    linetype = quantile.linetype,
+    colour    = quantile.color %||% quantile.colour,
+    linetype  = quantile.linetype,
     linewidth = quantile.linewidth
   )
 
@@ -163,9 +160,7 @@ geom_violin <- function(
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomViolin <- ggproto(
-  "GeomViolin",
-  Geom,
+GeomViolin <- ggproto("GeomViolin", Geom,
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)
     params
@@ -177,32 +172,21 @@ GeomViolin <- ggproto(
     data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
     data <- compute_data_size(
-      data,
-      params$width,
+      data, params$width,
       default = self$default_aes$width
     )
     # ymin, ymax, xmin, and xmax define the bounding rectangle for each group
-    data <- dapply(
-      data,
-      "group",
-      transform,
+    data <- dapply(data, "group", transform,
       xmin = x - width / 2,
       xmax = x + width / 2
     )
     flip_data(data, params$flipped_aes)
   },
 
-  draw_group = function(
-    self,
-    data,
-    ...,
-    quantile_gp = list(linetype = 0),
-    flipped_aes = FALSE
-  ) {
+  draw_group = function(self, data, ..., quantile_gp = list(linetype = 0), flipped_aes = FALSE) {
     data <- flip_data(data, flipped_aes)
     # Find the points for the line to go all the way around
-    data <- transform(
-      data,
+    data <- transform(data,
       xminv = x - violinwidth * (x - xmin),
       xmaxv = x + violinwidth * (xmax - x)
     )
@@ -215,25 +199,23 @@ GeomViolin <- ggproto(
 
     # Close the polygon: set first and last point the same
     # Needed for coord_polar and such
-    newdata <- vec_rbind0(newdata, newdata[1, ])
+    newdata <- vec_rbind0(newdata, newdata[1,])
     newdata <- flip_data(newdata, flipped_aes)
 
     violin_grob <- GeomPolygon$draw_panel(newdata, ...)
 
-    if (
-      !"quantile" %in% names(newdata) ||
+    if (!"quantile" %in% names(newdata) ||
         all(quantile_gp$linetype == 0) ||
-        all(quantile_gp$linetype == "blank")
-    ) {
+        all(quantile_gp$linetype == "blank")) {
       return(ggname("geom_violin", violin_grob))
     }
 
     # Draw quantiles if requested, so long as there is non-zero y range
-    quantiles <- newdata[!is.na(newdata$quantile), ]
+    quantiles <- newdata[!is.na(newdata$quantile),]
     quantiles$group <- match(quantiles$quantile, unique(quantiles$quantile))
-    quantiles$linetype <- quantile_gp$linetype %||% quantiles$linetype
+    quantiles$linetype  <- quantile_gp$linetype  %||% quantiles$linetype
     quantiles$linewidth <- quantile_gp$linewidth %||% quantiles$linewidth
-    quantiles$colour <- quantile_gp$colour %||% quantiles$colour
+    quantiles$colour    <- quantile_gp$colour    %||% quantiles$colour
 
     quantile_grob <- if (nrow(quantiles) == 0) {
       zeroGrob()
@@ -278,3 +260,4 @@ create_quantile_segment_frame <- function(data, draw_quantiles) {
     group = rep(ys, each = 2)
   )
 }
+

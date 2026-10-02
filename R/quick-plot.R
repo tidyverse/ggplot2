@@ -56,34 +56,18 @@
 #' qplot(factor(cyl), wt, data = mtcars, geom = c("boxplot", "jitter"))
 #' qplot(mpg, data = mtcars, geom = "dotplot")
 #' }
-qplot <- function(
-  x,
-  y,
-  ...,
-  data,
-  facets = NULL,
-  margins = FALSE,
-  geom = "auto",
-  xlim = c(NA, NA),
-  ylim = c(NA, NA),
-  log = "",
-  main = NULL,
-  xlab = NULL,
-  ylab = NULL,
-  asp = NA,
-  stat = deprecated(),
-  position = deprecated()
-) {
+qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
+                  geom = "auto", xlim = c(NA, NA),
+                  ylim = c(NA, NA), log = "", main = NULL,
+                  xlab = NULL, ylab = NULL,
+                  asp = NA, stat = deprecated(), position = deprecated()) {
+
   deprecate_warn0("3.4.0", "qplot()")
 
   caller_env <- parent.frame()
 
-  if (lifecycle::is_present(stat)) {
-    lifecycle::deprecate_stop("2.0.0", "qplot(stat)")
-  }
-  if (lifecycle::is_present(position)) {
-    lifecycle::deprecate_stop("2.0.0", "qplot(position)")
-  }
+  if (lifecycle::is_present(stat)) lifecycle::deprecate_stop("2.0.0", "qplot(stat)")
+  if (lifecycle::is_present(position)) lifecycle::deprecate_stop("2.0.0", "qplot(position)")
   check_character(geom)
 
   exprs <- enquos(x = x, y = y, ...)
@@ -94,15 +78,13 @@ qplot <- function(
   is_constant <- (!names(exprs) %in% ggplot_global$all_aesthetics) |
     vapply(exprs, quo_is_call, logical(1), name = "I")
 
-  mapping <- class_mapping(
-    exprs[!is_missing & !is_constant],
-    env = parent.frame()
-  )
+  mapping <- class_mapping(exprs[!is_missing & !is_constant], env = parent.frame())
 
   consts <- exprs[is_constant]
 
   aes_names <- names(mapping)
   mapping <- rename_aes(mapping)
+
 
   if (is.null(xlab)) {
     # Avoid <empty> label (#4170)
@@ -163,9 +145,7 @@ qplot <- function(
     p <- p + facet_grid(rows = deparse(facets), margins = margins)
   }
 
-  if (!is.null(main)) {
-    p <- p + ggtitle(main)
-  }
+  if (!is.null(main)) p <- p + ggtitle(main)
 
   # Add geoms/statistics
   for (g in geom) {
@@ -176,30 +156,16 @@ qplot <- function(
 
   logv <- function(var) var %in% strsplit(log, "")[[1]]
 
-  if (logv("x")) {
-    p <- p + scale_x_log10()
-  }
-  if (logv("y")) {
-    p <- p + scale_y_log10()
-  }
+  if (logv("x")) p <- p + scale_x_log10()
+  if (logv("y")) p <- p + scale_y_log10()
 
-  if (!is.na(asp)) {
-    p <- p + theme(aspect.ratio = asp)
-  }
+  if (!is.na(asp)) p <- p + theme(aspect.ratio = asp)
 
-  if (!missing(xlab)) {
-    p <- p + xlab(xlab)
-  }
-  if (!missing(ylab)) {
-    p <- p + ylab(ylab)
-  }
+  if (!missing(xlab)) p <- p + xlab(xlab)
+  if (!missing(ylab)) p <- p + ylab(ylab)
 
-  if (!missing(xlim) && !all(is.na(xlim))) {
-    p <- p + xlim(xlim)
-  }
-  if (!missing(ylim) && !all(is.na(ylim))) {
-    p <- p + ylim(ylim)
-  }
+  if (!missing(xlim) && !all(is.na(xlim))) p <- p + xlim(xlim)
+  if (!missing(ylim) && !all(is.na(ylim))) p <- p + ylim(ylim)
 
   p
 }

@@ -34,10 +34,9 @@ cut_interval <- function(x, n = NULL, length = NULL, ...) {
 #' @rdname cut_interval
 cut_number <- function(x, n = NULL, ...) {
   brk <- breaks(x, "numbers", n)
-  if (anyDuplicated(brk)) {
+  if (anyDuplicated(brk))
     cli::cli_abort("Insufficient data values to produce {n} bins.")
-  }
-  cut(x, brk, include.lowest = TRUE, ...)
+  cut(x, brk , include.lowest = TRUE, ...)
 }
 
 #' @export
@@ -53,14 +52,7 @@ cut_number <- function(x, n = NULL, ...) {
 #'   `boundary = 0.5`.
 #' @param closed One of `"right"` or `"left"` indicating whether right
 #'   or left edges of bins are included in the bin.
-cut_width <- function(
-  x,
-  width,
-  center = NULL,
-  boundary = NULL,
-  closed = "right",
-  ...
-) {
+cut_width <- function(x, width, center = NULL, boundary = NULL, closed = "right", ...) {
   x <- as.numeric(x)
   width <- as.numeric(width)
 
@@ -73,9 +65,7 @@ cut_width <- function(
 
   # Determine boundary
   if (!is.null(boundary) && !is.null(center)) {
-    cli::cli_abort(
-      "Only one of {.arg boundary} and {.arg center} may be specified."
-    )
+    cli::cli_abort("Only one of {.arg boundary} and {.arg center} may be specified.")
   }
   if (is.null(boundary)) {
     if (is.null(center)) {
@@ -101,10 +91,7 @@ cut_width <- function(
 
 breaks <- function(x, equal, nbins = NULL, binwidth = NULL) {
   equal <- arg_match0(equal, c("numbers", "width"))
-  if (
-    (!is.null(nbins) && !is.null(binwidth)) ||
-      (is.null(nbins) && is.null(binwidth))
-  ) {
+  if ((!is.null(nbins) && !is.null(binwidth)) || (is.null(nbins) && is.null(binwidth))) {
     cli::cli_abort("Specify exactly one of {.arg n} and {.arg width}.")
   }
 
@@ -123,4 +110,6 @@ breaks <- function(x, equal, nbins = NULL, binwidth = NULL) {
     }
     stats::quantile(x, probs, na.rm = TRUE)
   }
+
 }
+

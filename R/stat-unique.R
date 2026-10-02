@@ -3,8 +3,7 @@
 #' @usage NULL
 #' @export
 StatUnique <- ggproto(
-  "StatUnique",
-  Stat,
+  "StatUnique", Stat,
   compute_panel = function(data, scales) {
     unique0(data)
   }

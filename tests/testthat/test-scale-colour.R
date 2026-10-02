@@ -6,9 +6,7 @@ test_that("type argument is checked for proper input", {
     suppressWarnings(scale_fill_continuous(type = geom_point))
   )
   expect_snapshot_error(
-    scale_colour_binned(type = function(...) {
-      scale_colour_binned(aesthetics = c("fill", "point_colour"))
-    })
+    scale_colour_binned(type = function(...) scale_colour_binned(aesthetics = c("fill", "point_colour")))
   )
   expect_snapshot_error(
     scale_fill_binned(type = scale_fill_brewer)
@@ -22,8 +20,9 @@ test_that("type argument is checked for proper input", {
 })
 
 test_that("palette arguments can take alternative input", {
+
   cols <- c("red", "gold", "green", "cyan", "blue", "magenta")
-  hex <- alpha(cols, 1)
+  hex  <- alpha(cols, 1)
 
   sc <- scale_colour_continuous(palette = cols)
   test <- sc$palette(seq(0, 1, length.out = length(cols)))
@@ -48,4 +47,5 @@ test_that("palette arguments can take alternative input", {
   sc <- scale_fill_discrete(palette = cols)
   test <- sc$palette(length(cols))
   expect_equal(alpha(test, 1), hex)
+
 })

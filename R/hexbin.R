@@ -12,15 +12,7 @@ hex_bounds <- function(x, binwidth) {
   )
 }
 
-hexBinSummarise <- function(
-  x,
-  y,
-  z,
-  binwidth,
-  fun = mean,
-  fun.args = list(),
-  drop = TRUE
-) {
+hexBinSummarise <- function(x, y, z, binwidth, fun = mean, fun.args = list(), drop = TRUE) {
   if (length(binwidth) == 1) {
     binwidth <- rep(binwidth, 2)
   }
@@ -34,12 +26,8 @@ hexBinSummarise <- function(
 
   # Call hexbin
   hb <- hexbin::hexbin(
-    x,
-    xbnds = xbnds,
-    xbins = xbins,
-    y,
-    ybnds = ybnds,
-    shape = ybins / xbins,
+    x, xbnds = xbnds, xbins = xbins,
+    y, ybnds = ybnds, shape = ybins / xbins,
     IDs = TRUE
   )
 
@@ -52,8 +40,6 @@ hexBinSummarise <- function(
   out$width <- binwidth[1]
   out$height <- binwidth[2]
 
-  if (drop) {
-    out <- stats::na.omit(out)
-  }
+  if (drop) out <- stats::na.omit(out)
   out
 }

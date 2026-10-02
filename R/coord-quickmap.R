@@ -1,17 +1,10 @@
 #' @inheritParams coord_cartesian
 #' @export
 #' @rdname coord_map
-coord_quickmap <- function(
-  xlim = NULL,
-  ylim = NULL,
-  expand = TRUE,
-  clip = "on"
-) {
+coord_quickmap <- function(xlim = NULL, ylim = NULL, expand = TRUE, clip = "on") {
   check_coord_limits(xlim)
   check_coord_limits(ylim)
-  ggproto(
-    NULL,
-    CoordQuickmap,
+  ggproto(NULL, CoordQuickmap,
     limits = list(x = xlim, y = ylim),
     expand = expand,
     clip = clip
@@ -22,9 +15,7 @@ coord_quickmap <- function(
 #' @format NULL
 #' @usage NULL
 #' @export
-CoordQuickmap <- ggproto(
-  "CoordQuickmap",
-  CoordCartesian,
+CoordQuickmap <- ggproto("CoordQuickmap", CoordCartesian,
 
   aspect = function(ranges) {
     # compute coordinates of center point of map

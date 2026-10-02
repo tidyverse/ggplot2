@@ -3,18 +3,12 @@
 #' @usage NULL
 #' @export
 StatYdensity <- ggproto(
-  "StatYdensity",
-  Stat,
+  "StatYdensity", Stat,
   required_aes = c("x", "y"),
   non_missing_aes = "weight",
 
   setup_params = function(data, params) {
-    params$flipped_aes <- has_flipped_aes(
-      data,
-      params,
-      main_is_orthogonal = TRUE,
-      group_has_equal = TRUE
-    )
+    params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = TRUE, group_has_equal = TRUE)
 
     if (!is.null(params$draw_quantiles)) {
       deprecate_soft0(
@@ -32,21 +26,10 @@ StatYdensity <- ggproto(
   # `draw_quantiles` is here for deprecation repair reasons
   extra_params = c("na.rm", "orientation", "draw_quantiles"),
 
-  compute_group = function(
-    self,
-    data,
-    scales,
-    width = NULL,
-    bw = "nrd0",
-    adjust = 1,
-    kernel = "gaussian",
-    trim = TRUE,
-    na.rm = FALSE,
-    drop = TRUE,
-    flipped_aes = FALSE,
-    bounds = c(-Inf, Inf),
-    quantiles = c(0.25, 0.50, 0.75)
-  ) {
+  compute_group = function(self, data, scales, width = NULL, bw = "nrd0", adjust = 1,
+                           kernel = "gaussian", trim = TRUE, na.rm = FALSE,
+                           drop = TRUE, flipped_aes = FALSE, bounds = c(-Inf, Inf),
+                           quantiles = c(0.25, 0.50, 0.75)) {
     if (nrow(data) < 2) {
       if (isTRUE(drop)) {
         cli::cli_warn(c(
@@ -54,8 +37,7 @@ StatYdensity <- ggproto(
           i = paste0(
             "Set {.code drop = FALSE} to consider such groups for position ",
             "adjustment purposes."
-          )
-        ))
+          )))
         return(data_frame0())
       }
       ans <- data_frame0(x = data$x, n = nrow(data))
@@ -65,14 +47,9 @@ StatYdensity <- ggproto(
     modifier <- if (trim) 0 else 3
     bw <- calc_bw(data$y, bw)
     dens <- compute_density(
-      data$y,
-      data[["weight"]],
-      from = range[1] - modifier * bw,
-      to = range[2] + modifier * bw,
-      bw = bw,
-      adjust = adjust,
-      kernel = kernel,
-      bounds = bounds
+      data$y, data[["weight"]],
+      from = range[1] - modifier * bw, to = range[2] + modifier * bw,
+      bw = bw, adjust = adjust, kernel = kernel, bounds = bounds
     )
 
     dens$y <- dens$x
@@ -115,34 +92,14 @@ StatYdensity <- ggproto(
     dens
   },
 
-  compute_panel = function(
-    self,
-    data,
-    scales,
-    width = NULL,
-    bw = "nrd0",
-    adjust = 1,
-    kernel = "gaussian",
-    trim = TRUE,
-    na.rm = FALSE,
-    scale = "area",
-    flipped_aes = FALSE,
-    drop = TRUE,
-    bounds = c(-Inf, Inf),
-    quantiles = c(0.25, 0.50, 0.75)
-  ) {
+  compute_panel = function(self, data, scales, width = NULL, bw = "nrd0", adjust = 1,
+                           kernel = "gaussian", trim = TRUE, na.rm = FALSE,
+                           scale = "area", flipped_aes = FALSE, drop = TRUE,
+                           bounds = c(-Inf, Inf), quantiles = c(0.25, 0.50, 0.75)) {
     data <- flip_data(data, flipped_aes)
     data <- ggproto_parent(Stat, self)$compute_panel(
-      data,
-      scales,
-      width = width,
-      bw = bw,
-      adjust = adjust,
-      kernel = kernel,
-      trim = trim,
-      na.rm = na.rm,
-      drop = drop,
-      bounds = bounds,
+      data, scales, width = width, bw = bw, adjust = adjust, kernel = kernel,
+      trim = trim, na.rm = na.rm, drop = drop, bounds = bounds,
       quantiles = quantiles
     )
     if (!drop && any(data[["n"]] < 2)) {
@@ -159,10 +116,8 @@ StatYdensity <- ggproto(
       area = data$density / max(data$density, na.rm = TRUE),
       # count: use the original densities scaled to a maximum of 1 (as above)
       #        and then scale them according to the number of observations
-      count = data$density /
-        max(data$density, na.rm = TRUE) *
-        data[["n"]] /
-        max(data[["n"]]),
+      count = data$density / max(data$density, na.rm = TRUE) *
+        data[["n"]] / max(data[["n"]]),
       # width: constant width (density scaled to a maximum of 1)
       width = data$scaled
     )
@@ -202,20 +157,15 @@ StatYdensity <- ggproto(
 #' @export
 #' @rdname geom_violin
 stat_ydensity <- make_constructor(
-  StatYdensity,
-  geom = "violin",
-  position = "dodge",
+  StatYdensity, geom = "violin", position = "dodge",
   checks = exprs(scale <- arg_match0(scale, c("area", "count", "width"))),
-  orientation = NA,
-  omit = "width"
+  orientation = NA, omit = "width"
 )
 
 calc_bw <- function(x, bw) {
   if (is.character(bw)) {
     if (length(x) < 2) {
-      cli::cli_abort(
-        "{.arg x} must contain at least 2 elements to select a bandwidth automatically."
-      )
+      cli::cli_abort("{.arg x} must contain at least 2 elements to select a bandwidth automatically.")
     }
 
     bw <- switch(

@@ -1,4 +1,5 @@
 test_that("stat_manual can take a function", {
+
   centroid <- function(data) data.frame(x = mean(data$x), y = mean(data$y))
 
   layer <- get_layer_data(

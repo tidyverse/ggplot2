@@ -2,9 +2,7 @@
 #' @format NULL
 #' @usage NULL
 #' @export
-StatBoxplot <- ggproto(
-  "StatBoxplot",
-  Stat,
+StatBoxplot <- ggproto("StatBoxplot", Stat,
   required_aes = c("y|x"),
   non_missing_aes = "weight",
   # either the x or y aesthetic will get dropped during
@@ -23,32 +21,20 @@ StatBoxplot <- ggproto(
   },
 
   setup_params = function(self, data, params) {
-    params$flipped_aes <- has_flipped_aes(
-      data,
-      params,
-      main_is_orthogonal = TRUE,
-      group_has_equal = TRUE,
-      main_is_optional = TRUE
-    )
+    params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = TRUE,
+                                          group_has_equal = TRUE,
+                                          main_is_optional = TRUE)
     data <- flip_data(data, params$flipped_aes)
 
     has_x <- !(is.null(data$x) && is.null(params$x))
     has_y <- !(is.null(data$y) && is.null(params$y))
     if (!has_x && !has_y) {
-      cli::cli_abort(
-        "{.fn {snake_class(self)}} requires an {.field x} or {.field y} aesthetic."
-      )
+      cli::cli_abort("{.fn {snake_class(self)}} requires an {.field x} or {.field y} aesthetic.")
     }
 
-    params$width <- params$width %||%
-      (resolution(data$x %||% 0, discrete = TRUE) * 0.75)
+    params$width <- params$width %||% (resolution(data$x %||% 0, discrete = TRUE) * 0.75)
 
-    if (
-      !is_mapped_discrete(data$x) &&
-        is.double(data$x) &&
-        !has_groups(data) &&
-        any(data$x != data$x[1L])
-    ) {
+    if (!is_mapped_discrete(data$x) && is.double(data$x) && !has_groups(data) && any(data$x != data$x[1L])) {
       cli::cli_warn(c(
         "Continuous {.field {flipped_names(params$flipped_aes)$x}} aesthetic",
         "i" = "did you forget {.code aes(group = ...)}?"
@@ -60,14 +46,7 @@ StatBoxplot <- ggproto(
 
   extra_params = c("na.rm", "orientation"),
 
-  compute_group = function(
-    data,
-    scales,
-    width = NULL,
-    na.rm = FALSE,
-    coef = 1.5,
-    flipped_aes = FALSE
-  ) {
+  compute_group = function(data, scales, width = NULL, na.rm = FALSE, coef = 1.5, flipped_aes = FALSE) {
     data <- flip_data(data, flipped_aes)
     qs <- c(0, 0.25, 0.5, 0.75, 1)
 
@@ -80,15 +59,13 @@ StatBoxplot <- ggproto(
     names(stats) <- c("ymin", "lower", "middle", "upper", "ymax")
     iqr <- diff(stats[c(2, 4)])
 
-    outliers <- data$y < (stats[2] - coef * iqr) |
-      data$y > (stats[4] + coef * iqr)
+    outliers <- data$y < (stats[2] - coef * iqr) | data$y > (stats[4] + coef * iqr)
     if (any(outliers)) {
       stats[c(1, 5)] <- range(c(stats[2:4], data$y[!outliers]), na.rm = TRUE)
     }
 
-    if (vec_unique_count(data$x) > 1) {
+    if (vec_unique_count(data$x) > 1)
       width <- diff(range(data$x)) * 0.9
-    }
 
     df <- data_frame0(!!!as.list(stats))
     df$outliers <- list(data$y[outliers])
@@ -130,9 +107,6 @@ StatBoxplot <- ggproto(
 #'   upper hinger + 1.5 * IQR."
 #' )
 stat_boxplot <- make_constructor(
-  StatBoxplot,
-  geom = "boxplot",
-  position = "dodge2",
-  orientation = NA,
-  omit = "width"
+  StatBoxplot, geom = "boxplot", position = "dodge2",
+  orientation = NA, omit = "width"
 )

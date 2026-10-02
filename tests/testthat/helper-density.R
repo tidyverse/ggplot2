@@ -1,3 +1,4 @@
+
 # In R devel from 4.3.0 onwards, the density calculation has slightly changed,
 # which affects visual snapshots that use a density calculation, like
 # `geom_violin()` and `geom_density()`.
@@ -12,8 +13,7 @@
 # density method to use `old.coords = TRUE`.
 if ("old.coords" %in% names(formals(stats::density.default))) {
   registerS3method(
-    "density",
-    "default",
+    "density", "default",
     function(..., old.coords = TRUE) {
       stats::density.default(..., old.coords = old.coords)
     }

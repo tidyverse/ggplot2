@@ -4,30 +4,21 @@
 #' @export
 #' @include stat-.R
 StatCount <- ggproto(
-  "StatCount",
-  Stat,
+  "StatCount", Stat,
   required_aes = "x|y",
 
   default_aes = aes(x = after_stat(count), y = after_stat(count), weight = 1),
 
   setup_params = function(self, data, params) {
-    params$flipped_aes <- has_flipped_aes(
-      data,
-      params,
-      main_is_orthogonal = FALSE
-    )
+    params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE)
 
     has_x <- !(is.null(data$x) && is.null(params$x))
     has_y <- !(is.null(data$y) && is.null(params$y))
     if (!has_x && !has_y) {
-      cli::cli_abort(
-        "{.fn {snake_class(self)}} requires an {.field x} or {.field y} aesthetic."
-      )
+      cli::cli_abort("{.fn {snake_class(self)}} requires an {.field x} or {.field y} aesthetic.")
     }
     if (has_x && has_y) {
-      cli::cli_abort(
-        "{.fn {snake_class(self)}} must only have an {.field x} {.emph or} {.field y} aesthetic."
-      )
+      cli::cli_abort("{.fn {snake_class(self)}} must only have an {.field x} {.emph or} {.field y} aesthetic.")
     }
 
     if (is.null(params$width)) {
@@ -40,13 +31,7 @@ StatCount <- ggproto(
 
   extra_params = c("na.rm", "orientation"),
 
-  compute_group = function(
-    self,
-    data,
-    scales,
-    width = NULL,
-    flipped_aes = FALSE
-  ) {
+  compute_group = function(self, data, scales, width = NULL, flipped_aes = FALSE) {
     data <- flip_data(data, flipped_aes)
     x <- data$x
     weight <- data$weight %||% rep(1, length(x))
@@ -80,9 +65,6 @@ StatCount <- ggproto(
 #' @export
 #' @rdname geom_bar
 stat_count <- make_constructor(
-  StatCount,
-  geom = "bar",
-  position = "stack",
-  orientation = NA,
-  omit = "width"
+  StatCount, geom = "bar", position = "stack",
+  orientation = NA, omit = "width"
 )

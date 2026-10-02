@@ -3,8 +3,7 @@
 #' @usage NULL
 #' @export
 StatManual <- ggproto(
-  "StatManual",
-  Stat,
+  "StatManual", Stat,
 
   setup_params = function(data, params) {
     params[["fun"]] <- allow_lambda(params[["fun"]])

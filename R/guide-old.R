@@ -1,3 +1,4 @@
+
 #' The previous S3 guide system
 #'
 #' The guide system has been overhauled to use the ggproto infrastructure to
@@ -73,8 +74,7 @@ old_guide <- function(guide) {
   )
 
   ggproto(
-    NULL,
-    GuideOld,
+    NULL, GuideOld,
     params = guide,
     available_aes = guide$available_aes %||% NULL
   )
@@ -85,17 +85,10 @@ old_guide <- function(guide) {
 #' @usage NULL
 #' @export
 GuideOld <- ggproto(
-  "GuideOld",
-  Guide,
+  "GuideOld", Guide,
 
-  train = function(
-    self,
-    params,
-    scale,
-    aesthetic = NULL,
-    title = waiver(),
-    direction = NULL
-  ) {
+  train = function(self, params, scale, aesthetic = NULL,
+                   title = waiver(), direction = NULL) {
     params$title <- scale$make_title(params$title, scale$name, title)
     params$direction <- params$direction %||% direction %||% "vertical"
     params <- guide_train(params, scale, aesthetic)
@@ -116,13 +109,12 @@ GuideOld <- ggproto(
 
   draw = function(self, theme, position = NULL, direction = NULL, params) {
     params$direction <- params$direction %||% direction %||% "placeholder"
-    params$title.position <- params$title.position %||%
-      switch(
-        params$direction,
-        vertical = "top",
-        horizontal = "left",
-        NULL
-      )
+    params$title.position <- params$title.position %||% switch(
+      params$direction,
+      vertical = "top", horizontal = "left",
+      NULL
+    )
     guide_gengrob(params, theme)
   }
 )
+

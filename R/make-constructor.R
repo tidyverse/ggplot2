@@ -62,29 +62,17 @@ make_constructor <- function(x, ...) {
 
 #' @export
 #' @rdname make_constructor
-make_constructor.Geom <- function(
-  x,
-  ...,
-  checks = exprs(),
-  omit = character(),
-  env = caller_env()
-) {
+make_constructor.Geom <- function(x, ..., checks = exprs(), omit = character(),
+                                  env = caller_env()) {
+
   # Check that we can independently find the geom
   geom <- gsub("^geom_", "", snake_class(x))
   validate_subclass(geom, "Geom", env = env)
 
   # Split additional arguments into required and extra ones
   args <- enexprs(...)
-  fixed_fmls_names <- c(
-    "mapping",
-    "data",
-    "stat",
-    "position",
-    "...",
-    "na.rm",
-    "show.legend",
-    "inherit.aes"
-  )
+  fixed_fmls_names <- c("mapping", "data", "stat", "position", "...",
+                        "na.rm", "show.legend", "inherit.aes")
   extra_args <- setdiff(names(args), fixed_fmls_names)
   if ("geom" %in% extra_args) {
     cli::cli_abort("{.arg geom} is a reserved argument.")
@@ -92,13 +80,7 @@ make_constructor.Geom <- function(
 
   # Fill in values for parameters from draw functions
   known_params <-
-    unique(c(
-      names(args),
-      fixed_fmls_names,
-      "flipped_aes",
-      x$aesthetics(),
-      omit
-    ))
+    unique(c(names(args), fixed_fmls_names, "flipped_aes", x$aesthetics(), omit))
   missing_params <- setdiff(x$parameters(), known_params)
   if (length(missing_params) > 0) {
     draw_args <- ggproto_formals(x$draw_panel)
@@ -124,13 +106,13 @@ make_constructor.Geom <- function(
 
   # Build function formals
   fmls <- pairlist2(
-    mapping = args$mapping,
-    data = args$data,
-    stat = args$stat %||% "identity",
+    mapping  = args$mapping,
+    data     = args$data,
+    stat     = args$stat %||% "identity",
     position = args$position %||% "identity",
     `...` = missing_arg(),
     !!!args[extra_args],
-    na.rm = args$na.rm %||% FALSE,
+    na.rm    = args$na.rm %||% FALSE,
     show.legend = args$show.legend %||% NA,
     inherit.aes = args$inherit.aes %||% TRUE
   )
@@ -165,42 +147,23 @@ make_constructor.Geom <- function(
 
 #' @export
 #' @rdname make_constructor
-make_constructor.Stat <- function(
-  x,
-  ...,
-  checks = exprs(),
-  omit = character(),
-  env = caller_env()
-) {
+make_constructor.Stat <- function(x, ..., checks = exprs(), omit = character(),
+                                  env = caller_env()) {
   # Check that we can independently find the stat
   stat <- gsub("^stat_", "", snake_class(x))
   validate_subclass(stat, "Stat", env = env)
 
   # Split additional arguments into required and extra ones
   args <- enexprs(...)
-  fixed_fmls_names <- c(
-    "mapping",
-    "data",
-    "geom",
-    "position",
-    "...",
-    "na.rm",
-    "show.legend",
-    "inherit.aes"
-  )
+  fixed_fmls_names <- c("mapping", "data", "geom", "position", "...",
+                        "na.rm", "show.legend", "inherit.aes")
   extra_args <- setdiff(names(args), fixed_fmls_names)
   if ("stat" %in% extra_args) {
     cli::cli_abort("{.arg stat} is a reversed argument.")
   }
 
   known_params <-
-    unique(c(
-      names(args),
-      fixed_fmls_names,
-      "flipped_aes",
-      x$aesthetics(),
-      omit
-    ))
+    unique(c(names(args), fixed_fmls_names, "flipped_aes", x$aesthetics(), omit))
   missing_params <- setdiff(x$parameters(), known_params)
 
   # Fill in missing parameters from the compute methods
@@ -228,11 +191,11 @@ make_constructor.Stat <- function(
 
   # Build function formals
   fmls <- pairlist2(
-    mapping = args$mapping,
-    data = args$data,
-    geom = args$geom %||% cli::cli_abort("{.arg geom} is required."),
+    mapping  = args$mapping,
+    data     = args$data,
+    geom     = args$geom %||% cli::cli_abort("{.arg geom} is required."),
     position = args$position %||% "identity",
-    `...` = missing_arg(),
+    `...`    = missing_arg(),
     !!!args[extra_args],
     na.rm = args$na.rm %||% FALSE,
     show.legend = args$show.legend %||% NA,
@@ -266,3 +229,4 @@ make_constructor.Stat <- function(
 
   new_function(fmls, body, new_env)
 }
+

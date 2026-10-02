@@ -1,4 +1,5 @@
 test_that("stat_connect closes off ends", {
+
   data <- data.frame(x = 1:3, y = c(1, 2, 0))
 
   ld <- get_layer_data(
@@ -10,6 +11,7 @@ test_that("stat_connect closes off ends", {
   j <- c(1L, nrow(data))
   expect_equal(ld$x[i], data$x[j])
   expect_equal(ld$y[i], data$y[j])
+
 })
 
 test_that("stat_connect works with 1-row connections", {
@@ -25,9 +27,10 @@ test_that("stat_connect works with 1-row connections", {
 })
 
 test_that("stat_connect works with ribbons in both orientations", {
+
   data <- data.frame(x = 1:4, ymin = c(1, 2, 0, 1), ymax = c(3, 4, 3, 4))
   expected <- data.frame(
-    x = c(1, 2, 2, 3, 3, 4, 4),
+    x    = c(1, 2, 2, 3, 3, 4, 4),
     ymin = c(1, 1, 2, 2, 0, 0, 1),
     ymax = c(3, 3, 4, 4, 3, 3, 4)
   )
@@ -48,6 +51,7 @@ test_that("stat_connect works with ribbons in both orientations", {
 })
 
 test_that("stat_connect rejects invalid connections", {
+
   test_setup <- function(...) {
     StatConnect$setup_params(NULL, list(...))
   }
@@ -59,6 +63,7 @@ test_that("stat_connect rejects invalid connections", {
   # Accept xy coord matrix
   p <- test_setup(connection = cbind(c(0, 1), c(0, 1)))
   expect_vector(p$connection, size = 2L, ptype = matrix(NA_real_, 0, 2))
+
 
   p <- test_setup(connection = matrix(NA_real_, 0, 2))
   expect_null(p$connection)

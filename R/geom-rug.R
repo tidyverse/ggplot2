@@ -2,21 +2,11 @@
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomRug <- ggproto(
-  "GeomRug",
-  Geom,
+GeomRug <- ggproto("GeomRug", Geom,
   optional_aes = c("x", "y"),
 
-  draw_panel = function(
-    self,
-    data,
-    panel_params,
-    coord,
-    lineend = "butt",
-    sides = "bl",
-    outside = FALSE,
-    length = unit(0.03, "npc")
-  ) {
+  draw_panel = function(self, data, panel_params, coord, lineend = "butt",
+                        sides = "bl", outside = FALSE, length = unit(0.03, "npc")) {
     data <- fix_linewidth(data, snake_class(self))
     check_inherits(length, "unit")
     rugs <- list()
@@ -44,20 +34,16 @@ GeomRug <- ggproto(
     if (!is.null(data$x)) {
       if (grepl("b", sides)) {
         rugs$x_b <- segmentsGrob(
-          x0 = unit(data$x, "native"),
-          x1 = unit(data$x, "native"),
-          y0 = unit(0, "npc"),
-          y1 = rug_length$min,
+          x0 = unit(data$x, "native"), x1 = unit(data$x, "native"),
+          y0 = unit(0, "npc"), y1 = rug_length$min,
           gp = gp
         )
       }
 
       if (grepl("t", sides)) {
         rugs$x_t <- segmentsGrob(
-          x0 = unit(data$x, "native"),
-          x1 = unit(data$x, "native"),
-          y0 = unit(1, "npc"),
-          y1 = rug_length$max,
+          x0 = unit(data$x, "native"), x1 = unit(data$x, "native"),
+          y0 = unit(1, "npc"), y1 = rug_length$max,
           gp = gp
         )
       }
@@ -66,20 +52,16 @@ GeomRug <- ggproto(
     if (!is.null(data$y)) {
       if (grepl("l", sides)) {
         rugs$y_l <- segmentsGrob(
-          y0 = unit(data$y, "native"),
-          y1 = unit(data$y, "native"),
-          x0 = unit(0, "npc"),
-          x1 = rug_length$min,
+          y0 = unit(data$y, "native"), y1 = unit(data$y, "native"),
+          x0 = unit(0, "npc"), x1 = rug_length$min,
           gp = gp
         )
       }
 
       if (grepl("r", sides)) {
         rugs$y_r <- segmentsGrob(
-          y0 = unit(data$y, "native"),
-          y1 = unit(data$y, "native"),
-          x0 = unit(1, "npc"),
-          x1 = rug_length$max,
+          y0 = unit(data$y, "native"), y1 = unit(data$y, "native"),
+          x0 = unit(1, "npc"), x1 = rug_length$max,
           gp = gp
         )
       }
@@ -115,8 +97,7 @@ GeomRug <- ggproto(
         sides_aes,
         function(axis) {
           remove_missing(
-            data,
-            params$na.rm,
+            data, params$na.rm,
             c(axis, self$required_aes, self$non_missing_aes),
             snake_class(self)
           )
@@ -130,8 +111,7 @@ GeomRug <- ggproto(
       )
     } else {
       data <- remove_missing(
-        data,
-        params$na.rm,
+        data, params$na.rm,
         c(self$required_aes, self$non_missing_aes),
         snake_class(self)
       )

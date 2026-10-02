@@ -147,8 +147,7 @@ test_that("padding is only added if axis is present", {
   expect_length(pg$widths, 18)
 
   pg <- ggplotGrob(
-    p +
-      scale_x_continuous(position = "top") +
+    p + scale_x_continuous(position = "top") +
       scale_y_continuous(position = "right")
   )
   expect_length(pg$heights, 20)
@@ -158,8 +157,7 @@ test_that("padding is only added if axis is present", {
 
   # Also add padding with negative ticks and no text (#5251)
   pg <- ggplotGrob(
-    p +
-      scale_x_continuous(labels = NULL, position = "top") +
+    p + scale_x_continuous(labels = NULL, position = "top") +
       theme(axis.ticks.length.x.top = unit(-2, "mm"))
   )
   expect_length(pg$heights, 20)
@@ -180,8 +178,7 @@ test_that("padding is only added if axis is present", {
   expect_equal(as.character(pg$widths[7]), "1cm")
 
   pg <- ggplotGrob(
-    p +
-      scale_x_continuous(position = "top") +
+    p + scale_x_continuous(position = "top") +
       scale_y_continuous(position = "right")
   )
   expect_length(pg$heights, 19)
@@ -213,6 +210,7 @@ test_that("strip clipping can be set from the theme", {
 })
 
 test_that("strip labels can be accessed", {
+
   expect_null(get_strip_labels(ggplot()))
 
   expect_equal(
@@ -228,3 +226,4 @@ test_that("strip labels can be accessed", {
     )
   )
 })
+

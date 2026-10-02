@@ -132,3 +132,4 @@ autoplot.default <- function(object, ...) {
     "i" = "Have you loaded the required package?"
   ))
 }
+
