@@ -131,6 +131,7 @@ and two whiskers), and all "outlying" points individually.</p>
 <span>  <span class="va">...</span>,</span>
 <span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  coef <span class="op">=</span> <span class="fl">1.5</span>,</span>
+<span>  min.group.n <span class="op">=</span> <span class="fl">1L</span>,</span>
 <span>  quantile.type <span class="op">=</span> <span class="fl">7</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
@@ -296,6 +297,13 @@ overriding these connections, see how the <a href="layer_stats.html">stat</a> an
 
 <dt id="arg-coef">coef<a class="anchor" aria-label="anchor" href="#arg-coef"></a></dt>
 <dd><p>Length of the whiskers as multiple of IQR. Defaults to 1.5.</p></dd>
+
+
+<dt id="arg-min-group-n">min.group.n<a class="anchor" aria-label="anchor" href="#arg-min-group-n"></a></dt>
+<dd><p>An integer setting the minimum size of a group to draw
+the box and whiskers. Groups with less observations will be displayed as
+points styled like outliers without box and whiskers. The default (1) draws
+box and whiskers for all groups.</p></dd>
 
 
 <dt id="arg-quantile-type">quantile.type<a class="anchor" aria-label="anchor" href="#arg-quantile-type"></a></dt>

@@ -2,6 +2,11 @@
 
 ## ggplot2 (development version)
 
+- New `stat_boxplot(min.group.n)` argument, which skips drawing the box
+  and whiskers for small groups
+  ([@teunbrand](https://github.com/teunbrand) based on code by
+  [@dicook](https://github.com/dicook),
+  [\#6776](https://github.com/tidyverse/ggplot2/issues/6776))
 - Fixed wording of warning emitted by `remove missing()` when non-finite
   values are removed: it now reads “non-finite values or values outside
   the scale range” instead of “non-finite outside the scale range”

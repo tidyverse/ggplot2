@@ -169,7 +169,7 @@ print(stat_chull)
     #>         position = position, show.legend = show.legend, inherit.aes = inherit.aes,
     #>         params = list2(na.rm = na.rm, ...))
     #> }
-    #> <environment: 0x5652b15045d0>
+    #> <environment: 0x5621be2b35d0>
 
 Once we have a layer function we can try our new stat:
 
@@ -756,6 +756,8 @@ StatBoxplot$setup_params
     #>     }
     #>     params$width <- params$width %||% (resolution(data$x %||%
     #>         0, discrete = TRUE) * 0.75)
+    #>     check_number_whole(params$min.group.n %||% 1L, min = 1, allow_infinite = TRUE,
+    #>         arg = "min.group.n")
     #>     if (!is_mapped_discrete(data$x) && is.double(data$x) && !has_groups(data) &&
     #>         any(data$x != data$x[1L])) {
     #>         cli::cli_warn(c("Continuous {.field {flipped_names(params$flipped_aes)$x}} aesthetic",
@@ -836,8 +838,8 @@ GeomBoxplot$setup_data
     #>             out_min <- vapply(data$outliers, min, numeric(1))
     #>             out_max <- vapply(data$outliers, max, numeric(1))
     #>         })
-    #>         data$ymin_final <- pmin(out_min, data$ymin)
-    #>         data$ymax_final <- pmax(out_max, data$ymax)
+    #>         data$ymin_final <- pmin(out_min, data$ymin, na.rm = TRUE)
+    #>         data$ymax_final <- pmax(out_max, data$ymax, na.rm = TRUE)
     #>     }
     #>     if (is.null(params) || is.null(params$varwidth) || !params$varwidth ||
     #>         is.null(data$relvarwidth)) {

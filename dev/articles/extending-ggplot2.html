@@ -195,7 +195,7 @@
 <span><span class="co">#&gt;         position = position, show.legend = show.legend, inherit.aes = inherit.aes,</span></span>
 <span><span class="co">#&gt;         params = list2(na.rm = na.rm, ...))</span></span>
 <span><span class="co">#&gt; }</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x5652b15045d0&gt;</span></span></code></pre>
+<span><span class="co">#&gt; &lt;environment: 0x5621be2b35d0&gt;</span></span></code></pre>
 </div>
 </div>
 <p>Once we have a layer function we can try our new stat:</p>
@@ -622,6 +622,8 @@
 <span><span class="co">#&gt;     }</span></span>
 <span><span class="co">#&gt;     params$width &lt;- params$width %||% (resolution(data$x %||%</span></span>
 <span><span class="co">#&gt;         0, discrete = TRUE) * 0.75)</span></span>
+<span><span class="co">#&gt;     check_number_whole(params$min.group.n %||% 1L, min = 1, allow_infinite = TRUE,</span></span>
+<span><span class="co">#&gt;         arg = "min.group.n")</span></span>
 <span><span class="co">#&gt;     if (!is_mapped_discrete(data$x) &amp;&amp; is.double(data$x) &amp;&amp; !has_groups(data) &amp;&amp;</span></span>
 <span><span class="co">#&gt;         any(data$x != data$x[1L])) {</span></span>
 <span><span class="co">#&gt;         cli::cli_warn(c("Continuous {.field {flipped_names(params$flipped_aes)$x}} aesthetic",</span></span>
@@ -681,8 +683,8 @@
 <span><span class="co">#&gt;             out_min &lt;- vapply(data$outliers, min, numeric(1))</span></span>
 <span><span class="co">#&gt;             out_max &lt;- vapply(data$outliers, max, numeric(1))</span></span>
 <span><span class="co">#&gt;         })</span></span>
-<span><span class="co">#&gt;         data$ymin_final &lt;- pmin(out_min, data$ymin)</span></span>
-<span><span class="co">#&gt;         data$ymax_final &lt;- pmax(out_max, data$ymax)</span></span>
+<span><span class="co">#&gt;         data$ymin_final &lt;- pmin(out_min, data$ymin, na.rm = TRUE)</span></span>
+<span><span class="co">#&gt;         data$ymax_final &lt;- pmax(out_max, data$ymax, na.rm = TRUE)</span></span>
 <span><span class="co">#&gt;     }</span></span>
 <span><span class="co">#&gt;     if (is.null(params) || is.null(params$varwidth) || !params$varwidth ||</span></span>
 <span><span class="co">#&gt;         is.null(data$relvarwidth)) {</span></span>
