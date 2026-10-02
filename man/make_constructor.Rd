@@ -31,7 +31,7 @@ make_constructor(x, ...)
 constructor. For layers, these are passed on to \code{\link[=layer]{layer(params)}}.}
 
 \item{checks}{A list of calls to be evaluated before construction of the
-object, such as one constructed with \code{\link[rlang:defusing-advanced]{exprs()}}.}
+object, such as one constructed with \code{\link[rlang:exprs]{exprs()}}.}
 
 \item{omit}{A character vector of automatically retrieved argument names
 that should not be converted to user-facing arguments. Useful for

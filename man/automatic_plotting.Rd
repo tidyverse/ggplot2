@@ -103,9 +103,9 @@ plot(my_data)
 }
 
 \seealso{
-Other plotting automation topics: 
-\code{\link{autolayer}()},
-\code{\link{autoplot}()},
-\code{\link{fortify}()}
+Other plotting automation topics:
+\code{\link[=autolayer]{autolayer()}},
+\code{\link[=autoplot]{autoplot()}},
+\code{\link[=fortify]{fortify()}}
 }
 \concept{plotting automation topics}

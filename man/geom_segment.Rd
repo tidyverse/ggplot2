@@ -153,7 +153,7 @@ specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 \description{
 \code{geom_segment()} draws a straight line between points (x, y) and
 (xend, yend). \code{geom_curve()} draws a curved line. See the underlying
-drawing function \code{\link[grid:grid.curve]{grid::curveGrob()}} for the parameters that
+drawing function \code{\link[grid:curveGrob]{grid::curveGrob()}} for the parameters that
 control the curve.
 }
 \details{

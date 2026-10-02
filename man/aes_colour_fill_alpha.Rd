@@ -121,8 +121,8 @@ p + scale_fill_manual(values = alpha(c("blue", "red"), .3))
 can be modified.
 }
 
-Other aesthetics documentation: 
-\code{\link{aes}()},
+Other aesthetics documentation:
+\code{\link[=aes]{aes()}},
 \code{\link{aes_group_order}},
 \code{\link{aes_linetype_size_shape}},
 \code{\link{aes_position}}

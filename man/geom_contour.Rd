@@ -186,7 +186,7 @@ specification, e.g. \code{\link[=annotation_borders]{annotation_borders()}}.}
 
 \item{rule}{Either \code{"evenodd"} or \code{"winding"}. If polygons with holes are
 being drawn (using the \code{subgroup} aesthetic) this argument defines how the
-hole coordinates are interpreted. See the examples in \code{\link[grid:grid.path]{grid::pathGrob()}} for
+hole coordinates are interpreted. See the examples in \code{\link[grid:pathGrob]{grid::pathGrob()}} for
 an explanation.}
 
 \item{geom}{The geometric object to use to display the data for this layer. When using a

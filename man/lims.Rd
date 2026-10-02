@@ -33,7 +33,7 @@ scales. By default, any values outside the limits specified are replaced with
 produce unintended results. For changing x or y axis limits \strong{without}
 dropping data observations, see
 \code{\link[=coord_cartesian]{coord_cartesian(xlim, ylim)}}, or use a full scale with
-\code{\link[scales:oob]{oob = scales::oob_keep}}.
+\code{\link[scales:oob_keep]{oob = scales::oob_keep}}.
 }
 \examples{
 # Zoom into a specified area

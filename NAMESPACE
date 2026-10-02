@@ -770,11 +770,15 @@ import(rlang)
 import(scales)
 import(vctrs)
 importFrom(S7,convert)
-importFrom(grid,arrow)
-importFrom(grid,unit)
+importFrom(grid,
+  arrow,
+  unit
+)
 importFrom(lifecycle,deprecated)
 importFrom(scales,alpha)
 importFrom(stats,setNames)
-importFrom(utils,.DollarNames)
-importFrom(utils,head)
-importFrom(utils,tail)
+importFrom(utils,
+  .DollarNames,
+  head,
+  tail
+)

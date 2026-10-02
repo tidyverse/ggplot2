@@ -49,7 +49,7 @@ omitted.}
 \link[scales:new_transform]{transformation object}
 \item A numeric vector of positions
 \item A function that takes the limits as input and returns breaks
-as output (e.g., a function returned by \code{\link[scales:breaks_extended]{scales::extended_breaks()}}).
+as output (e.g., a function returned by \code{\link[scales:extended_breaks]{scales::extended_breaks()}}).
 Note that for position scales, limits are provided after scale expansion.
 Also accepts rlang \link[rlang:as_function]{lambda} function notation.
 }}
@@ -110,10 +110,10 @@ scales, which always use \code{\link[scales:rescale]{scales::rescale()}}. Also a
 \item Function that handles limits outside of the scale limits
 (out of bounds). Also accepts rlang \link[rlang:as_function]{lambda}
 function notation.
-\item The default (\code{\link[scales:oob]{scales::censor()}}) replaces out of
+\item The default (\code{\link[scales:censor]{scales::censor()}}) replaces out of
 bounds values with \code{NA}.
-\item \code{\link[scales:oob]{scales::squish()}} for squishing out of bounds values into range.
-\item \code{\link[scales:oob]{scales::squish_infinite()}} for squishing infinite values into range.
+\item \code{\link[scales:squish]{scales::squish()}} for squishing out of bounds values into range.
+\item \code{\link[scales:squish_infinite]{scales::squish_infinite()}} for squishing infinite values into range.
 }}
 
 \item{expand}{For position scales, a vector of range expansion constants used to add some

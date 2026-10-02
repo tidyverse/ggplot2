@@ -23,7 +23,7 @@ in \code{\link[grid:unit]{grid::unit()}}s.}
 \item{title}{A character string or expression indicating the title of guide.
 If \code{NULL} (default), no title is shown.}
 
-\item{theme}{A \code{\link[=theme]{theme}} object to style the guide individually or
+\item{theme}{A \code{\link{theme}} object to style the guide individually or
 differently from the plot's theme settings. The \code{theme} argument in the
 guide partially overrides, and is combined with, the plot's theme.
 Arguments that apply to a single legend are respected, most of which have

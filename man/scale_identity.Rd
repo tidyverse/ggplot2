@@ -134,16 +134,16 @@ Other alpha scales: \code{\link[=scale_alpha]{scale_alpha()}}, \code{\link[=scal
 
 Other size scales: \code{\link[=scale_size]{scale_size()}}, \code{\link[=scale_size_manual]{scale_size_manual()}}.
 
-Other colour scales: 
-\code{\link{scale_alpha}()},
-\code{\link{scale_colour_brewer}()},
-\code{\link{scale_colour_continuous}()},
-\code{\link{scale_colour_discrete}()},
-\code{\link{scale_colour_gradient}()},
-\code{\link{scale_colour_grey}()},
-\code{\link{scale_colour_hue}()},
-\code{\link{scale_colour_manual}()},
-\code{\link{scale_colour_steps}()},
-\code{\link{scale_colour_viridis_d}()}
+Other colour scales:
+\code{\link[=scale_alpha]{scale_alpha()}},
+\code{\link[=scale_colour_brewer]{scale_colour_brewer()}},
+\code{\link[=scale_colour_continuous]{scale_colour_continuous()}},
+\code{\link[=scale_colour_discrete]{scale_colour_discrete()}},
+\code{\link[=scale_colour_gradient]{scale_colour_gradient()}},
+\code{\link[=scale_colour_grey]{scale_colour_grey()}},
+\code{\link[=scale_colour_hue]{scale_colour_hue()}},
+\code{\link[=scale_colour_manual]{scale_colour_manual()}},
+\code{\link[=scale_colour_steps]{scale_colour_steps()}},
+\code{\link[=scale_colour_viridis_d]{scale_colour_viridis_d()}}
 }
 \concept{colour scales}

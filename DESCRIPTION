@@ -78,12 +78,12 @@ Enhances:
 VignetteBuilder: 
     quarto
 Config/Needs/website: ggtext, tidyr, forcats, tidyverse/tidytemplate
+Config/roxygen2/version: 8.1.0
 Config/testthat/edition: 3
 Config/usethis/last-upkeep: 2025-04-23
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 Collate:
     'aes-delayed-eval.R'
     'aes-variants.R'
