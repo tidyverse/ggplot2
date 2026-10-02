@@ -97,7 +97,7 @@ compatibility.}
 \item{strip.position}{By default, the labels are displayed on the top of
 the plot. Using \code{strip.position} it is possible to place the labels on
 either of the four sides by setting \code{strip.position = c("top",
-  "bottom", "left", "right")}}
+"bottom", "left", "right")}}
 
 \item{axes}{Determines which axes will be drawn in case of fixed scales.
 When \code{"margins"} (default), axes will be drawn at the exterior margins.

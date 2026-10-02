@@ -3,7 +3,8 @@
 #' @usage NULL
 #' @export
 GeomSpoke <- ggproto(
-  "GeomSpoke", GeomSegment,
+  "GeomSpoke",
+  GeomSegment,
   setup_data = function(data, params) {
     data$radius <- data$radius %||% params$radius
     data$angle <- data$angle %||% params$angle
@@ -12,9 +13,10 @@ GeomSpoke <- ggproto(
       cli::cli_warn("Infinite {.field radius} values are unreliable.")
     }
 
-    transform(data,
-              xend = x + cos(angle) * radius,
-              yend = y + sin(angle) * radius
+    transform(
+      data,
+      xend = x + cos(angle) * radius,
+      yend = y + sin(angle) * radius
     )
   },
   required_aes = c("x", "y", "angle", "radius")

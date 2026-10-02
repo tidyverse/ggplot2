@@ -23,7 +23,12 @@ scales::alpha
 # @param character vector of present aesthetics
 # @param name of object for error message
 # @keyword internal
-check_required_aesthetics <- function(required, present, name, call = caller_env()) {
+check_required_aesthetics <- function(
+  required,
+  present,
+  name,
+  call = caller_env()
+) {
   if (is.null(required)) {
     return()
   }
@@ -50,9 +55,13 @@ check_required_aesthetics <- function(required, present, name, call = caller_env
       vapply(pairs, `[`, character(1), 2)
     )
     pairs <- lapply(pairs, setdiff, present)
-    pairs <- vapply(pairs, function(x) {
-      as_cli("{.and {.field {x}}}")
-    }, character(1))
+    pairs <- vapply(
+      pairs,
+      function(x) {
+        as_cli("{.and {.field {x}}}")
+      },
+      character(1)
+    )
     pairs <- as_cli("{.or {pairs}}")
   }
 
@@ -60,9 +69,13 @@ check_required_aesthetics <- function(required, present, name, call = caller_env
   missing_other <- !is_present & n != 2
   if (any(missing_other)) {
     other <- lapply(required[missing_other], setdiff, present)
-    other <- vapply(other, function(x) {
-      as_cli("{.or {.field {x}}}")
-    }, character(1))
+    other <- vapply(
+      other,
+      function(x) {
+        as_cli("{.or {.field {x}}}")
+      },
+      character(1)
+    )
   }
 
   missing <- c(other, pairs)
@@ -104,19 +117,28 @@ clist <- function(l) {
 #' @param finite If `TRUE`, will also remove non-finite values.
 #' @keywords internal
 #' @export
-remove_missing <- function(df, na.rm = FALSE, vars = names(df), name = "",
-                           finite = FALSE) {
+remove_missing <- function(
+  df,
+  na.rm = FALSE,
+  vars = names(df),
+  name = "",
+  finite = FALSE
+) {
   check_bool(na.rm)
   missing <- detect_missing(df, vars, finite)
 
   if (any(missing)) {
     df <- df[!missing, , drop = FALSE]
     if (!na.rm) {
-      if (name != "") name <- paste(" ({.fn ", name, "})", sep = "")
+      if (name != "") {
+        name <- paste(" ({.fn ", name, "})", sep = "")
+      }
       msg <- paste0(
         "Removed {sum(missing)} row{?s} containing ",
         if (finite) "non-finite" else "missing",
-        " values or values outside the scale range", name, "."
+        " values or values outside the scale range",
+        name,
+        "."
       )
       cli::cli_warn(msg)
     }
@@ -226,15 +248,15 @@ gg_dep <- function(version, msg) {
   # If current major number is greater than last-good major number, or if
   #  current minor number is more than 1 greater than last-good minor number,
   #  give error.
-  if (cv[[1,1]] > v[[1,1]]  ||  cv[[1,2]] > v[[1,2]] + 1) {
+  if (cv[[1, 1]] > v[[1, 1]] || cv[[1, 2]] > v[[1, 2]] + 1) {
     cli::cli_abort(text)
 
-  # If minor number differs by one, give warning
-  } else if (cv[[1,2]] > v[[1,2]]) {
+    # If minor number differs by one, give warning
+  } else if (cv[[1, 2]] > v[[1, 2]]) {
     cli::cli_warn(text)
 
-  # If only subminor number is greater, give message
-  } else if (cv[[1,3]] > v[[1,3]]) {
+    # If only subminor number is greater, give message
+  } else if (cv[[1, 3]] > v[[1, 3]]) {
     cli::cli_inform(text)
   }
 
@@ -248,11 +270,15 @@ to_lower_ascii <- function(x) chartr(upper_ascii, lower_ascii, x)
 to_upper_ascii <- function(x) chartr(lower_ascii, upper_ascii, x)
 
 tolower <- function(x) {
-  cli::cli_abort("Please use {.fn to_lower_ascii}, which works fine in all locales.")
+  cli::cli_abort(
+    "Please use {.fn to_lower_ascii}, which works fine in all locales."
+  )
 }
 
 toupper <- function(x) {
-  cli::cli_abort("Please use {.fn to_upper_ascii}, which works fine in all locales.")
+  cli::cli_abort(
+    "Please use {.fn to_upper_ascii}, which works fine in all locales."
+  )
 }
 
 merge_attrs <- function(new, old) {
@@ -296,10 +322,13 @@ check_nondata_cols <- function(data, mapping, problem = NULL, hint = NULL) {
   # The `inherits(x, "Vector")` check is for checking S4 classes from Bioconductor
   # and whether they can be expected to follow behaviour typical of vectors. See
   # also #3835
-  invalid <- which(!vapply(
-    data, FUN.VALUE = logical(1),
-    function(x) is.null(x) || rlang::is_vector(x) || inherits(x, "Vector")
-  ))
+  invalid <- which(
+    !vapply(
+      data,
+      FUN.VALUE = logical(1),
+      function(x) is.null(x) || rlang::is_vector(x) || inherits(x, "Vector")
+    )
+  )
   invalid <- names(data)[invalid]
 
   if (length(invalid) < 1) {
@@ -495,10 +524,17 @@ switch_orientation <- function(aesthetics) {
 #' @keywords internal
 #' @name bidirection
 #'
-has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
-                            range_is_orthogonal = NA, group_has_equal = FALSE,
-                            ambiguous = FALSE, main_is_continuous = FALSE,
-                            main_is_optional = FALSE, default = FALSE) {
+has_flipped_aes <- function(
+  data,
+  params = list(),
+  main_is_orthogonal = NA,
+  range_is_orthogonal = NA,
+  group_has_equal = FALSE,
+  ambiguous = FALSE,
+  main_is_continuous = FALSE,
+  main_is_optional = FALSE,
+  default = FALSE
+) {
   # Is orientation already encoded in data?
   if (!is.null(data$flipped_aes)) {
     not_na <- which(!is.na(data$flipped_aes))
@@ -552,15 +588,27 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
   # Does each group have a single x or y value
   if (group_has_equal) {
     if (has_x) {
-      if (length(x) == 1) return(FALSE)
-      x_groups <- vapply(split(data$x, data$group), vec_unique_count, integer(1))
+      if (length(x) == 1) {
+        return(FALSE)
+      }
+      x_groups <- vapply(
+        split(data$x, data$group),
+        vec_unique_count,
+        integer(1)
+      )
       if (all(x_groups == 1)) {
         return(FALSE)
       }
     }
     if (has_y) {
-      if (length(y) == 1) return(TRUE)
-      y_groups <- vapply(split(data$y, data$group), vec_unique_count, integer(1))
+      if (length(y) == 1) {
+        return(TRUE)
+      }
+      y_groups <- vapply(
+        split(data$y, data$group),
+        vec_unique_count,
+        integer(1)
+      )
       if (all(y_groups == 1)) {
         return(TRUE)
       }
@@ -593,7 +641,9 @@ flipped_names <- function(flip = FALSE) {
 }
 
 split_with_index <- function(x, f, n = max(f)) {
-  if (n == 1) return(list(x))
+  if (n == 1) {
+    return(list(x))
+  }
   f <- as.integer(f)
   attributes(f) <- list(levels = as.character(seq_len(n)), class = "factor")
   unname(split(x, f))
@@ -604,8 +654,6 @@ is_bang <- function(x) {
 }
 
 # Puts all columns with 'AsIs' type in a '.ignore' column.
-
-
 
 #' Ignoring and exposing data
 #'
@@ -714,7 +762,13 @@ with_ordered_restart <- function(expr, .call) {
         return(zap())
       }
 
-      msg <- paste0("Combining variables of class <", class_x, "> and <", class_y, ">")
+      msg <- paste0(
+        "Combining variables of class <",
+        class_x,
+        "> and <",
+        class_y,
+        ">"
+      )
       desc <- paste0(
         "Please ensure your variables are compatible before plotting (location: ",
         format_error_call(.call),
@@ -772,8 +826,8 @@ replace_null <- function(obj, ..., env = caller_env()) {
   # Collect dots without evaluating
   dots <- enexprs(...)
   # Select arguments that are null in `obj`
-  nms  <- names(dots)
-  nms  <- nms[vapply(obj[nms], is.null, logical(1))]
+  nms <- names(dots)
+  nms <- nms[vapply(obj[nms], is.null, logical(1))]
   # Replace those with the evaluated dots
   obj[nms] <- inject(list(!!!dots[nms]), env = env)
   obj
@@ -786,10 +840,13 @@ attach_plot_env <- function(env) {
 }
 
 as_cli <- function(..., env = caller_env()) {
-  inject(paste(!!!cli::cli_fmt(
-    cli::cli_text(..., .envir = env),
-    strip_newline = TRUE
-  ), collapse = ""))
+  inject(paste(
+    !!!cli::cli_fmt(
+      cli::cli_text(..., .envir = env),
+      strip_newline = TRUE
+    ),
+    collapse = ""
+  ))
 }
 
 as_unordered_factor <- function(x) {
@@ -814,7 +871,8 @@ fallback_palette <- function(scale) {
   if (discrete) {
     pal <- switch(
       aes,
-      colour = , fill = pal_hue(),
+      colour = ,
+      fill = pal_hue(),
       alpha = function(n) seq(0.1, 1, length.out = n),
       linewidth = function(n) seq(2, 6, length.out = n),
       linetype = pal_linetype(),
@@ -826,7 +884,8 @@ fallback_palette <- function(scale) {
   }
   switch(
     aes,
-    colour = , fill = pal_seq_gradient("#132B43", "#56B1F7"),
+    colour = ,
+    fill = pal_seq_gradient("#132B43", "#56B1F7"),
     alpha = pal_rescale(c(0.1, 1)),
     linewidth = pal_rescale(c(1, 6)),
     linetype = pal_binned(pal_linetype()),
@@ -840,7 +899,8 @@ fallback_palette <- function(scale) {
 # functions.
 warn_dots_used <- function(env = caller_env(), call = caller_env()) {
   check_dots_used(
-    env = env, call = call,
+    env = env,
+    call = call,
     # Demote from error to warning
     error = function(cnd) {
       # cli uses \f as newlines, not \n
@@ -853,7 +913,8 @@ warn_dots_used <- function(env = caller_env(), call = caller_env()) {
 # For when you do not want `...` to be used; it should be empty.
 warn_dots_empty <- function(env = caller_env(), call = caller_env()) {
   check_dots_empty(
-    env = env, call = call,
+    env = env,
+    call = call,
     error = function(cnd) {
       msg <- gsub("\n", "\f", cnd_message(cnd))
       cli::cli_warn(msg, call = call)
@@ -890,11 +951,14 @@ prompt_install <- function(pkg, reason = NULL) {
   is_installed(pkg)
 }
 
-compute_data_size <- function(data, size, default = 0.9,
-                              target = "width",
-                              panels = c("across", "by", "ignore"),
-                              ...) {
-
+compute_data_size <- function(
+  data,
+  size,
+  default = 0.9,
+  target = "width",
+  panels = c("across", "by", "ignore"),
+  ...
+) {
   data[[target]] <- data[[target]] %||% size
   if (!is.null(data[[target]])) {
     return(data)
@@ -943,7 +1007,8 @@ vec_ave <- function(x, by, fn, ...) {
   list_unchop(
     lapply(
       vec_chop(x, indices = idx),
-      FUN = fn, ...
+      FUN = fn,
+      ...
     ),
     indices = idx
   )

@@ -30,11 +30,11 @@ borders(...) # Deprecated
 polygons, see \code{\link[maps:map]{maps::map()}} for details.}
 
 \item{...}{
-  Arguments passed on to \code{\link[=geom_polygon]{geom_polygon}}
+  Arguments passed on to \code{\link{geom_polygon}}
   \describe{
     \item{\code{rule}}{Either \code{"evenodd"} or \code{"winding"}. If polygons with holes are
 being drawn (using the \code{subgroup} aesthetic) this argument defines how the
-hole coordinates are interpreted. See the examples in \code{\link[grid:grid.path]{grid::pathGrob()}} for
+hole coordinates are interpreted. See the examples in \code{\link[grid:pathGrob]{grid::pathGrob()}} for
 an explanation.}
     \item{\code{mapping}}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}}. If specified and \code{inherit.aes = TRUE} (the default), it is combined with the default mapping at the top level
 of the plot. You must supply \code{mapping} if there is no plot mapping.}

@@ -50,11 +50,11 @@ ggplot(dsub, aes(x = cut, y = carat, fill = clarity)) +
   geom_point(pch = 21, position = position_jitterdodge())
 }
 \seealso{
-Other position adjustments: 
-\code{\link{position_dodge}()},
-\code{\link{position_identity}()},
-\code{\link{position_jitter}()},
-\code{\link{position_nudge}()},
-\code{\link{position_stack}()}
+Other position adjustments:
+\code{\link[=position_dodge]{position_dodge()}},
+\code{\link[=position_identity]{position_identity()}},
+\code{\link[=position_jitter]{position_jitter()}},
+\code{\link[=position_nudge]{position_nudge()}},
+\code{\link[=position_stack]{position_stack()}}
 }
 \concept{position adjustments}

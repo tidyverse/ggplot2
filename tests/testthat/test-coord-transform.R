@@ -1,5 +1,5 @@
 test_that("warnings are generated when coord_transform() results in new infinite values", {
-  p  <- ggplot(head(diamonds, 20)) +
+  p <- ggplot(head(diamonds, 20)) +
     geom_bar(aes(x = cut)) +
     coord_transform(y = "log10")
 
@@ -113,7 +113,7 @@ test_that("second axes display in coord_transform()", {
       geom_point() +
       scale_y_continuous(
         sec.axis = sec_axis(
-          transform = ~log2(.),
+          transform = ~ log2(.),
           breaks = c(3.5, 4, 4.5, 5, 5.5),
           name = "log2(hwy)"
         ),
@@ -126,10 +126,10 @@ test_that("second axes display in coord_transform()", {
 
 test_that("coord_transform() throws error when limits are badly specified", {
   # throws error when limit is a Scale object instead of vector
-  expect_snapshot_error(ggplot() + coord_transform(xlim=xlim(1,1)))
+  expect_snapshot_error(ggplot() + coord_transform(xlim = xlim(1, 1)))
 
   # throws error when limit's length is different than two
-  expect_snapshot_error(ggplot() + coord_transform(ylim=1:3))
+  expect_snapshot_error(ggplot() + coord_transform(ylim = 1:3))
 })
 
 test_that("transformed coords can be reversed", {
@@ -137,8 +137,11 @@ test_that("transformed coords can be reversed", {
     aes(x = x, y = y) +
     geom_point() +
     coord_transform(
-      x = "log10", y = "log10",
-      xlim = c(0.1, 1000), ylim = c(0.1, 1000), expand = FALSE,
+      x = "log10",
+      y = "log10",
+      xlim = c(0.1, 1000),
+      ylim = c(0.1, 1000),
+      expand = FALSE,
       reverse = "xy"
     ) +
     theme_test() +

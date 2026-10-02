@@ -25,7 +25,7 @@ on_load({
 # isFALSE() and isTRUE() are available on R (>=3.5)
 if (getRversion() < "3.5") {
   isFALSE <- function(x) is.logical(x) && length(x) == 1L && !is.na(x) && !x
-  isTRUE  <- function(x) is.logical(x) && length(x) == 1L && !is.na(x) &&  x
+  isTRUE <- function(x) is.logical(x) && length(x) == 1L && !is.na(x) && x
 }
 
 version_unavailable <- function(...) {
@@ -35,8 +35,8 @@ version_unavailable <- function(...) {
 
 # Ignore mask argument if on lower R version (<= 4.1)
 viewport <- function(..., mask) grid::viewport(...)
-pattern  <- version_unavailable
-as.mask  <- version_unavailable
+pattern <- version_unavailable
+as.mask <- version_unavailable
 # Unavailable prior to R 4.1.0
 linearGradient <- version_unavailable
 

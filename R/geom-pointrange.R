@@ -2,11 +2,17 @@
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomPointrange <- ggproto("GeomPointrange", Geom,
+GeomPointrange <- ggproto(
+  "GeomPointrange",
+  Geom,
   default_aes = aes(
-    colour = from_theme(colour %||% ink), size = from_theme(pointsize / 3),
-    linewidth = from_theme(linewidth), linetype = from_theme(linetype),
-    shape = from_theme(pointshape), fill = from_theme(fill %||% NA), alpha = NA,
+    colour = from_theme(colour %||% ink),
+    size = from_theme(pointsize / 3),
+    linewidth = from_theme(linewidth),
+    linetype = from_theme(linetype),
+    shape = from_theme(pointshape),
+    fill = from_theme(fill %||% NA),
+    alpha = NA,
     stroke = from_theme(borderwidth * 2)
   ),
 
@@ -30,12 +36,26 @@ GeomPointrange <- ggproto("GeomPointrange", Geom,
     GeomLinerange$setup_data(data, params)
   },
 
-  draw_panel = function(data, panel_params, coord, lineend = "butt", fatten = 4,
-                        flipped_aes = FALSE, na.rm = FALSE,
-                        arrow = NULL, arrow.fill = NULL) {
+  draw_panel = function(
+    data,
+    panel_params,
+    coord,
+    lineend = "butt",
+    fatten = 4,
+    flipped_aes = FALSE,
+    na.rm = FALSE,
+    arrow = NULL,
+    arrow.fill = NULL
+  ) {
     line_grob <- GeomLinerange$draw_panel(
-      data, panel_params, coord, lineend = lineend, flipped_aes = flipped_aes,
-      na.rm = na.rm, arrow = arrow, arrow.fill = arrow.fill
+      data,
+      panel_params,
+      coord,
+      lineend = lineend,
+      flipped_aes = flipped_aes,
+      na.rm = na.rm,
+      arrow = arrow,
+      arrow.fill = arrow.fill
     )
 
     skip_point <- is.null(data[[flipped_names(flipped_aes)$y]])
@@ -45,7 +65,9 @@ GeomPointrange <- ggproto("GeomPointrange", Geom,
 
     point_grob <- GeomPoint$draw_panel(
       transform(data, size = size * fatten),
-      panel_params, coord, na.rm = na.rm
+      panel_params,
+      coord,
+      na.rm = na.rm
     )
     grob <- gTree(children = gList(line_grob, point_grob))
     ggname("geom_pointrange", grob)
@@ -56,5 +78,6 @@ GeomPointrange <- ggproto("GeomPointrange", Geom,
 #' @rdname geom_linerange
 geom_pointrange <- make_constructor(
   GeomPointrange,
-  orientation = NA, fatten = deprecated()
+  orientation = NA,
+  fatten = deprecated()
 )

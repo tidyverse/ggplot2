@@ -69,16 +69,15 @@ guide_bins <- function(
   theme = NULL,
 
   # general
-  angle        = NULL,
-  position     = NULL,
-  direction    = NULL,
+  angle = NULL,
+  position = NULL,
+  direction = NULL,
   override.aes = list(),
-  reverse      = FALSE,
-  order        = 0,
-  show.limits  = NULL,
+  reverse = FALSE,
+  order = 0,
+  show.limits = NULL,
   ...
 ) {
-
   theme <- deprecated_guide_args(theme, ...)
   if (!is.null(position)) {
     position <- arg_match0(position, c(.trbl, "inside"))
@@ -111,7 +110,8 @@ guide_bins <- function(
 #' @usage NULL
 #' @export
 GuideBins <- ggproto(
-  "GuideBins", GuideLegend,
+  "GuideBins",
+  GuideLegend,
 
   params = list(
     title = waiver(),
@@ -137,15 +137,19 @@ GuideBins <- ggproto(
   elements = c(
     GuideLegend$elements,
     list(
-      axis_line    = "legend.axis.line",
+      axis_line = "legend.axis.line",
       ticks_length = "legend.ticks.length",
-      ticks        = "legend.ticks"
+      ticks = "legend.ticks"
     )
   ),
 
-  extract_key = function(scale, aesthetic, show.limits = FALSE,
-                         reverse = FALSE, ...) {
-
+  extract_key = function(
+    scale,
+    aesthetic,
+    show.limits = FALSE,
+    reverse = FALSE,
+    ...
+  ) {
     breaks <- scale$get_breaks()
 
     parsed <- parse_binned_breaks(scale, breaks)
@@ -155,16 +159,22 @@ GuideBins <- ggproto(
     limits <- parsed$limits
     breaks <- parsed$breaks
 
-    key <- data_frame(c(scale$map(parsed$bin_at), NA),
-                      .name_repair = ~ aesthetic)
+    key <- data_frame(
+      c(scale$map(parsed$bin_at), NA),
+      .name_repair = ~aesthetic
+    )
     key$.value <- (seq_along(key[[1]]) - 1) / (nrow(key) - 1)
-    key$.show  <- NA
+    key$.show <- NA
 
     labels <- scale$get_labels(breaks)
     labels <- labels[!is.na(breaks)]
     breaks <- breaks[!is.na(breaks)]
 
-    if (is.character(scale$labels) || is.numeric(scale$labels) || is.expression(scale$labels)) {
+    if (
+      is.character(scale$labels) ||
+        is.numeric(scale$labels) ||
+        is.expression(scale$labels)
+    ) {
       limit_lab <- c(NA, NA)
     } else {
       limit_lab <- scale$get_labels(limits)
@@ -186,20 +196,29 @@ GuideBins <- ggproto(
     return(key)
   },
 
-  extract_params = function(scale, params,
-                            title = waiver(), direction = NULL, ...) {
-
+  extract_params = function(
+    scale,
+    params,
+    title = waiver(),
+    direction = NULL,
+    ...
+  ) {
     show.limits <- params$show.limits %||% scale$show.limits %||% FALSE
 
-    if (show.limits &&
-        (is.character(scale$labels) || is.numeric(scale$labels))) {
-      cli::cli_warn(c(paste0(
-        "{.arg show.limits} is ignored when {.arg labels} are given as a ",
-        "character vector."
-      ), "i" = paste0(
-        "Either add the limits to {.arg breaks} or provide a function for ",
-        "{.arg labels}."
-      )))
+    if (
+      show.limits &&
+        (is.character(scale$labels) || is.numeric(scale$labels))
+    ) {
+      cli::cli_warn(c(
+        paste0(
+          "{.arg show.limits} is ignored when {.arg labels} are given as a ",
+          "character vector."
+        ),
+        "i" = paste0(
+          "Either add the limits to {.arg breaks} or provide a function for ",
+          "{.arg labels}."
+        )
+      ))
       show.limits <- FALSE
     }
     show.limits <- rep(show.limits, length.out = 2)
@@ -214,7 +233,10 @@ GuideBins <- ggproto(
       ord <- seq_len(nrow(key))
       key <- vec_slice(key, rev(ord))
       # Put NA back in the trailing position
-      key[params$aesthetic] <- vec_slice(key[params$aesthetic], c(ord[-1], ord[1]))
+      key[params$aesthetic] <- vec_slice(
+        key[params$aesthetic],
+        c(ord[-1], ord[1])
+      )
       key$.value <- 1 - key$.value
     }
 
@@ -233,15 +255,15 @@ GuideBins <- ggproto(
     valid_position <- switch(
       params$direction,
       "horizontal" = c("bottom", "top"),
-      "vertical"   = c("right",  "left")
+      "vertical" = c("right", "left")
     )
 
     # Set defaults
     theme <- replace_null(
       theme,
       legend.text.position = valid_position[1],
-      legend.axis.line     = params$default_axis,
-      legend.ticks         = params$default_ticks
+      legend.axis.line = params$default_axis,
+      legend.ticks = params$default_ticks
     )
 
     # Let the legend guide handle the rest
@@ -269,14 +291,16 @@ GuideBins <- ggproto(
       key$.value <- 1 - key$.value
     }
 
-    list(labels = flip_element_grob(
-      elements$text,
-      label = validate_labels(key$.label),
-      x = unit(key$.value, "npc"),
-      margin_x = FALSE,
-      margin_y = TRUE,
-      flip = params$direction == "vertical"
-    ))
+    list(
+      labels = flip_element_grob(
+        elements$text,
+        label = validate_labels(key$.label),
+        x = unit(key$.value, "npc"),
+        margin_x = FALSE,
+        margin_y = TRUE,
+        flip = params$direction == "vertical"
+      )
+    )
   },
 
   build_ticks = function(key, elements, params, position = params$position) {
@@ -295,8 +319,11 @@ GuideBins <- ggproto(
     decor <- GuideLegend$build_decor(decor, grobs, elements, params)
 
     sizes <- measure_legend_keys(
-      decor, nkeys, dim, byrow = FALSE,
-      default_width  = elements$width_cm,
+      decor,
+      nkeys,
+      dim,
+      byrow = FALSE,
+      default_width = elements$width_cm,
       default_height = elements$height_cm
     )
     sizes <- lapply(sizes, function(x) rep_len(max(x), length(x)))
@@ -305,25 +332,31 @@ GuideBins <- ggproto(
     key_id <- rep(seq_len(nkeys), each = n_layers)
     key_nm <- paste("key", key_id, c("bg", seq_len(n_layers - 1)))
     if (params$direction == "vertical") {
-      top  <- key_id
+      top <- key_id
       left <- 1
     } else {
-      top  <- 1
+      top <- 1
       left <- key_id
     }
     gt <- gtable(
-      widths  = unit(sizes$widths,  "cm"),
+      widths = unit(sizes$widths, "cm"),
       heights = unit(sizes$heights, "cm")
     )
-    gt <- gtable_add_grob(gt, decor, t = top, l = left,
-                          name = key_nm, clip = "off")
+    gt <- gtable_add_grob(
+      gt,
+      decor,
+      t = top,
+      l = left,
+      name = key_nm,
+      clip = "off"
+    )
 
     axis <- switch(
       elements$text_position,
-      "top"    = list(x = c(0, 1), y = c(1, 1)),
+      "top" = list(x = c(0, 1), y = c(1, 1)),
       "bottom" = list(x = c(0, 1), y = c(0, 0)),
-      "left"   = list(x = c(0, 0), y = c(0, 1)),
-      "right"  = list(x = c(1, 1), y = c(0, 1))
+      "left" = list(x = c(0, 0), y = c(0, 1)),
+      "right" = list(x = c(1, 1), y = c(0, 1))
     )
     axis <- element_grob(elements$axis_line, x = axis$x, y = axis$y)
 
@@ -332,7 +365,7 @@ GuideBins <- ggproto(
 
   measure_grobs = function(grobs, params, elements) {
     params$sizes <- list(
-      widths  = sum( width_cm(grobs$decor$keys)),
+      widths = sum(width_cm(grobs$decor$keys)),
       heights = sum(height_cm(grobs$decor$keys))
     )
     GuideLegend$measure_grobs(grobs, params, elements)
@@ -340,7 +373,6 @@ GuideBins <- ggproto(
 )
 
 parse_binned_breaks <- function(scale, breaks = scale$get_breaks()) {
-
   if (is_waiver(scale$labels) || is.function(scale$labels)) {
     breaks <- breaks[!is.na(breaks)]
   }
@@ -360,9 +392,9 @@ parse_binned_breaks <- function(scale, breaks = scale$get_breaks()) {
     bin_at <- all_breaks[-1] - diff(all_breaks) / 2
   } else {
     bin_at <- breaks
-    nums   <- as.character(breaks)
-    nums   <- strsplit(gsub("\\(|\\)|\\[|\\]", "", nums), ",\\s?")
-    nums   <- as.numeric(unlist(nums, FALSE, FALSE))
+    nums <- as.character(breaks)
+    nums <- strsplit(gsub("\\(|\\)|\\[|\\]", "", nums), ",\\s?")
+    nums <- as.numeric(unlist(nums, FALSE, FALSE))
 
     if (anyNA(nums)) {
       cli::cli_abort(c(
@@ -371,8 +403,8 @@ parse_binned_breaks <- function(scale, breaks = scale$get_breaks()) {
       ))
     }
     all_breaks <- nums[c(1, seq_along(breaks) * 2)]
-    limits     <- all_breaks[ c(1, length(all_breaks))]
-    breaks     <- all_breaks[-c(1, length(all_breaks))]
+    limits <- all_breaks[c(1, length(all_breaks))]
+    breaks <- all_breaks[-c(1, length(all_breaks))]
   }
   list(
     breaks = breaks,

@@ -133,7 +133,7 @@ See the \emph{Orientation} section for more detail.}
 \item{bw}{The smoothing bandwidth to be used.
 If numeric, the standard deviation of the smoothing kernel.
 If character, a rule to choose the bandwidth, as listed in
-\code{\link[stats:bandwidth]{stats::bw.nrd()}}. Note that automatic calculation of the bandwidth does
+\code{\link[stats:bw.nrd]{stats::bw.nrd()}}. Note that automatic calculation of the bandwidth does
 not take weights into account.}
 
 \item{adjust}{A multiplicate bandwidth adjustment. This makes it possible

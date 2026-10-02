@@ -72,15 +72,17 @@ NULL
 #'   geom_point() +
 #'   geom_hline(aes(yintercept = wt, colour = wt), mean_wt) +
 #'   facet_wrap(~ cyl)
-geom_abline <- function(mapping = NULL, data = NULL,
-                        stat = "identity",
-                        ...,
-                        slope,
-                        intercept,
-                        na.rm = FALSE,
-                        show.legend = NA,
-                        inherit.aes = FALSE) {
-
+geom_abline <- function(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  ...,
+  slope,
+  intercept,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = FALSE
+) {
   # If nothing set, default to y = x
   if (is.null(mapping) && missing(slope) && missing(intercept)) {
     slope <- 1
@@ -89,17 +91,24 @@ geom_abline <- function(mapping = NULL, data = NULL,
 
   # Act like an annotation
   if (!missing(slope) || !missing(intercept)) {
-
     # Warn if supplied mapping and/or data is going to be overwritten
     if (!is.null(mapping)) {
-      cli::cli_warn("{.fn geom_abline}: Ignoring {.arg mapping} because {.arg slope} and/or {.arg intercept} were provided.")
+      cli::cli_warn(
+        "{.fn geom_abline}: Ignoring {.arg mapping} because {.arg slope} and/or {.arg intercept} were provided."
+      )
     }
     if (!is.null(data)) {
-      cli::cli_warn("{.fn geom_abline}: Ignoring {.arg data} because {.arg slope} and/or {.arg intercept} were provided.")
+      cli::cli_warn(
+        "{.fn geom_abline}: Ignoring {.arg data} because {.arg slope} and/or {.arg intercept} were provided."
+      )
     }
 
-    if (missing(slope)) slope <- 1
-    if (missing(intercept)) intercept <- 0
+    if (missing(slope)) {
+      slope <- 1
+    }
+    if (missing(intercept)) {
+      intercept <- 0
+    }
     n_slopes <- max(length(slope), length(intercept))
 
     data <- data_frame0(
@@ -128,22 +137,29 @@ geom_abline <- function(mapping = NULL, data = NULL,
 
 #' @export
 #' @rdname geom_abline
-geom_hline <- function(mapping = NULL, data = NULL,
-                       stat = "identity", position = "identity",
-                       ...,
-                       yintercept,
-                       na.rm = FALSE,
-                       show.legend = NA,
-                       inherit.aes = FALSE) {
-
+geom_hline <- function(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  yintercept,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = FALSE
+) {
   # Act like an annotation
   if (!missing(yintercept)) {
     # Warn if supplied mapping and/or data is going to be overwritten
     if (!is.null(mapping)) {
-      cli::cli_warn("{.fn geom_hline}: Ignoring {.arg mapping} because {.arg yintercept} was provided.")
+      cli::cli_warn(
+        "{.fn geom_hline}: Ignoring {.arg mapping} because {.arg yintercept} was provided."
+      )
     }
     if (!is.null(data)) {
-      cli::cli_warn("{.fn geom_hline}: Ignoring {.arg data} because {.arg yintercept} was provided.")
+      cli::cli_warn(
+        "{.fn geom_hline}: Ignoring {.arg data} because {.arg yintercept} was provided."
+      )
     }
 
     data <- data_frame0(yintercept = yintercept)
@@ -168,22 +184,29 @@ geom_hline <- function(mapping = NULL, data = NULL,
 
 #' @export
 #' @rdname geom_abline
-geom_vline <- function(mapping = NULL, data = NULL,
-                       stat = "identity", position = "identity",
-                       ...,
-                       xintercept,
-                       na.rm = FALSE,
-                       show.legend = NA,
-                       inherit.aes = FALSE) {
-
+geom_vline <- function(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  xintercept,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = FALSE
+) {
   # Act like an annotation
   if (!missing(xintercept)) {
     # Warn if supplied mapping and/or data is going to be overwritten
     if (!is.null(mapping)) {
-      cli::cli_warn("{.fn geom_vline}: Ignoring {.arg mapping} because {.arg xintercept} was provided.")
+      cli::cli_warn(
+        "{.fn geom_vline}: Ignoring {.arg mapping} because {.arg xintercept} was provided."
+      )
     }
     if (!is.null(data)) {
-      cli::cli_warn("{.fn geom_vline}: Ignoring {.arg data} because {.arg xintercept} was provided.")
+      cli::cli_warn(
+        "{.fn geom_vline}: Ignoring {.arg data} because {.arg xintercept} was provided."
+      )
     }
 
     data <- data_frame0(xintercept = xintercept)
@@ -210,7 +233,9 @@ geom_vline <- function(mapping = NULL, data = NULL,
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomAbline <- ggproto("GeomAbline", Geom,
+GeomAbline <- ggproto(
+  "GeomAbline",
+  Geom,
   draw_panel = function(data, panel_params, coord, lineend = "butt") {
     ranges <- coord$backtransform_range(panel_params)
 
@@ -222,14 +247,24 @@ GeomAbline <- ggproto("GeomAbline", Geom,
     }
 
     # Restrict 'x' to where 'y' is in range: x = (y - intercept) / slope
-    x <- sweep(outer(ranges$y, data$intercept, FUN = "-"), 2, data$slope, FUN = "/")
+    x <- sweep(
+      outer(ranges$y, data$intercept, FUN = "-"),
+      2,
+      data$slope,
+      FUN = "/"
+    )
 
-    data$x    <- pmax(ranges$x[1], pmin(x[1, ], x[2, ]))
+    data$x <- pmax(ranges$x[1], pmin(x[1, ], x[2, ]))
     data$xend <- pmin(ranges$x[2], pmax(x[1, ], x[2, ]))
-    data$y    <- data$x    * data$slope + data$intercept
+    data$y <- data$x * data$slope + data$intercept
     data$yend <- data$xend * data$slope + data$intercept
 
-    GeomSegment$draw_panel(unique0(data), panel_params, coord, lineend = lineend)
+    GeomSegment$draw_panel(
+      unique0(data),
+      panel_params,
+      coord,
+      lineend = lineend
+    )
   },
 
   default_aes = aes(
@@ -252,16 +287,23 @@ GeomAbline <- ggproto("GeomAbline", Geom,
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomHline <- ggproto("GeomHline", Geom,
+GeomHline <- ggproto(
+  "GeomHline",
+  Geom,
   draw_panel = function(data, panel_params, coord, lineend = "butt") {
     ranges <- coord$backtransform_range(panel_params)
 
-    data$x    <- ranges$x[1]
+    data$x <- ranges$x[1]
     data$xend <- ranges$x[2]
-    data$y    <- data$yintercept
+    data$y <- data$yintercept
     data$yend <- data$yintercept
 
-    GeomSegment$draw_panel(unique0(data), panel_params, coord, lineend = lineend)
+    GeomSegment$draw_panel(
+      unique0(data),
+      panel_params,
+      coord,
+      lineend = lineend
+    )
   },
 
   default_aes = aes(
@@ -283,16 +325,23 @@ GeomHline <- ggproto("GeomHline", Geom,
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomVline <- ggproto("GeomVline", Geom,
+GeomVline <- ggproto(
+  "GeomVline",
+  Geom,
   draw_panel = function(data, panel_params, coord, lineend = "butt") {
     ranges <- coord$backtransform_range(panel_params)
 
-    data$x    <- data$xintercept
+    data$x <- data$xintercept
     data$xend <- data$xintercept
-    data$y    <- ranges$y[1]
+    data$y <- ranges$y[1]
     data$yend <- ranges$y[2]
 
-    GeomSegment$draw_panel(unique0(data), panel_params, coord, lineend = lineend)
+    GeomSegment$draw_panel(
+      unique0(data),
+      panel_params,
+      coord,
+      lineend = lineend
+    )
   },
 
   default_aes = aes(
@@ -310,4 +359,3 @@ GeomVline <- ggproto("GeomVline", Geom,
 
   check_constant_aes = FALSE
 )
-

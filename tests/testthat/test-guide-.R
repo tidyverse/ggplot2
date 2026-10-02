@@ -1,16 +1,17 @@
 skip_on_cran()
 
 test_that("plotting does not induce state changes in guides", {
-
   guides <- guides(
-    x      = guide_axis(title = "X-axis"),
+    x = guide_axis(title = "X-axis"),
     colour = guide_colourbar(title = "Colourbar"),
-    shape  = guide_legend(title = "Legend"),
-    size   = guide_bins(title = "Bins")
+    shape = guide_legend(title = "Legend"),
+    size = guide_bins(title = "Bins")
   )
 
-  p <- ggplot(mpg, aes(displ, hwy, colour = cty, shape = factor(cyl),
-                       size = cyl)) +
+  p <- ggplot(
+    mpg,
+    aes(displ, hwy, colour = cty, shape = factor(cyl), size = cyl)
+  ) +
     geom_point() +
     guides
 
@@ -22,7 +23,6 @@ test_that("plotting does not induce state changes in guides", {
 })
 
 test_that("adding guides doesn't change plot state", {
-
   p1 <- ggplot(mtcars, aes(disp, mpg))
 
   expect_length(p1@guides$guides, 0)

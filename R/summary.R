@@ -12,16 +12,26 @@
 #'   geom_point()
 #' summary(p)
 S7::method(summary, class_ggplot) <- function(object, ...) {
-  wrap <- function(x) paste(
-    paste(strwrap(x, exdent = 2), collapse = "\n"),
-    "\n", sep = ""
+  wrap <- function(x) {
+    paste(
+      paste(strwrap(x, exdent = 2), collapse = "\n"),
+      "\n",
+      sep = ""
     )
+  }
 
   if (!is.null(object@data)) {
     output <- paste(
-      "data:     ", paste(names(object@data), collapse = ", "),
-      " [", nrow(object@data), "x", ncol(object@data), "] ",
-      "\n", sep = "")
+      "data:     ",
+      paste(names(object@data), collapse = ", "),
+      " [",
+      nrow(object@data),
+      "x",
+      ncol(object@data),
+      "] ",
+      "\n",
+      sep = ""
+    )
     cat(wrap(output))
   }
   if (length(object@mapping) > 0) {
@@ -35,11 +45,11 @@ S7::method(summary, class_ggplot) <- function(object, ...) {
   vars <- if (length(vars) > 0) paste0("~", vars) else "<empty>"
   cat("faceting: ", paste0(vars, collapse = ", "), "\n")
 
-  if (length(object@layers) > 0)
+  if (length(object@layers) > 0) {
     cat("-----------------------------------\n")
+  }
   invisible(lapply(object@layers, function(x) {
     print(x)
     cat("\n")
   }))
-
 }

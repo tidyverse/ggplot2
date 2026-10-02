@@ -24,11 +24,13 @@ test_that("geom_bar works in both directions", {
 })
 
 test_that("geom_bar default widths considers panels", {
+  dat <- data_frame0(
+    x = c(1:2, 1:2 + 0.1),
+    y = 1,
+    PANEL = factor(rep(1:2, each = 2))
+  )
 
-  dat <- data_frame0(x = c(1:2, 1:2 + 0.1), y = 1,
-                    PANEL = factor(rep(1:2, each = 2)))
-
-  layer  <- geom_bar()
+  layer <- geom_bar()
   params <- layer$geom_params
 
   # Default should be panel-wise resolution (0.9), not data-wise resolution (0.1)
@@ -70,7 +72,7 @@ test_that("geom_col works in both directions", {
 
   x$flipped_aes <- NULL
   y$flipped_aes <- NULL
-  expect_identical(x, flip_data(y, TRUE)[,names(x)])
+  expect_identical(x, flip_data(y, TRUE)[, names(x)])
 })
 
 test_that("geom_col supports alignment of columns", {

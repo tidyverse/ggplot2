@@ -2,7 +2,6 @@
 % Please edit documentation in R/position-.R, R/position-dodge.R,
 %   R/position-dodge2.R, R/position-identity.R, R/position-jitter.R,
 %   R/position-jitterdodge.R, R/position-nudge.R, R/position-stack.R
-\docType{data}
 \name{Position}
 \alias{Position}
 \alias{PositionDodge}
@@ -211,11 +210,10 @@ ggplot(mpg, aes(drv, displ)) +
 \seealso{
 The \href{https://ggplot2-book.org/extensions#new-positions}{new positions section} of the online ggplot2 book.
 
-Other Layer components: 
+Other Layer components:
 \code{\link{Geom}},
 \code{\link{Layer-class}},
 \code{\link{Stat}}
 }
 \concept{Layer components}
-\keyword{datasets}
 \keyword{internal}

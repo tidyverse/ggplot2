@@ -105,24 +105,26 @@ test_that("element_text throws appropriate conditions", {
 })
 
 test_that("Minor tick length supports biparental inheritance", {
-  my_theme <- theme_gray() + theme(
-    axis.ticks.length = unit(1, "cm"),
-    axis.ticks.length.y.left = unit(1, "pt"),
-    axis.minor.ticks.length.y = unit(1, "inch"),
-    axis.minor.ticks.length = rel(0.5)
-  )
-  expect_equal( # Inherits rel(0.5) from minor, 1cm from major
+  my_theme <- theme_gray() +
+    theme(
+      axis.ticks.length = unit(1, "cm"),
+      axis.ticks.length.y.left = unit(1, "pt"),
+      axis.minor.ticks.length.y = unit(1, "inch"),
+      axis.minor.ticks.length = rel(0.5)
+    )
+  expect_equal(
+    # Inherits rel(0.5) from minor, 1cm from major
     calc_element("axis.minor.ticks.length.x.bottom", my_theme),
     unit(1, "cm") * 0.5
   )
-  expect_equal( # Inherits 1inch directly from minor
+  expect_equal(
+    # Inherits 1inch directly from minor
     calc_element("axis.minor.ticks.length.y.left", my_theme),
     unit(1, "inch")
   )
 })
 
 test_that("geom elements are inherited correctly", {
-
   GeomFoo <- ggproto("GeomFoo", GeomPoint)
   GeomBar <- ggproto("GeomBar", GeomFoo)
 
@@ -144,13 +146,12 @@ test_that("geom elements are inherited correctly", {
 # Visual tests ------------------------------------------------------------
 
 test_that("element_polygon() can render a grob", {
-
   t <- theme_gray() + theme(polygon = element_polygon(fill = "orchid"))
   e <- calc_element("polygon", t)
   g <- element_grob(
     e,
-    x  = c(0, 0.5, 1, 0.5, 0.15, 0.85, 0.85, 0.15),
-    y  = c(0.5, 0, 0.5, 1, 0.15, 0.15, 0.85, 0.85),
+    x = c(0, 0.5, 1, 0.5, 0.15, 0.85, 0.85, 0.15),
+    y = c(0.5, 0, 0.5, 1, 0.15, 0.15, 0.85, 0.85),
     id = c(1, 1, 1, 1, 2, 2, 2, 2),
     colour = c("orange", "limegreen")
   )
@@ -160,12 +161,14 @@ test_that("element_polygon() can render a grob", {
 
   expect_doppelganger(
     "polygon elements",
-    function() {grid.newpage(); grid.draw(g)}
+    function() {
+      grid.newpage()
+      grid.draw(g)
+    }
   )
 })
 
 test_that("element_point() can render a grob", {
-
   t <- theme_gray() + theme(point = element_point(shape = 21, size = 5))
   e <- calc_element("point", t)
   g <- element_grob(
@@ -180,7 +183,9 @@ test_that("element_point() can render a grob", {
 
   expect_doppelganger(
     "point elements",
-    function() {grid.newpage(); grid.draw(g)}
+    function() {
+      grid.newpage()
+      grid.draw(g)
+    }
   )
 })
-

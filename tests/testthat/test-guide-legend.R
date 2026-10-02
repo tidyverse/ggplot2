@@ -4,10 +4,16 @@ test_that("show.legend handles named vectors", {
   n_legends <- function(p) {
     g <- ggplotGrob(p)
     gb <- grep("guide-box", g$layout$name)
-    n <- vapply(g$grobs[gb], function(x) {
-      if (is_zero(x)) return(0)
-      length(x$grobs) - 1
-    }, numeric(1))
+    n <- vapply(
+      g$grobs[gb],
+      function(x) {
+        if (is_zero(x)) {
+          return(0)
+        }
+        length(x$grobs) - 1
+      },
+      numeric(1)
+    )
     sum(n)
   }
 
@@ -31,7 +37,6 @@ test_that("show.legend handles named vectors", {
 })
 
 test_that("guide merging for guide_legend() works as expected", {
-
   merge_test_guides <- function(scale1, scale2) {
     scale1$guide <- guide_legend(direction = "vertical")
     scale2$guide <- guide_legend(direction = "vertical")
@@ -67,30 +72,46 @@ test_that("guide merging for guide_legend() works as expected", {
 
   same_labels_different_limits <- merge_test_guides(
     scale_colour_hue(limits = c("a", "b", "c")),
-    scale_linetype_discrete(limits = c("one", "two", "three"), labels = c("a", "b", "c"))
+    scale_linetype_discrete(
+      limits = c("one", "two", "three"),
+      labels = c("a", "b", "c")
+    )
   )
   expect_length(same_labels_different_limits, 1)
   expect_equal(same_labels_different_limits[[1]]$key$.label, c("a", "b", "c"))
 
   same_labels_different_scale <- merge_test_guides(
-    scale_colour_gradient(limits = c(0, 4), breaks = 1:3, labels = c("a", "b", "c")),
+    scale_colour_gradient(
+      limits = c(0, 4),
+      breaks = 1:3,
+      labels = c("a", "b", "c")
+    ),
     scale_linetype_discrete(limits = c("a", "b", "c"))
   )
   expect_length(same_labels_different_scale, 1)
   expect_equal(same_labels_different_scale[[1]]$key$.label, c("a", "b", "c"))
 
   repeated_identical_labels <- merge_test_guides(
-    scale_colour_hue(limits = c("one", "two", "three"), labels = c("label1", "label1", "label2")),
-    scale_linetype_discrete(limits = c("1", "2", "3"), labels = c("label1", "label1", "label2"))
+    scale_colour_hue(
+      limits = c("one", "two", "three"),
+      labels = c("label1", "label1", "label2")
+    ),
+    scale_linetype_discrete(
+      limits = c("1", "2", "3"),
+      labels = c("label1", "label1", "label2")
+    )
   )
   expect_length(repeated_identical_labels, 1)
-  expect_equal(repeated_identical_labels[[1]]$key$.label, c("label1", "label1", "label2"))
+  expect_equal(
+    repeated_identical_labels[[1]]$key$.label,
+    c("label1", "label1", "label2")
+  )
 })
 
 test_that("size = NA doesn't throw rendering errors", {
   df <- data.frame(
     x = c(1, 2),
-    group = c("a","b")
+    group = c("a", "b")
   )
   p <- ggplot(df, aes(x = x, y = 0, colour = group)) +
     geom_point(size = NA, na.rm = TRUE)
@@ -99,7 +120,6 @@ test_that("size = NA doesn't throw rendering errors", {
 })
 
 test_that("legend reverse argument reverses the key", {
-
   scale <- scale_colour_hue()
   scale$train(LETTERS[1:4])
 
@@ -118,7 +138,6 @@ test_that("legend reverse argument reverses the key", {
 })
 
 test_that("legends can be forced to display unrelated geoms", {
-
   df <- data.frame(x = 1:2)
 
   p <- ggplot(df, aes(x, x)) +
@@ -157,7 +176,6 @@ test_that("legend filters out aesthetics not of length 1", {
 })
 
 test_that("deprecated_guide_args works as expected", {
-
   withr::local_options(lifecycle_verbosity = "quiet")
 
   thm <- guide_legend(
@@ -165,7 +183,7 @@ test_that("deprecated_guide_args works as expected", {
     title.hjust = 0.5,
     frame.colour = "black",
     ticks.colour = "black",
-    axis.colour  = "black",
+    axis.colour = "black",
     theme = list()
   )$params$theme
 
@@ -186,7 +204,6 @@ test_that("deprecated_guide_args works as expected", {
 # Visual tests ------------------------------------------------------------
 
 test_that("legend directions are set correctly", {
-
   p <- ggplot(mtcars, aes(disp, mpg, shape = factor(cyl), colour = drat)) +
     geom_point() +
     theme_test()
@@ -216,7 +233,6 @@ test_that("guide_legend uses key.spacing correctly", {
 })
 
 test_that("absent titles don't take up space", {
-
   p <- ggplot(mtcars, aes(disp, mpg, colour = factor(cyl))) +
     geom_point() +
     theme(
@@ -233,7 +249,7 @@ test_that("absent titles don't take up space", {
 
 test_that("size and linewidth affect key size", {
   df <- data_frame(x = c(0, 1, 2))
-  p  <- ggplot(df, aes(x, x)) +
+  p <- ggplot(df, aes(x, x)) +
     geom_point(aes(size = x)) +
     geom_line(aes(linewidth = 2 - x)) +
     scale_size_continuous(range = c(1, 12)) +
@@ -243,7 +259,6 @@ test_that("size and linewidth affect key size", {
 })
 
 test_that("legend.byrow works in `guide_legend()`", {
-
   df <- data.frame(x = 1:6, f = LETTERS[1:6])
 
   p <- ggplot(df, aes(x, x, colour = f)) +
@@ -259,20 +274,23 @@ test_that("legend.byrow works in `guide_legend()`", {
 })
 
 test_that("legend.key.justification works as intended", {
-
   p <- ggplot(mtcars, aes(mpg, disp, colour = factor(cyl), size = drat)) +
     geom_point() +
     scale_size_continuous(
-      range = c(0, 20), breaks = c(3, 4, 5), limits = c(2.5, 5),
+      range = c(0, 20),
+      breaks = c(3, 4, 5),
+      limits = c(2.5, 5),
       guide = guide_legend(order = 1)
     ) +
     scale_colour_discrete(
-      labels = c("one line", "up\nto\nfour\nlines", "up\nto\nfive\nwhole\nlines"),
+      labels = c(
+        "one line",
+        "up\nto\nfour\nlines",
+        "up\nto\nfive\nwhole\nlines"
+      ),
       guide = guide_legend(order = 2)
     ) +
     theme(legend.key.justification = c(1, 0))
 
   expect_doppelganger("legend key justification", p)
-
 })
-

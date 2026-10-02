@@ -1,7 +1,6 @@
 skip_on_cran() # This test suite is long-running (on cran) and is skipped
 
 test_that("old S3 guides can be implemented", {
-
   guide_circle <- function() {
     structure(
       list(available_aes = c("x", "y"), position = "bottom"),

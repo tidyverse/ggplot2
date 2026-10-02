@@ -46,7 +46,8 @@ create_layout <- function(facet, coord, layout = NULL) {
 #' # Use in custom `ggplot_build()` methods
 #' layout <- ggproto(NULL, Layout, facet = facet, coord = coord)
 Layout <- ggproto(
-  "Layout", NULL,
+  "Layout",
+  NULL,
 
   # Fields ----------------------------------------------------------------
 
@@ -111,7 +112,12 @@ Layout <- ggproto(
   #' A list of data frames from the `data` argument with a `PANEL` variable
   #' corresponding to rows in the `layout` field.
   #' Also called for the side effects of populating fields.
-  setup = function(self, data, plot_data = data_frame0(), plot_env = emptyenv()) {
+  setup = function(
+    self,
+    data,
+    plot_data = data_frame0(),
+    plot_env = emptyenv()
+  ) {
     data <- c(list(plot_data), data)
 
     # Setup facets
@@ -129,7 +135,9 @@ Layout <- ggproto(
     check_layout(self$layout)
 
     # Add panel coordinates to the data for each layer
-    lapply(data[-1], self$facet$map_data,
+    lapply(
+      data[-1],
+      self$facet$map_data,
       layout = self$layout,
       params = self$facet_params
     )
@@ -161,12 +169,18 @@ Layout <- ggproto(
     # Initialise scales if needed, and possible.
     layout <- self$layout
     if (is.null(self$panel_scales_x)) {
-      self$panel_scales_x <- self$facet$init_scales(layout, x_scale = x_scale,
-        params = self$facet_params)$x
+      self$panel_scales_x <- self$facet$init_scales(
+        layout,
+        x_scale = x_scale,
+        params = self$facet_params
+      )$x
     }
     if (is.null(self$panel_scales_y)) {
-      self$panel_scales_y <- self$facet$init_scales(layout, y_scale = y_scale,
-        params = self$facet_params)$y
+      self$panel_scales_y <- self$facet$init_scales(
+        layout,
+        y_scale = y_scale,
+        params = self$facet_params
+      )$y
     }
 
     self$facet$train_scales(
@@ -206,23 +220,41 @@ Layout <- ggproto(
 
       # Loop through each variable, mapping across each scale, then joining
       # back together
-      x_vars <- intersect(self$panel_scales_x[[1]]$aesthetics, names(layer_data))
+      x_vars <- intersect(
+        self$panel_scales_x[[1]]$aesthetics,
+        names(layer_data)
+      )
       if (length(x_vars) > 0) {
         match_id <- match(layer_data$PANEL, layout$PANEL)
         names(x_vars) <- x_vars
         SCALE_X <- layout$SCALE_X[match_id]
-        new_x <- scale_apply(layer_data, x_vars, "map", SCALE_X, self$panel_scales_x)
+        new_x <- scale_apply(
+          layer_data,
+          x_vars,
+          "map",
+          SCALE_X,
+          self$panel_scales_x
+        )
         layer_data[, x_vars] <- new_x
       }
 
-      y_vars <- intersect(self$panel_scales_y[[1]]$aesthetics, names(layer_data))
+      y_vars <- intersect(
+        self$panel_scales_y[[1]]$aesthetics,
+        names(layer_data)
+      )
       if (length(y_vars) > 0) {
         if (is.null(match_id)) {
           match_id <- match(layer_data$PANEL, layout$PANEL)
         }
         names(y_vars) <- y_vars
         SCALE_Y <- layout$SCALE_Y[match_id]
-        new_y <- scale_apply(layer_data, y_vars, "map", SCALE_Y, self$panel_scales_y)
+        new_y <- scale_apply(
+          layer_data,
+          y_vars,
+          "map",
+          SCALE_Y,
+          self$panel_scales_y
+        )
         layer_data[, y_vars] <- new_y
       }
 
@@ -248,7 +280,9 @@ Layout <- ggproto(
   #'
   #' Nothing, it is called for the side-effect of resetting scale ranges.
   reset_scales = function(self) {
-    if (!self$facet$shrink) return()
+    if (!self$facet$shrink) {
+      return()
+    }
     lapply(self$panel_scales_x, function(s) s$reset())
     lapply(self$panel_scales_y, function(s) s$reset())
     invisible()
@@ -285,7 +319,8 @@ Layout <- ggproto(
 
     panel_params <- Map(
       self$coord$setup_panel_params,
-      scales_x, scales_y,
+      scales_x,
+      scales_y,
       MoreArgs = list(params = self$coord_params)
     )[order] # `[order]` does the repeating
 
@@ -322,7 +357,6 @@ Layout <- ggproto(
   #' Nothing, it is called for the side effect of augmenting each entry of the
   #' `panel_params` field with position guides.
   setup_panel_guides = function(self, guides, layers) {
-
     # Like in `setup_panel_params`, we only need to setup guides for unique
     # combinations of x/y scales.
     index <- vec_unique_loc(self$layout$COORD)
@@ -364,7 +398,9 @@ Layout <- ggproto(
   #'
   #' A list of data frames with layer data.
   finish_data = function(self, data) {
-    lapply(data, self$facet$finish_data,
+    lapply(
+      data,
+      self$facet$finish_data,
       layout = self$layout,
       x_scales = self$panel_scales_x,
       y_scales = self$panel_scales_y,
@@ -489,14 +525,14 @@ Layout <- ggproto(
       if (!is.null(params)) {
         prim_guide <- params[[1]]$title
         seco_guide <- params[[2]]$title
-        position   <- scale$position
+        position <- scale$position
         if ((params[[1]]$position %||% position) != position) {
           order <- rev(order)
         }
       }
     }
 
-    primary   <- scale$make_title(prim_guide, prim_scale, prim_label)
+    primary <- scale$make_title(prim_guide, prim_scale, prim_label)
     secondary <- scale$make_sec_title(seco_guide, seco_scale, seco_label)
     if (is_derived(secondary)) {
       secondary <- primary
@@ -537,8 +573,9 @@ Layout <- ggproto(
         } else {
           switch(label, x = ".bottom", y = ".right")
         }
-        if (is.null(labels[[label]][[i]]) || is_waiver(labels[[label]][[i]]))
+        if (is.null(labels[[label]][[i]]) || is_waiver(labels[[label]][[i]])) {
           return(zeroGrob())
+        }
 
         element_render(
           theme = theme,
@@ -592,8 +629,12 @@ Layout <- ggproto(
 # data set.  Implement in such a way to minimize copying and hence maximise
 # speed
 scale_apply <- function(data, vars, method, scale_id, scales) {
-  if (length(vars) == 0) return()
-  if (nrow(data) == 0) return()
+  if (length(vars) == 0) {
+    return()
+  }
+  if (nrow(data) == 0) {
+    return()
+  }
 
   if (anyNA(scale_id)) {
     cli::cli_abort("{.arg scale_id} must not contain any {.val NA}.")

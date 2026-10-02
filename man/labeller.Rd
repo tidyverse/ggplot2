@@ -15,7 +15,7 @@ labeller(
 }
 \arguments{
 \item{...}{Named arguments of the form \code{variable =
-  labeller}. Each labeller is passed to \code{\link[=as_labeller]{as_labeller()}}
+labeller}. Each labeller is passed to \code{\link[=as_labeller]{as_labeller()}}
 and can be a lookup table, a function taking and returning
 character vectors, or simply a labeller function.}
 

@@ -19,7 +19,8 @@ NULL
 #' @method fortify SpatialPolygonsDataFrame
 fortify.SpatialPolygonsDataFrame <- function(model, data, region = NULL, ...) {
   deprecate(
-    "3.4.4", escalate = "warn",
+    "3.4.4",
+    escalate = "warn",
     I("`fortify(<SpatialPolygonsDataFrame>)`"),
     details = "Please migrate to sf."
   )
@@ -29,12 +30,13 @@ fortify.SpatialPolygonsDataFrame <- function(model, data, region = NULL, ...) {
   if (is.null(region)) {
     # Suppress duplicated warnings
     withr::with_options(list(lifecycle_verbosity = "quiet"), {
-      coords <- lapply(model@polygons,fortify)
+      coords <- lapply(model@polygons, fortify)
     })
     coords <- vec_rbind0(!!!coords)
     cli::cli_inform("Regions defined for each Polygons")
   } else {
-    deprecate("3.4.4",
+    deprecate(
+      "3.4.4",
       I("`fortify(<SpatialPolygonsDataFrame>, region = ...)`"),
       details = "Please migrate to sf.",
       escalate = "abort"
@@ -48,7 +50,8 @@ fortify.SpatialPolygonsDataFrame <- function(model, data, region = NULL, ...) {
 #' @method fortify SpatialPolygons
 fortify.SpatialPolygons <- function(model, data, ...) {
   deprecate(
-    "3.4.4", escalate = "warn",
+    "3.4.4",
+    escalate = "warn",
     I("`fortify(<SpatialPolygons>)`"),
     details = "Please migrate to sf."
   )
@@ -65,7 +68,8 @@ fortify.SpatialPolygons <- function(model, data, ...) {
 #' @method fortify Polygons
 fortify.Polygons <- function(model, data, ...) {
   deprecate(
-    "3.4.4", escalate = "warn",
+    "3.4.4",
+    escalate = "warn",
     I("`fortify(<Polygons>)`"),
     details = "Please migrate to sf."
   )
@@ -90,7 +94,8 @@ fortify.Polygons <- function(model, data, ...) {
 #' @method fortify Polygon
 fortify.Polygon <- function(model, data, ...) {
   deprecate(
-    "3.4.4", escalate = "warn",
+    "3.4.4",
+    escalate = "warn",
     I("`fortify(<Polygon>)`"),
     details = "Please migrate to sf."
   )
@@ -107,7 +112,8 @@ fortify.Polygon <- function(model, data, ...) {
 #' @method fortify SpatialLinesDataFrame
 fortify.SpatialLinesDataFrame <- function(model, data, ...) {
   deprecate(
-    "3.4.4", escalate = "warn",
+    "3.4.4",
+    escalate = "warn",
     I("`fortify(<SpatialLinesDataFrame>)`"),
     details = "Please migrate to sf."
   )
@@ -121,7 +127,8 @@ fortify.SpatialLinesDataFrame <- function(model, data, ...) {
 #' @method fortify Lines
 fortify.Lines <- function(model, data, ...) {
   deprecate(
-    "3.4.4", escalate = "warn",
+    "3.4.4",
+    escalate = "warn",
     I("`fortify(<Lines>)`"),
     details = "Please migrate to sf."
   )
@@ -146,7 +153,8 @@ fortify.Lines <- function(model, data, ...) {
 #' @method fortify Line
 fortify.Line <- function(model, data, ...) {
   deprecate(
-    "3.4.4", escalate = "warn",
+    "3.4.4",
+    escalate = "warn",
     I("`fortify(<Line>)`"),
     details = "Please migrate to sf."
   )

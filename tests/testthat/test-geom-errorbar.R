@@ -1,5 +1,4 @@
 test_that("geom_errorbarh throws deprecation messages", {
-
   lifecycle::expect_deprecated(geom_errorbarh())
 
   p <- ggplot(

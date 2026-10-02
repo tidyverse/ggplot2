@@ -108,8 +108,8 @@ with these aesthetics.
 can be modified.
 }
 
-Other aesthetics documentation: 
-\code{\link{aes}()},
+Other aesthetics documentation:
+\code{\link[=aes]{aes()}},
 \code{\link{aes_colour_fill_alpha}},
 \code{\link{aes_group_order}},
 \code{\link{aes_position}}

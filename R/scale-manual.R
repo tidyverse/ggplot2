@@ -89,13 +89,25 @@ NULL
 
 #' @rdname scale_manual
 #' @export
-scale_colour_manual <- function(..., values, aesthetics = "colour", breaks = waiver(), na.value = "grey50") {
+scale_colour_manual <- function(
+  ...,
+  values,
+  aesthetics = "colour",
+  breaks = waiver(),
+  na.value = "grey50"
+) {
   manual_scale(aesthetics, values, breaks, ..., na.value = na.value)
 }
 
 #' @rdname scale_manual
 #' @export
-scale_fill_manual <- function(..., values, aesthetics = "fill", breaks = waiver(), na.value = "grey50") {
+scale_fill_manual <- function(
+  ...,
+  values,
+  aesthetics = "fill",
+  breaks = waiver(),
+  na.value = "grey50"
+) {
   manual_scale(aesthetics, values, breaks, ..., na.value = na.value)
 }
 
@@ -103,7 +115,13 @@ scale_fill_manual <- function(..., values, aesthetics = "fill", breaks = waiver(
 #' @seealso
 #' Other size scales: [scale_size()], [scale_size_identity()].
 #' @export
-scale_size_manual <- function(..., values, breaks = waiver(), na.value = NA, aesthetics = "size") {
+scale_size_manual <- function(
+  ...,
+  values,
+  breaks = waiver(),
+  na.value = NA,
+  aesthetics = "size"
+) {
   manual_scale(aesthetics, values, breaks, ..., na.value = na.value)
 }
 
@@ -111,7 +129,13 @@ scale_size_manual <- function(..., values, breaks = waiver(), na.value = NA, aes
 #' @seealso
 #' Other shape scales: [scale_shape()], [scale_shape_identity()].
 #' @export
-scale_shape_manual <- function(..., values, breaks = waiver(), na.value = NA, aesthetics = "shape") {
+scale_shape_manual <- function(
+  ...,
+  values,
+  breaks = waiver(),
+  na.value = NA,
+  aesthetics = "shape"
+) {
   manual_scale(aesthetics, values, breaks, ..., na.value = na.value)
 }
 
@@ -119,7 +143,13 @@ scale_shape_manual <- function(..., values, breaks = waiver(), na.value = NA, ae
 #' @seealso
 #' Other linetype scales: [scale_linetype()], [scale_linetype_identity()].
 #' @export
-scale_linetype_manual <- function(..., values, breaks = waiver(), na.value = NA, aesthetics = "linetype") {
+scale_linetype_manual <- function(
+  ...,
+  values,
+  breaks = waiver(),
+  na.value = NA,
+  aesthetics = "linetype"
+) {
   manual_scale(aesthetics, values, breaks, ..., na.value = na.value)
 }
 
@@ -127,13 +157,25 @@ scale_linetype_manual <- function(..., values, breaks = waiver(), na.value = NA,
 #' @seealso
 #' Other alpha scales: [scale_alpha()], [scale_alpha_identity()].
 #' @export
-scale_linewidth_manual <- function(..., values, breaks = waiver(), na.value = NA, aesthetics = "linewidth") {
+scale_linewidth_manual <- function(
+  ...,
+  values,
+  breaks = waiver(),
+  na.value = NA,
+  aesthetics = "linewidth"
+) {
   manual_scale(aesthetics, values, breaks, ..., na.value = na.value)
 }
 
 #' @rdname scale_manual
 #' @export
-scale_alpha_manual <- function(..., values, breaks = waiver(), na.value = NA, aesthetics = "alpha") {
+scale_alpha_manual <- function(
+  ...,
+  values,
+  breaks = waiver(),
+  na.value = NA,
+  aesthetics = "alpha"
+) {
   manual_scale(aesthetics, values, breaks, ..., na.value = na.value)
 }
 
@@ -143,9 +185,15 @@ scale_discrete_manual <- function(aesthetics, ..., values, breaks = waiver()) {
   manual_scale(aesthetics, values, breaks, ...)
 }
 
-manual_scale <- function(aesthetic, values = NULL, breaks = waiver(),
-                         name = waiver(), ...,
-                         limits = NULL, call = caller_call()) {
+manual_scale <- function(
+  aesthetic,
+  values = NULL,
+  breaks = waiver(),
+  name = waiver(),
+  ...,
+  limits = NULL,
+  call = caller_call()
+) {
   call <- call %||% current_call()
   # check for missing `values` parameter, in lieu of providing
   # a default to all the different scale_*_manual() functions
@@ -171,8 +219,13 @@ manual_scale <- function(aesthetic, values = NULL, breaks = waiver(),
   }
 
   # order values according to breaks
-  if (is.vector(values) && is.null(names(values)) && !is_waiver(breaks) &&
-      !is.null(breaks) && !is.function(breaks)) {
+  if (
+    is.vector(values) &&
+      is.null(names(values)) &&
+      !is_waiver(breaks) &&
+      !is.null(breaks) &&
+      !is.function(breaks)
+  ) {
     if (length(breaks) <= length(values)) {
       names(values) <- breaks
     } else {
@@ -182,13 +235,19 @@ manual_scale <- function(aesthetic, values = NULL, breaks = waiver(),
 
   pal <- function(n) {
     if (n > length(values)) {
-      cli::cli_abort("Insufficient values in manual scale. {n} needed but only {length(values)} provided.")
+      cli::cli_abort(
+        "Insufficient values in manual scale. {n} needed but only {length(values)} provided."
+      )
     }
     values
   }
   discrete_scale(
-    aesthetic, name = name,
-    palette = pal, breaks = breaks, limits = limits,
-    call = call, ...
+    aesthetic,
+    name = name,
+    palette = pal,
+    breaks = breaks,
+    limits = limits,
+    call = call,
+    ...
   )
 }

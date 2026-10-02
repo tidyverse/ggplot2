@@ -3,7 +3,8 @@
 #' @usage NULL
 #' @export
 StatChain <- ggproto(
-  "StatChain", Stat,
+  "StatChain",
+  Stat,
 
   extra_params = c("na.rm", "stats"),
 
@@ -20,7 +21,6 @@ StatChain <- ggproto(
   },
 
   compute_layer = function(self, data, params, layout) {
-
     for (i in seq_along(params$stats)) {
       link <- params$stats[[i]]
       stat <- link$stat
@@ -45,9 +45,10 @@ StatChain <- ggproto(
       }
       new <- eval_aesthetics(substitute_aes(aes), data)
       check_nondata_cols(
-        new, aes,
+        new,
+        aes,
         problem = "Aesthetics must be valid computed stats.",
-        hint    = "Did you specify the `redirect` argument correctly?"
+        hint = "Did you specify the `redirect` argument correctly?"
       )
       data[names(new)] <- new
     }
@@ -55,7 +56,6 @@ StatChain <- ggproto(
     data
   }
 )
-
 
 
 #' Chain statistic computation
@@ -149,8 +149,11 @@ link_stat <- function(stat, ..., after.stat = aes()) {
   }
 
   structure(
-    list(stat = stat, params = params, after_stat = validate_mapping(after.stat)),
+    list(
+      stat = stat,
+      params = params,
+      after_stat = validate_mapping(after.stat)
+    ),
     class = "linked_stat"
   )
 }
-

@@ -6,7 +6,7 @@ test_that("ggplot() throws informative errors", {
 
 test_that("construction have user friendly errors", {
   skip_if(getRversion() < "4.3.0")
-  expect_snapshot_error(+ geom_point())
+  expect_snapshot_error(+geom_point())
   expect_snapshot_error(geom_point() + geom_bar())
   expect_snapshot_error(ggplot() + 1)
   expect_snapshot_error(ggplot() + geom_point)

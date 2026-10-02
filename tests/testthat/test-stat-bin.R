@@ -19,7 +19,7 @@ test_that("stat_bin works in both directions", {
 
   x$flipped_aes <- NULL
   y$flipped_aes <- NULL
-  expect_identical(x, flip_data(y, TRUE)[,names(x)])
+  expect_identical(x, flip_data(y, TRUE)[, names(x)])
 })
 
 test_that("bins specifies the number of bins", {
@@ -34,7 +34,9 @@ test_that("bins specifies the number of bins", {
 
 test_that("binwidth computes widths for function input", {
   df <- data_frame(x = 1:100)
-  out <- get_layer_data(ggplot(df, aes(x)) + geom_histogram(binwidth = function(x) 5))
+  out <- get_layer_data(
+    ggplot(df, aes(x)) + geom_histogram(binwidth = function(x) 5)
+  )
 
   expect_equal(nrow(out), 21)
 })
@@ -55,15 +57,19 @@ test_that("geom_freqpoly defaults to pad = TRUE", {
 
 test_that("can use breaks argument", {
   df <- data_frame(x = 1:3)
-  out <- get_layer_data(ggplot(df, aes(x)) + geom_histogram(breaks = c(0, 1.5, 5)))
+  out <- get_layer_data(
+    ggplot(df, aes(x)) + geom_histogram(breaks = c(0, 1.5, 5))
+  )
 
   expect_equal(out$count, c(1, 2))
 })
 
 test_that("breaks computes bin boundaries for function input", {
   df <- data.frame(x = c(0, 0, 0, 1:3))
-  out <- layer_data(ggplot(df, aes(x)) +
-                      geom_histogram(breaks = function(x) c(0, 0.5, 2.5, 7.5)))
+  out <- layer_data(
+    ggplot(df, aes(x)) +
+      geom_histogram(breaks = function(x) c(0, 0.5, 2.5, 7.5))
+  )
 
   expect_equal(out$count, c(3, 2, 1))
 })
@@ -78,13 +84,13 @@ test_that("fuzzy breaks are used when cutting", {
 })
 
 test_that("breaks are transformed by the scale", {
-   df <- data_frame(x = rep(1:4, 1:4))
-   base <- ggplot(df, aes(x)) + geom_histogram(breaks = c(1, 2.5, 4))
+  df <- data_frame(x = rep(1:4, 1:4))
+  base <- ggplot(df, aes(x)) + geom_histogram(breaks = c(1, 2.5, 4))
 
-   out1 <- get_layer_data(base)
-   out2 <- get_layer_data(base + scale_x_sqrt())
-   expect_equal(out1$xmin, c(1, 2.5))
-   expect_equal(out2$xmin, sqrt(c(1, 2.5)))
+  out1 <- get_layer_data(base)
+  out2 <- get_layer_data(base + scale_x_sqrt())
+  expect_equal(out1$xmin, c(1, 2.5))
+  expect_equal(out2$xmin, sqrt(c(1, 2.5)))
 })
 
 test_that("geom_histogram() can be drawn over a 0-width range (#3043)", {

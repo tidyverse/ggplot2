@@ -109,8 +109,8 @@ ggplot(counts, aes(x = x, y = Freq)) +
 \item See also \code{\link[=annotate]{annotate()}} for placing annotations.
 }
 
-Other aesthetics documentation: 
-\code{\link{aes}()},
+Other aesthetics documentation:
+\code{\link[=aes]{aes()}},
 \code{\link{aes_colour_fill_alpha}},
 \code{\link{aes_group_order}},
 \code{\link{aes_linetype_size_shape}}

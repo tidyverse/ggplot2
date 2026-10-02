@@ -7,7 +7,6 @@
 %   R/stat-qq-line.R, R/stat-qq.R, R/stat-quantilemethods.R, R/stat-smooth.R,
 %   R/stat-sum.R, R/stat-summary-bin.R, R/stat-summary-hex.R, R/stat-summary.R,
 %   R/stat-unique.R, R/stat-ydensity.R
-\docType{data}
 \name{Stat}
 \alias{Stat}
 \alias{StatAlign}
@@ -292,11 +291,10 @@ The \href{https://ggplot2-book.org/extensions#sec-new-stats}{new stats section} 
 Run \code{vignette("extending-ggplot2")}, in particular the "Creating a
 new stat" section.
 
-Other Layer components: 
+Other Layer components:
 \code{\link{Geom}},
 \code{\link{Layer-class}},
 \code{\link{Position}}
 }
 \concept{Layer components}
-\keyword{datasets}
 \keyword{internal}

@@ -1,6 +1,5 @@
 test_that("date(time) scales coerce data types", {
-
-  date     <- as.Date("2024-11-11")
+  date <- as.Date("2024-11-11")
   datetime <- as.POSIXct(date)
 
   sc <- scale_x_datetime()
@@ -10,7 +9,6 @@ test_that("date(time) scales coerce data types", {
   sc <- scale_x_date()
   df <- sc$transform_df(data_frame0(x = datetime))
   expect_equal(df$x, as.numeric(date))
-
 })
 
 base_time <- function(tz = "") {
@@ -25,8 +23,9 @@ df <- data_frame(
 )
 
 test_that("inherits timezone from data", {
-  if (!is.null(attr(df$time1, "tzone")))
-     skip("Local time zone not available")
+  if (!is.null(attr(df$time1, "tzone"))) {
+    skip("Local time zone not available")
+  }
 
   # Local time
   p <- ggplot(df, aes(y = y)) + geom_point(aes(time1))

@@ -34,7 +34,7 @@ mapping used for that aesthetic. If \code{NULL}, the legend title will be
 omitted.}
 
 \item{...}{
-  Arguments passed on to \code{\link[=discrete_scale]{discrete_scale}}
+  Arguments passed on to \code{\link{discrete_scale}}
   \describe{
     \item{\code{breaks}}{One of:
 \itemize{
@@ -183,9 +183,9 @@ The \link[=aes_position]{position documentation}.
 
 The \href{https://ggplot2-book.org/scales-position#sec-discrete-position}{discrete position scales section} of the online ggplot2 book.
 
-Other position scales: 
-\code{\link{scale_x_binned}()},
-\code{\link{scale_x_continuous}()},
-\code{\link{scale_x_date}()}
+Other position scales:
+\code{\link[=scale_x_binned]{scale_x_binned()}},
+\code{\link[=scale_x_continuous]{scale_x_continuous()}},
+\code{\link[=scale_x_date]{scale_x_date()}}
 }
 \concept{position scales}
