@@ -169,7 +169,7 @@ print(stat_chull)
     #>         position = position, show.legend = show.legend, inherit.aes = inherit.aes,
     #>         params = list2(na.rm = na.rm, ...))
     #> }
-    #> <environment: 0x55c3191e8f58>
+    #> <environment: 0x55bb277b7d68>
 
 Once we have a layer function we can try our new stat:
 

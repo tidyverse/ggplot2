@@ -191,6 +191,8 @@ visual appearance. The computed variables can be mapped using
   : Extract coordinates from 'sf' objects
 - [`stat_manual()`](https://ggplot2.tidyverse.org/dev/reference/stat_manual.md)
   : Manually compute transformations
+- [`stat_chain()`](https://ggplot2.tidyverse.org/dev/reference/stat_chain.md)
+  : Chain statistic computation
 - [`stat_connect()`](https://ggplot2.tidyverse.org/dev/reference/stat_connect.md)
   : Connect observations
 - [`after_stat()`](https://ggplot2.tidyverse.org/dev/reference/aes_eval.md)
