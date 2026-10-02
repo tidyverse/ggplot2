@@ -3,6 +3,10 @@
 * `annotate()` now treats the `group` argument as a per-observation aesthetic
   instead of a fixed parameter, fixing an error when combined with facets
   (@taekop, #6862).
+* New `theme(axis.ontop)` theme setting to control axis drawing order relative
+  to panel (@teunbrand, #6456).
+* New `stat_boxplot(min.group.n)` argument, which skips drawing the box and 
+  whiskers for small groups (@teunbrand based on code by @dicook, #6776)
 * Fixed wording of warning emitted by `remove missing()` when non-finite values
   are removed: it now reads "non-finite values or values outside the scale 
   range" instead of "non-finite outside the scale range" (@osorensen).
@@ -35,6 +39,8 @@
 * Added `preserve` argument to `position_jitterdodge()` (@teunbrand, #6584).
 * Fixed `position_jitterdodge(jitter.height, jitter.width)` applying to the 
   wrong dimension with flipped geoms (@teunbrand, #6535).
+* New `geom_smooth(band.colour, band.linetype, band.linewidth)` arguments 
+  control graphical parameters of the (confidence) band (@teunbrand, #6551)
 * New `position_dodge2(group.row)` argument that can be set to `"many"` to
   dodge groups with more than one row, such as in `geom_violin()` 
   (@teunbrand, #6663)
@@ -45,6 +51,10 @@
 * The `dir` argument of `facet_wrap()` is now documented with all
   eight two-letter codes, clarifying their starting corner and fill
   order (@CuiweiG, #6837).
+* Fixed bug in `width` computation when `position_dodge(preserve = "single")` 
+  had duplicated `order` aesthetic values (@teunbrand, #6775).
+* New `stat_chain()` to combine multiple stat computations. It comes with a 
+  `link_stat()` helper to feed parameters and mappings (@teunbrand, #6325).
   
 # ggplot2 4.0.3
 

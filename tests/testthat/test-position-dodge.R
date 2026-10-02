@@ -53,6 +53,18 @@ test_that("position_dodge() can use the order aesthetic", {
   expect_equal(ld$x, major + c(-0.2, 0, 0.2)[minor], ignore_attr = TRUE)
 })
 
+test_that("position_dodge() with duplicated order computes the correct width", {
+  df <- data_frame0(
+    group = c("A", "B", "C"),
+    order = c(1, 2, 2)
+  )
+  ld <- layer_data(
+    ggplot(df, aes("X", 1, group = group, order = order)) +
+      geom_col(position = position_dodge(preserve = "single", width = 1), width = 1)
+  )
+  expect_all_equal(ld$xmax - ld$xmin, 0.5)
+})
+
 test_that("position_dodge warns about missing required aesthetics", {
 
   # Bit of a contrived geom to not have a required 'x' aesthetic

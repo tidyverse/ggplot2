@@ -128,9 +128,10 @@ PositionDodge <- ggproto("PositionDodge", Position,
       n <- NULL
     } else {
       data$xmin <- data$xmin %||% data$x
-      cols <- intersect(colnames(data), c("group", "PANEL", "xmin"))
+      cols <- intersect(colnames(data), c("PANEL", "xmin"))
+      cols <- c(cols, if ("order" %in% names(data)) "order" else "group")
       n <- vec_unique(data[cols])
-      n <- vec_group_id(n[setdiff(cols, "group")])
+      n <- vec_group_id(n[setdiff(cols, c("group", "order"))])
       n <- max(tabulate(n, attr(n, "n")))
     }
 

@@ -15,7 +15,16 @@
 \alias{theme_sub_strip}
 \title{Shortcuts for theme settings}
 \usage{
-theme_sub_axis(..., title, text, ticks, ticks.length, line, minor.ticks.length)
+theme_sub_axis(
+  ...,
+  title,
+  text,
+  ticks,
+  ticks.length,
+  line,
+  minor.ticks.length,
+  ontop
+)
 
 theme_sub_axis_x(
   ...,

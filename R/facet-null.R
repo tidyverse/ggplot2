@@ -62,7 +62,14 @@ FacetNull <- ggproto("FacetNull", Facet,
       axis_v$left, panels[[1]],   axis_v$right,
       zeroGrob(),  axis_h$bottom, zeroGrob()
     ), ncol = 3, byrow = TRUE)
-    z_matrix <- matrix(c(5, 6, 4, 7, 1, 8, 3, 9, 2), ncol = 3, byrow = TRUE)
+
+    if (isTRUE(calc_element("axis.ontop", theme) %||% TRUE)) {
+      z_matrix <- matrix(c(5, 6, 4, 7, 1, 8, 3, 9, 2), ncol = 3, byrow = TRUE)
+    } else {
+      # Panel (index = 5) has higher value than other cells
+      z_matrix <- matrix(c(4, 5, 3, 6, 9, 7, 2, 8, 1), ncol = 3, byrow = TRUE)
+    }
+
     grob_widths <- unit.c(grobWidth(axis_v$left), unit(1, "null"), grobWidth(axis_v$right))
     grob_heights <- unit.c(grobHeight(axis_h$top), unit(abs(aspect_ratio), "null"), grobHeight(axis_h$bottom))
     grob_names <- c("spacer", "axis-l", "spacer", "axis-t", "panel", "axis-b", "spacer", "axis-r", "spacer")
