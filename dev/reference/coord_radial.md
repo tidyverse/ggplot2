@@ -2,7 +2,7 @@
 
 The polar coordinate system is most commonly used for pie charts, which
 are a stacked bar chart in polar coordinates.  
-**\[superseded\]**: `coord_polar()` has been in favour of
+**\[superseded\]**: `coord_polar()` has been superseded in favour of
 `coord_radial()`.
 
 ## Usage
