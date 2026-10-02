@@ -18,6 +18,7 @@
 #' @param geom name of geom to use for annotation
 #' @param x,y,xmin,ymin,xmax,ymax,xend,yend positioning aesthetics -
 #'   you must specify at least one of these.
+#' @param group group aesthetic
 #' @inheritParams shared_layer_parameters
 #' @seealso
 #' The `r link_book("custom annotations section", "annotations#sec-custom-annotations")`
@@ -40,8 +41,8 @@
 #' p + annotate("text", x = 4, y = 25,
 #'   label = "paste(italic(R) ^ 2, \" = .75\")", parse = TRUE)
 annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
-                     ymin = NULL, ymax = NULL, xend = NULL, yend = NULL, ...,
-                     na.rm = FALSE) {
+                     ymin = NULL, ymax = NULL, xend = NULL, yend = NULL,
+                     group = NULL, ..., na.rm = FALSE) {
 
   if (is_string(geom, c("abline", "hline", "vline"))) {
     cli::cli_warn(c(
@@ -50,19 +51,12 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
     ))
   }
 
-  params <- list2(...)
-  # `group` should be treated as a per-observation aesthetic, not a fixed
-  # parameter, so that it lines up correctly when facets duplicate the data
-  # (#6862).
-  group <- params$group
-  params$group <- NULL
-
   position <- compact(list(
     x = x, xmin = xmin, xmax = xmax, xend = xend,
     y = y, ymin = ymin, ymax = ymax, yend = yend,
     group = group
   ))
-  aesthetics <- c(position, params)
+  aesthetics <- c(position, list(...))
 
   # Check that all aesthetic have compatible lengths
   lengths <- lengths(aesthetics)
@@ -82,7 +76,7 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
 
   data <- data_frame0(!!!position, .size = n)
 
-  params <- list2(na.rm = na.rm, !!!params)
+  params <- list2(na.rm = na.rm, ...)
   reject <- intersect(names(params), c("position", "stat"))
   if (length(reject) > 0) {
     cli::cli_warn(

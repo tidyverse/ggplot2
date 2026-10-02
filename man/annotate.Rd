@@ -14,6 +14,7 @@ annotate(
   ymax = NULL,
   xend = NULL,
   yend = NULL,
+  group = NULL,
   ...,
   na.rm = FALSE
 )
@@ -23,6 +24,8 @@ annotate(
 
 \item{x, y, xmin, ymin, xmax, ymax, xend, yend}{positioning aesthetics -
 you must specify at least one of these.}
+
+\item{group}{group aesthetic}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}'s \code{params} argument. These arguments
 broadly fall into one of 4 categories below. Notably, further arguments to
