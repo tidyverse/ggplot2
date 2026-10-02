@@ -203,6 +203,9 @@ round_any <- function(x, accuracy, f = round) {
 #' @keywords internal
 #' @noRd
 dapply <- function(df, by, fun, ..., drop = TRUE) {
+  if (empty(df)) {
+    return(data_frame0())
+  }
   grouping_cols <- .subset(df, by)
   fallback_order <- unique0(c(by, names(df)))
   apply_fun <- function(x) {
@@ -216,14 +219,6 @@ dapply <- function(df, by, fun, ..., drop = TRUE) {
     res <- modify_list(unclass(vars), unclass(res))
     res <- res[intersect(c(fallback_order, names(res)), names(res))]
     data_frame0(!!!res)
-  }
-
-  # With zero rows there are zero groups, so `fun()` must not be called at all.
-  # Splitting would also fail: `id()` returns `integer(0)`, and
-  # `split_with_index()` then does `seq_len(max(integer(0)))`, i.e.
-  # `seq_len(-Inf)`.
-  if (nrow(df) == 0L) {
-    return(data_frame0())
   }
 
   # Shortcut when only one group
