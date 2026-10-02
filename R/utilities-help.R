@@ -190,7 +190,8 @@ roxy_tag_parse.roxy_tag_aesthetics <- function(x) {
     x,
     "an argument name",
     "a description",
-    required = FALSE
+    required = FALSE,
+    multiline = "always"
   )
 
   class <- get0(x$val$name, parent.frame())
