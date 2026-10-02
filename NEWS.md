@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* New `theme(axis.ontop)` theme setting to control axis drawing order relative
+  to panel (@teunbrand, #6456).
 * New `stat_boxplot(min.group.n)` argument, which skips drawing the box and 
   whiskers for small groups (@teunbrand based on code by @dicook, #6776)
 * Fixed wording of warning emitted by `remove missing()` when non-finite values
