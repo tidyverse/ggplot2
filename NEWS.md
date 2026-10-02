@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `annotate()` now treats the `group` argument as a per-observation aesthetic
+  instead of a fixed parameter, fixing an error when combined with facets
+  (@taekop, #6862).
 * New `theme(axis.ontop)` theme setting to control axis drawing order relative
   to panel (@teunbrand, #6456).
 * New `stat_boxplot(min.group.n)` argument, which skips drawing the box and 
