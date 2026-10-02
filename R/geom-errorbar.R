@@ -77,8 +77,8 @@ GeomErrorbar <- ggproto(
 GeomErrorbarh <- ggproto(
   "GeomErrorbarh", GeomErrorbar,
   setup_params = function(data, params) {
-    deprecate_soft0(
-      "4.0.0", "geom_errobarh()", "geom_errorbar(orientation = \"y\")",
+    deprecate(
+      "4.0.0", "geom_errorbarh()", "geom_errorbar(orientation = \"y\")",
       id = "no-more-errorbarh"
     )
     GeomLinerange$setup_params(data, params)
@@ -95,8 +95,8 @@ geom_errorbar <- make_constructor(GeomErrorbar, orientation = NA)
 #' `geom_errorbarh()` is `r lifecycle::badge("deprecated")`. Use
 #' `geom_errorbar(orientation = "y")` instead.
 geom_errorbarh <- function(..., orientation = "y") {
-  deprecate_soft0(
-    "4.0.0", "geom_errobarh()", "geom_errorbar(orientation = \"y\")",
+  deprecate(
+    "4.0.0", "geom_errorbarh()", "geom_errorbar(orientation = \"y\")",
     id = "no-more-errorbarh"
   )
   geom_errorbar(..., orientation = orientation)

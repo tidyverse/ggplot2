@@ -19,7 +19,8 @@ having a resolution of 1?}
 The resolution is the smallest non-zero distance between adjacent
 values.  If there is only one unique value, then the resolution is defined
 to be one. If x is an integer vector, then it is assumed to represent a
-discrete variable, and the resolution is 1.
+discrete variable, and the resolution is 1. If the differences are all smaller
+than the tolerance, set resolution to 1.
 }
 \examples{
 resolution(1:10)

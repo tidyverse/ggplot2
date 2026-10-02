@@ -734,7 +734,7 @@ deprecated_guide_args <- function(
   fun_name <- call_name(.call)
   replacement <- paste0(fun_name, "(theme)")
   for (arg_name in names(vals)) {
-    deprecate_soft0(
+    deprecate(
       when = "3.5.0",
       what = paste0(fun_name, "(", arg_name, ")"),
       with = replacement

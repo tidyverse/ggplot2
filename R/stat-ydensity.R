@@ -4,14 +4,14 @@
 #' @export
 StatYdensity <- ggproto(
   "StatYdensity", Stat,
-  required_aes = c("x", "y"),
+  required_aes = "x|y",
   non_missing_aes = "weight",
 
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = TRUE, group_has_equal = TRUE)
 
     if (!is.null(params$draw_quantiles)) {
-      deprecate_soft0(
+      deprecate(
         "4.0.0",
         what = "stat_ydensity(draw_quantiles)",
         with = "stat_ydensity(quantiles)"
@@ -21,6 +21,12 @@ StatYdensity <- ggproto(
     }
 
     params
+  },
+
+  setup_data = function(self, data, params) {
+    var <- flipped_names(flip = params$flipped_aes)$x
+    data[[var]] <- data[[var]] %||% 0
+    data
   },
 
   # `draw_quantiles` is here for deprecation repair reasons
@@ -69,11 +75,11 @@ StatYdensity <- ggproto(
         cli::cli_abort("{.arg quantiles} must be between 0 and 1.")
       }
       if (!is.null(data[["weight"]]) || !all(data[["weight"]] == 1)) {
-        cli::cli_warn(
-          "{.arg quantiles} for weighted data is not implemented."
-        )
+        check_installed("Hmisc", "for weighted quantiles.")
+        quants <- Hmisc::wtd.quantile(data$y, weights = data$weight, probs = quantiles)
+      } else {
+        quants <- stats::quantile(data$y, probs = quantiles)
       }
-      quants <- quantile(data$y, probs = quantiles)
       quants <- data_frame0(
         y = unname(quants),
         quantile = quantiles
@@ -82,7 +88,7 @@ StatYdensity <- ggproto(
       # Interpolate other metrics
       for (var in setdiff(names(dens), names(quants))) {
         quants[[var]] <-
-          approx(dens$y, dens[[var]], xout = quants$y, ties = "ordered")$y
+          stats::approx(dens$y, dens[[var]], xout = quants$y, ties = "ordered")$y
       }
 
       dens <- vec_slice(dens, !dens$y %in% quants$y)
@@ -128,8 +134,7 @@ StatYdensity <- ggproto(
   dropped_aes = "weight"
 )
 
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @inheritParams stat_density
 #' @param scale if "area" (default), all violins have the same area (before trimming
 #'   the tails). If "count", areas are scaled proportionally to the number of
@@ -137,8 +142,11 @@ StatYdensity <- ggproto(
 #' @param drop Whether to discard groups with less than 2 observations
 #'   (`TRUE`, default) or keep such groups for position adjustment purposes
 #'   (`FALSE`).
-#' @param quantiles If not `NULL` (default), compute the `quantile` variable
-#'   and draw horizontal lines at the given quantiles in `geom_violin()`.
+#' @param quantiles A numeric vector with numbers between 0 and 1 to indicate
+#'   quantiles marked by the `quantile` computed variable. The default marks the
+#'   25th, 50th and 75th percentiles. The display of quantiles can be
+#'   turned on by setting `quantile.linetype` to non-blank when using
+#'   `geom = "violin"` (default).
 #'
 #' @eval rd_computed_vars(
 #'   density = "Density estimate.",

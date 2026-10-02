@@ -183,7 +183,7 @@ ScalesList <- ggproto("ScalesList", NULL,
       elem <- compact(lapply(elem, calc_element, theme))[1][[1]]
 
       # Resolve the palette itself
-      elem <- elem %||% fallback_palette(scale)
+      elem <- elem %||% fetch_ggproto(scale, "fallback_palette")
       palette <- switch(
         type,
         discrete   = as_discrete_pal(elem),

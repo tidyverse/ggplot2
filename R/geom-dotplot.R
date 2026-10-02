@@ -29,8 +29,7 @@
 #'   ndensity = 'density, scaled to maximum of 1, if method is `"histodot"`.'
 #' )
 #'
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @param stackdir which direction to stack the dots. "up" (default),
 #'   "down", "center", "centerwhole" (centered, but with dots aligned)
 #' @param stackratio how close to stack the dots. Default is 1, where dots

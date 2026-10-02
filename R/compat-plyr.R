@@ -203,6 +203,9 @@ round_any <- function(x, accuracy, f = round) {
 #' @keywords internal
 #' @noRd
 dapply <- function(df, by, fun, ..., drop = TRUE) {
+  if (empty(df)) {
+    return(data_frame0())
+  }
   grouping_cols <- .subset(df, by)
   fallback_order <- unique0(c(by, names(df)))
   apply_fun <- function(x) {

@@ -13,8 +13,7 @@ StatUnique <- ggproto(
 #'
 #' @aesthetics StatUnique
 #' @export
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @examples
 #' ggplot(mtcars, aes(vs, am)) +
 #'   geom_point(alpha = 0.1)

@@ -30,8 +30,7 @@ GeomFunction <- ggproto("GeomFunction", GeomPath,
 #'
 #' @aesthetics GeomFunction
 #' @param data Ignored by `stat_function()`, do not use.
-#' @inheritParams layer
-#' @inheritParams geom_path
+#' @inheritParams shared_layer_parameters
 #' @examples
 #'
 #' # geom_function() is useful for overlaying functions

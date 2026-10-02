@@ -23,6 +23,7 @@ GeomText <- ggproto(
     if (parse) {
       lab <- parse_safe(as.character(lab))
     }
+    lab <- validate_labels(lab)
 
     data <- coord$transform(data, panel_params)
 
@@ -89,8 +90,7 @@ GeomText <- ggproto(
 #' `"outward"`. Inward always aligns text towards the center, and outward
 #' aligns it away from the center.
 #'
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @param parse If `TRUE`, the labels will be parsed into expressions and
 #'   displayed as described in `?plotmath`.
 #' @param check_overlap If `TRUE`, text that overlaps previous text in the

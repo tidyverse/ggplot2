@@ -23,7 +23,56 @@ scale_fill_discrete(
 )
 }
 \arguments{
-\item{...}{Additional parameters passed on to the scale type,}
+\item{...}{
+  Arguments passed on to \code{\link[=discrete_scale]{discrete_scale}}
+  \describe{
+    \item{\code{breaks}}{One of:
+\itemize{
+\item \code{NULL} for no breaks
+\item \code{waiver()} for the default breaks (the scale limits)
+\item A character vector of breaks
+\item A function that takes the limits as input and returns breaks
+as output. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
+}}
+    \item{\code{limits}}{One of:
+\itemize{
+\item \code{NULL} to use the default scale values
+\item A character vector that defines possible values of the scale and their
+order
+\item A function that accepts the existing (automatic) values and returns
+new ones. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
+}}
+    \item{\code{drop}}{Should unused factor levels be omitted from the scale?
+The default, \code{TRUE}, uses the levels that appear in the data;
+\code{FALSE} includes the levels in the factor. Please note that to display
+every level in a legend, the layer should use \code{show.legend = TRUE}.}
+    \item{\code{na.translate}}{Unlike continuous scales, discrete scales can easily show
+missing values, and do so by default. If you want to remove missing values
+from a discrete scale, specify \code{na.translate = FALSE}.}
+    \item{\code{name}}{The name of the scale. Used as the axis or legend title. If
+\code{waiver()}, the default, the name of the scale is taken from the first
+mapping used for that aesthetic. If \code{NULL}, the legend title will be
+omitted.}
+    \item{\code{labels}}{One of the options below. Please note that when \code{labels} is a
+vector, it is highly recommended to also set the \code{breaks} argument as a
+vector to protect against unintended mismatches.
+\itemize{
+\item \code{NULL} for no labels
+\item \code{waiver()} for the default labels computed by the
+transformation object
+\item A character vector giving labels (must be same length as \code{breaks})
+\item An expression vector (must be the same length as breaks). See ?plotmath for details.
+\item A function that takes the breaks as input and returns labels
+as output. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
+}}
+    \item{\code{guide}}{A function used to create a guide or its name. See
+\code{\link[=guides]{guides()}} for more information.}
+    \item{\code{call}}{The \code{call} used to construct the scale for reporting messages.}
+    \item{\code{super}}{The super class to use for the constructed scale}
+  }}
 
 \item{palette}{One of the following:
 \itemize{
@@ -42,20 +91,7 @@ where \code{NA} is always placed at the far right.}
 
 \item{type}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}} The preferred mechanism for
 setting the default palette is by using the theme. For example:
-\code{theme(palette.colour.discrete = "Okabe-Ito")}. One of the following:
-\itemize{
-\item A character vector of color codes. The codes are used for a 'manual' color
-scale as long as the number of codes exceeds the number of data levels
-(if there are more levels than codes, \code{\link[=scale_colour_hue]{scale_colour_hue()}}/\code{\link[=scale_fill_hue]{scale_fill_hue()}}
-are used to construct the default scale). If this is a named vector, then the color values
-will be matched to levels based on the names of the vectors. Data values that
-don't match will be set as \code{na.value}.
-\item A list of character vectors of color codes. The minimum length vector that exceeds the
-number of data levels is chosen for the color scaling. This is useful if you
-want to change the color palette based on the number of levels.
-\item A function that returns a discrete colour/fill scale (e.g., \code{\link[=scale_fill_hue]{scale_fill_hue()}},
-\code{\link[=scale_fill_brewer]{scale_fill_brewer()}}, etc).
-}}
+\code{theme(palette.colour.discrete = "Okabe-Ito")}.}
 }
 \description{
 The default discrete colour scale.
@@ -81,5 +117,20 @@ p
 theme_set(old)
 }
 \seealso{
+\code{\link[=discrete_scale]{discrete_scale()}}
+
 The \href{https://ggplot2-book.org/scales-colour#sec-colour-discrete}{discrete colour scales section} of the online ggplot2 book.
+
+Other colour scales: 
+\code{\link{scale_alpha}()},
+\code{\link{scale_colour_brewer}()},
+\code{\link{scale_colour_continuous}()},
+\code{\link{scale_colour_gradient}()},
+\code{\link{scale_colour_grey}()},
+\code{\link{scale_colour_hue}()},
+\code{\link{scale_colour_identity}()},
+\code{\link{scale_colour_manual}()},
+\code{\link{scale_colour_steps}()},
+\code{\link{scale_colour_viridis_d}()}
 }
+\concept{colour scales}

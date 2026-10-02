@@ -4,7 +4,7 @@
 #' It visualises five summary statistics (the median, two hinges
 #' and two whiskers), and all "outlying" points individually.
 #'
-#' @eval rd_orientation()
+#' @inheritSection shared_layer_parameters Orientation
 #'
 #' @section Summary statistics:
 #' The lower and upper hinges correspond to the first and third quartiles
@@ -29,8 +29,7 @@
 #' @seealso [geom_quantile()] for continuous `x`,
 #'   [geom_violin()] for a richer display of the distribution, and
 #'   [geom_jitter()] for a useful technique for small data.
-#' @inheritParams layer
-#' @inheritParams geom_bar
+#' @inheritParams shared_layer_parameters
 #' @param geom,stat Use to override the default connection between
 #'   `geom_boxplot()` and `stat_boxplot()`. For more information about
 #'   overriding these connections, see how the [stat][layer_stats] and
@@ -240,7 +239,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
 
   setup_params = function(data, params) {
     if ("fatten" %in% names(params)) {
-      deprecate_soft0(
+      deprecate(
         "4.0.0", "geom_boxplot(fatten)",
         "geom_boxplot(median.linewidth)"
       )
@@ -270,8 +269,8 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
         out_max <- vapply(data$outliers, max, numeric(1))
       })
 
-      data$ymin_final  <- pmin(out_min, data$ymin)
-      data$ymax_final  <- pmax(out_max, data$ymax)
+      data$ymin_final  <- pmin(out_min, data$ymin, na.rm = TRUE)
+      data$ymax_final  <- pmax(out_max, data$ymax, na.rm = TRUE)
     }
 
     # if `varwidth` not requested or not available, don't use it
@@ -305,6 +304,27 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
       ))
     }
 
+    outliers_grob <- NULL
+    if (!is.null(data$outliers) && length(data$outliers[[1]]) >= 1) {
+      outliers <- data_frame0(
+        y = data$outliers[[1]],
+        x = data$x[1],
+        colour = outlier_gp$colour %||% data$colour[1],
+        fill   = outlier_gp$fill   %||% data$fill[1],
+        shape  = outlier_gp$shape  %||% data$shape[1]  %||% 19,
+        size   = outlier_gp$size   %||% data$size[1]   %||% 1.5,
+        stroke = outlier_gp$stroke %||% data$stroke[1] %||% 0.5,
+        fill = NA,
+        alpha = outlier_gp$alpha %||% data$alpha[1],
+        .size = length(data$outliers[[1]])
+      )
+      outliers <- flip_data(outliers, flipped_aes)
+      outliers_grob <- GeomPoint$draw_panel(outliers, panel_params, coord)
+      if (is.na(data$middle[1]) && is.na(data$lower[1]) && is.na(data$upper[1])) {
+        return(ggname("geom_boxplot", grobTree(outliers_grob)))
+      }
+    }
+
     common <- list(fill = fill_alpha(data$fill, data$alpha), group = data$group)
 
     whiskers <- data_frame0(
@@ -331,26 +351,6 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
       notchwidth = notchwidth
     )
     box <- flip_data(box, flipped_aes)
-
-    if (!is.null(data$outliers) && length(data$outliers[[1]]) >= 1) {
-      outliers <- data_frame0(
-        y = data$outliers[[1]],
-        x = data$x[1],
-        colour = outlier_gp$colour %||% data$colour[1],
-        fill   = outlier_gp$fill   %||% data$fill[1],
-        shape  = outlier_gp$shape  %||% data$shape[1]  %||% 19,
-        size   = outlier_gp$size   %||% data$size[1]   %||% 1.5,
-        stroke = outlier_gp$stroke %||% data$stroke[1] %||% 0.5,
-        fill = NA,
-        alpha = outlier_gp$alpha %||% data$alpha[1],
-        .size = length(data$outliers[[1]])
-      )
-      outliers <- flip_data(outliers, flipped_aes)
-
-      outliers_grob <- GeomPoint$draw_panel(outliers, panel_params, coord)
-    } else {
-      outliers_grob <- NULL
-    }
 
     if (staplewidth != 0) {
       staples <- data_frame0(

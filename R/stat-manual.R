@@ -21,8 +21,7 @@ StatManual <- ggproto(
 #' `stat_manual()` takes a function that computes a data transformation for
 #' every group.
 #'
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @param fun Function that takes a data frame as input and returns a data
 #'   frame or data frame-like list as output. The default (`identity()`) returns
 #'   the data unchanged.

@@ -100,5 +100,5 @@ test_that("stat_density_2d handles faulty bandwidth", {
   p <- ggplot(faithful, aes(eruptions, waiting)) +
     stat_density_2d(h = c(0, NA))
   expect_snapshot_warning(b <- ggplot_build(p))
-  expect_s3_class(layer_grob(b)[[1]], "zeroGrob")
+  expect_s3_class(layer_grob(b)[[1]], "null")
 })

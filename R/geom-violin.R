@@ -5,11 +5,10 @@
 #' violin plot is a mirrored density plot displayed in the same way as a
 #' boxplot.
 #'
-#' @eval rd_orientation()
+#' @inheritSection shared_layer_parameters Orientation
 #'
 #' @aesthetics GeomViolin
-#' @inheritParams layer
-#' @inheritParams geom_bar
+#' @inheritParams shared_layer_parameters
 #' @param trim If `TRUE` (default), trim the tails of the violins
 #'   to the range of the data. If `FALSE`, don't trim the tails.
 #' @param geom,stat Use to override the default connection between
@@ -24,7 +23,8 @@
 #' @param quantile.colour,quantile.color,quantile.linewidth,quantile.linetype
 #'   Default aesthetics for the quantile lines. Set to `NULL` to inherit from
 #'   the data's aesthetics. By default, quantile lines are hidden and can be
-#'   turned on by changing `quantile.linetype`.
+#'   turned on by changing `quantile.linetype`. Quantile values can be set
+#'   using the `quantiles` argument when using `stat = "ydensity"` (default).
 #' @param draw_quantiles `r lifecycle::badge("deprecated")` Previous
 #'   specification of drawing quantiles.
 #' @export
@@ -65,7 +65,10 @@
 #' p + geom_violin(fill = "grey80", colour = "#3366FF")
 #'
 #' # Show quartiles
-#' p + geom_violin(draw_quantiles = c(0.25, 0.5, 0.75))
+#' p + geom_violin(quantile.linetype = 'solid')
+#'
+#' # Show different quantiles
+#' p + geom_violin(quantiles = c(0.2, 0.4, 0.6, 0.8), quantile.linetype = 'solid')
 #'
 #' # Scales vs. coordinate transforms -------
 #' if (require("ggplot2movies")) {
@@ -110,10 +113,11 @@ geom_violin <- function(mapping = NULL, data = NULL,
 
   extra <- list()
   if (lifecycle::is_present(draw_quantiles)) {
-    deprecate_soft0(
+    deprecate(
       "4.0.0",
       what = "geom_violin(draw_quantiles)",
-      with = "geom_violin(quantiles.linetype)"
+      with = "geom_violin(quantile.linetype)",
+      details = "Quantiles can be changed with `geom_violin(quantiles)`"
     )
     check_numeric(draw_quantiles)
 

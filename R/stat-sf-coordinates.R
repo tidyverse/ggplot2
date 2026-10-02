@@ -48,8 +48,7 @@
 #' }
 #'
 #' @export
-#' @inheritParams stat_identity
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @param fun.geometry
 #'   A function that takes a `sfc` object and returns a `sfc_POINT` with the
 #'   same length as the input. If `NULL`, `function(x) sf::st_point_on_surface(sf::st_zm(x))`

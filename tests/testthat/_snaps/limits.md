@@ -1,6 +1,6 @@
 # limits() throw meaningful errors
 
-    All arguments must be named.
+    Arguments must have names.
 
 ---
 

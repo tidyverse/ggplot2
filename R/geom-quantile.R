@@ -18,9 +18,7 @@ GeomQuantile <- ggproto(
 #'
 #' @aesthetics GeomQuantile
 #' @export
-#' @inheritParams layer
-#' @inheritParams geom_point
-#' @inheritParams geom_path
+#' @inheritParams shared_layer_parameters
 #' @param method.args List of additional arguments passed on to the modelling
 #'   function defined by `method`.
 #' @param geom,stat Use to override the default connection between

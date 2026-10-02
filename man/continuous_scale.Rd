@@ -22,6 +22,7 @@ continuous_scale(
   trans = deprecated(),
   guide = "legend",
   position = "left",
+  fallback.palette = NULL,
   call = caller_call(),
   super = ScaleContinuous
 )
@@ -145,6 +146,9 @@ You can create your own transformation with \code{\link[scales:new_transform]{sc
 
 \item{position}{For position scales, The position of the axis.
 \code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
+
+\item{fallback.palette}{Function to use when \code{palette = NULL} and the
+palette is not represented in the theme.}
 
 \item{call}{The \code{call} used to construct the scale for reporting messages.}
 

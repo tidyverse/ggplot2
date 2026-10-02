@@ -3,7 +3,8 @@
 #' The resolution is the smallest non-zero distance between adjacent
 #' values.  If there is only one unique value, then the resolution is defined
 #' to be one. If x is an integer vector, then it is assumed to represent a
-#' discrete variable, and the resolution is 1.
+#' discrete variable, and the resolution is 1. If the differences are all smaller
+#' than the tolerance, set resolution to 1.
 #'
 #' @param x numeric vector
 #' @param zero should a zero value be automatically included in the
@@ -33,5 +34,11 @@ resolution <- function(x, zero = TRUE, discrete = FALSE) {
   }
   d <- diff(sort(x))
   tolerance <- sqrt(.Machine$double.eps)
+
+  if(all(d < tolerance)){
+    return(1)
+  }
+
   min(d[d > tolerance])
+
 }

@@ -105,7 +105,12 @@ bin_breaks_bins <- function(x_range, bins = 30, center = NULL,
   } else {
     width <- (x_range[2] - x_range[1]) / (bins - 1)
     if (is.null(center)) {
-      boundary <- boundary %||% x_range[1] - width / 2
+      boundary <- boundary %||% (x_range[1] - width / 2)
+    }
+    # If `x_range` coincides with boundary we should
+    # use exact `bins` instead of `bins - 1` to prevent misalignments.
+    if (!is.null(boundary) && any(x_range %% width == boundary %% width)) {
+      width <- (x_range[2] - x_range[1]) / bins
     }
   }
 
@@ -241,12 +246,6 @@ bin_loc <- function(x, id) {
 }
 
 fix_bin_params <- function(params, fun, version) {
-
-  if (package_version(version) < "3.0.0") {
-    deprecate <- lifecycle::deprecate_stop
-  } else {
-    deprecate <- deprecate_warn0
-  }
 
   if (!is.null(params$origin)) {
     args <- paste0(fun, c("(origin)", "(boundary)"))
