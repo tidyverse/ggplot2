@@ -104,6 +104,10 @@
   starting corner and fill order
   ([@CuiweiG](https://github.com/CuiweiG),
   [\#6837](https://github.com/tidyverse/ggplot2/issues/6837)).
+- Fixed bug in `width` computation when
+  `position_dodge(preserve = "single")` had duplicated `order` aesthetic
+  values ([@teunbrand](https://github.com/teunbrand),
+  [\#6775](https://github.com/tidyverse/ggplot2/issues/6775)).
 
 ## ggplot2 4.0.3
 
