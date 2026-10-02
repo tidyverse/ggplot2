@@ -17,6 +17,10 @@ geom_smooth(
   method = NULL,
   formula = NULL,
   se = TRUE,
+  band.colour = NULL,
+  band.color = NULL,
+  band.linetype = "blank",
+  band.linewidth = NULL,
   na.rm = FALSE,
   orientation = NA,
   show.legend = NA,
@@ -166,6 +170,11 @@ stat_smooth(
 
   Display confidence band around smooth? (`TRUE` by default, see `level`
   to control.)
+
+- band.colour, band.color, band.linetype, band.linewidth:
+
+  Graphical parameters for controlling the display of the confidence
+  band outline.
 
 - na.rm:
 

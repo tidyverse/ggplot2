@@ -95,6 +95,10 @@ display the results with a non-standard geom.</p>
 <span>  method <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  formula <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  se <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  band.colour <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  band.color <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  band.linetype <span class="op">=</span> <span class="st">"blank"</span>,</span>
+<span>  band.linewidth <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  orientation <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  show.legend <span class="op">=</span> <span class="cn">NA</span>,</span>
@@ -212,6 +216,11 @@ observations and <code>formula = y ~ s(x, bs = "cs")</code> otherwise.</p></dd>
 <dt id="arg-se">se<a class="anchor" aria-label="anchor" href="#arg-se"></a></dt>
 <dd><p>Display confidence band around smooth? (<code>TRUE</code> by default, see
 <code>level</code> to control.)</p></dd>
+
+
+<dt id="arg-band-colour-band-color-band-linetype-band-linewidth">band.colour, band.color, band.linetype, band.linewidth<a class="anchor" aria-label="anchor" href="#arg-band-colour-band-color-band-linetype-band-linewidth"></a></dt>
+<dd><p>Graphical
+parameters for controlling the display of the confidence band outline.</p></dd>
 
 
 <dt id="arg-na-rm">na.rm<a class="anchor" aria-label="anchor" href="#arg-na-rm"></a></dt>

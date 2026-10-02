@@ -8,7 +8,16 @@ keeping theme declarations more organised.
 ## Usage
 
 ``` r
-theme_sub_axis(..., title, text, ticks, ticks.length, line, minor.ticks.length)
+theme_sub_axis(
+  ...,
+  title,
+  text,
+  ticks,
+  ticks.length,
+  line,
+  minor.ticks.length,
+  ontop
+)
 
 theme_sub_axis_x(
   ...,

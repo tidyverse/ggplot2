@@ -87,6 +87,7 @@ theme(
   axis.line.y.right,
   axis.line.theta,
   axis.line.r,
+  axis.ontop,
   legend.background,
   legend.margin,
   legend.spacing,
@@ -301,6 +302,11 @@ theme(
   (using `axis.line.x.bottom`, `axis.line.x.top`, `axis.line.y.left`,
   `axis.line.y.right`). `axis.line.*.*` inherits from `axis.line.*`
   which inherits from `axis.line`, which in turn inherits from `line`
+
+- axis.ontop:
+
+  Controls whether axes are displayed above panel elements (`TRUE`,
+  default) or below panel elements (`FALSE`).
 
 - legend.background:
 
