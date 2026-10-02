@@ -285,17 +285,39 @@ draw_key_pointrange <- function(data, params, size) {
 #' @export
 #' @rdname draw_key
 draw_key_smooth <- function(data, params, size) {
-  data$fill <- alpha(data$fill %||% "grey60", data$alpha)
-  data$alpha <- 1
+  # Pre-apply fill alpha
+  data$fill <- fill_alpha(data$fill %||% "grey60", data$alpha)
+  data$alpha <- NA
 
-  path <- draw_key_path(data, params, size)
+  grob <- draw_key_path(data, params, size)
+  width  <- attr(grob, "width")
+  height <- attr(grob, "height")
 
-  grob <- grobTree(
-    if (isTRUE(params$se)) rectGrob(gp = gg_par(col = NA, fill = data$fill)),
-    path
-  )
-  attr(grob, "width") <- attr(path, "width")
-  attr(grob, "height") <- attr(path, "height")
+  if (isTRUE(params$se)) {
+
+    band <- params$band_gp
+    has_outline <- !(
+      all(is.na(band$colour)) ||
+      all((band$linetype %||% 1L) %in% c(NA, 0, "blank")) ||
+      all((band$linewidth %||% 0.5) <= 0)
+    )
+    if (!has_outline) {
+      # `draw_key_polygon()` cares about linewidth
+      band$linewidth <- 0
+    }
+
+    data <- transform(
+      data,
+      colour    = band$colour    %||% NA,
+      linetype  = band$linetype  %||% 1L,
+      linewidth = band$linewidth %||% 0.5
+    )
+    ribbon <- draw_key_polygon(data, params, size)
+    grob <- grobTree(ribbon, grob)
+  }
+
+  attr(grob, "width")  <- width
+  attr(grob, "height") <- height
   grob
 }
 

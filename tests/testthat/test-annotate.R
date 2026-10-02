@@ -41,3 +41,14 @@ test_that("annotate() warns about `stat` or `position` arguments", {
     annotate("point", 1:3, 1:3, stat = "density", position = "dodge")
   )
 })
+
+test_that("annotate() treats `group` as a per-observation aesthetic (#6862)", {
+  df <- data_frame(foo = c(1, 2))
+  p <- ggplot(df, aes(foo, foo)) +
+    geom_point() +
+    facet_wrap(~foo) +
+    annotate("line", x = 1:2, y = 1:2, group = 1:2)
+
+  expect_no_error(ld <- get_layer_data(p, 2))
+  expect_equal(ld$group, rep(1:2, 2))
+})
