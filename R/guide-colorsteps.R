@@ -50,7 +50,7 @@ guide_coloursteps <- function(
   theme = NULL,
   alpha = NA,
   angle = NULL,
-  even.steps  = TRUE,
+  even.steps = TRUE,
   show.limits = NULL,
   direction = NULL,
   position = NULL,
@@ -59,7 +59,6 @@ guide_coloursteps <- function(
   available_aes = c("colour", "color", "fill"),
   ...
 ) {
-
   theme <- deprecated_guide_args(theme, ...)
   check_number_decimal(alpha, min = 0, max = 1, allow_na = TRUE)
 
@@ -68,7 +67,7 @@ guide_coloursteps <- function(
     theme = theme,
     alpha = alpha,
     angle = angle,
-    even.steps  = even.steps,
+    even.steps = even.steps,
     show.limits = show.limits,
     position = position,
     direction = direction,
@@ -88,7 +87,8 @@ guide_colorsteps <- guide_coloursteps
 #' @usage NULL
 #' @export
 GuideColoursteps <- ggproto(
-  "GuideColoursteps", GuideColourbar,
+  "GuideColoursteps",
+  GuideColourbar,
 
   params = c(
     list(even.steps = TRUE, show.limits = NULL),
@@ -96,7 +96,6 @@ GuideColoursteps <- ggproto(
   ),
 
   extract_key = function(scale, aesthetic, even.steps, ...) {
-
     breaks <- scale$get_breaks()
 
     if (!(even.steps || !is.numeric(breaks))) {
@@ -121,7 +120,7 @@ GuideColoursteps <- ggproto(
     key <- vec_slice(key, !is.na(breaks))
 
     if (breaks[1] %in% limits) {
-      key$.value  <- key$.value - 1L
+      key$.value <- key$.value - 1L
       key[[1]][1] <- NA
     }
     if (breaks[length(breaks)] %in% limits) {
@@ -134,16 +133,22 @@ GuideColoursteps <- ggproto(
     key
   },
 
-  extract_decor = function(scale, aesthetic, key,
-                           reverse = FALSE, even.steps = TRUE,
-                           nbin = 100, alpha = NA,...) {
-
+  extract_decor = function(
+    scale,
+    aesthetic,
+    key,
+    reverse = FALSE,
+    even.steps = TRUE,
+    nbin = 100,
+    alpha = NA,
+    ...
+  ) {
     parsed <- attr(key, "parsed")
     breaks <- parsed$breaks %||% scale$get_breaks()
     limits <- parsed$limits %||% scale$get_limits()
 
     breaks <- sort(unique0(c(limits, breaks)))
-    n      <- length(breaks)
+    n <- length(breaks)
     bin_at <- parsed$bin_at %||% ((breaks[-1] + breaks[-n]) / 2)
 
     if (even.steps) {
@@ -152,25 +157,35 @@ GuideColoursteps <- ggproto(
 
     data_frame0(
       colour = alpha(scale$map(bin_at), alpha),
-      min    = breaks[-n],
-      max    = breaks[-1],
-      .size  = length(bin_at)
+      min = breaks[-n],
+      max = breaks[-1],
+      .size = length(bin_at)
     )
   },
 
-  extract_params = function(scale, params, direction = "vertical", title = waiver(), ...) {
-
+  extract_params = function(
+    scale,
+    params,
+    direction = "vertical",
+    title = waiver(),
+    ...
+  ) {
     show.limits <- params$show.limits %||% scale$show.limits %||% FALSE
 
-    if (show.limits &&
-        (is.character(scale$labels) || is.numeric(scale$labels))) {
-      cli::cli_warn(c(paste0(
-        "{.arg show.limits} is ignored when {.arg labels} are given as a ",
-        "character vector."
-      ), "i" = paste0(
-        "Either add the limits to {.arg breaks} or provide a function for ",
-        "{.arg labels}."
-      )))
+    if (
+      show.limits &&
+        (is.character(scale$labels) || is.numeric(scale$labels))
+    ) {
+      cli::cli_warn(c(
+        paste0(
+          "{.arg show.limits} is ignored when {.arg labels} are given as a ",
+          "character vector."
+        ),
+        "i" = paste0(
+          "Either add the limits to {.arg breaks} or provide a function for ",
+          "{.arg labels}."
+        )
+      ))
       show.limits <- FALSE
     }
 
@@ -198,29 +213,36 @@ GuideColoursteps <- ggproto(
       limits <- rev(limits)
     }
     params$key$.value <- rescale(params$key$.value, from = limits)
-    params$decor$min  <- rescale(params$decor$min,  from = limits)
-    params$decor$max  <- rescale(params$decor$max,  from = limits)
+    params$decor$min <- rescale(params$decor$min, from = limits)
+    params$decor$max <- rescale(params$decor$max, from = limits)
     params$key <-
       vec_slice(params$key, !is.na(oob_censor_any(params$key$.value)))
     params
   },
 
   build_decor = function(decor, grobs, elements, params) {
-
     size <- abs(decor$max - decor$min)
     just <- as.numeric(decor$min > decor$max)
-    gp   <- gg_par(col = NA, fill = decor$colour)
+    gp <- gg_par(col = NA, fill = decor$colour)
     if (params$direction == "vertical") {
       grob <- rectGrob(
-        x = 0, y = decor$min,
-        width = 1, height = size,
-        vjust = just, hjust = 0, gp = gp
+        x = 0,
+        y = decor$min,
+        width = 1,
+        height = size,
+        vjust = just,
+        hjust = 0,
+        gp = gp
       )
     } else {
       grob <- rectGrob(
-        x = decor$min, y = 0,
-        height = 1, width = size,
-        hjust = just, vjust = 0, gp = gp
+        x = decor$min,
+        y = 0,
+        height = 1,
+        width = size,
+        hjust = just,
+        vjust = 0,
+        gp = gp
       )
     }
 

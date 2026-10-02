@@ -140,7 +140,13 @@ local({
       cat("<empty>\n")
     } else {
       values <- vapply(x, quo_label, character(1))
-      bullets <- paste0("* ", format(paste0("`", names(x), "`")), " -> ", values, "\n")
+      bullets <- paste0(
+        "* ",
+        format(paste0("`", names(x), "`")),
+        " -> ",
+        values,
+        "\n"
+      )
 
       cat(bullets, sep = "")
     }
@@ -195,7 +201,9 @@ rename_aes <- function(x) {
   names(x) <- standardise_aes_names(names(x))
   duplicated_names <- names(x)[duplicated(names(x))]
   if (length(duplicated_names) > 0L) {
-    cli::cli_warn("Duplicated aesthetics after name standardisation: {.field {unique0(duplicated_names)}}")
+    cli::cli_warn(
+      "Duplicated aesthetics after name standardisation: {.field {unique0(duplicated_names)}}"
+    )
   }
   x
 }
@@ -290,10 +298,13 @@ extract_target_is_likely_data <- function(x, data, env) {
     return(FALSE)
   }
 
-  tryCatch({
-    data_eval <- eval_tidy(x[[2]], data, env)
-    identical(unrowname(data_eval), unrowname(data))
-  }, error = function(err) FALSE)
+  tryCatch(
+    {
+      data_eval <- eval_tidy(x[[2]], data, env)
+      identical(unrowname(data_eval), unrowname(data))
+    },
+    error = function(err) FALSE
+  )
 }
 
 # Takes a quosure and returns a named list of quosures, expanding
@@ -305,7 +316,9 @@ arg_enquos <- function(name, frame = caller_env()) {
   expr <- quo_get_expr(quo)
 
   is_triple_bang <- !is_missing(expr) &&
-    is_bang(expr) && is_bang(expr[[2]]) && is_bang(expr[[c(2, 2)]])
+    is_bang(expr) &&
+    is_bang(expr[[2]]) &&
+    is_bang(expr[[c(2, 2)]])
   if (is_triple_bang) {
     # Evaluate `!!!` operand and create a list of quosures
     env <- quo_get_env(quo)

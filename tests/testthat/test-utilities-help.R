@@ -1,4 +1,3 @@
-
 test_that("rd_orientation formats a section", {
   expect_snapshot(rd_orientation())
 })

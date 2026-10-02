@@ -42,13 +42,12 @@ test_that("alignment adjusts per panel", {
 
   # Here, x-range is large, so adjustment should be larger
   ld <- get_layer_data(p + geom_area(aes(fill = f)))
-  expect_equal(diff(ld$x[1:2]), 1/6, tolerance = 1e-4)
+  expect_equal(diff(ld$x[1:2]), 1 / 6, tolerance = 1e-4)
 
   # Here, x-ranges are smaller, so adjustment should be smaller instead of
   # considering the data as a whole
   ld <- get_layer_data(p + geom_area() + facet_wrap(vars(f), scales = "free_x"))
   expect_equal(diff(ld$x[1:2]), 1e-3, tolerance = 1e-4)
-
 })
 
 test_that("out-of-bounds padding is removed (#6667)", {
@@ -62,7 +61,6 @@ test_that("out-of-bounds padding is removed (#6667)", {
   expect_equal(sum(ld$align_padding), 4)
   # The first and last datapoints should be padding
   expect_equal(ld$align_padding[c(1, nrow(ld))], c(TRUE, TRUE))
-
 
   ld <- layer_data(
     p + scale_x_continuous(limits = range(df$x), expand = c(0, 0))

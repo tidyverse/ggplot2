@@ -89,19 +89,33 @@
 #' dev.off()
 #'
 #' }
-ggsave <- function(filename, plot = get_last_plot(),
-                   device = NULL, path = NULL, scale = 1,
-                   width = NA, height = NA, units = c("in", "cm", "mm", "px"),
-                   dpi = 300, limitsize = TRUE, bg = NULL,
-                   create.dir = FALSE,
-                   ...) {
+ggsave <- function(
+  filename,
+  plot = get_last_plot(),
+  device = NULL,
+  path = NULL,
+  scale = 1,
+  width = NA,
+  height = NA,
+  units = c("in", "cm", "mm", "px"),
+  dpi = 300,
+  limitsize = TRUE,
+  bg = NULL,
+  create.dir = FALSE,
+  ...
+) {
   filename <- validate_path(path, filename, create.dir)
 
   dpi <- parse_dpi(dpi)
   dev <- validate_device(device, filename, dpi = dpi)
-  dim <- plot_dim(c(width, height), scale = scale, units = units,
-    limitsize = limitsize, dpi = dpi)
-  bg  <- get_plot_background(plot, bg)
+  dim <- plot_dim(
+    c(width, height),
+    scale = scale,
+    units = units,
+    limitsize = limitsize,
+    dpi = dpi
+  )
+  bg <- get_plot_background(plot, bg)
 
   old_dev <- grDevices::dev.cur()
   dev(filename = filename, width = dim[1], height = dim[2], bg = bg, ...)
@@ -117,14 +131,15 @@ ggsave <- function(filename, plot = get_last_plot(),
   invisible(filename)
 }
 
-validate_path <- function(path, filename, create.dir,
-                          call = caller_env()) {
-
+validate_path <- function(path, filename, create.dir, call = caller_env()) {
   if (length(filename) > 1 && is.character(filename)) {
-    cli::cli_warn(c(
-      "{.arg filename} must have length 1, not {length(filename)}.",
-      "!" = "Only the first, {.file {filename[1]}}, will be used."
-    ), call = call)
+    cli::cli_warn(
+      c(
+        "{.arg filename} must have length 1, not {length(filename)}.",
+        "!" = "Only the first, {.file {filename[1]}}, will be used."
+      ),
+      call = call
+    )
     filename <- filename[1]
   }
   check_string(filename, allow_empty = FALSE, call = call)
@@ -161,10 +176,13 @@ validate_path <- function(path, filename, create.dir,
     }
   }
 
-  cli::cli_abort(c(
-    "Cannot find directory {.path {path}}.",
-    i = "Please supply an existing directory or use {.code create.dir = TRUE}."
-  ), call = call)
+  cli::cli_abort(
+    c(
+      "Cannot find directory {.path {path}}.",
+      i = "Please supply an existing directory or use {.code create.dir = TRUE}."
+    ),
+    call = call
+  )
 }
 
 #' Parse a DPI input from the user
@@ -178,11 +196,7 @@ parse_dpi <- function(dpi, call = caller_env()) {
   if (is_scalar_character(dpi)) {
     arg_match0(dpi, c("screen", "print", "retina"), error_call = call)
 
-    switch(dpi,
-      screen = 72,
-      print = 300,
-      retina = 320,
-    )
+    switch(dpi, screen = 72, print = 300, retina = 320, )
   } else if (is_bare_numeric(dpi, n = 1L)) {
     dpi
   } else {
@@ -190,11 +204,21 @@ parse_dpi <- function(dpi, call = caller_env()) {
   }
 }
 
-plot_dim <- function(dim = c(NA, NA), scale = 1, units = "in",
-                     limitsize = TRUE, dpi = 300, call = caller_env()) {
+plot_dim <- function(
+  dim = c(NA, NA),
+  scale = 1,
+  units = "in",
+  limitsize = TRUE,
+  dpi = 300,
+  call = caller_env()
+) {
   units <- arg_match0(units, c("in", "cm", "mm", "px"))
-  to_inches <- function(x) x / c(`in` = 1, cm = 2.54, mm = 2.54 * 10, px = dpi)[units]
-  from_inches <- function(x) x * c(`in` = 1, cm = 2.54, mm = 2.54 * 10, px = dpi)[units]
+  to_inches <- function(x) {
+    x / c(`in` = 1, cm = 2.54, mm = 2.54 * 10, px = dpi)[units]
+  }
+  from_inches <- function(x) {
+    x * c(`in` = 1, cm = 2.54, mm = 2.54 * 10, px = dpi)[units]
+  }
 
   dim <- to_inches(dim) * scale
 
@@ -227,10 +251,14 @@ plot_dim <- function(dim = c(NA, NA), scale = 1, units = "in",
     } else {
       msg <- paste0(msg, " not pixels).")
     }
-    cli::cli_abort(c(
-      msg,
-      "i" = "If you're sure you want a plot that big, use {.code limitsize = FALSE}.
-    "), call = call)
+    cli::cli_abort(
+      c(
+        msg,
+        "i" = "If you're sure you want a plot that big, use {.code limitsize = FALSE}.
+    "
+      ),
+      call = call
+    )
   }
 
   dim
@@ -248,7 +276,12 @@ get_plot_background <- function(plot, bg = NULL, default = "transparent") {
   try_prop(bg, "fill") %||% "transparent"
 }
 
-validate_device <- function(device, filename = NULL, dpi = 300, call = caller_env()) {
+validate_device <- function(
+  device,
+  filename = NULL,
+  dpi = 300,
+  call = caller_env()
+) {
   force(filename)
   force(dpi)
 
@@ -273,8 +306,13 @@ validate_device <- function(device, filename = NULL, dpi = 300, call = caller_en
   }
 
   eps <- function(filename, ...) {
-    grDevices::postscript(file = filename, ..., onefile = FALSE, horizontal = FALSE,
-      paper = "special")
+    grDevices::postscript(
+      file = filename,
+      ...,
+      onefile = FALSE,
+      horizontal = FALSE,
+      paper = "special"
+    )
   }
   if (requireNamespace('ragg', quietly = TRUE)) {
     png_dev <- absorb_grdevice_args(ragg::agg_png)
@@ -286,37 +324,47 @@ validate_device <- function(device, filename = NULL, dpi = 300, call = caller_en
     tiff_dev <- grDevices::tiff
   }
   devices <- list(
-    eps =  eps,
-    ps =   eps,
-    tex =  function(filename, ...) grDevices::pictex(file = filename, ...),
-    pdf =  function(filename, ..., version = "1.4") grDevices::pdf(file = filename, ..., version = version),
-    svg =  function(filename, ...) {
+    eps = eps,
+    ps = eps,
+    tex = function(filename, ...) grDevices::pictex(file = filename, ...),
+    pdf = function(filename, ..., version = "1.4") {
+      grDevices::pdf(file = filename, ..., version = version)
+    },
+    svg = function(filename, ...) {
       check_installed("svglite", reason = "to save as SVG.")
       svglite::svglite(file = filename, ...)
     },
     # win.metafile() doesn't have `bg` arg so we need to absorb it before passing `...`
-    emf =  function(..., bg = NULL) grDevices::win.metafile(...),
-    wmf =  function(..., bg = NULL) grDevices::win.metafile(...),
-    png =  function(...) png_dev(..., res = dpi, units = "in"),
-    jpg =  function(...) jpeg_dev(..., res = dpi, units = "in"),
+    emf = function(..., bg = NULL) grDevices::win.metafile(...),
+    wmf = function(..., bg = NULL) grDevices::win.metafile(...),
+    png = function(...) png_dev(..., res = dpi, units = "in"),
+    jpg = function(...) jpeg_dev(..., res = dpi, units = "in"),
     jpeg = function(...) jpeg_dev(..., res = dpi, units = "in"),
-    bmp =  function(...) grDevices::bmp(..., res = dpi, units = "in"),
+    bmp = function(...) grDevices::bmp(..., res = dpi, units = "in"),
     tiff = function(...) tiff_dev(..., res = dpi, units = "in"),
-    tif  = function(...) tiff_dev(..., res = dpi, units = "in")
+    tif = function(...) tiff_dev(..., res = dpi, units = "in")
   )
 
   if (is.null(device)) {
     device <- to_lower_ascii(tools::file_ext(filename))
     if (identical(device, "")) {
-      cli::cli_abort(c(
-        "Can't save to {filename}.",
-        i = "Either supply {.arg filename} with a file extension or supply {.arg device}."),
-        call = call)
+      cli::cli_abort(
+        c(
+          "Can't save to {filename}.",
+          i = "Either supply {.arg filename} with a file extension or supply {.arg device}."
+        ),
+        call = call
+      )
     }
   }
 
   if (!is.character(device) || length(device) != 1) {
-    stop_input_type(device, "a string, function", allow_null = TRUE, call = call)
+    stop_input_type(
+      device,
+      "a string, function",
+      allow_null = TRUE,
+      call = call
+    )
   }
 
   dev <- devices[[device]]
@@ -331,7 +379,9 @@ S7::method(grid.draw, class_ggplot) <- function(x, recording = TRUE) print(x)
 absorb_grdevice_args <- function(f) {
   function(..., type, antialias) {
     if (!missing(type) || !missing(antialias)) {
-      cli::cli_warn("Using ragg device as default. Ignoring {.arg type} and {.arg antialias} arguments")
+      cli::cli_warn(
+        "Using ragg device as default. Ignoring {.arg type} and {.arg antialias} arguments"
+      )
     }
     f(...)
   }

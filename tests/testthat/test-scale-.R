@@ -27,7 +27,8 @@ test_that("mapping works", {
 
   expect_equal(
     sc$map_df(data_frame(alpha = c(-10, 11)))[[1]],
-    c(0, 0))
+    c(0, 0)
+  )
 })
 
 test_that("aesthetics can be set independently of scale name", {
@@ -72,10 +73,14 @@ test_that("multiple aesthetics can be set with one function call", {
 
 test_that("scales accept lambda notation for function input", {
   check_lambda <- function(items, ggproto) {
-    vapply(items, function(x) {
-      f <- environment(ggproto[[x]])$f
-      is_lambda(f)
-    }, logical(1))
+    vapply(
+      items,
+      function(x) {
+        f <- environment(ggproto[[x]])$f
+        is_lambda(f)
+      },
+      logical(1)
+    )
   }
 
   # Test continuous scale
@@ -118,7 +123,6 @@ test_that("scales accept lambda notation for function input", {
 })
 
 test_that("training incorrectly appropriately communicates the offenders", {
-
   sc <- scale_colour_viridis_d()
   expect_snapshot_error(
     sc$train(1:5)
@@ -131,11 +135,9 @@ test_that("training incorrectly appropriately communicates the offenders", {
 })
 
 test_that("Using `scale_name` prompts deprecation message", {
-
   expect_snapshot_warning(continuous_scale("x", "foobar", pal_identity()))
-  expect_snapshot_warning(discrete_scale("x",   "foobar", pal_identity()))
-  expect_snapshot_warning(binned_scale("x",     "foobar", pal_identity()))
-
+  expect_snapshot_warning(discrete_scale("x", "foobar", pal_identity()))
+  expect_snapshot_warning(binned_scale("x", "foobar", pal_identity()))
 })
 
 test_that("mismatch between `na.value` and `palette` throws error", {
@@ -185,7 +187,6 @@ test_that("continuous scales warn about faulty `limits`", {
 
 # From #5623
 test_that("Discrete scales with only NAs return `na.value`", {
-
   x <- c(NA, NA)
 
   sc <- scale_colour_discrete(na.value = "red")
@@ -208,7 +209,7 @@ test_that("discrete scales work with NAs in arbitrary positions", {
   }
 
   # All inputs should yield output regardless of where NA is
-  input  <- c("A", "B", "C", NA)
+  input <- c("A", "B", "C", NA)
   output <- c("red", "green", "blue", "gray")
 
   test <- map(input, limits = c("A", "B", "C", NA))
@@ -219,11 +220,9 @@ test_that("discrete scales work with NAs in arbitrary positions", {
 
   test <- map(input, limits = c(NA, "A", "B", "C"))
   expect_equal(test, output)
-
 })
 
 test_that("discrete scales can map to 2D structures", {
-
   p <- ggplot(mtcars, aes(disp, mpg, colour = factor(cyl))) +
     geom_point()
 
@@ -254,7 +253,6 @@ test_that("discrete scales can map to 2D structures", {
 # Calls -------------------------------------------------------------------
 
 test_that("scale functions accurately report their calls", {
-
   construct <- exprs(
     scale_alpha(),
     scale_alpha_binned(),
@@ -380,7 +378,6 @@ test_that("scale functions accurately report their calls", {
 })
 
 test_that("scale call is found accurately", {
-
   call_template <- quote(scale_x_continuous(transform = "log10"))
 
   sc <- do.call("scale_x_continuous", list(transform = "log10"))
@@ -415,20 +412,30 @@ test_that("scale call is found accurately", {
 test_that("breaks and labels are correctly checked", {
   expect_snapshot_error(check_breaks_labels(1:10, letters))
   expect_snapshot_error(scale_x_continuous(breaks = NA))
-  p <- ggplot(mtcars) + geom_point(aes(mpg, disp)) + scale_x_continuous(minor_breaks = NA)
+  p <- ggplot(mtcars) +
+    geom_point(aes(mpg, disp)) +
+    scale_x_continuous(minor_breaks = NA)
   expect_snapshot_error(ggplot_build(p))
-  p <- ggplot(mtcars) + geom_point(aes(mpg, disp)) + scale_x_continuous(labels = NA)
+  p <- ggplot(mtcars) +
+    geom_point(aes(mpg, disp)) +
+    scale_x_continuous(labels = NA)
   expect_snapshot_error(ggplotGrob(p))
-  p <- ggplot(mtcars) + geom_point(aes(mpg, disp)) + scale_x_continuous(labels = function(x) 1:2)
+  p <- ggplot(mtcars) +
+    geom_point(aes(mpg, disp)) +
+    scale_x_continuous(labels = function(x) 1:2)
   expect_snapshot_error(ggplotGrob(p))
   expect_snapshot_error(scale_x_discrete(breaks = NA))
-  p <- ggplot(mtcars) + geom_bar(aes(factor(gear))) + scale_x_discrete(labels = NA)
+  p <- ggplot(mtcars) +
+    geom_bar(aes(factor(gear))) +
+    scale_x_discrete(labels = NA)
   expect_snapshot_error(ggplotGrob(p))
 
   expect_snapshot_error(scale_x_binned(breaks = NA))
   p <- ggplot(mtcars) + geom_bar(aes(mpg)) + scale_x_binned(labels = NA)
   expect_snapshot_error(ggplotGrob(p))
-  p <- ggplot(mtcars) + geom_bar(aes(mpg)) + scale_x_binned(labels = function(x) 1:2)
+  p <- ggplot(mtcars) +
+    geom_bar(aes(mpg)) +
+    scale_x_binned(labels = function(x) 1:2)
   expect_snapshot_error(ggplotGrob(p))
 })
 
@@ -469,7 +476,6 @@ test_that("labels don't have extra spaces", {
 })
 
 test_that("out-of-range breaks are dropped", {
-
   # Limits are explicitly specified, automatic labels
   sc <- scale_x_continuous(breaks = 1:5, limits = c(2, 4))
   bi <- sc$break_info()
@@ -478,14 +484,22 @@ test_that("out-of-range breaks are dropped", {
   expect_equal(bi$major_source, 2:4)
 
   # Limits and labels are explicitly specified
-  sc <- scale_x_continuous(breaks = 1:5, labels = letters[1:5], limits = c(2, 4))
+  sc <- scale_x_continuous(
+    breaks = 1:5,
+    labels = letters[1:5],
+    limits = c(2, 4)
+  )
   bi <- sc$break_info()
   expect_equal(bi$labels, letters[2:4])
   expect_equal(bi$major, c(0, 0.5, 1))
   expect_equal(bi$major_source, 2:4)
 
   # Limits are specified, and all breaks are out of range
-  sc <- scale_x_continuous(breaks = c(1,5), labels = letters[c(1,5)], limits = c(2, 4))
+  sc <- scale_x_continuous(
+    breaks = c(1, 5),
+    labels = letters[c(1, 5)],
+    limits = c(2, 4)
+  )
   bi <- sc$break_info()
   expect_length(bi$labels, 0)
   expect_length(bi$major, 0)
@@ -509,7 +523,7 @@ test_that("out-of-range breaks are dropped", {
   expect_equal(bi$major, c(0, 0.5, 1))
 
   # Limits aren't specified, and all breaks are out of range of data
-  sc <- scale_x_continuous(breaks = c(1,5), labels = letters[c(1,5)])
+  sc <- scale_x_continuous(breaks = c(1, 5), labels = letters[c(1, 5)])
   sc$train_df(data_frame(x = 2:4))
   bi <- sc$break_info()
   expect_length(bi$labels, 0)
@@ -533,7 +547,6 @@ init_scale <- function(...) {
 }
 
 test_that("discrete labels match breaks", {
-
   sc <- init_scale(breaks = 0:5 * 10)
   expect_length(sc$get_breaks(), 5)
   expect_length(sc$get_labels(), 5)
@@ -544,8 +557,9 @@ test_that("discrete labels match breaks", {
   expect_length(sc$get_labels(), 5)
   expect_equal(sc$get_labels(), letters[2:6])
 
-  sc <- init_scale(breaks = 0:5 * 10, labels =
-    function(x) paste(x, "-", sep = ""))
+  sc <- init_scale(breaks = 0:5 * 10, labels = function(x) {
+    paste(x, "-", sep = "")
+  })
   expect_equal(sc$get_labels(), c("10-", "20-", "30-", "40-", "50-"))
 
   pick_5 <- function(x) sample(x, 5)
@@ -582,11 +596,20 @@ test_that("passing continuous limits to a discrete scale generates a warning", {
 
 test_that("suppressing breaks, minor_breask, and labels works", {
   expect_null(scale_x_continuous(breaks = NULL, limits = c(1, 3))$get_breaks())
-  expect_null(scale_x_discrete(breaks = NULL, limits = c("one", "three"))$get_breaks())
-  expect_null(scale_x_continuous(minor_breaks = NULL, limits = c(1, 3))$get_breaks_minor())
+  expect_null(scale_x_discrete(
+    breaks = NULL,
+    limits = c("one", "three")
+  )$get_breaks())
+  expect_null(scale_x_continuous(
+    minor_breaks = NULL,
+    limits = c(1, 3)
+  )$get_breaks_minor())
 
   expect_null(scale_x_continuous(labels = NULL, limits = c(1, 3))$get_labels())
-  expect_null(scale_x_discrete(labels = NULL, limits = c("one", "three"))$get_labels())
+  expect_null(scale_x_discrete(
+    labels = NULL,
+    limits = c("one", "three")
+  )$get_labels())
 
   # date, datetime
   lims <- as.Date(c("2000/1/1", "2000/2/1"))
@@ -601,7 +624,10 @@ test_that("suppressing breaks, minor_breask, and labels works", {
     scale_x_date(labels = NA, limits = lims)$get_labels(),
     error = TRUE
   )
-  expect_null(scale_x_date(minor_breaks = NULL, limits = lims)$get_breaks_minor())
+  expect_null(scale_x_date(
+    minor_breaks = NULL,
+    limits = lims
+  )$get_breaks_minor())
   expect_snapshot(
     scale_x_date(minor_breaks = NA, limits = lims)$get_breaks_minor(),
     error = TRUE
@@ -619,7 +645,10 @@ test_that("suppressing breaks, minor_breask, and labels works", {
     scale_x_datetime(labels = NA, limits = lims)$get_labels(),
     error = TRUE
   )
-  expect_null(scale_x_datetime(minor_breaks = NULL, limits = lims)$get_breaks_minor())
+  expect_null(scale_x_datetime(
+    minor_breaks = NULL,
+    limits = lims
+  )$get_breaks_minor())
   expect_snapshot(
     scale_x_datetime(minor_breaks = NA, limits = lims)$get_breaks_minor(),
     error = TRUE
@@ -661,15 +690,21 @@ test_that("breaks can be specified by names of labels", {
 })
 
 test_that("only finite or NA values for breaks for transformed scales (#871)", {
-  sc <- scale_y_continuous(limits = c(0.01, 0.99), transform = "probit",
-                           breaks = seq(0, 1, 0.2))
+  sc <- scale_y_continuous(
+    limits = c(0.01, 0.99),
+    transform = "probit",
+    breaks = seq(0, 1, 0.2)
+  )
   breaks <- sc$break_info()$major_source
   expect_true(all(is.finite(breaks) | is.na(breaks)))
 })
 
 test_that("minor breaks are transformed by scales", {
-  sc <- scale_y_continuous(limits = c(1, 100), transform = "log10",
-    minor_breaks = c(1, 10, 100))
+  sc <- scale_y_continuous(
+    limits = c(1, 100),
+    transform = "log10",
+    minor_breaks = c(1, 10, 100)
+  )
 
   expect_equal(sc$get_breaks_minor(), c(0, 1, 2))
 })
@@ -685,7 +720,6 @@ test_that("continuous limits accepts functions", {
 })
 
 test_that("equal length breaks and labels can be passed to ViewScales with limits", {
-
   test_scale <- scale_x_continuous(
     breaks = c(0, 20, 40),
     labels = c("0", "20", "40"),
@@ -700,13 +734,15 @@ test_that("equal length breaks and labels can be passed to ViewScales with limit
   expect_identical(test_view_scale$get_labels(), c(c("0", "20", "40")))
 
   # ViewScale accepts the limits in the opposite order (#3952)
-  test_view_scale_rev <- view_scale_primary(test_scale, limits = rev(test_scale$get_limits()))
+  test_view_scale_rev <- view_scale_primary(
+    test_scale,
+    limits = rev(test_scale$get_limits())
+  )
   expect_identical(test_view_scale_rev$get_breaks(), c(NA, 20, NA))
   expect_identical(test_view_scale_rev$get_labels(), c(c("0", "20", "40")))
 })
 
 test_that("break names are returned as labels", {
-
   sc <- scale_x_continuous(breaks = c(A = 10, B = 20, C = 30))
   sc$train(c(10, 30))
   expect_equal(sc$get_labels(), c("A", "B", "C"))
@@ -717,7 +753,6 @@ test_that("break names are returned as labels", {
 })
 
 test_that("numeric scale transforms can produce breaks", {
-
   test_breaks <- function(transform, limits) {
     scale <- scale_x_continuous(transform = transform)
     scale$train(scale$transform(limits))
@@ -771,14 +806,16 @@ test_that("minor breaks draw correctly", {
   expect_doppelganger("numeric", p)
   expect_doppelganger("numeric-polar", p + coord_polar())
 
-  expect_doppelganger("numeric-log",
+  expect_doppelganger(
+    "numeric-log",
     ggplot(df, aes(x_log, x_log)) +
       scale_x_continuous(transform = transform_log2()) +
       scale_y_log10() +
       labs(x = NULL, y = NULL) +
       theme
   )
-  expect_doppelganger("numeric-exp",
+  expect_doppelganger(
+    "numeric-exp",
     ggplot(df, aes(x_num, x_num)) +
       scale_x_continuous(transform = transform_exp(2)) +
       scale_y_continuous(transform = transform_exp(2)) +
@@ -786,14 +823,16 @@ test_that("minor breaks draw correctly", {
       theme
   )
 
-  expect_doppelganger("character",
+  expect_doppelganger(
+    "character",
     ggplot(df, aes(x_chr, y)) +
       geom_blank() +
       labs(x = NULL, y = NULL) +
       theme
   )
 
-  expect_doppelganger("date",
+  expect_doppelganger(
+    "date",
     ggplot(df, aes(x_date, y)) +
       geom_blank() +
       scale_x_date(
@@ -809,23 +848,41 @@ test_that("minor breaks draw correctly", {
 test_that("scale breaks can be removed", {
   dat <- data_frame(x = 1:3, y = 1:3)
 
-  expect_doppelganger("no x breaks",
-    ggplot(dat, aes(x = x, y = y)) + geom_point() + scale_x_continuous(breaks = NULL)
+  expect_doppelganger(
+    "no x breaks",
+    ggplot(dat, aes(x = x, y = y)) +
+      geom_point() +
+      scale_x_continuous(breaks = NULL)
   )
-  expect_doppelganger("no y breaks",
-    ggplot(dat, aes(x = x, y = y)) + geom_point() + scale_y_continuous(breaks = NULL)
+  expect_doppelganger(
+    "no y breaks",
+    ggplot(dat, aes(x = x, y = y)) +
+      geom_point() +
+      scale_y_continuous(breaks = NULL)
   )
-  expect_doppelganger("no alpha breaks (no legend)",
-    ggplot(dat, aes(x = 1, y = y, alpha = x)) + geom_point() + scale_alpha_continuous(breaks = NULL)
+  expect_doppelganger(
+    "no alpha breaks (no legend)",
+    ggplot(dat, aes(x = 1, y = y, alpha = x)) +
+      geom_point() +
+      scale_alpha_continuous(breaks = NULL)
   )
-  expect_doppelganger("no size breaks (no legend)",
-    ggplot(dat, aes(x = 1, y = y, size = x)) + geom_point() + scale_size_continuous(breaks = NULL)
+  expect_doppelganger(
+    "no size breaks (no legend)",
+    ggplot(dat, aes(x = 1, y = y, size = x)) +
+      geom_point() +
+      scale_size_continuous(breaks = NULL)
   )
-  expect_doppelganger("no fill breaks (no legend)",
-    ggplot(dat, aes(x = 1, y = y, fill = x)) + geom_point(shape = 21) + scale_fill_continuous(breaks = NULL)
+  expect_doppelganger(
+    "no fill breaks (no legend)",
+    ggplot(dat, aes(x = 1, y = y, fill = x)) +
+      geom_point(shape = 21) +
+      scale_fill_continuous(breaks = NULL)
   )
-  expect_doppelganger("no colour breaks (no legend)",
-    ggplot(dat, aes(x = 1, y = y, colour = x)) + geom_point() + scale_colour_continuous(breaks = NULL)
+  expect_doppelganger(
+    "no colour breaks (no legend)",
+    ggplot(dat, aes(x = 1, y = y, colour = x)) +
+      geom_point() +
+      scale_colour_continuous(breaks = NULL)
   )
 })
 
@@ -840,7 +897,9 @@ test_that("functional limits work for continuous scales", {
 
   expect_doppelganger(
     "functional limits",
-    ggplot(mpg, aes(class)) + geom_bar(aes(fill = drv)) + scale_y_continuous(limits = limiter(50))
+    ggplot(mpg, aes(class)) +
+      geom_bar(aes(fill = drv)) +
+      scale_y_continuous(limits = limiter(50))
   )
 })
 

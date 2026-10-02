@@ -5,7 +5,9 @@ test_that("accepts width and height params", {
   expect_equal(out1$xmin, new_mapped_discrete(c(0.5, 1.5)))
   expect_equal(out1$xmax, new_mapped_discrete(c(1.5, 2.5)))
 
-  out2 <- get_layer_data(ggplot(df, aes(x, y)) + geom_tile(width = 0.5, height = 0.5))
+  out2 <- get_layer_data(
+    ggplot(df, aes(x, y)) + geom_tile(width = 0.5, height = 0.5)
+  )
   expect_equal(out2$xmin, new_mapped_discrete(c(0.75, 1.75)))
   expect_equal(out2$xmax, new_mapped_discrete(c(1.25, 2.25)))
 })
@@ -18,8 +20,10 @@ test_that("accepts width and height aesthetics", {
   out <- get_layer_data(p)
 
   boundary <- data_frame0(
-    xmin = c(-1, -2), xmax = c(1, 2),
-    ymin = c(-1, -2), ymax = c(1, 2)
+    xmin = c(-1, -2),
+    xmax = c(1, 2),
+    ymin = c(-1, -2),
+    ymax = c(1, 2)
   )
   expect_equal(out[c("xmin", "xmax", "ymin", "ymax")], boundary)
 })
@@ -30,7 +34,9 @@ test_that("accepts linejoin parameter", {
   gp1 <- get_layer_grob(ggplot(df, aes(x, y)) + geom_tile())[[1]]$gp
   expect_equal(gp1$linejoin, "mitre")
 
-  gp2 <- get_layer_grob(ggplot(df, aes(x, y)) + geom_tile(linejoin = "round"))[[1]]$gp
+  gp2 <- get_layer_grob(ggplot(df, aes(x, y)) + geom_tile(linejoin = "round"))[[
+    1
+  ]]$gp
   expect_equal(gp2$linejoin, "round")
 })
 

@@ -1,5 +1,4 @@
 test_that("editions can be set and unset", {
-
   x <- set_ggplot2_edition(2026)
   expect_null(x) # Set edition returns old value
   expect_equal(get_ggplot2_edition(), "2026")
@@ -43,7 +42,6 @@ test_that("edition supersession works", {
 })
 
 test_that("edition requirements work", {
-
   foo <- function() {
     edition_require("2025", what = "foo()")
     NULL

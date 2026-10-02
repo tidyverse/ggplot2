@@ -21,7 +21,14 @@ test_that("all-Inf layers are not used for determining the type of scale", {
   d1 <- data_frame(x = c("a", "b"))
   p1 <- ggplot(d1, aes(x, x)) +
     # Inf is numeric, but means discrete values in this case
-    annotate("rect", xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf, fill = "black") +
+    annotate(
+      "rect",
+      xmin = -Inf,
+      xmax = Inf,
+      ymin = -Inf,
+      ymax = Inf,
+      fill = "black"
+    ) +
     geom_point()
 
   b1 <- ggplot_build(p1)
@@ -29,7 +36,14 @@ test_that("all-Inf layers are not used for determining the type of scale", {
 
   p2 <- ggplot() +
     # If the layer non-Inf value, it's considered
-    annotate("rect", xmin = -Inf, xmax = 0, ymin = -Inf, ymax = Inf, fill = "black")
+    annotate(
+      "rect",
+      xmin = -Inf,
+      xmax = 0,
+      ymin = -Inf,
+      ymax = Inf,
+      fill = "black"
+    )
 
   b2 <- ggplot_build(p2)
   expect_s3_class(b2@layout$panel_scales_x[[1]], "ScaleContinuousPosition")
@@ -60,8 +74,10 @@ test_that("find_global searches in the right places", {
   testenv <- new.env(parent = globalenv())
 
   # This should find the scale object in the package environment
-  expect_identical(find_global("scale_colour_hue", testenv),
-    ggplot2::scale_colour_hue)
+  expect_identical(
+    find_global("scale_colour_hue", testenv),
+    ggplot2::scale_colour_hue
+  )
 
   # Set an object with the same name in the environment
   testenv$scale_colour_hue <- "foo"
@@ -71,8 +87,10 @@ test_that("find_global searches in the right places", {
 
   # If we search in the empty env, we should end up with the object
   # from the ggplot2 namespace
-  expect_identical(find_global("scale_colour_hue", emptyenv()),
-    ggplot2::scale_colour_hue)
+  expect_identical(
+    find_global("scale_colour_hue", emptyenv()),
+    ggplot2::scale_colour_hue
+  )
 })
 
 test_that("size and alpha scales throw appropriate warnings for factors", {
@@ -142,17 +160,30 @@ test_that("scale_apply preserves class and attributes", {
   plot <- ggplot(df, aes(x, y)) +
     scale_x_continuous() +
     # Facetting such that 2 x-scales will exist, i.e. `x` will be subsetted
-    facet_grid(~ z, scales = "free_x")
+    facet_grid(~z, scales = "free_x")
   plot <- ggplot_build(plot)
 
   # Perform identity transformation via `scale_apply`
-  out <- with_bindings(scale_apply(
-    df, "x", "transform", 1:2, plot@layout$panel_scales_x
-  )[[1]], `c.baz` = `c.baz`, `[.baz` = `[.baz`, .env = global_env())
+  out <- with_bindings(
+    scale_apply(
+      df,
+      "x",
+      "transform",
+      1:2,
+      plot@layout$panel_scales_x
+    )[[1]],
+    `c.baz` = `c.baz`,
+    `[.baz` = `[.baz`,
+    .env = global_env()
+  )
 
   # Check that it errors on bad scale ids
   expect_snapshot_error(scale_apply(
-    df, "x", "transform", c(NA, 1), plot@layout$panel_scales_x
+    df,
+    "x",
+    "transform",
+    c(NA, 1),
+    plot@layout$panel_scales_x
   ))
 
   # Check class preservation
@@ -165,16 +196,24 @@ test_that("scale_apply preserves class and attributes", {
   # Negative control: non-type stable classes don't preserve attributes
   class(df$x) <- "foobar"
 
-  out <- with_bindings(scale_apply(
-    df, "x", "transform", 1:2, plot@layout$panel_scales_x
-  )[[1]], `c.baz` = `c.baz`, `[.baz` = `[.baz`, .env = global_env())
+  out <- with_bindings(
+    scale_apply(
+      df,
+      "x",
+      "transform",
+      1:2,
+      plot@layout$panel_scales_x
+    )[[1]],
+    `c.baz` = `c.baz`,
+    `[.baz` = `[.baz`,
+    .env = global_env()
+  )
 
   expect_false(inherits(out, "foobar"))
   expect_null(attributes(out))
 })
 
 test_that("find_scale appends appropriate calls", {
-
   expect_equal(
     find_scale("x", 1)$call,
     quote(scale_x_continuous())
@@ -184,11 +223,9 @@ test_that("find_scale appends appropriate calls", {
     find_scale("colour", "A")$call,
     quote(scale_colour_discrete())
   )
-
 })
 
 test_that("populating palettes works", {
-
   scl <- scales_list()
   scl$add(scale_colour_discrete(aesthetics = c("colour", "fill")))
 
@@ -208,5 +245,4 @@ test_that("populating palettes works", {
 
   scl$set_palettes(my_theme)
   expect_equal(scl$scales[[1]]$palette(2), c("red", "blue"))
-
 })

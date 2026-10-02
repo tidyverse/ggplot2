@@ -1,5 +1,4 @@
 test_that("find_x_overlaps identifies overlapping groups", {
-
   df1 <- data_frame(
     xmin = c(1, 3, 6, 11, 13),
     xmax = c(5, 7, 9, 15, 16)
@@ -36,7 +35,6 @@ test_that("rectangles are dodged", {
 })
 
 test_that("groups with multiple rows are dodged", {
-
   n_per_group <- function(x, g) {
     vapply(split(x, g), vec_unique_count, integer(1), USE.NAMES = FALSE)
   }
@@ -106,7 +104,7 @@ test_that("boxes in facetted plots keep the correct width", {
   )
 
   p <- ggplot(df, aes(subgroup, value)) +
-    facet_wrap( ~ group) +
+    facet_wrap(~group) +
     geom_boxplot()
 
   d <- get_layer_data(p)
@@ -139,7 +137,7 @@ test_that("NA values are given their own group", {
   expect_equal(find_x_overlaps(df), seq_len(4))
 })
 
-test_that("groups are different when two blocks have externall touching point",{
+test_that("groups are different when two blocks have externall touching point", {
   df1 <- data.frame(
     xmin = c(0.5, 1.5),
     xmax = c(1.5, 2.5)

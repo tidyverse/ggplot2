@@ -4,26 +4,37 @@
 #' @export
 #' @include geom-rect.R
 GeomTile <- ggproto(
-  "GeomTile", GeomRect,
+  "GeomTile",
+  GeomRect,
   extra_params = c("na.rm"),
 
   setup_data = function(self, data, params) {
-
     data <- compute_data_size(
-      data, params$width,
+      data,
+      params$width,
       default = self$default_aes$width,
-      panels = "by", target = "width",
-      zero = FALSE, discrete = TRUE
+      panels = "by",
+      target = "width",
+      zero = FALSE,
+      discrete = TRUE
     )
     data <- compute_data_size(
-      data, params$height,
+      data,
+      params$height,
       default = self$default_aes$height,
-      panels = "by", target = "height",
-      zero = FALSE, discrete = TRUE
+      panels = "by",
+      target = "height",
+      zero = FALSE,
+      discrete = TRUE
     )
-    transform(data,
-              xmin = x - width / 2,  xmax = x + width / 2,  width = NULL,
-              ymin = y - height / 2, ymax = y + height / 2, height = NULL
+    transform(
+      data,
+      xmin = x - width / 2,
+      xmax = x + width / 2,
+      width = NULL,
+      ymin = y - height / 2,
+      ymax = y + height / 2,
+      height = NULL
     )
   },
 
@@ -32,7 +43,9 @@ GeomTile <- ggproto(
     colour = from_theme(colour %||% NA),
     linewidth = from_theme(0.4 * borderwidth),
     linetype = from_theme(bordertype),
-    alpha = NA, width = 1, height = 1
+    alpha = NA,
+    width = 1,
+    height = 1
   ),
 
   required_aes = c("x", "y"),

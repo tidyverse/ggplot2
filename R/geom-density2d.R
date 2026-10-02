@@ -63,16 +63,20 @@
 #' # Or points:
 #' d + stat_density_2d(geom = "point", aes(size = after_stat(density)), n = 20, contour = FALSE)
 #' }
-geom_density_2d <- function(mapping = NULL, data = NULL,
-                            stat = "density_2d", position = "identity",
-                            ...,
-                            contour_var = "density",
-                            lineend = "butt",
-                            linejoin = "round",
-                            linemitre = 10,
-                            na.rm = FALSE,
-                            show.legend = NA,
-                            inherit.aes = TRUE) {
+geom_density_2d <- function(
+  mapping = NULL,
+  data = NULL,
+  stat = "density_2d",
+  position = "identity",
+  ...,
+  contour_var = "density",
+  lineend = "butt",
+  linejoin = "round",
+  linemitre = 10,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+) {
   layer(
     data = data,
     mapping = mapping,
@@ -103,7 +107,9 @@ geom_density2d <- geom_density_2d
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomDensity2d <- ggproto("GeomDensity2d", GeomPath,
+GeomDensity2d <- ggproto(
+  "GeomDensity2d",
+  GeomPath,
   default_aes = aes(
     colour = from_theme(colour %||% accent),
     linewidth = from_theme(linewidth),
@@ -114,13 +120,17 @@ GeomDensity2d <- ggproto("GeomDensity2d", GeomPath,
 
 #' @export
 #' @rdname geom_density_2d
-geom_density_2d_filled <- function(mapping = NULL, data = NULL,
-                                   stat = "density_2d_filled", position = "identity",
-                                   ...,
-                                   contour_var = "density",
-                                   na.rm = FALSE,
-                                   show.legend = NA,
-                                   inherit.aes = TRUE) {
+geom_density_2d_filled <- function(
+  mapping = NULL,
+  data = NULL,
+  stat = "density_2d_filled",
+  position = "identity",
+  ...,
+  contour_var = "density",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+) {
   layer(
     data = data,
     mapping = mapping,
@@ -149,4 +159,3 @@ geom_density2d_filled <- geom_density_2d_filled
 #' @export
 #' @include geom-polygon.R
 GeomDensity2dFilled <- ggproto("GeomDensity2dFilled", GeomPolygon)
-

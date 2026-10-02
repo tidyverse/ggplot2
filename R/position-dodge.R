@@ -86,10 +86,16 @@
 #'
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
 #'   geom_bar(position = position_dodge2(preserve = "total"))
-position_dodge <- function(width = NULL, preserve = "total", orientation = "x",
-                           reverse = FALSE) {
+position_dodge <- function(
+  width = NULL,
+  preserve = "total",
+  orientation = "x",
+  reverse = FALSE
+) {
   check_bool(reverse)
-  ggproto(NULL, PositionDodge,
+  ggproto(
+    NULL,
+    PositionDodge,
     width = width,
     preserve = arg_match0(preserve, c("total", "single")),
     orientation = arg_match0(orientation, c("x", "y")),
@@ -101,7 +107,9 @@ position_dodge <- function(width = NULL, preserve = "total", orientation = "x",
 #' @format NULL
 #' @usage NULL
 #' @export
-PositionDodge <- ggproto("PositionDodge", Position,
+PositionDodge <- ggproto(
+  "PositionDodge",
+  Position,
   width = NULL,
   preserve = "total",
   orientation = "x",
@@ -109,11 +117,11 @@ PositionDodge <- ggproto("PositionDodge", Position,
   default_aes = aes(order = NULL),
 
   setup_params = function(self, data) {
-
     flipped_aes <- has_flipped_aes(data, default = self$orientation == "y")
     check_required_aesthetics(
       if (flipped_aes) "y|ymin" else "x|xmin",
-      names(data), snake_class(self)
+      names(data),
+      snake_class(self)
     )
 
     data <- flip_data(data, flipped_aes)
@@ -150,15 +158,23 @@ PositionDodge <- ggproto("PositionDodge", Position,
       data$x <- (data$xmin + data$xmax) / 2
     }
 
-    data$order <- xtfrm( # xtfrm makes anything 'sortable'
-      data$order %||% vec_ave(data$group, data[c("x", "PANEL")], fn = match_sorted)
+    data$order <- xtfrm(
+      # xtfrm makes anything 'sortable'
+      data$order %||%
+        vec_ave(data$group, data[c("x", "PANEL")], fn = match_sorted)
     )
     if (isTRUE(params$reverse)) {
       data$order <- -data$order
     }
-    if (is.null(params$n)) { # preserve = "total"
-      data$order <- vec_ave(data$order, data[c("x", "PANEL")], fn = match_sorted)
-    } else { # preserve = "single"
+    if (is.null(params$n)) {
+      # preserve = "total"
+      data$order <- vec_ave(
+        data$order,
+        data[c("x", "PANEL")],
+        fn = match_sorted
+      )
+    } else {
+      # preserve = "single"
       data$order <- match_sorted(data$order)
     }
     flip_data(data, params$flipped_aes)
@@ -186,8 +202,9 @@ pos_dodge <- function(df, width, n = NULL) {
     n <- vec_unique_count(df$group)
   }
 
-  if (n == 1)
+  if (n == 1) {
     return(df)
+  }
 
   if (!all(c("xmin", "xmax") %in% names(df))) {
     df$xmin <- df$x

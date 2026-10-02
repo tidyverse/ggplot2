@@ -130,7 +130,15 @@
 #' worldmap + coord_map("ortho", orientation = c(41, -74, 0))
 #' }
 #' }
-coord_map <- function(projection="mercator", ..., parameters = NULL, orientation = NULL, xlim = NULL, ylim = NULL, clip = "on") {
+coord_map <- function(
+  projection = "mercator",
+  ...,
+  parameters = NULL,
+  orientation = NULL,
+  xlim = NULL,
+  ylim = NULL,
+  clip = "on"
+) {
   if (is.null(parameters)) {
     params <- list(...)
   } else {
@@ -140,7 +148,9 @@ coord_map <- function(projection="mercator", ..., parameters = NULL, orientation
   check_coord_limits(xlim)
   check_coord_limits(ylim)
 
-  ggproto(NULL, CoordMap,
+  ggproto(
+    NULL,
+    CoordMap,
     projection = projection,
     orientation = orientation,
     limits = list(x = xlim, y = ylim),
@@ -153,7 +163,9 @@ coord_map <- function(projection="mercator", ..., parameters = NULL, orientation
 #' @format NULL
 #' @usage NULL
 #' @export
-CoordMap <- ggproto("CoordMap", Coord,
+CoordMap <- ggproto(
+  "CoordMap",
+  Coord,
 
   transform = function(self, data, panel_params) {
     trans <- mproject(self, data$x, data$y, panel_params$orientation)
@@ -191,13 +203,16 @@ CoordMap <- ggproto("CoordMap", Coord,
   },
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
-
     # range in scale
     ranges <- list()
     for (n in c("x", "y")) {
       scale <- get(paste0("scale_", n))
       limits <- self$limits[[n]]
-      range <- expand_limits_scale(scale, default_expansion(scale), coord_limits = limits)
+      range <- expand_limits_scale(
+        scale,
+        default_expansion(scale),
+        coord_limits = limits
+      )
       ranges[[n]] <- range
     }
 
@@ -226,11 +241,18 @@ CoordMap <- ggproto("CoordMap", Coord,
 
     details <- list(
       orientation = orientation,
-      x.range = ret$x$range, y.range = ret$y$range,
-      x.proj = ret$x$proj, y.proj = ret$y$proj,
-      x.major = ret$x$major, x.minor = ret$x$minor, x.labels = ret$x$labels,
-      y.major = ret$y$major, y.minor = ret$y$minor, y.labels = ret$y$labels,
-      x.arrange = scale_x$axis_order(), y.arrange = scale_y$axis_order()
+      x.range = ret$x$range,
+      y.range = ret$y$range,
+      x.proj = ret$x$proj,
+      y.proj = ret$y$proj,
+      x.major = ret$x$major,
+      x.minor = ret$x$minor,
+      x.labels = ret$x$labels,
+      y.major = ret$y$major,
+      y.minor = ret$y$minor,
+      y.labels = ret$y$labels,
+      x.arrange = scale_x$axis_order(),
+      y.arrange = scale_y$axis_order()
     )
     details
   },
@@ -265,22 +287,31 @@ CoordMap <- ggproto("CoordMap", Coord,
     yrange[yrange < ymid - 90] <- ymid - 90
     yrange[yrange > ymid + 90] <- ymid + 90
 
-    xgrid <- with(panel_params, expand.grid(
-      y = c(seq(yrange[1], yrange[2], length.out = 50), NA),
-      x = x.major
-    ))
-    ygrid <- with(panel_params, expand.grid(
-      x = c(seq(xrange[1], xrange[2], length.out = 50), NA),
-      y = y.major
-    ))
+    xgrid <- with(
+      panel_params,
+      expand.grid(
+        y = c(seq(yrange[1], yrange[2], length.out = 50), NA),
+        x = x.major
+      )
+    )
+    ygrid <- with(
+      panel_params,
+      expand.grid(
+        x = c(seq(xrange[1], xrange[2], length.out = 50), NA),
+        y = y.major
+      )
+    )
 
     xlines <- self$transform(xgrid, panel_params)
     ylines <- self$transform(ygrid, panel_params)
 
     if (nrow(xlines) > 0) {
       grob.xlines <- element_render(
-        theme, "panel.grid.major.x",
-        xlines$x, xlines$y, default.units = "native"
+        theme,
+        "panel.grid.major.x",
+        xlines$x,
+        xlines$y,
+        default.units = "native"
       )
     } else {
       grob.xlines <- zeroGrob()
@@ -288,17 +319,24 @@ CoordMap <- ggproto("CoordMap", Coord,
 
     if (nrow(ylines) > 0) {
       grob.ylines <- element_render(
-        theme, "panel.grid.major.y",
-        ylines$x, ylines$y, default.units = "native"
+        theme,
+        "panel.grid.major.y",
+        ylines$x,
+        ylines$y,
+        default.units = "native"
       )
     } else {
       grob.ylines <- zeroGrob()
     }
 
-    ggname("grill", grobTree(
-      element_render(theme, "panel.background"),
-      grob.xlines, grob.ylines
-    ))
+    ggname(
+      "grill",
+      grobTree(
+        element_render(theme, "panel.background"),
+        grob.xlines,
+        grob.ylines
+      )
+    )
   },
 
   render_axis_h = function(self, panel_params, theme) {
@@ -311,11 +349,14 @@ CoordMap <- ggproto("CoordMap", Coord,
       ))
     }
 
-    x_intercept <- with(panel_params, data_frame0(
-      x = x.major,
-      y = y.range[1],
-      .size = length(x.major)
-    ))
+    x_intercept <- with(
+      panel_params,
+      data_frame0(
+        x = x.major,
+        y = y.range[1],
+        .size = length(x.major)
+      )
+    )
     pos <- self$transform(x_intercept, panel_params)
 
     axes <- list(
@@ -336,11 +377,14 @@ CoordMap <- ggproto("CoordMap", Coord,
       ))
     }
 
-    x_intercept <- with(panel_params, data_frame0(
-      x = x.range[1],
-      y = y.major,
-      .size = length(y.major)
-    ))
+    x_intercept <- with(
+      panel_params,
+      data_frame0(
+        x = x.range[1],
+        y = y.major,
+        .size = length(y.major)
+      )
+    )
     pos <- self$transform(x_intercept, panel_params)
 
     axes <- list(
@@ -355,9 +399,11 @@ CoordMap <- ggproto("CoordMap", Coord,
 
 mproject <- function(coord, x, y, orientation) {
   check_installed("mapproj", reason = "for `coord_map()`.")
-  suppressWarnings(mapproj::mapproject(x, y,
+  suppressWarnings(mapproj::mapproject(
+    x,
+    y,
     projection = coord$projection,
-    parameters  = coord$params,
+    parameters = coord$params,
     orientation = orientation
   ))
 }

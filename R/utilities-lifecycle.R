@@ -77,7 +77,7 @@ edition_require <- function(edition = NULL, what, call = caller_env()) {
   current_edition <- get_ggplot2_edition()
   if (
     !is.null(current_edition) &&
-    as.numeric(current_edition) >= as.numeric(edition)
+      as.numeric(current_edition) >= as.numeric(edition)
   ) {
     return(invisible())
   }
@@ -87,12 +87,17 @@ edition_require <- function(edition = NULL, what, call = caller_env()) {
   )
 }
 
-deprecate <- function(when, ..., id = NULL, always = FALSE, user_env = NULL,
-                      escalate = NULL) {
-
+deprecate <- function(
+  when,
+  ...,
+  id = NULL,
+  always = FALSE,
+  user_env = NULL,
+  escalate = NULL
+) {
   defunct <- "3.0.0"
-  full    <- "3.4.0"
-  soft    <- utils::packageVersion("ggplot2")
+  full <- "3.4.0"
+  soft <- utils::packageVersion("ggplot2")
 
   if (identical(escalate, "delay")) {
     soft <- full
@@ -111,7 +116,13 @@ deprecate <- function(when, ..., id = NULL, always = FALSE, user_env = NULL,
   }
   user_env <- user_env %||% getOption("ggplot2_plot_env") %||% caller_env(2)
   if (version <= full || identical(escalate, "warn")) {
-    lifecycle::deprecate_warn(when, ..., id = id, always = always, user_env = user_env)
+    lifecycle::deprecate_warn(
+      when,
+      ...,
+      id = id,
+      always = always,
+      user_env = user_env
+    )
   } else if (version <= soft) {
     lifecycle::deprecate_soft(when, ..., id = id, user_env = user_env)
   }
@@ -122,20 +133,20 @@ supersede <- function(edition, what, with = NULL, ..., env = caller_env()) {
   current_edition <- get_ggplot2_edition()
   if (
     !is.null(current_edition) &&
-    current_edition %in% names(edition_versions) &&
-    as.numeric(current_edition) >= as.numeric(edition)
+      current_edition %in% names(edition_versions) &&
+      as.numeric(current_edition) >= as.numeric(edition)
   ) {
     lifecycle::deprecate_stop(
       when = paste0("edition ", edition),
       what = what,
       with = with,
-      env  = env
+      env = env
     )
   }
   lifecycle::signal_stage(
     stage = "superseded",
-    what  = what,
-    with  = with,
-    env   = env
+    what = what,
+    with = with,
+    env = env
   )
 }

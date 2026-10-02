@@ -17,7 +17,8 @@ test_that("geom_label() rotates labels", {
 
   vps <- lapply(
     get_layer_grob(p, 1)[[1]]$children,
-    `[[`, "vp"
+    `[[`,
+    "vp"
   )
   angle_out <- unname(vapply(vps, `[[`, numeric(1), "angle"))
   expect_equal(angle_in, angle_out)

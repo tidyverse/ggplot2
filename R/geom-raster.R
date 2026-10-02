@@ -5,7 +5,9 @@ NULL
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomRaster <- ggproto("GeomRaster", Geom,
+GeomRaster <- ggproto(
+  "GeomRaster",
+  Geom,
   default_aes = aes(
     fill = from_theme(fill %||% col_mix(ink, paper, 0.2)),
     alpha = NA
@@ -50,8 +52,15 @@ GeomRaster <- ggproto("GeomRaster", Geom,
     data
   },
 
-  draw_panel = function(self, data, panel_params, coord, interpolate = FALSE,
-                        hjust = 0.5, vjust = 0.5) {
+  draw_panel = function(
+    self,
+    data,
+    panel_params,
+    coord,
+    interpolate = FALSE,
+    hjust = 0.5,
+    vjust = 0.5
+  ) {
     if (!coord$is_linear()) {
       cli::cli_inform(c(
         "{.fn {snake_class(self)}} only works with linear coordinate systems, \\
@@ -84,10 +93,14 @@ GeomRaster <- ggproto("GeomRaster", Geom,
     x_rng <- c(min(data$xmin, na.rm = TRUE), max(data$xmax, na.rm = TRUE))
     y_rng <- c(min(data$ymin, na.rm = TRUE), max(data$ymax, na.rm = TRUE))
 
-    rasterGrob(raster,
-      x = mean(x_rng), y = mean(y_rng),
-      width = diff(x_rng), height = diff(y_rng),
-      default.units = "native", interpolate = interpolate
+    rasterGrob(
+      raster,
+      x = mean(x_rng),
+      y = mean(y_rng),
+      width = diff(x_rng),
+      height = diff(y_rng),
+      default.units = "native",
+      interpolate = interpolate
     )
   },
   draw_key = draw_key_polygon

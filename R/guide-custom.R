@@ -36,18 +36,26 @@
 #'   grob = grid::circleGrob(r = unit(1, "cm"))
 #' ))
 guide_custom <- function(
-  grob, width = grobWidth(grob), height = grobHeight(grob),
-  title = NULL, theme = NULL,
-  position = NULL, order = 0
+  grob,
+  width = grobWidth(grob),
+  height = grobHeight(grob),
+  title = NULL,
+  theme = NULL,
+  position = NULL,
+  order = 0
 ) {
   check_object(grob, is.grob, "a {.cls grob} object")
   check_object(width, is.unit, "a {.cls unit} object")
   check_object(height, is.unit, "a {.cls unit} object")
   if (length(width) != 1) {
-    cli::cli_abort("{.arg width} must be a single {.cls unit}, not a unit vector.")
+    cli::cli_abort(
+      "{.arg width} must be a single {.cls unit}, not a unit vector."
+    )
   }
   if (length(height) != 1) {
-    cli::cli_abort("{.arg height} must be a single {.cls unit}, not a unit vector.")
+    cli::cli_abort(
+      "{.arg height} must be a single {.cls unit}, not a unit vector."
+    )
   }
 
   new_guide(
@@ -69,7 +77,8 @@ guide_custom <- function(
 #' @usage NULL
 #' @export
 GuideCustom <- ggproto(
-  "GuideCustom", Guide,
+  "GuideCustom",
+  Guide,
 
   params = c(Guide$params, list(grob = NULL, width = NULL, height = NULL)),
 
@@ -77,8 +86,8 @@ GuideCustom <- ggproto(
 
   elements = list(
     background = "legend.background",
-    margin     = "legend.margin",
-    title      = "legend.title",
+    margin = "legend.margin",
+    title = "legend.title",
     title_position = "legend.title.position"
   ),
 
@@ -90,9 +99,13 @@ GuideCustom <- ggproto(
     params
   },
 
-  draw = function(self, theme, position = NULL, direction = NULL,
-                  params = self$params) {
-
+  draw = function(
+    self,
+    theme,
+    position = NULL,
+    direction = NULL,
+    params = self$params
+  ) {
     # Render title
     params <- replace_null(params, position = position, direction = direction)
     elems <- GuideLegend$setup_elements(params, self$elements, theme)
@@ -105,14 +118,15 @@ GuideCustom <- ggproto(
     title_position <- elems$title_position
 
     # Start with putting the main grob in a gtable
-    width  <- convertWidth(params$width, "cm", valueOnly = TRUE)
+    width <- convertWidth(params$width, "cm", valueOnly = TRUE)
     height <- convertHeight(params$height, "cm", valueOnly = TRUE)
     gt <- gtable(widths = unit(width, "cm"), heights = unit(height, "cm"))
     gt <- gtable_add_grob(gt, params$grob, t = 1, l = 1, clip = "off")
 
-
     gt <- self$add_title(
-      gt, title, title_position,
+      gt,
+      title,
+      title_position,
       rotate_just(element = elems$title)
     )
 
@@ -120,9 +134,14 @@ GuideCustom <- ggproto(
     gt <- gtable_add_padding(gt, elems$margin %||% margin())
 
     gt <- gtable_add_grob(
-      gt, element_grob(elems$background),
-      t = 1, l = 1, r = -1, b = -1,
-      z = -Inf, clip = "off"
+      gt,
+      element_grob(elems$background),
+      t = 1,
+      l = 1,
+      r = -1,
+      b = -1,
+      z = -Inf,
+      clip = "off"
     )
 
     gt

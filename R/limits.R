@@ -181,7 +181,6 @@ limits.POSIXlt <- function(lims, var, call = caller_env()) {
 expand_limits <- function(...) {
   data <- list2(...)
 
-
   supersede("2026", "expand_limits()")
 
   # unpack data frame columns

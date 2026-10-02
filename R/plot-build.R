@@ -52,8 +52,18 @@ build_ggplot <- S7::method(ggplot_build, class_ggplot) <- function(plot, ...) {
 
   # Allow all layers to make any final adjustments based
   # on raw input data and plot info
-  data <- by_layer(function(l, d) l$layer_data(plot@data), layers, data, "computing layer data")
-  data <- by_layer(function(l, d) l$setup_layer(d, plot), layers, data, "setting up layer")
+  data <- by_layer(
+    function(l, d) l$layer_data(plot@data),
+    layers,
+    data,
+    "computing layer data"
+  )
+  data <- by_layer(
+    function(l, d) l$setup_layer(d, plot),
+    layers,
+    data,
+    "setting up layer"
+  )
 
   # Initialise panels, add extra data for margins & missing faceting
   # variables, and add on a PANEL variable to data
@@ -61,7 +71,12 @@ build_ggplot <- S7::method(ggplot_build, class_ggplot) <- function(plot, ...) {
   data <- layout$setup(data, plot@data, plot@plot_env)
 
   # Compute aesthetics to produce data with generalised variable names
-  data <- by_layer(function(l, d) l$compute_aesthetics(d, plot), layers, data, "computing aesthetics")
+  data <- by_layer(
+    function(l, d) l$compute_aesthetics(d, plot),
+    layers,
+    data,
+    "computing aesthetics"
+  )
   plot@labels <- setup_plot_labels(plot, layers, data)
   data <- .ignore_data(data)
 
@@ -78,17 +93,37 @@ build_ggplot <- S7::method(ggplot_build, class_ggplot) <- function(plot, ...) {
   data <- .expose_data(data)
 
   # Apply and map statistics
-  data <- by_layer(function(l, d) l$compute_statistic(d, layout), layers, data, "computing stat")
-  data <- by_layer(function(l, d) l$map_statistic(d, plot), layers, data, "mapping stat to aesthetics")
+  data <- by_layer(
+    function(l, d) l$compute_statistic(d, layout),
+    layers,
+    data,
+    "computing stat"
+  )
+  data <- by_layer(
+    function(l, d) l$map_statistic(d, plot),
+    layers,
+    data,
+    "mapping stat to aesthetics"
+  )
 
   # Make sure missing (but required) aesthetics are added
   scales$add_missing(c("x", "y"), plot@plot_env)
 
   # Reparameterise geoms from (e.g.) y and width to ymin and ymax
-  data <- by_layer(function(l, d) l$compute_geom_1(d), layers, data, "setting up geom")
+  data <- by_layer(
+    function(l, d) l$compute_geom_1(d),
+    layers,
+    data,
+    "setting up geom"
+  )
 
   # Apply position adjustments
-  data <- by_layer(function(l, d) l$compute_position(d, layout), layers, data, "computing position")
+  data <- by_layer(
+    function(l, d) l$compute_position(d, layout),
+    layers,
+    data,
+    "computing position"
+  )
 
   # Reset position scales, then re-train and map.  This ensures that facets
   # have control over the range of a plot: is it generated from what is
@@ -110,7 +145,13 @@ build_ggplot <- S7::method(ggplot_build, class_ggplot) <- function(plot, ...) {
   if (npscales$n() > 0) {
     npscales$set_palettes(plot@theme)
     lapply(data, npscales$train_df)
-    plot@guides <- plot@guides$build(npscales, plot@layers, plot@labels, data, plot@theme)
+    plot@guides <- plot@guides$build(
+      npscales,
+      plot@layers,
+      plot@labels,
+      data,
+      plot@theme
+    )
     data <- lapply(data, npscales$map_df)
   } else {
     # Only keep custom guides if there are no non-position scales
@@ -121,11 +162,18 @@ build_ggplot <- S7::method(ggplot_build, class_ggplot) <- function(plot, ...) {
   # Fill in defaults etc.
   data <- by_layer(
     function(l, d) l$compute_geom_2(d, theme = plot@theme),
-    layers, data, "setting up geom aesthetics"
+    layers,
+    data,
+    "setting up geom aesthetics"
   )
 
   # Let layer stat have a final say before rendering
-  data <- by_layer(function(l, d) l$finish_statistics(d), layers, data, "finishing layer stat")
+  data <- by_layer(
+    function(l, d) l$finish_statistics(d),
+    layers,
+    data,
+    "finishing layer stat"
+  )
 
   # Let Layout modify data before rendering
   data <- layout$finish_data(data)
@@ -134,7 +182,10 @@ build_ggplot <- S7::method(ggplot_build, class_ggplot) <- function(plot, ...) {
   plot@labels$alt <- get_alt_text(plot)
 
   build <- class_ggplot_built(data = data, layout = layout, plot = plot)
-  class(build) <- union(c("ggplot2::ggplot_built", "ggplot_built"), class(build))
+  class(build) <- union(
+    c("ggplot2::ggplot_built", "ggplot_built"),
+    class(build)
+  )
   build
 }
 
@@ -198,9 +249,11 @@ by_layer <- function(f, layers, data, step = NULL) {
       out[[i]] <- f(l = layers[[i]], d = data[[i]])
     },
     error = function(cnd) {
-      cli::cli_abort(c(
-        "Problem while {step}.",
-        "i" = "Error occurred in the {ordinal(i)} layer."),
+      cli::cli_abort(
+        c(
+          "Problem while {step}.",
+          "i" = "Error occurred in the {ordinal(i)} layer."
+        ),
         call = layers[[i]]$constructor,
         parent = cnd
       )

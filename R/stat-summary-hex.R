@@ -3,21 +3,36 @@
 #' @usage NULL
 #' @export
 StatSummaryHex <- ggproto(
-  "StatSummaryHex", Stat,
+  "StatSummaryHex",
+  Stat,
   default_aes = aes(fill = after_stat(value)),
 
   required_aes = c("x", "y", "z"),
 
   dropped_aes = "z", # z gets dropped during statistical transformation
 
-  compute_group = function(data, scales, binwidth = NULL, bins = 30, drop = TRUE,
-                           fun = "mean", fun.args = list()) {
+  compute_group = function(
+    data,
+    scales,
+    binwidth = NULL,
+    bins = 30,
+    drop = TRUE,
+    fun = "mean",
+    fun.args = list()
+  ) {
     check_installed("hexbin", reason = "for `stat_summary_hex()`.")
 
     binwidth <- binwidth %||% hex_binwidth(bins, scales)
     fun <- as_function(fun)
-    hexBinSummarise(data$x, data$y, data$z, binwidth,
-                    fun = fun, fun.args = fun.args, drop = drop)
+    hexBinSummarise(
+      data$x,
+      data$y,
+      data$z,
+      binwidth,
+      fun = fun,
+      fun.args = fun.args,
+      drop = drop
+    )
   }
 )
 

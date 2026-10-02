@@ -1,5 +1,4 @@
 test_that("geom_curve flipping works", {
-
   df <- data.frame(x = c(1, 2), xend = c(2, 3), y = 1, yend = c(2, 1.5))
 
   p <- ggplot(df, aes(x, y, xend = xend, yend = yend)) +
@@ -7,11 +6,9 @@ test_that("geom_curve flipping works", {
 
   expect_doppelganger("standard geom_curve", p)
   expect_doppelganger("flipped geom_curve", p + scale_y_reverse())
-
 })
 
 test_that("geom_curve shape works", {
-
   df <- data.frame(x = c(1, 3), xend = c(2, 4), y = c(0, 1), yend = c(2, 1.5))
 
   p <- ggplot(df) +
@@ -46,5 +43,4 @@ test_that("geom_curve shape works", {
     NULL
 
   expect_doppelganger("multishape geom_curve", p)
-
 })

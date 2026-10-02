@@ -3,15 +3,21 @@
 #' @usage NULL
 #' @export
 StatSum <- ggproto(
-  "StatSum", Stat,
+  "StatSum",
+  Stat,
   default_aes = aes(size = after_stat(n), weight = 1),
 
   required_aes = c("x", "y"),
 
   compute_panel = function(data, scales) {
-    if (is.null(data$weight)) data$weight <- 1
+    if (is.null(data$weight)) {
+      data$weight <- 1
+    }
 
-    group_by <- setdiff(intersect(names(data), ggplot_global$all_aesthetics), "weight")
+    group_by <- setdiff(
+      intersect(names(data), ggplot_global$all_aesthetics),
+      "weight"
+    )
 
     counts <- count(data, group_by, wt_var = "weight")
     counts <- rename(counts, c(freq = "n"))

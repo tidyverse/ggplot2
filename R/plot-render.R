@@ -32,7 +32,12 @@ S7::method(ggplot_gtable, class_ggplot_built) <- function(data) {
   theme <- plot@theme
   labels <- plot@labels
 
-  geom_grobs <- by_layer(function(l, d) l$draw_geom(d, layout), plot@layers, data, "converting geom to grob")
+  geom_grobs <- by_layer(
+    function(l, d) l$draw_geom(d, layout),
+    plot@layers,
+    data,
+    "converting geom to grob"
+  )
 
   plot_table <- layout$render(geom_grobs, data, theme, labels)
 
@@ -66,7 +71,6 @@ S7::method(as.gtable, class_ggplot_built) <- function(x, ...) ggplot_gtable(x)
 
 # Add the legends to the gtable
 table_add_legends <- function(table, legends, theme) {
-
   if (is_zero(legends)) {
     legends <- rep(list(zeroGrob()), 5)
     names(legends) <- c(.trbl, "inside")
@@ -79,12 +83,12 @@ table_add_legends <- function(table, legends, theme) {
   )
 
   empty <- vapply(legends, is_zero, logical(1))
-  widths[!empty]  <- lapply(legends[!empty], gtable_width)
+  widths[!empty] <- lapply(legends[!empty], gtable_width)
   heights[!empty] <- lapply(legends[!empty], gtable_height)
   spacing <- calc_element("legend.box.spacing", theme) %||% unit(0.2, "cm")
 
   # If legend is missing, set spacing to zero for that legend
-  zero    <- unit(0, "pt")
+  zero <- unit(0, "pt")
   spacing <- lapply(empty, function(is_empty) if (is_empty) zero else spacing)
 
   location <- switch(
@@ -97,19 +101,29 @@ table_add_legends <- function(table, legends, theme) {
 
   # Add right legend
   table <- gtable_add_cols(table, spacing$right, pos = -1)
-  table <- gtable_add_cols(table, widths$right,  pos = -1)
+  table <- gtable_add_cols(table, widths$right, pos = -1)
   table <- gtable_add_grob(
-    table, legends$right, clip = "off",
-    t = place$t, b = place$b, l = -1, r = -1,
+    table,
+    legends$right,
+    clip = "off",
+    t = place$t,
+    b = place$b,
+    l = -1,
+    r = -1,
     name = "guide-box-right"
   )
 
   # Add left legend
   table <- gtable_add_cols(table, spacing$left, pos = 0)
-  table <- gtable_add_cols(table, widths$left,  pos = 0)
+  table <- gtable_add_cols(table, widths$left, pos = 0)
   table <- gtable_add_grob(
-    table, legends$left, clip = "off",
-    t = place$t, b = place$b, l = 1, r = 1,
+    table,
+    legends$left,
+    clip = "off",
+    t = place$t,
+    b = place$b,
+    l = 1,
+    r = 1,
     name = "guide-box-left"
   )
 
@@ -119,8 +133,13 @@ table_add_legends <- function(table, legends, theme) {
   table <- gtable_add_rows(table, spacing$bottom, pos = -1)
   table <- gtable_add_rows(table, heights$bottom, pos = -1)
   table <- gtable_add_grob(
-    table, legends$bottom, clip = "off",
-    t = -1, b = -1, l = place$l, r = place$r,
+    table,
+    legends$bottom,
+    clip = "off",
+    t = -1,
+    b = -1,
+    l = place$l,
+    r = place$r,
     name = "guide-box-bottom"
   )
 
@@ -128,16 +147,26 @@ table_add_legends <- function(table, legends, theme) {
   table <- gtable_add_rows(table, spacing$top, pos = 0)
   table <- gtable_add_rows(table, heights$top, pos = 0)
   table <- gtable_add_grob(
-    table, legends$top, clip = "off",
-    t = 1, b = 1, l = place$l, r = place$r,
+    table,
+    legends$top,
+    clip = "off",
+    t = 1,
+    b = 1,
+    l = place$l,
+    r = place$r,
     name = "guide-box-top"
   )
 
   # Add manual legend
   place <- find_panel(table)
   table <- gtable_add_grob(
-    table, legends$inside, clip = "off",
-    t = place$t, b = place$b, l = place$l, r = place$r,
+    table,
+    legends$inside,
+    clip = "off",
+    t = place$t,
+    b = place$b,
+    l = place$l,
+    r = place$r,
     name = "guide-box-inside"
   )
 
@@ -145,18 +174,23 @@ table_add_legends <- function(table, legends, theme) {
 }
 
 table_add_titles <- function(table, labels, theme) {
-
   # Title
   title <- element_render(
-    theme, "plot.title", labels$title,
-    margin_y = TRUE, margin_x = TRUE
+    theme,
+    "plot.title",
+    labels$title,
+    margin_y = TRUE,
+    margin_x = TRUE
   )
   title_height <- grobHeight(title)
 
   # Subtitle
   subtitle <- element_render(
-    theme, "plot.subtitle", labels$subtitle,
-    margin_y = TRUE, margin_x = TRUE
+    theme,
+    "plot.subtitle",
+    labels$subtitle,
+    margin_y = TRUE,
+    margin_x = TRUE
   )
   subtitle_height <- grobHeight(subtitle)
 
@@ -180,21 +214,39 @@ table_add_titles <- function(table, labels, theme) {
   }
 
   table <- gtable_add_rows(table, subtitle_height, pos = 0)
-  table <- gtable_add_grob(table, subtitle, name = "subtitle",
-                           t = 1, b = 1, l = l, r = r, clip = "off")
+  table <- gtable_add_grob(
+    table,
+    subtitle,
+    name = "subtitle",
+    t = 1,
+    b = 1,
+    l = l,
+    r = r,
+    clip = "off"
+  )
 
   table <- gtable_add_rows(table, title_height, pos = 0)
-  table <- gtable_add_grob(table, title, name = "title",
-                           t = 1, b = 1, l = l, r = r, clip = "off")
+  table <- gtable_add_grob(
+    table,
+    title,
+    name = "title",
+    t = 1,
+    b = 1,
+    l = l,
+    r = r,
+    clip = "off"
+  )
 
   table
 }
 
 table_add_caption <- function(table, label, theme) {
-
   caption <- element_render(
-    theme, "plot.caption", label,
-    margin_y = TRUE, margin_x = TRUE
+    theme,
+    "plot.caption",
+    label,
+    margin_y = TRUE,
+    margin_x = TRUE
   )
   caption_height <- grobHeight(caption)
 
@@ -219,8 +271,16 @@ table_add_caption <- function(table, label, theme) {
   }
 
   table <- gtable_add_rows(table, caption_height, pos = -1)
-  table <- gtable_add_grob(table, caption, name = "caption",
-                           t = -1, b = -1, l = l, r = r, clip = "off")
+  table <- gtable_add_grob(
+    table,
+    caption,
+    name = "caption",
+    t = -1,
+    b = -1,
+    l = l,
+    r = r,
+    clip = "off"
+  )
   table
 }
 
@@ -245,14 +305,18 @@ table_add_tag <- function(table, label, theme) {
 
   if (is.numeric(position)) {
     if (location == "margin") {
-      cli::cli_abort(paste0(
-        "A {.cls numeric} {.arg plot.tag.position} cannot be used with ",
-        "`{.val margin}` as {.arg plot.tag.location}."
-      ),
-      call = expr(theme()))
+      cli::cli_abort(
+        paste0(
+          "A {.cls numeric} {.arg plot.tag.position} cannot be used with ",
+          "`{.val margin}` as {.arg plot.tag.location}."
+        ),
+        call = expr(theme())
+      )
     }
     check_length(
-      position, 2L, call = expr(theme()),
+      position,
+      2L,
+      call = expr(theme()),
       arg = I("A {.cls numeric} {.arg plot.tag.position}")
     )
     top <- left <- right <- bottom <- FALSE
@@ -260,21 +324,29 @@ table_add_tag <- function(table, label, theme) {
     # Break position into top/left/right/bottom
     position <- arg_match0(
       position[1],
-      c("topleft", "top", "topright", "left",
-        "right", "bottomleft", "bottom", "bottomright"),
+      c(
+        "topleft",
+        "top",
+        "topright",
+        "left",
+        "right",
+        "bottomleft",
+        "bottom",
+        "bottomright"
+      ),
       arg_nm = "plot.tag.position",
       error_call = expr(theme())
     )
-    top    <- position %in% c("topleft",    "top",    "topright")
-    left   <- position %in% c("topleft",    "left",   "bottomleft")
-    right  <- position %in% c("topright",   "right",  "bottomright")
+    top <- position %in% c("topleft", "top", "topright")
+    left <- position %in% c("topleft", "left", "bottomleft")
+    right <- position %in% c("topright", "right", "bottomright")
     bottom <- position %in% c("bottomleft", "bottom", "bottomright")
   }
 
   # Resolve tag and sizes
   tag <- element_grob(element, label = label, margin_y = TRUE, margin_x = TRUE)
   height <- grobHeight(tag)
-  width  <- grobWidth(tag)
+  width <- grobWidth(tag)
 
   if (location %in% c("plot", "panel")) {
     if (!is.numeric(position)) {
@@ -302,13 +374,23 @@ table_add_tag <- function(table, label, theme) {
     }
     # Re-render with manual positions
     tag <- element_grob(
-      element, x = x, y = y, label = label,
-      margin_y = TRUE, margin_x = TRUE
+      element,
+      x = x,
+      y = y,
+      label = label,
+      margin_y = TRUE,
+      margin_x = TRUE
     )
     if (location == "plot") {
       table <- gtable_add_grob(
-        table, tag, name = "tag", clip = "off",
-        t = 1, b = nrow(table), l = 1, r = ncol(table)
+        table,
+        tag,
+        name = "tag",
+        clip = "off",
+        t = 1,
+        b = nrow(table),
+        l = 1,
+        r = ncol(table)
       )
       return(table)
     }
@@ -320,36 +402,63 @@ table_add_tag <- function(table, label, theme) {
     n_col <- ncol(table)
     n_row <- nrow(table)
     # Actually fill margin with relevant units
-    if (top)    table$heights <- unit.c(height, table$heights[-1])
-    if (left)   table$widths  <- unit.c(width,  table$widths[-1])
-    if (right)  table$widths  <- unit.c(table$widths[-n_col],  width)
-    if (bottom) table$heights <- unit.c(table$heights[-n_row], height)
+    if (top) {
+      table$heights <- unit.c(height, table$heights[-1])
+    }
+    if (left) {
+      table$widths <- unit.c(width, table$widths[-1])
+    }
+    if (right) {
+      table$widths <- unit.c(table$widths[-n_col], width)
+    }
+    if (bottom) {
+      table$heights <- unit.c(table$heights[-n_row], height)
+    }
     place <- data_frame0(t = 1L, r = n_col, b = n_row, l = 1L)
   }
 
   # Shrink placement to position
-  if (top)    place$b <- place$t
-  if (left)   place$r <- place$l
-  if (right)  place$l <- place$r
-  if (bottom) place$t <- place$b
+  if (top) {
+    place$b <- place$t
+  }
+  if (left) {
+    place$r <- place$l
+  }
+  if (right) {
+    place$l <- place$r
+  }
+  if (bottom) {
+    place$t <- place$b
+  }
 
   gtable_add_grob(
-    table, tag, name = "tag", clip = "off",
-    t = place$t, l = place$l, b = place$b, r = place$r
+    table,
+    tag,
+    name = "tag",
+    clip = "off",
+    t = place$t,
+    l = place$l,
+    b = place$b,
+    r = place$r
   )
 }
 
 table_add_background <- function(table, theme) {
   # Margins
   margin <- calc_element("plot.margin", theme) %||% margin()
-  table  <- gtable_add_padding(table, margin)
+  table <- gtable_add_padding(table, margin)
 
   background <- calc_element("plot.background", theme)
   if (is_theme_element(background)) {
     table <- gtable_add_grob(
-      table, element_grob(background),
-      t = 1, l = 1, b = -1, r = -1,
-      name = "background", z = -Inf
+      table,
+      element_grob(background),
+      t = 1,
+      l = 1,
+      b = -1,
+      r = -1,
+      name = "background",
+      z = -Inf
     )
   }
 

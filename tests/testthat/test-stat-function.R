@@ -23,25 +23,25 @@ test_that("uses scale limits, not data limits", {
 })
 
 test_that("works in plots without any data", {
-  f <- function(x) 2*x
+  f <- function(x) 2 * x
 
   # default limits, 0 to 1
   base <- ggplot() + geom_function(fun = f, n = 6)
   ret <- get_layer_data(base)
   expect_identical(ret$x, seq(0, 1, length.out = 6))
-  expect_identical(ret$y, 2*ret$x)
+  expect_identical(ret$y, 2 * ret$x)
 
   # manually set limits with xlim()
   base <- ggplot() + xlim(0, 2) + geom_function(fun = f, n = 6)
   ret <- get_layer_data(base)
   expect_identical(ret$x, seq(0, 2, length.out = 6))
-  expect_identical(ret$y, 2*ret$x)
+  expect_identical(ret$y, 2 * ret$x)
 
   # manually set limits with xlim argument
   base <- ggplot() + geom_function(fun = f, n = 6, xlim = c(0, 2))
   ret <- get_layer_data(base)
   expect_identical(ret$x, seq(0, 2, length.out = 6))
-  expect_identical(ret$y, 2*ret$x)
+  expect_identical(ret$y, 2 * ret$x)
 
   # mapping of color via aes() works
   base <- ggplot() +
@@ -49,7 +49,7 @@ test_that("works in plots without any data", {
     scale_color_manual(values = c(fun = "#D55E00"))
   ret <- get_layer_data(base)
   expect_identical(ret$x, seq(0, 1, length.out = 6))
-  expect_identical(ret$y, 2*ret$x)
+  expect_identical(ret$y, 2 * ret$x)
   expect_identical(ret$colour, rep("#D55E00", 6))
 })
 
@@ -92,7 +92,8 @@ test_that("works with transformed scales", {
   expect_equal(10^ret$y, (10^ret$x)^2)
 
   # now with explicit mapping of y
-  base <- ggplot(dat, aes(x, y)) + geom_point() +
+  base <- ggplot(dat, aes(x, y)) +
+    geom_point() +
     stat_function(fun = ~ .x^2, n = 5)
 
   ret <- get_layer_data(base, 2)
@@ -133,7 +134,11 @@ test_that("works with formula syntax", {
 test_that("Warn when drawing multiple copies of the same function", {
   df <- data_frame(x = 1:3, y = letters[1:3])
   p <- ggplot(df, aes(x, color = y)) + stat_function(fun = identity)
-  f <- function() {pdf(NULL); print(p); dev.off()}
+  f <- function() {
+    pdf(NULL)
+    print(p)
+    dev.off()
+  }
   expect_snapshot_warning(f())
 })
 
@@ -150,7 +155,10 @@ test_that("Line style can be changed via provided data", {
 
   base <- ggplot() +
     geom_function(
-      data = df, aes(color = fun), fun = identity, n = 6
+      data = df,
+      aes(color = fun),
+      fun = identity,
+      n = 6
     ) +
     scale_color_identity()
   ret <- get_layer_data(base)
@@ -160,7 +168,10 @@ test_that("Line style can be changed via provided data", {
 
   base <- ggplot() +
     stat_function(
-      data = df, aes(color = fun), fun = identity, n = 6
+      data = df,
+      aes(color = fun),
+      fun = identity,
+      n = 6
     ) +
     scale_color_identity()
   ret <- get_layer_data(base)
