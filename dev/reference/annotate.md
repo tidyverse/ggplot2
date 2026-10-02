@@ -19,6 +19,7 @@ annotate(
   ymax = NULL,
   xend = NULL,
   yend = NULL,
+  group = NULL,
   ...,
   na.rm = FALSE
 )
@@ -33,6 +34,10 @@ annotate(
 - x, y, xmin, ymin, xmax, ymax, xend, yend:
 
   positioning aesthetics - you must specify at least one of these.
+
+- group:
+
+  group aesthetic
 
 - ...:
 

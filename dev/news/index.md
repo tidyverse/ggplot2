@@ -2,6 +2,11 @@
 
 ## ggplot2 (development version)
 
+- [`annotate()`](https://ggplot2.tidyverse.org/dev/reference/annotate.md)
+  now treats the `group` argument as a per-observation aesthetic instead
+  of a fixed parameter, fixing an error when combined with facets
+  ([@taekop](https://github.com/taekop),
+  [\#6862](https://github.com/tidyverse/ggplot2/issues/6862)).
 - New `theme(axis.ontop)` theme setting to control axis drawing order
   relative to panel ([@teunbrand](https://github.com/teunbrand),
   [\#6456](https://github.com/tidyverse/ggplot2/issues/6456)).

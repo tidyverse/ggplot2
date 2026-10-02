@@ -72,7 +72,9 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="ggplot2-development-version">ggplot2 (development version)<a class="anchor" aria-label="anchor" href="#ggplot2-development-version"></a></h2>
-<ul><li>New <code>theme(axis.ontop)</code> theme setting to control axis drawing order relative to panel (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6456" class="external-link">#6456</a>).</li>
+<ul><li>
+<code><a href="../reference/annotate.html">annotate()</a></code> now treats the <code>group</code> argument as a per-observation aesthetic instead of a fixed parameter, fixing an error when combined with facets (<a href="https://github.com/taekop" class="external-link">@taekop</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6862" class="external-link">#6862</a>).</li>
+<li>New <code>theme(axis.ontop)</code> theme setting to control axis drawing order relative to panel (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6456" class="external-link">#6456</a>).</li>
 <li>New <code>stat_boxplot(min.group.n)</code> argument, which skips drawing the box and whiskers for small groups (<a href="https://github.com/teunbrand" class="external-link">@teunbrand</a> based on code by <a href="https://github.com/dicook" class="external-link">@dicook</a>, <a href="https://github.com/tidyverse/ggplot2/issues/6776" class="external-link">#6776</a>)</li>
 <li>Fixed wording of warning emitted by <code>remove missing()</code> when non-finite values are removed: it now reads “non-finite values or values outside the scale range” instead of “non-finite outside the scale range” (<a href="https://github.com/osorensen" class="external-link">@osorensen</a>).</li>
 <li>(internal) Secondary axis tests now meaningfully assert break positions. Misplaced parentheses previously made the tolerance checks one-sided, and four position checks were tautological self-comparisons (<a href="https://github.com/sims1253" class="external-link">@sims1253</a>).</li>
