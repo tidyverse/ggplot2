@@ -978,15 +978,34 @@ S7::method(merge_element, list(element, S7::class_any)) <-
       cli::cli_abort("Only elements of the same class can be merged.")
     }
 
+    old_props <- if (S7::S7_inherits(old)) S7::props(old) else unclass(old)
+    new_props <- S7::props(new)
+
     # Override NULL properties of new with the values in old
-    # Get logical vector of NULL properties in new
-    idx <- lengths(S7::props(new)) == 0
-    # Get the names of TRUE items
-    idx <- names(idx[idx])
+    missing <- names(which(lengths(new_props) == 0))
+    new_props[missing] <- old_props[missing]
 
-    # Update non-NULL items
-    S7::props(new)[idx] <- S7::props(old, idx)
+    if (isTRUE(inherit)) {
+      fields <- intersect(names(new_props), .inheriting_props)
+      for (field in fields) {
+        new_props[[field]] <- merge_element(
+          new_props[[field]],
+          old_props[[field]],
+          inherit = TRUE
+        )
+      }
 
+      # If e2 is 'richer' than e1, fill e2 with e1 parameters
+      is_subclass <- !any(inherits(old, class(new), which = TRUE) == 0)
+      is_subclass <- is_subclass && length(setdiff(class(old), class(new))) > 0
+      if (is_subclass) {
+        replace <- defaults(new_props, old_props)
+        S7::props(old)[names(replace)] <- replace
+        return(old)
+      }
+    }
+
+    S7::props(new) <- new_props
     new
   }
 
@@ -1092,33 +1111,7 @@ combine_elements <- function(e1, e2) {
   if (is_theme_element(e2, "blank")) {
     return(merge_element(e1, e2, inherit = TRUE))
   }
-
-  old_props <- if (S7::S7_inherits(e2)) S7::props(e2) else unclass(e2)
-  new_props <- S7::props(e1)
-
-  # If e1 has any NULL properties, inherit them from e2
-  n <- names(new_props)[lengths(new_props) == 0]
-  new_props[n] <- old_props[n]
-
-  fields <- intersect(names(new_props), .inheriting_props)
-  for (field in fields) {
-    new_props[[field]] <- merge_element(
-      new_props[[field]],
-      old_props[[field]],
-      inherit = TRUE
-    )
-  }
-
-  # If e2 is 'richer' than e1, fill e2 with e1 parameters
-  is_subclass <- !any(inherits(e2, class(e1), which = TRUE) == 0)
-  is_subclass <- is_subclass && length(setdiff(class(e2), class(e1))) > 0
-  if (is_subclass) {
-    replace <- defaults(new_props, old_props)
-    S7::props(e2)[names(replace)] <- replace
-    return(e2)
-  }
-  S7::props(e1) <- new_props
-  e1
+  merge_element(e1, e2, inherit = TRUE)
 }
 
 .inheriting_props <- c("size", "linewidth", "margin")
