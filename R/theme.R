@@ -995,10 +995,15 @@ S7::method(merge_element, list(element, S7::class_any)) <-
         )
       }
 
-      # If e2 is 'richer' than e1, fill e2 with e1 parameters
-      if (is_subclass(old, new)) {
+      # If old is 'richer' than new, fill old with new parameters
+      if (is_subclass(old, new, TRUE)) {
         replace <- defaults(new_props, old_props)
-        S7::props(old)[names(replace)] <- replace
+        if (is_theme_element(old)) {
+          S7::props(old)[names(replace)] <- replace
+        } else {
+          # Backwards compatibility
+          old[names(replace)] <- replace
+        }
         return(old)
       }
     }
@@ -1051,11 +1056,11 @@ S7::method(merge_element, list(class_rel, S7::class_any)) <-
 # TODO: in subsequent release cycle, start deprecation
 S7::method(merge_element, list(S7::new_S3_class("element"), S7::class_any)) <-
   function(new, old, ..., inherit = FALSE) {
+    old_orig <- old
     if (S7::S7_inherits(old)) {
       old <- S7::props(old)
     }
-    idx <- lengths(new) == 0
-    idx <- names(idx[idx])
+    idx <- names(which(lengths(new) == 0))
     new[idx] <- old[idx]
 
     if (!isTRUE(inherit)) {
@@ -1069,6 +1074,17 @@ S7::method(merge_element, list(S7::new_S3_class("element"), S7::class_any)) <-
         old[[field]],
         inherit = TRUE
       )
+    }
+
+    if (is_subclass(old_orig, new, trim_s7 = TRUE)) {
+      replace <- defaults(new, old)
+      if (is_theme_element(old_orig)) {
+        S7::props(old_orig)[names(replace)] <- replace
+        old <- old_orig
+      } else {
+        old[names(replace)] <- replace
+      }
+      return(old)
     }
 
     new
@@ -1085,9 +1101,18 @@ combine_elements <- function(e1, e2) {
   merge_element(e1, e2, inherit = TRUE)
 }
 
-is_subclass <- function(x, y) {
+is_subclass <- function(x, y, trim_s7 = TRUE) {
   cx <- class(x)
   cy <- class(y)
+  if (trim_s7) {
+    # Strip S7 class prefixes, `ggplot2::` from `ggplot2::element_text`.
+    # Our base S7 classes also have S3 class for backward compatibility (`element_text`)
+    # Extended S7 classes may lack that backward compatibility class.
+    # Extended S3 classes do not list our base S7 classes.
+    # Best to compare by stripping the S7 bit and taking unique classes.
+    cx <- setdiff(unique(gsub("^\\w+::", "", cx)), "S7_object")
+    cy <- setdiff(unique(gsub("^\\w+::", "", cy)), "S7_object")
+  }
   length(cx) > length(cy) && all(cy %in% cx)
 }
 
