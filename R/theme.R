@@ -929,8 +929,8 @@ merge_element <- S7::new_generic(
   "merge_element",
   dispatch_args = c("new", "old"),
   fun = function(new, old, ..., inherit = FALSE) {
-    # If old is NULL or element_blank, then just return new
-    if (is.null(old) || is_theme_element(old, "blank")) {
+    # If old is NULL then just return new
+    if (is.null(old)) {
       return(new)
     }
     S7::S7_dispatch()
@@ -986,6 +986,15 @@ S7::method(merge_element, list(element, S7::class_any)) <-
     # Update non-NULL items
     S7::props(new)[idx] <- S7::props(old, idx)
 
+    new
+  }
+
+S7::method(merge_element, list(element, element_blank)) <-
+  function(new, old, ..., inherit = FALSE) {
+    # Honour the `inherit.blank` setting of inheriting elements
+    if (isTRUE(inherit) && isTRUE(try_prop(new, "inherit.blank"))) {
+      return(old)
+    }
     new
   }
 
@@ -1061,11 +1070,7 @@ combine_elements <- function(e1, e2) {
   # If e2 is element_blank, and e1 inherits blank inherit everything from e2,
   # otherwise ignore e2
   if (is_theme_element(e2, "blank")) {
-    if (isTRUE(try_prop(e1, "inherit.blank"))) {
-      return(e2)
-    } else {
-      return(e1)
-    }
+    return(merge_element(e1, e2, inherit = TRUE))
   }
 
   parent_props <- if (S7::S7_inherits(e2)) S7::props(e2) else unclass(e2)
