@@ -1084,33 +1084,6 @@ S7::method(merge_element, list(S7::new_S3_class("element"), S7::class_any)) <-
 #' @noRd
 #'
 combine_elements <- function(e1, e2) {
-  # If e2 is NULL, nothing to inherit
-  if (is.null(e2) || is_theme_element(e1, "blank") || is.null(e1)) {
-    return(merge_element(e1, e2, inherit = TRUE))
-  }
-
-  # Inheritance of rel objects/margins
-  if (is_rel(e1) || is_margin(e1) && is_margin(e2)) {
-    return(merge_element(e1, e2, inherit = TRUE))
-  }
-
-  # Backward compatbility
-  # TODO: deprecate next release cycle
-  is_old_element <- !S7::S7_inherits(e1) && inherits(e1, "element")
-  if (is_old_element && (is_theme_element(e2) || inherits(e2, "element"))) {
-    return(merge_element(e1, e2, inherit = TRUE))
-  }
-
-  # If neither of e1 or e2 are element_* objects, return e1
-  if (!is_theme_element(e1) && !is_theme_element(e2)) {
-    return(e1)
-  }
-
-  # If e2 is element_blank, and e1 inherits blank inherit everything from e2,
-  # otherwise ignore e2
-  if (is_theme_element(e2, "blank")) {
-    return(merge_element(e1, e2, inherit = TRUE))
-  }
   merge_element(e1, e2, inherit = TRUE)
 }
 
