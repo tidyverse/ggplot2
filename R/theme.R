@@ -996,9 +996,7 @@ S7::method(merge_element, list(element, S7::class_any)) <-
       }
 
       # If e2 is 'richer' than e1, fill e2 with e1 parameters
-      is_subclass <- !any(inherits(old, class(new), which = TRUE) == 0)
-      is_subclass <- is_subclass && length(setdiff(class(old), class(new))) > 0
-      if (is_subclass) {
+      if (is_subclass(old, new)) {
         replace <- defaults(new_props, old_props)
         S7::props(old)[names(replace)] <- replace
         return(old)
@@ -1085,6 +1083,12 @@ S7::method(merge_element, list(S7::new_S3_class("element"), S7::class_any)) <-
 #'
 combine_elements <- function(e1, e2) {
   merge_element(e1, e2, inherit = TRUE)
+}
+
+is_subclass <- function(x, y) {
+  cx <- class(x)
+  cy <- class(y)
+  length(cx) > length(cy) && all(cy %in% cx)
 }
 
 .inheriting_props <- c("size", "linewidth", "margin")
