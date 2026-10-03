@@ -1000,7 +1000,14 @@ S7::method(merge_element, list(element, element_blank)) <-
 
 S7::method(merge_element, list(margin, S7::class_any)) <-
   function(new, old, ..., inherit = FALSE) {
-    if (anyNA(new) && is_margin(old)) {
+    if (!is_margin(old)) {
+      return(new)
+    }
+    if (isTRUE(inherit) && anyNA(old)) {
+      # If inheriting, make sure there old margin is complete
+      old[is.na(old)] <- unit(0, "pt")
+    }
+    if (anyNA(new)) {
       new[is.na(new)] <- old[is.na(new)]
     }
     new
@@ -1047,12 +1054,7 @@ combine_elements <- function(e1, e2) {
   }
 
   if (is_margin(e1) && is_margin(e2)) {
-    if (anyNA(e2)) {
-      e2[is.na(e2)] <- unit(0, "pt")
-    }
-    if (anyNA(e1)) {
-      e1[is.na(e1)] <- e2[is.na(e1)]
-    }
+    return(merge_element(e1, e2, inherit = TRUE))
   }
 
   # Backward compatbility
@@ -1090,7 +1092,7 @@ combine_elements <- function(e1, e2) {
   }
 
   if (is_theme_element(e1, "text")) {
-    e1@margin <- combine_elements(e1@margin, parent_props$margin)
+    e1@margin <- merge_element(e1@margin, parent_props$margin, inherit = TRUE)
   }
 
   # If e2 is 'richer' than e1, fill e2 with e1 parameters
@@ -1119,7 +1121,7 @@ combine_s3_elements <- function(e1, e2) {
     e1$linewidth <- e2$linewidth * unclass(e1$linewidth)
   }
   if (inherits(e1, "element_text")) {
-    e1$margin <- combine_elements(e1$margin, e2$margin)
+    e1$margin <- merge_element(e1$margin, e2$margin, inherit = TRUE)
   }
   return(e1)
 }
