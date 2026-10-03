@@ -911,6 +911,9 @@ calc_element <- function(
 #'
 #' @param new The child element in the theme hierarchy
 #' @param old The parent element in the theme hierarchy
+#' @param ... Optional arguments, not currently used.
+#' @param inherit Boolean whether to replace (`FALSE`, default) or inherit
+#'   (`TRUE`) parent values. Relevant for [`rel()`] and [`margin()`] values.
 #' @return A modified version of `new` updated with the properties of
 #' `old`
 #' @keywords internal
@@ -925,7 +928,7 @@ calc_element <- function(
 merge_element <- S7::new_generic(
   "merge_element",
   dispatch_args = c("new", "old"),
-  fun = function(new, old, ...) {
+  fun = function(new, old, ..., inherit = FALSE) {
     # If old is NULL or element_blank, then just return new
     if (is.null(old) || is_theme_element(old, "blank")) {
       return(new)
@@ -935,7 +938,7 @@ merge_element <- S7::new_generic(
 )
 
 S7::method(merge_element, list(S7::class_any, S7::class_any)) <-
-  function(new, old, ...) {
+  function(new, old, ..., inherit = FALSE) {
     if (
       is.null(new) ||
         is.character(new) ||
@@ -955,13 +958,13 @@ S7::method(merge_element, list(S7::class_any, S7::class_any)) <-
   }
 
 S7::method(merge_element, list(element_blank, S7::class_any)) <-
-  function(new, old, ...) {
+  function(new, old, ..., inherit = FALSE) {
     # If new is element_blank, just return it
     new
   }
 
 S7::method(merge_element, list(element, S7::class_any)) <-
-  function(new, old, ...) {
+  function(new, old, ..., inherit = FALSE) {
     # actual merging can only happen if classes match
     if (!inherits(new, class(old)[1])) {
       cli::cli_abort("Only elements of the same class can be merged.")
@@ -980,7 +983,7 @@ S7::method(merge_element, list(element, S7::class_any)) <-
   }
 
 S7::method(merge_element, list(margin, S7::class_any)) <-
-  function(new, old, ...) {
+  function(new, old, ..., inherit = FALSE) {
     if (anyNA(new) && is_margin(old)) {
       new[is.na(new)] <- old[is.na(new)]
     }
@@ -990,7 +993,7 @@ S7::method(merge_element, list(margin, S7::class_any)) <-
 # For backward compatibility
 # TODO: in subsequent release cycle, start deprecation
 S7::method(merge_element, list(S7::new_S3_class("element"), S7::class_any)) <-
-  function(new, old, ...) {
+  function(new, old, ..., inherit = FALSE) {
     if (S7::S7_inherits(old)) {
       old <- S7::props(old)
     }
