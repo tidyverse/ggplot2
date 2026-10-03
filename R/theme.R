@@ -1039,6 +1039,20 @@ S7::method(merge_element, list(S7::new_S3_class("element"), S7::class_any)) <-
     idx <- lengths(new) == 0
     idx <- names(idx[idx])
     new[idx] <- old[idx]
+
+    if (!isTRUE(inherit)) {
+      return(new)
+    }
+
+    fields <- intersect(names(new), .inheriting_props)
+    for (field in fields) {
+      new[[field]] <- merge_element(
+        new[[field]],
+        old[[field]],
+        inherit = TRUE
+      )
+    }
+
     new
   }
 
@@ -1064,7 +1078,7 @@ combine_elements <- function(e1, e2) {
   # TODO: deprecate next release cycle
   is_old_element <- !S7::S7_inherits(e1) && inherits(e1, "element")
   if (is_old_element && (is_theme_element(e2) || inherits(e2, "element"))) {
-    return(combine_s3_elements(e1, e2))
+    return(merge_element(e1, e2, inherit = TRUE))
   }
 
   # If neither of e1 or e2 are element_* objects, return e1
@@ -1114,24 +1128,7 @@ combine_elements <- function(e1, e2) {
   e1
 }
 
-# For backward compatibility
-# TODO: in subsequent release cycle, start deprecation
-combine_s3_elements <- function(e1, e2) {
-  e1 <- merge_element(e1, e2)
-  if (S7::S7_inherits(e2)) {
-    e2 <- S7::props(e2)
-  }
-  if (is_rel(e1$size)) {
-    e1$size <- merge_element(e1$size, e2$size, inherit = TRUE)
-  }
-  if (is_rel(e1$linewidth)) {
-    e1$linewidth <- merge_element(e1$linewidth, e2$linewidth, inherit = TRUE)
-  }
-  if (inherits(e1, "element_text")) {
-    e1$margin <- merge_element(e1$margin, e2$margin, inherit = TRUE)
-  }
-  return(e1)
-}
+.inheriting_props <- c("size", "linewidth", "margin")
 
 local({
   S7::method(`$`, class_theme) <- function(x, ...) {
