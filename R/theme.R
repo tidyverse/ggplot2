@@ -1013,6 +1013,22 @@ S7::method(merge_element, list(margin, S7::class_any)) <-
     new
   }
 
+S7::method(merge_element, list(class_rel, S7::class_any)) <-
+  function(new, old, ..., inherit = FALSE) {
+    if (!isTRUE(inherit)) {
+      return(new)
+    }
+    if (is_rel(old)) {
+      # Combined `rel` objects accumulate as product
+      return(rel(unclass(new) * unclass(old)))
+    }
+    if (is.numeric(old) || is.unit(old)) {
+      # Return modified number
+      return(unclass(new) * old)
+    }
+    new
+  }
+
 # For backward compatibility
 # TODO: in subsequent release cycle, start deprecation
 S7::method(merge_element, list(S7::new_S3_class("element"), S7::class_any)) <-
@@ -1039,21 +1055,8 @@ combine_elements <- function(e1, e2) {
     return(merge_element(e1, e2, inherit = TRUE))
   }
 
-  # Inheritance of rel objects
-  if (is_rel(e1)) {
-    # Both e1 and e2 are rel, give product as another rel
-    if (is_rel(e2)) {
-      return(rel(unclass(e1) * unclass(e2)))
-    }
-    # If e2 is a unit/numeric, return modified unit/numeric
-    # Note that unit objects are considered numeric
-    if (is.numeric(e2) || is.unit(e2)) {
-      return(unclass(e1) * e2)
-    }
-    return(e1)
-  }
-
-  if (is_margin(e1) && is_margin(e2)) {
+  # Inheritance of rel objects/margins
+  if (is_rel(e1) || is_margin(e1) && is_margin(e2)) {
     return(merge_element(e1, e2, inherit = TRUE))
   }
 
@@ -1083,12 +1086,16 @@ combine_elements <- function(e1, e2) {
 
   # Calculate relative sizes
   if (is_rel(try_prop(e1, "size"))) {
-    e1@size <- parent_props$size * unclass(e1@size)
+    e1@size <- merge_element(e1@size, parent_props$size, inherit = TRUE)
   }
 
   # Calculate relative linewidth
   if (is_rel(try_prop(e1, "linewidth"))) {
-    e1@linewidth <- parent_props$linewidth * unclass(e1@linewidth)
+    e1@linewidth <- merge_element(
+      e1@linewidth,
+      parent_props$linewidth,
+      inherit = TRUE
+    )
   }
 
   if (is_theme_element(e1, "text")) {
@@ -1115,10 +1122,10 @@ combine_s3_elements <- function(e1, e2) {
     e2 <- S7::props(e2)
   }
   if (is_rel(e1$size)) {
-    e1$size <- e2$size * unclass(e1$size)
+    e1$size <- merge_element(e1$size, e2$size, inherit = TRUE)
   }
   if (is_rel(e1$linewidth)) {
-    e1$linewidth <- e2$linewidth * unclass(e1$linewidth)
+    e1$linewidth <- merge_element(e1$linewidth, e2$linewidth, inherit = TRUE)
   }
   if (inherits(e1, "element_text")) {
     e1$margin <- merge_element(e1$margin, e2$margin, inherit = TRUE)
