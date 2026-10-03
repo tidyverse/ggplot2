@@ -940,14 +940,13 @@ merge_element <- S7::new_generic(
 S7::method(merge_element, list(S7::class_any, S7::class_any)) <-
   function(new, old, ..., inherit = FALSE) {
     if (
-      is.null(new) ||
-        is.character(new) ||
+      is.character(new) ||
         is.numeric(new) ||
         is.unit(new) ||
         is.logical(new) ||
         is.function(new)
     ) {
-      # If new is NULL, or a string, numeric vector, unit, or logical, just return it
+      # If new is a string, numeric vector, unit, or logical, just return it
       return(new)
     }
 
@@ -955,6 +954,14 @@ S7::method(merge_element, list(S7::class_any, S7::class_any)) <-
     cli::cli_abort(
       "No method for merging {.cls {class(new)[1]}} into {.cls {class(old)[1]}}."
     )
+  }
+
+S7::method(merge_element, list(NULL, S7::class_any)) <-
+  function(new, old, ..., inherit = FALSE) {
+    if (isTRUE(inherit)) {
+      return(old)
+    }
+    new
   }
 
 S7::method(merge_element, list(element_blank, S7::class_any)) <-
@@ -1012,13 +1019,8 @@ S7::method(merge_element, list(S7::new_S3_class("element"), S7::class_any)) <-
 #'
 combine_elements <- function(e1, e2) {
   # If e2 is NULL, nothing to inherit
-  if (is.null(e2) || is_theme_element(e1, "blank")) {
-    return(e1)
-  }
-
-  # If e1 is NULL inherit everything from e2
-  if (is.null(e1)) {
-    return(e2)
+  if (is.null(e2) || is_theme_element(e1, "blank") || is.null(e1)) {
+    return(merge_element(e1, e2, inherit = TRUE))
   }
 
   # Inheritance of rel objects
