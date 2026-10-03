@@ -973,7 +973,8 @@ S7::method(merge_element, list(element_blank, S7::class_any)) <-
 S7::method(merge_element, list(element, S7::class_any)) <-
   function(new, old, ..., inherit = FALSE) {
     # actual merging can only happen if classes match
-    if (!inherits(new, class(old)[1])) {
+    old_class <- setdiff(class(old), .root_element_classes)
+    if (!inherits(new, old_class)) {
       cli::cli_abort("Only elements of the same class can be merged.")
     }
 
@@ -1121,6 +1122,7 @@ combine_elements <- function(e1, e2) {
 }
 
 .inheriting_props <- c("size", "linewidth", "margin")
+.root_element_classes <- c("ggplot2::element", "element", "S7_object")
 
 local({
   S7::method(`$`, class_theme) <- function(x, ...) {
