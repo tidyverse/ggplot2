@@ -58,6 +58,9 @@
   had duplicated `order` aesthetic values (@teunbrand, #6775).
 * New `stat_chain()` to combine multiple stat computations. It comes with a 
   `link_stat()` helper to feed parameters and mappings (@teunbrand, #6325).
+* New developer-facing argument `merge_element(inherit)`. Setting 
+  `inherit = TRUE` will resolve `rel()`/`margin()` values and obey 
+  `element_*(inherit.blank = TRUE)` setting (@teunbrand, #6882).
   
 # ggplot2 4.0.3
 
