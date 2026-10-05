@@ -2,6 +2,11 @@
 
 ## ggplot2 (development version)
 
+- Faceting by a named vector no longer partially matches the `names`
+  attribute in place of the `n` attribute
+  ([@taekop](https://github.com/taekop),
+  [\#6891](https://github.com/tidyverse/ggplot2/issues/6891)).
+
 - Layers whose data is entirely removed by scale limits no longer error
   when the plot has multiple panels
   ([@GuangchuangYu](https://github.com/GuangchuangYu),
