@@ -1102,6 +1102,11 @@ S7::method(merge_element, list(S7::new_S3_class("element"), S7::class_any)) <-
 #' @noRd
 #'
 combine_elements <- function(e1, e2) {
+  deprecate(
+    "combine_elements()",
+    I("`merge_element(..., inherit = TRUE)`"),
+    when = "4.1.0"
+  )
   merge_element(e1, e2, inherit = TRUE)
 }
 

@@ -61,6 +61,8 @@
 * New developer-facing argument `merge_element(inherit)`. Setting 
   `inherit = TRUE` will resolve `rel()`/`margin()` values and obey 
   `element_*(inherit.blank = TRUE)` setting (@teunbrand, #6882).
+* (internal) `combine_elements()` is deprecated in favour of 
+  `merge_element(..., inherit = TRUE)`.
   
 # ggplot2 4.0.3
 
