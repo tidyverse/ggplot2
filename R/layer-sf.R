@@ -63,7 +63,7 @@ LayerSf <- ggproto(
     # automatically determine the name of the geometry column
     # and add the mapping if it doesn't exist
     if (is.null(self$computed_mapping$geometry) && is_sf(data)) {
-      geometry_col <- attr(data, "sf_column")
+      geometry_col <- attr(data, "sf_column", TRUE)
       self$computed_mapping$geometry <- sym(geometry_col)
     }
     data

@@ -321,7 +321,7 @@ FacetGrid <- ggproto(
 
     # Create panel info dataset
     panel <- id(base, drop = TRUE)
-    panel <- factor(panel, levels = seq_len(attr(panel, "n")))
+    panel <- factor(panel, levels = seq_len(attr(panel, "n", exact = TRUE)))
 
     rows <- if (!length(names(rows))) {
       rep(1L, length(panel))

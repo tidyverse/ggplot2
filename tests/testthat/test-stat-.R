@@ -93,5 +93,5 @@ test_that("stats can modify persistent attributes", {
     facet_wrap(~cyl)
 
   ld <- layer_data(p)
-  expect_equal(attr(ld, "foo"), "bar")
+  expect_equal(attr(ld, "foo", TRUE), "bar")
 })

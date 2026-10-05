@@ -209,7 +209,7 @@ GuideAxisLogticks <- ggproto(
     limits <- transformation$inverse(scale$get_limits())
 
     ticks <- minor_breaks_log(smallest = params$negative_small)(limits)
-    tick_type <- match(attr(ticks, "detail"), c(10, 5, 1))
+    tick_type <- match(attr(ticks, "detail", exact = TRUE), c(10, 5, 1))
     ticks <- transformation$transform(ticks)
 
     logkey <- data_frame0(!!aesthetic := ticks, .type = tick_type)

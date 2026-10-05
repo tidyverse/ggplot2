@@ -140,7 +140,7 @@ PositionDodge <- ggproto(
       cols <- c(cols, if ("order" %in% names(data)) "order" else "group")
       n <- vec_unique(data[cols])
       n <- vec_group_id(n[setdiff(cols, c("group", "order"))])
-      n <- max(tabulate(n, attr(n, "n")))
+      n <- max(tabulate(n, attr(n, "n", TRUE)))
     }
 
     list(

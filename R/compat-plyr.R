@@ -156,7 +156,7 @@ count <- function(df, vars = NULL, wt_var = NULL) {
   labels <- df2[u_id, , drop = FALSE]
   labels <- labels[order(id[u_id]), , drop = FALSE]
   if (is.null(wt_var)) {
-    freq <- tabulate(id, attr(id, "n"))
+    freq <- tabulate(id, attr(id, "n", exact = TRUE))
   } else {
     wt <- .subset2(df, wt_var)
     freq <- vapply(split(wt, id), sum, numeric(1))
@@ -174,7 +174,7 @@ join_keys <- function(x, y, by) {
   list(
     x = keys[seq_len(n_x)],
     y = keys[n_x + seq_len(n_y)],
-    n = attr(keys, "n")
+    n = attr(keys, "n", exact = TRUE)
   )
 }
 
@@ -235,7 +235,8 @@ dapply <- function(df, by, fun, ..., drop = TRUE) {
   # Shortcut when only one group
   has_single_group <- all(vapply(
     grouping_cols,
-    function(x) identical(as.character(levels(x) %||% attr(x, "n", exact = TRUE)), "1"),
+    function(x)
+      identical(as.character(levels(x) %||% attr(x, "n", exact = TRUE)), "1"),
     logical(1)
   ))
   if (has_single_group) {

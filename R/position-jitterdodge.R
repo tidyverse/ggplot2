@@ -71,7 +71,7 @@ PositionJitterdodge <- ggproto(
     } else {
       n <- vec_unique(data[c("group", "PANEL", "x")])
       n <- vec_group_id(n[c("PANEL", "x")])
-      n <- max(tabulate(n, attr(n, "n")))
+      n <- max(tabulate(n, attr(n, "n", TRUE)))
     }
 
     list(

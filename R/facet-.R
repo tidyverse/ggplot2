@@ -1581,7 +1581,7 @@ map_facet_data <- function(data, layout, params) {
   }
 
   grid_layout <- all(c("rows", "cols") %in% names(params))
-  layer_layout <- attr(data, "layout")
+  layer_layout <- attr(data, "layout", exact = TRUE)
   if (identical(layer_layout, "fixed")) {
     n <- vec_size(data)
     data <- vec_rep(data, vec_size(layout))

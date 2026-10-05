@@ -208,18 +208,18 @@ test_that("complete and non-complete themes interact correctly with each other",
 
   # But for _element properties_, the one on the right modifies the one on the left.
   t <- theme_bw() + theme(text = element_text(colour = 'red'))
-  expect_true(attr(t, "complete"))
+  expect_true(attr(t, "complete", TRUE))
   expect_equal(t$text@colour, 'red')
 
   # A complete theme object (like theme_bw) always trumps a non-complete theme object
   t <- theme(text = element_text(colour = 'red')) + theme_bw()
-  expect_true(attr(t, "complete"))
+  expect_true(attr(t, "complete", TRUE))
   expect_equal(t$text@colour, theme_bw()$text@colour)
 
   # Adding two non-complete themes: the one on the right modifies the one on the left.
   t <- theme(text = element_text(colour = 'blue')) +
     theme(text = element_text(colour = 'red'))
-  expect_false(attr(t, "complete"))
+  expect_false(attr(t, "complete", TRUE))
   expect_equal(t$text@colour, 'red')
 })
 
@@ -231,7 +231,7 @@ test_that("complete and non-complete themes interact correctly with ggplot objec
   p <- ggplot_build(
     base + theme_bw() + theme(text = element_text(colour = 'red'))
   )
-  expect_true(attr(p@plot@theme, "complete"))
+  expect_true(attr(p@plot@theme, "complete", TRUE))
 
   # Compare the theme objects, after sorting the items, because item order can differ
   pt <- p@plot@theme
@@ -243,7 +243,7 @@ test_that("complete and non-complete themes interact correctly with ggplot objec
   p <- ggplot_build(
     base + theme(text = element_text(colour = 'red')) + theme_bw()
   )
-  expect_true(attr(p@plot@theme, "complete"))
+  expect_true(attr(p@plot@theme, "complete", TRUE))
   # Compare the theme objects, after sorting the items, because item order can differ
   pt <- p@plot@theme
   tt <- theme(text = element_text(colour = 'red')) + theme_bw()

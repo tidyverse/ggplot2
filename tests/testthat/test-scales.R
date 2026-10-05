@@ -191,7 +191,7 @@ test_that("scale_apply preserves class and attributes", {
   expect_s3_class(out, "numeric")
 
   # Check attribute preservation
-  expect_identical(attr(out, "foo"), "bar")
+  expect_identical(attr(out, "foo", TRUE), "bar")
 
   # Negative control: non-type stable classes don't preserve attributes
   class(df$x) <- "foobar"

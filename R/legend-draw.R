@@ -313,8 +313,8 @@ draw_key_smooth <- function(data, params, size) {
   data$alpha <- NA
 
   grob <- draw_key_path(data, params, size)
-  width <- attr(grob, "width")
-  height <- attr(grob, "height")
+  width <- attr(grob, "width", TRUE)
+  height <- attr(grob, "height", TRUE)
 
   if (isTRUE(params$se)) {
     band <- params$band_gp
