@@ -232,7 +232,7 @@ test_that("attributes on layer data are preserved", {
       facet_grid(~year) +
       scale_y_sqrt()
   )
-  expect_equal(attr(ld, "test"), "preserve me")
+  expect_equal(attr(ld, "test", TRUE), "preserve me")
 })
 
 # Data extraction ---------------------------------------------------------

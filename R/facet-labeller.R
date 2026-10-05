@@ -239,7 +239,7 @@ resolve_labeller <- function(rows, cols, labels) {
   if (is.null(cols) && is.null(rows)) {
     cli::cli_abort("Supply one of {.arg rows} or {.arg cols}.")
   }
-  if (attr(labels, "facet") == "wrap") {
+  if (attr(labels, "facet", exact = TRUE) == "wrap") {
     # Return either rows or cols for facet_wrap()
     if (!is.null(cols) && !is.null(rows)) {
       cli::cli_abort(
@@ -248,7 +248,7 @@ resolve_labeller <- function(rows, cols, labels) {
     }
     cols %||% rows
   } else {
-    if (attr(labels, "type") == "rows") {
+    if (attr(labels, "type", exact = TRUE) == "rows") {
       rows
     } else {
       cols
@@ -448,7 +448,9 @@ labeller <- function(
       # margin-wide labeller
       if (any(names(dots) %in% names(labels))) {
         cli::cli_abort(
-          "Conflict between {.var {paste0('.', attr(labels, 'type'))}} and {.var {names(dots)}}."
+          "Conflict between \\
+          {.var {paste0('.', attr(labels, 'type', exact = TRUE))}} \\
+          and {.var {names(dots)}}."
         )
       }
     }

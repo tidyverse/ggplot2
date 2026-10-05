@@ -414,7 +414,7 @@ ScaleContinuousDatetime <- ggproto(
   secondary.axis = waiver(),
   timezone = NULL,
   transform = function(self, x) {
-    tz <- attr(x, "tzone")
+    tz <- attr(x, "tzone", TRUE)
     if (is.null(self$timezone) && !is.null(tz)) {
       self$timezone <- tz
       self$trans <- transform_time(self$timezone)

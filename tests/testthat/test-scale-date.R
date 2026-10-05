@@ -23,7 +23,7 @@ df <- data_frame(
 )
 
 test_that("inherits timezone from data", {
-  if (!is.null(attr(df$time1, "tzone"))) {
+  if (!is.null(attr(df$time1, "tzone", TRUE))) {
     skip("Local time zone not available")
   }
 

@@ -148,6 +148,22 @@ test_that("facets split up the data", {
   expect_equal(d1, d5)
 })
 
+test_that("facets can use named vectors as faceting variables (#6891)", {
+  withr::local_options(warnPartialMatchAttr = TRUE)
+
+  df <- data_frame0(
+    x = 1:2,
+    y = 1:2,
+    z = setNames(factor(c("a", "b")), c("one", "two"))
+  )
+  p <- ggplot(df, aes(x, y)) + geom_point()
+
+  expect_no_warning(grid <- get_layer_data(p + facet_grid(rows = vars(z))))
+  expect_no_warning(wrap <- get_layer_data(p + facet_wrap(vars(z))))
+  expect_equal(grid$PANEL, factor(1:2))
+  expect_equal(wrap$PANEL, factor(1:2))
+})
+
 test_that("vars() accepts optional names", {
   wrap <- facet_wrap(vars(A = a, b))
   expect_named(wrap$params$facets, c("A", "b"))

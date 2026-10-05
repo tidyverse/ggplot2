@@ -686,7 +686,9 @@ get_key_size <- function(keys, which = "width", n) {
 }
 
 set_key_size <- function(key, linewidth = NULL, size = NULL, default = NULL) {
-  if (!is.null(attr(key, "width")) && !is.null(attr(key, 'height'))) {
+  if (
+    !is.null(attr(key, "width", TRUE)) && !is.null(attr(key, 'height', TRUE))
+  ) {
     return(key)
   }
   if (!is.null(size) || !is.null(linewidth)) {

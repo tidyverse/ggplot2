@@ -3,7 +3,7 @@
 NULL
 
 unitType <- function(x) {
-  unit <- attr(x, "unit")
+  unit <- attr(x, "unit", exact = TRUE)
   if (!is.null(unit)) {
     return(unit)
   }

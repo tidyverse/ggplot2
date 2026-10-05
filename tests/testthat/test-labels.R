@@ -57,7 +57,7 @@ test_that("Labels from default stat mapping are overwritten by default labels", 
 
   labels <- get_labs(p)
   expect_equal(labels$colour[1], "colour")
-  expect_true(attr(labels$colour, "fallback"))
+  expect_true(attr(labels$colour, "fallback", TRUE))
 
   p <- p + geom_smooth(aes(color = drv), method = "lm", formula = y ~ x)
   expect_equal(get_labs(p)$colour, "drv")

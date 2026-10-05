@@ -1565,9 +1565,9 @@ ScaleDiscrete <- ggproto(
       # If labels have names, use them to match with breaks
       map <- match(names(self$labels), breaks, nomatch = 0)
       labels <- replace(breaks, map, labels[map != 0])
-    } else if (!is.null(attr(breaks, "pos"))) {
+    } else if (!is.null(attr(breaks, "pos", TRUE))) {
       # Need to ensure that if breaks were dropped, corresponding labels are too
-      labels <- labels[attr(breaks, "pos")]
+      labels <- labels[attr(breaks, "pos", TRUE)]
     }
     normalise_label(labels)
   },

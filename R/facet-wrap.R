@@ -283,7 +283,7 @@ FacetWrap <- ggproto(
     base <- combine_vars(data, params$plot_env, vars, drop = params$drop)
 
     id <- id(base, drop = TRUE)
-    n <- attr(id, "n")
+    n <- attr(id, "n", exact = TRUE)
 
     dims <- wrap_dims(n, params$nrow, params$ncol)
     layout <- wrap_layout(id, dims, params$dir)
@@ -671,7 +671,7 @@ measure_axes <- function(empty_idx, axis, margin = 1L, shift = 0) {
 
 wrap_layout <- function(id, dims, dir) {
   as.table <- TRUE
-  n <- attr(id, "n")
+  n <- attr(id, "n", exact = TRUE)
 
   if (nchar(dir) != 2) {
     # Should only occur when `as.table` was not incorporated into `dir`

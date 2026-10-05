@@ -143,7 +143,7 @@ GuideColoursteps <- ggproto(
     alpha = NA,
     ...
   ) {
-    parsed <- attr(key, "parsed")
+    parsed <- attr(key, "parsed", exact = TRUE)
     breaks <- parsed$breaks %||% scale$get_breaks()
     limits <- parsed$limits %||% scale$get_limits()
 
@@ -191,7 +191,7 @@ GuideColoursteps <- ggproto(
 
     if (show.limits) {
       key <- params$key
-      limits <- attr(key, "parsed")$limits %||% scale$get_limits()
+      limits <- attr(key, "parsed", exact = TRUE)$limits %||% scale$get_limits()
       key <- key[c(NA, seq_len(nrow(key)), NA), , drop = FALSE]
       n <- nrow(key)
       key$.value[c(1, n)] <- range(params$decor$min, params$decor$max)

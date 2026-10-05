@@ -68,7 +68,7 @@ setup_plot_labels <- function(plot, layers, data) {
     current <- labels
     fallbacks <- vapply(
       current,
-      function(l) isTRUE(attr(l, "fallback")),
+      function(l) isTRUE(attr(l, "fallback", TRUE)),
       logical(1)
     )
 
@@ -368,7 +368,7 @@ S7::method(get_alt_text, class_ggplot_built) <- function(p, ...) {
 }
 
 S7::method(get_alt_text, class_gtable) <- function(p, ...) {
-  attr(p, "alt-label") %||% ""
+  attr(p, "alt-label", TRUE) %||% ""
 }
 
 #' Generate an alt text from a plot
