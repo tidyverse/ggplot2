@@ -65,7 +65,7 @@ id_var <- function(x, drop = FALSE) {
   if (length(x) == 0) {
     id <- integer()
     n <- 0L
-  } else if (!is.null(attr(x, "n")) && !drop) {
+  } else if (!is.null(attr(x, "n", exact = TRUE)) && !drop) {
     return(x)
   } else if (is.factor(x) && !drop) {
     x <- addNA(x, ifany = TRUE)
@@ -235,7 +235,7 @@ dapply <- function(df, by, fun, ..., drop = TRUE) {
   # Shortcut when only one group
   has_single_group <- all(vapply(
     grouping_cols,
-    function(x) identical(as.character(levels(x) %||% attr(x, "n")), "1"),
+    function(x) identical(as.character(levels(x) %||% attr(x, "n", exact = TRUE)), "1"),
     logical(1)
   ))
   if (has_single_group) {
