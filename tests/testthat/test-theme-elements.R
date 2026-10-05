@@ -20,9 +20,9 @@ test_that("elements can be merged", {
 })
 
 test_that("theme elements that don't inherit from element can be combined", {
-  expect_identical(combine_elements(1, NULL), 1)
-  expect_identical(combine_elements(NULL, 1), 1)
-  expect_identical(combine_elements(1, 0), 1)
+  expect_identical(merge_element(1, NULL, inherit = TRUE), 1)
+  expect_identical(merge_element(NULL, 1, inherit = TRUE), 1)
+  expect_identical(merge_element(1, 0, inherit = TRUE), 1)
 })
 
 test_that("element tree can be modified", {
