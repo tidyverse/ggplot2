@@ -516,7 +516,7 @@ eval_from_theme <- function(aesthetics, theme, class = NULL) {
     # Inherit up to parent geom class
     if (length(class) > 0) {
       for (cls in rev(class)) {
-        el <- combine_elements(theme[[cls]], el)
+        el <- merge_element(theme[[cls]], el, inherit = TRUE)
       }
     }
   }

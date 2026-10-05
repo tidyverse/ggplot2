@@ -859,7 +859,11 @@ calc_element <- function(
     }
 
     # if we have null properties, try to fill in from ggplot_global$theme_default
-    el_out <- combine_elements(el_out, ggplot_global$theme_default[[element]])
+    el_out <- merge_element(
+      el_out,
+      ggplot_global$theme_default[[element]],
+      inherit = TRUE
+    )
     if (is_theme_element(el_out)) {
       nullprops <- lengths(S7::props(el_out)) == 0
     } else {
@@ -901,7 +905,7 @@ calc_element <- function(
   )
 
   # Combine the properties of this element with all parents
-  Reduce(combine_elements, parents, el_out)
+  Reduce(\(x, y) merge_element(x, y, inherit = TRUE), parents, el_out)
 }
 
 #' Merge a parent element into a child element
