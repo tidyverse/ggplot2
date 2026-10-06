@@ -362,6 +362,7 @@ Geom <- ggproto(
     }
 
     # Trim off extra parameters
+    clip <- params[["clip"]] %||% "inherit"
     params <- params[intersect(names(params), self$parameters())]
 
     if (nlevels(as.factor(data$PANEL)) > 1L) {
@@ -369,7 +370,7 @@ Geom <- ggproto(
     } else {
       data_panels <- list(data)
     }
-    lapply(data_panels, function(data) {
+    panel_grobs <- lapply(data_panels, function(data) {
       if (empty(data)) {
         return(zeroGrob())
       }
@@ -377,6 +378,13 @@ Geom <- ggproto(
       panel_params <- layout$panel_params[[data$PANEL[1]]]
       inject(self$draw_panel(data, panel_params, coord, !!!params))
     })
+    if (isTRUE(clip %in% c("on", "off", "inherit"))) {
+      panel_grobs <- lapply(panel_grobs, function(grob) {
+        grob$vp <- editViewport(grob$vp %||% viewport(), clip = clip)
+        grob
+      })
+    }
+    panel_grobs
   },
 
   #' @field draw_panel,draw_group
