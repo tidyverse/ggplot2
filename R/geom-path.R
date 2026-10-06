@@ -157,7 +157,7 @@ GeomLine <- ggproto(
     params
   },
 
-  extra_params = c("na.rm", "orientation"),
+  extra_params = c("na.rm", "orientation", "clip"),
 
   setup_data = function(data, params) {
     data$flipped_aes <- params$flipped_aes
@@ -179,7 +179,7 @@ GeomStep <- ggproto(
     params$flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)
     params
   },
-  extra_params = c("na.rm", "orientation"),
+  extra_params = c("na.rm", "orientation", "clip"),
   draw_panel = function(
     data,
     panel_params,

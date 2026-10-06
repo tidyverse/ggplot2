@@ -103,8 +103,8 @@ Geom <- ggproto(
   #' @field extra_params A character vector of parameter names in addition to
   #' those imputed from the `draw_panel()` or `draw_groups()` methods. This
   #' field can be set to include parameters for `setup_data()` or `handle_na()`
-  #' methods. By default, this only contains `"na.rm"`.
-  extra_params = c("na.rm"),
+  #' methods. By default, this only contains `"na.rm"` and `'clip'`.
+  extra_params = c("na.rm", "clip"),
 
   #' @field draw_key A function generating a single legend glyph for the geom.
   #' Typically one of the functions prefixed by [`draw_key_`][draw_key].
@@ -362,6 +362,7 @@ Geom <- ggproto(
     }
 
     # Trim off extra parameters
+    clip <- params[["clip"]] %||% "inherit"
     params <- params[intersect(names(params), self$parameters())]
 
     if (nlevels(as.factor(data$PANEL)) > 1L) {
@@ -369,7 +370,7 @@ Geom <- ggproto(
     } else {
       data_panels <- list(data)
     }
-    lapply(data_panels, function(data) {
+    panel_grobs <- lapply(data_panels, function(data) {
       if (empty(data)) {
         return(zeroGrob())
       }
@@ -377,6 +378,10 @@ Geom <- ggproto(
       panel_params <- layout$panel_params[[data$PANEL[1]]]
       inject(self$draw_panel(data, panel_params, coord, !!!params))
     })
+    if (isTRUE(clip %in% c("on", "off", "inherit"))) {
+      panel_grobs <- lapply(panel_grobs, apply_layer_clipping, clip = clip)
+    }
+    panel_grobs
   },
 
   #' @field draw_panel,draw_group
@@ -565,4 +570,13 @@ fix_linewidth <- function(data, name) {
     data$linewidth <- data$size
   }
   data
+}
+
+apply_layer_clipping <- function(x, clip = "inherit") {
+  if (inherits(x, "gList")) {
+    x[] <- lapply(x, apply_layer_clipping, clip = clip)
+  } else if (is.grob(x)) {
+    x <- editGrob(x, vp = editViewport(x$vp %||% viewport(), clip = clip))
+  }
+  x
 }

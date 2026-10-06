@@ -30,7 +30,7 @@ GeomLinerange <- ggproto(
     params
   },
 
-  extra_params = c("na.rm", "orientation"),
+  extra_params = c("na.rm", "orientation", "clip"),
 
   setup_data = function(data, params) {
     data$flipped_aes <- params$flipped_aes
