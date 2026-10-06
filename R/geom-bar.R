@@ -20,7 +20,7 @@ GeomBar <- ggproto(
     params
   },
 
-  extra_params = c("just", "na.rm", "orientation"),
+  extra_params = c("just", "na.rm", "orientation", "clip"),
 
   setup_data = function(self, data, params) {
     data$flipped_aes <- params$flipped_aes

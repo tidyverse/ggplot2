@@ -103,8 +103,8 @@ Geom <- ggproto(
   #' @field extra_params A character vector of parameter names in addition to
   #' those imputed from the `draw_panel()` or `draw_groups()` methods. This
   #' field can be set to include parameters for `setup_data()` or `handle_na()`
-  #' methods. By default, this only contains `"na.rm"`.
-  extra_params = c("na.rm"),
+  #' methods. By default, this only contains `"na.rm"` and `'clip'`.
+  extra_params = c("na.rm", "clip"),
 
   #' @field draw_key A function generating a single legend glyph for the geom.
   #' Typically one of the functions prefixed by [`draw_key_`][draw_key].

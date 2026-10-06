@@ -31,7 +31,7 @@ GeomErrorbar <- ggproto(
     params
   },
 
-  extra_params = c("na.rm", "orientation", "height"),
+  extra_params = c("na.rm", "orientation", "height", "clip"),
 
   setup_data = function(self, data, params) {
     data$flipped_aes <- params$flipped_aes

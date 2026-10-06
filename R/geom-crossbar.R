@@ -78,7 +78,7 @@ GeomCrossbar <- ggproto(
     GeomErrorbar$setup_params(data, params)
   },
 
-  extra_params = c("na.rm", "orientation"),
+  extra_params = c("na.rm", "orientation", "clip"),
 
   setup_data = function(data, params) {
     GeomErrorbar$setup_data(data, params)
