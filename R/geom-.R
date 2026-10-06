@@ -379,10 +379,7 @@ Geom <- ggproto(
       inject(self$draw_panel(data, panel_params, coord, !!!params))
     })
     if (isTRUE(clip %in% c("on", "off", "inherit"))) {
-      panel_grobs <- lapply(panel_grobs, function(grob) {
-        grob$vp <- editViewport(grob$vp %||% viewport(), clip = clip)
-        grob
-      })
+      panel_grobs <- lapply(panel_grobs, apply_layer_clipping, clip = clip)
     }
     panel_grobs
   },
@@ -573,4 +570,13 @@ fix_linewidth <- function(data, name) {
     data$linewidth <- data$size
   }
   data
+}
+
+apply_layer_clipping <- function(x, clip = "inherit") {
+  if (inherits(x, "gList")) {
+    x[] <- lapply(x, apply_layer_clipping, clip = clip)
+  } else if (is.grob(x)) {
+    x <- editGrob(x, vp = editViewport(x$vp %||% viewport(), clip = clip))
+  }
+  x
 }
