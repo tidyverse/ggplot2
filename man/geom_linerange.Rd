@@ -144,6 +144,9 @@ which parameters it can accept.
 \item The \code{key_glyph} argument of \code{\link[=layer]{layer()}} may also be passed on through
 \code{...}. This can be one of the functions described as
 \link[=draw_key]{key glyphs}, to change the display of the layer in the legend.
+\item A \code{clip} argument passed on to \code{geom}, one of \code{"on"}, \code{"off"} or
+\code{"inherit"} (default). Can be used to escape coord clipping settings. The
+default (\code{"inherit"}) lets layer retain the coord's setting.
 }}
 
 \item{middle.colour, middle.color, middle.linetype, middle.linewidth}{Default aesthetics for the middle line. Set to \code{NULL} to inherit from the

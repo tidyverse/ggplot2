@@ -103,7 +103,7 @@ Aesthetics can be set to \code{NULL} to be included as optional aesthetic.}
 \item{\code{extra_params}}{A character vector of parameter names in addition to
 those imputed from the \code{draw_panel()} or \code{draw_groups()} methods. This
 field can be set to include parameters for \code{setup_data()} or \code{handle_na()}
-methods. By default, this only contains \code{"na.rm"}.}
+methods. By default, this only contains \code{"na.rm"} and \code{'clip'}.}
 
 \item{\code{draw_key}}{A function generating a single legend glyph for the geom.
 Typically one of the functions prefixed by \code{\link[=draw_key]{draw_key_}}.}
