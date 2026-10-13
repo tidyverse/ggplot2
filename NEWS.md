@@ -1,6 +1,6 @@
 # ggplot2 (development version)
 
-* Plot and theme addition preserve operand expressions in error messages with updated S7 operator dispatch.
+* Updates for compatibility with S7 > 0.2.2.
  
 * Faceting by a named vector no longer partially matches the `names` attribute
   in place of the `n` attribute (@taekop, #6891).
