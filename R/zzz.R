@@ -40,13 +40,27 @@ on_load(
   if (getRversion() >= "4.3.0") registerS3method("+", "gg", add_gg)
 )
 
-on_load(S7::methods_register())
 .onLoad <- function(...) {
   run_on_load()
+  if ("S7_on_load" %in% getNamespaceExports("S7")) {
+    S7::S7_on_load()
+  } else {
+    S7::methods_register()
+  }
 }
 
 release_questions <- function() {
   c(
     "Have you built the book?"
   )
+}
+
+.onUnload <- function(...) {
+  if ("S7_on_unload" %in% getNamespaceExports("S7")) {
+    S7::S7_on_unload()
+  }
+}
+
+if ("S7_on_build" %in% getNamespaceExports("S7")) {
+  S7::S7_on_build()
 }
