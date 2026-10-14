@@ -1,5 +1,28 @@
 skip_on_cran() # This test suite is long-running (on cran) and is skipped
 
+test_that("element subclasses retain legacy classes", {
+  for (parent in list(
+    element_blank,
+    element_rect,
+    element_line,
+    element_text
+  )) {
+    ElementChild <- S7::new_class(
+      name = "ElementChild",
+      parent = parent,
+      package = NULL
+    )
+    object <- parent()
+    child <- ElementChild()
+
+    expect_s7_class(child, ElementChild)
+    expect_s7_class(child, element)
+    expect_s3_class(child, parent@name)
+    expect_identical(class(child)[-1], setdiff(class(object), "element"))
+    expect_identical(S7::props(child), S7::props(object))
+  }
+})
+
 test_that("elements can be merged", {
   text_base <- element_text(colour = "red", size = 10)
   expect_equal(

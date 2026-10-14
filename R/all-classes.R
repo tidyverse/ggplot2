@@ -282,14 +282,12 @@ class_labels <- S7::new_class(
 #' @export
 class_mapping <- S7::new_class(
   "mapping",
-  parent = class_S3_gg,
+  parent = S7::new_S3_class(c("uneval", "gg")),
   constructor = function(x = list(), ..., env = globalenv()) {
     warn_dots_empty()
     check_object(x, is.list, "a {.cls list}")
     x <- lapply(x, new_aesthetic, env = env)
-    x <- S7::new_object(x)
-    class(x) <- union(c("ggplot2::mapping", "uneval"), class(x))
-    x
+    S7::new_object(x)
   }
 )
 
@@ -321,7 +319,13 @@ class_mapping <- S7::new_class(
 #' @export
 class_ggplot <- S7::new_class(
   name = "ggplot",
-  parent = class_gg,
+  # This abstract parent declares the unnamespaced S3 compatibility name.
+  parent = S7::new_class(
+    name = "ggplot",
+    parent = class_gg,
+    package = NULL,
+    abstract = TRUE
+  ),
   properties = list(
     data = S7::class_any,
     layers = S7::class_list,
@@ -388,8 +392,13 @@ class_ggplot <- S7::new_class(
 #' @keywords internal
 #' @export
 class_ggplot_built <- S7::new_class(
-  "ggplot_built",
-  parent = class_gg,
+  name = "ggplot_built",
+  parent = S7::new_class(
+    name = "ggplot_built",
+    parent = class_gg,
+    package = NULL,
+    abstract = TRUE
+  ),
   properties = list(
     data = S7::class_list,
     layout = class_layout,

@@ -129,7 +129,8 @@ ggplot.default <-
       mapping = mapping,
       plot_env = environment
     )
-    class(p) <- union(union(c("ggplot2::ggplot", "ggplot"), class(p)), "gg")
+    # Keep `gg` after `S7_object` so its S3 `+` method remains a fallback.
+    class(p) <- c(class(p), "gg")
 
     set_last_plot(p)
     p

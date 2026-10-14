@@ -1,4 +1,6 @@
 # ggplot2 (development version)
+
+* S7 subclasses now inherit the compatibility names `ggplot`, `ggplot_built`, `uneval`, and the legacy theme element names from their class definitions.
  
 * Faceting by a named vector no longer partially matches the `names` attribute
   in place of the `n` attribute (@taekop, #6891).
