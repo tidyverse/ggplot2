@@ -424,7 +424,7 @@ local({
     function(from, to, ...) S7::props(from)
 
   S7::method(convert, list(from = list_classes, to = S7::class_list)) <-
-    function(from, to, ...) S7::S7_data(from)
+    function(from, to, ...) unclass(S7::S7_data(from))
 
   # We're not using union classes here because of S7#510
   S7::method(as.list, class_gg) <-
