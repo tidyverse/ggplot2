@@ -93,7 +93,10 @@ test_that("element_text throws appropriate conditions", {
   )
   expect_snapshot(
     element_text(colour = sqrt(2)),
-    error = TRUE
+    error = TRUE,
+    transform = function(x) {
+      sub("Error in `element_text()`:", "Error:", x, fixed = TRUE)
+    }
   )
 
   # Some absurd case found in reverse dependency check where
