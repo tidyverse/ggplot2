@@ -1646,7 +1646,6 @@ map_facet_data <- function(data, layout, params) {
   }
 
   facet_vals[] <- lapply(facet_vals, as_unordered_factor)
-  facet_vals[] <- lapply(facet_vals, addNA, ifany = TRUE)
   layout[] <- lapply(layout, as_unordered_factor)
 
   # Add PANEL variable

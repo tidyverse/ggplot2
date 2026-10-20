@@ -852,7 +852,7 @@ as_cli <- function(..., env = caller_env()) {
 as_unordered_factor <- function(x) {
   x <- as.factor(x)
   class(x) <- setdiff(class(x), "ordered")
-  x
+  addNA(x, ifany = TRUE)
 }
 
 size0 <- function(x) {
