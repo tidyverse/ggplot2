@@ -368,6 +368,28 @@ test_that("all elements in complete themes have inherit.blank=TRUE", {
   expect_true(inherit_blanks(theme_void()))
 })
 
+test_that("element subclasses retain legacy classes", {
+  for (parent in list(
+    element_blank,
+    element_rect,
+    element_line,
+    element_text
+  )) {
+    ElementChild <- S7::new_class(
+      name = "ElementChild",
+      parent = parent,
+      package = NULL
+    )
+    object <- parent()
+    child <- ElementChild()
+
+    expect_s7_class(child, ElementChild)
+    expect_s7_class(child, element)
+    expect_s3_class(child, parent@name)
+    expect_identical(S7::props(child), S7::props(object))
+  }
+})
+
 test_that("elements can be merged", {
   text_base <- element_text(colour = "red", size = 10)
   expect_equal(
