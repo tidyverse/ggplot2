@@ -67,12 +67,24 @@ if (getRversion() < "4.3.0") {
 }
 
 S7::method(`+`, list(class_ggplot, S7::class_any)) <- function(e1, e2) {
-  e2name <- deparse(substitute(e2, env = caller_env(2)))
+  e2name <- deparse(
+    if (utils::packageVersion("S7") > "0.2.2") {
+      substitute(e2)
+    } else {
+      substitute(e2, env = caller_env(2))
+    }
+  )
   add_ggplot(e1, e2, e2name)
 }
 
 S7::method(`+`, list(class_theme, S7::class_any)) <- function(e1, e2) {
-  e2name <- deparse(substitute(e2, env = caller_env(2)))
+  e2name <- deparse(
+    if (utils::packageVersion("S7") > "0.2.2") {
+      substitute(e2)
+    } else {
+      substitute(e2, env = caller_env(2))
+    }
+  )
   add_theme(e1, e2, e2name)
 }
 

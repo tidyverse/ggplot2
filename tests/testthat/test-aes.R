@@ -66,7 +66,7 @@ test_that("aes evaluated in environment where plot created", {
 
 test_that("constants are not wrapped in quosures", {
   aes <- aes(1L, "foo", 1.5)
-  expect_identical(S7::S7_data(aes), list(x = 1L, y = "foo", 1.5))
+  expect_identical(unclass(S7::S7_data(aes)), list(x = 1L, y = "foo", 1.5))
 })
 
 test_that("assignment methods wrap symbolic objects in quosures", {
