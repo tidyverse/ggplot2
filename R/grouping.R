@@ -18,13 +18,13 @@ add_group <- function(data) {
     disc[names(disc) %in% c("label", "PANEL")] <- FALSE
 
     if (any(disc)) {
-      data$group <- id(data[disc], drop = TRUE)
+      data$group <- id(data[disc])
     } else {
       data$group <- NO_GROUP
       attr(data$group, "n") <- 1L
     }
   } else {
-    data$group <- id(data["group"], drop = TRUE)
+    data$group <- id(data["group"])
   }
 
   data

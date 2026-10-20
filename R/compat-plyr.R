@@ -99,7 +99,7 @@ id <- function(.variables, ...) {
 #'
 count <- function(df, vars = NULL, wt_var = NULL) {
   df2 <- if (is.null(vars)) df else df[vars]
-  id <- id(df2, drop = TRUE)
+  id <- id(df2)
   u_id <- !duplicated(id)
   labels <- df2[u_id, , drop = FALSE]
   labels <- labels[order(id[u_id]), , drop = FALSE]
@@ -116,7 +116,7 @@ count <- function(df, vars = NULL, wt_var = NULL) {
 # combinations in the two data frames gets the same id
 join_keys <- function(x, y, by) {
   joint <- vec_rbind0(x[by], y[by])
-  keys <- id(joint, drop = TRUE)
+  keys <- id(joint)
   n_x <- nrow(x)
   n_y <- nrow(y)
   list(
@@ -143,8 +143,7 @@ round_any <- function(x, accuracy, f = round) {
 #' @param by A character vector of column names to split by
 #' @param fun A function to apply to each split
 #' @param ... Further arguments to `fun`
-#' @param drop Should unused factor levels in the columns given in `by` be
-#' dropped.
+#' @param drop Deprecated
 #'
 #' @return A data.frame if the result of `fun` does not include the columns
 #' given in `by` these will be prepended to the result.
@@ -183,15 +182,16 @@ dapply <- function(df, by, fun, ..., drop = TRUE) {
   # Shortcut when only one group
   has_single_group <- all(vapply(
     grouping_cols,
-    function(x)
-      identical(as.character(levels(x) %||% attr(x, "n", exact = TRUE)), "1"),
+    function(x) {
+      identical(as.character(levels(x) %||% attr(x, "n", exact = TRUE)), "1")
+    },
     logical(1)
   ))
   if (has_single_group) {
     return(apply_fun(df))
   }
 
-  ids <- id(new_data_frame(grouping_cols), drop = drop)
+  ids <- id(new_data_frame(grouping_cols))
   group_rows <- split_with_index(seq_len(nrow(df)), ids)
   result <- lapply(seq_along(group_rows), function(i) {
     cur_data <- vec_slice(df, group_rows[[i]])
