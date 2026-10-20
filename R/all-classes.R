@@ -423,8 +423,11 @@ local({
   S7::method(convert, list(from = prop_classes, to = S7::class_list)) <-
     function(from, to, ...) S7::props(from)
 
+  # S7 already handles conversion from list storage, so this is redundant.
+  # Keep it for compatibility across S7 versions and to avoid recursion if
+  # convert() falls back to as.list(), which calls convert() below.
   S7::method(convert, list(from = list_classes, to = S7::class_list)) <-
-    function(from, to, ...) S7::S7_data(from)
+    function(from, to, ...) unclass(S7::S7_data(from))
 
   # We're not using union classes here because of S7#510
   S7::method(as.list, class_gg) <-
