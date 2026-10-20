@@ -83,20 +83,19 @@ NULL
 
 #' @export
 #' @rdname element
-element <- S7::new_class("element", abstract = TRUE)
+element <- S7::new_class(
+  name = "element",
+  parent = legacy_parent("element"),
+  abstract = TRUE
+)
 
 #' @export
 #' @rdname element
 element_blank <- S7::new_class(
-  "element_blank",
-  parent = element,
+  name = "element_blank",
+  parent = legacy_parent("element_blank", element),
   constructor = function() {
-    obj <- S7::new_object(S7::S7_object())
-    class(obj) <- union(
-      union(c("ggplot2::element_blank", "element_blank"), class(obj)),
-      "element"
-    )
-    obj
+    S7::new_object(S7::S7_object())
   }
 )
 
@@ -133,8 +132,8 @@ element_props <- list(
 #' @export
 #' @rdname element
 element_rect <- S7::new_class(
-  "element_rect",
-  parent = element,
+  name = "element_rect",
+  parent = legacy_parent("element_rect", element),
   properties = element_props[c(
     "fill",
     "colour",
@@ -159,7 +158,7 @@ element_rect <- S7::new_class(
       deprecate("3.4.0", "element_rect(size)", "element_rect(linewidth)")
       linewidth <- size
     }
-    obj <- S7::new_object(
+    S7::new_object(
       S7::S7_object(),
       fill = fill,
       colour = color %||% colour,
@@ -168,11 +167,6 @@ element_rect <- S7::new_class(
       linejoin = linejoin,
       inherit.blank = inherit.blank
     )
-    class(obj) <- union(
-      union(c("ggplot2::element_rect", "element_rect"), class(obj)),
-      "element"
-    )
-    obj
   }
 )
 
@@ -182,8 +176,8 @@ element_rect <- S7::new_class(
 #' @param lineend Line end style, one of `"round"`, `"butt"` or `"square"`.
 #' @param arrow Arrow specification, as created by [grid::arrow()]
 element_line <- S7::new_class(
-  "element_line",
-  parent = element,
+  name = "element_line",
+  parent = legacy_parent("element_line", element),
   properties = element_props[c(
     "colour",
     "linewidth",
@@ -213,7 +207,7 @@ element_line <- S7::new_class(
       linewidth <- size
     }
     colour <- color %||% colour
-    obj <- S7::new_object(
+    S7::new_object(
       S7::S7_object(),
       colour = colour,
       linewidth = linewidth,
@@ -224,11 +218,6 @@ element_line <- S7::new_class(
       arrow.fill = arrow.fill %||% colour,
       inherit.blank = inherit.blank
     )
-    class(obj) <- union(
-      union(c("ggplot2::element_line", "element_line"), class(obj)),
-      "element"
-    )
-    obj
   }
 )
 
@@ -254,8 +243,8 @@ element_line <- S7::new_class(
 #' @export
 #' @rdname element
 element_text <- S7::new_class(
-  "element_text",
-  parent = element,
+  name = "element_text",
+  parent = legacy_parent("element_text", element),
   properties = element_props[c(
     "family",
     "face",
@@ -313,7 +302,7 @@ element_text <- S7::new_class(
     }
 
     colour <- color %||% colour
-    obj <- S7::new_object(
+    S7::new_object(
       S7::S7_object(),
       family = family,
       face = face,
@@ -330,11 +319,6 @@ element_text <- S7::new_class(
       fontweight = NA_real_,
       fontwidth = NA_real_
     )
-    class(obj) <- union(
-      union(c("ggplot2::element_text", "element_text"), class(obj)),
-      "element"
-    )
-    obj
   }
 )
 

@@ -257,3 +257,18 @@ test_that("alpha is drawn correctly", {
       geom_point(color = I("#cc0000"), size = I(50), alpha = I(0.27))
   )
 })
+
+test_that("mapping subclasses retain legacy classes", {
+  MappingChild <- S7::new_class(
+    name = "MappingChild",
+    parent = class_mapping,
+    package = NULL
+  )
+  mapping <- aes(x = mpg)
+  child <- MappingChild(x = as.list(mapping))
+
+  expect_s7_class(child, MappingChild)
+  expect_identical(class(child)[-1], class(mapping))
+  expect_s3_class(child, "uneval")
+  expect_identical(as.list(child), as.list(mapping))
+})
