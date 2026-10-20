@@ -219,6 +219,16 @@ test_that("summary method gives a nice summary", {
   expect_snapshot(summary(p))
 })
 
+test_that("list-based ggplot classes convert to bare lists", {
+  objects <- list(aes(x = 10), theme(text = element_text()), labs(x = "X"))
+  expected <- list(list(x = 10), list(text = element_text()), list(x = "X"))
+
+  for (i in seq_along(objects)) {
+    expect_identical(as.list(objects[[i]]), expected[[i]])
+    expect_identical(convert(objects[[i]], S7::class_list), expected[[i]])
+  }
+})
+
 test_that("list conversion works for ggplot classes", {
   # Test list-based class round-trips
   x <- aes(x = 10, y = foo)
