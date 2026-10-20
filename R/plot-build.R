@@ -181,8 +181,7 @@ build_ggplot <- S7::method(ggplot_build, class_ggplot) <- function(plot, ...) {
   # Consolidate alt-text
   plot@labels$alt <- get_alt_text(plot)
 
-  build <- class_ggplot_built(data = data, layout = layout, plot = plot)
-  build
+  class_ggplot_built(data = data, layout = layout, plot = plot)
 }
 
 #' @export

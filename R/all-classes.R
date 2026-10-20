@@ -56,6 +56,16 @@ NULL
 #' @keywords internal
 NULL
 
+# Compatibility function to include pre-4.0.0 S3 class names in S7 hierarchy
+legacy_parent <- function(name, parent = NULL) {
+  S7::new_class(
+    name = name,
+    parent = parent %||% S7::S7_object,
+    package = NULL,
+    abstract = TRUE
+  )
+}
+
 #' @rdname class_definitions
 #' @section S7 classes:
 #' * `class_gg` is an abstract S7 class to used invoke similar behaviour among
@@ -320,12 +330,7 @@ class_mapping <- S7::new_class(
 class_ggplot <- S7::new_class(
   name = "ggplot",
   # This abstract parent declares the unnamespaced S3 compatibility name.
-  parent = S7::new_class(
-    name = "ggplot",
-    parent = class_gg,
-    package = NULL,
-    abstract = TRUE
-  ),
+  parent = legacy_parent("ggplot", class_gg),
   properties = list(
     data = S7::class_any,
     layers = S7::class_list,
@@ -393,12 +398,7 @@ class_ggplot <- S7::new_class(
 #' @export
 class_ggplot_built <- S7::new_class(
   name = "ggplot_built",
-  parent = S7::new_class(
-    name = "ggplot_built",
-    parent = class_gg,
-    package = NULL,
-    abstract = TRUE
-  ),
+  parent = legacy_parent("ggplot_built", class_gg),
   properties = list(
     data = S7::class_list,
     layout = class_layout,

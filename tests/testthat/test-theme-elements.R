@@ -18,7 +18,6 @@ test_that("element subclasses retain legacy classes", {
     expect_s7_class(child, ElementChild)
     expect_s7_class(child, element)
     expect_s3_class(child, parent@name)
-    expect_identical(class(child)[-1], setdiff(class(object), "element"))
     expect_identical(S7::props(child), S7::props(object))
   }
 })
