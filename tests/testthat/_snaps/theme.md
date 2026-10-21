@@ -1,3 +1,10 @@
+# modifying theme element properties with + operator works
+
+    Code
+      theme_grey() + "asdf"
+    Condition
+      ! Can't add `"asdf"` to a theme object.
+
 # theme validation happens at build stage
 
     The `text` theme element must be a <element_text> object.
@@ -152,6 +159,7 @@
       [21] "axis.minor.ticks.length.r"     "axis.line.theta"              
       [23] "axis.line.r"                   "complete"                     
       [25] "validate"                     
+
 # theme element conversion to lists works
 
     Unknown arguments to `element_text()`: `italic`, `fontweight`, and `fontwidth`.

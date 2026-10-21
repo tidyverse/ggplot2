@@ -52,7 +52,8 @@ test_that("modifying theme element properties with + operator works", {
   expect_snapshot(
     theme_grey() + "asdf",
     error = TRUE,
-    variant = substr(as.character(getRversion()), start = 1, stop = 3)
+    # On R4.2 may list different error source, omitting that line
+    transform = function(x) x[-1]
   )
 })
 
