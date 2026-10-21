@@ -1,10 +1,13 @@
-# ggplot2 4.0.3
 # ggplot2 (development version)
 
-* Updates for compatibility with S7 > 0.2.2.
- 
-* Faceting by a named vector no longer partially matches the `names` attribute
-  in place of the `n` attribute (@taekop, #6891).
+This is a hotfix release anticipating the upcoming changes in the S7 package.
+
+* Updates for compatibility with S7 > 0.2.2 (#6914).
+* S7 subclasses now inherit legacy 'compatibility names' in their
+  class definitions (#6915).
+* Fixed NOTE on CRAN in R-devel.
+
+# ggplot2 4.0.3
 
 This is a hotfix release fixing a test, a bug and introducing a feature.
 
