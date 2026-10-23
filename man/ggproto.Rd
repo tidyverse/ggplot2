@@ -63,8 +63,8 @@ one might be accustomed to in regular objects. Instead they have
 \href{https://adv-r.hadley.nz/names-values.html#env-modify}{'modify in place'}
 semantics.
 
-It is fine for a method to read fields through \code{self}, but it should not
-assign to them (e.g. \code{self$x <- value}): such a change persists after the
+It is fine for a method to read fields through \code{self}, but assigning to them
+(e.g. \code{self$x <- value}) is discouraged: such a change persists after the
 method returns and affects every other use of the object.
 }
 

@@ -34,8 +34,8 @@
 #' ['modify in place'](https://adv-r.hadley.nz/names-values.html#env-modify)
 #' semantics.
 #'
-#' It is fine for a method to read fields through `self`, but it should not
-#' assign to them (e.g. `self$x <- value`): such a change persists after the
+#' It is fine for a method to read fields through `self`, but assigning to them
+#' (e.g. `self$x <- value`) is discouraged: such a change persists after the
 #' method returns and affects every other use of the object.
 #'
 #' @param _class Class name to assign to the object. This is stored as the class
