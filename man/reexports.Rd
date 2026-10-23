@@ -20,8 +20,8 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{grid}{\code{\link[grid]{arrow}}, \code{\link[grid]{unit}}}
+  \item{grid}{\code{\link[grid:arrow]{arrow()}}, \code{\link[grid:unit]{unit()}}}
 
-  \item{scales}{\code{\link[scales]{alpha}}}
+  \item{scales}{\code{\link[scales:alpha]{alpha()}}}
 }}
 

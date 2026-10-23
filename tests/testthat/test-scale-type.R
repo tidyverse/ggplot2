@@ -26,7 +26,6 @@ test_that("find_scale gives sensible calls to scales", {
 })
 
 test_that("find_scale finds scales with namespace prefixes", {
-
   # Mock foo::bar as namespace
   fake_namespace <- new_environment()
   env_bind(
@@ -46,7 +45,8 @@ test_that("find_scale finds scales with namespace prefixes", {
 
   # No loaded namespace has a scale_x_bar
   registerS3method(
-    "scale_type", "bar",
+    "scale_type",
+    "bar",
     method = function(x) "bar"
   )
 
@@ -55,7 +55,8 @@ test_that("find_scale finds scales with namespace prefixes", {
 
   # With prefix, we know the namespace where to look for scale_x_bar
   registerS3method(
-    "scale_type", "bar",
+    "scale_type",
+    "bar",
     method = function(x) "foo::bar"
   )
 

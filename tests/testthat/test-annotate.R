@@ -1,12 +1,22 @@
 test_that("dates in segment annotation work", {
-  dt <- structure(list(month = structure(c(1364774400, 1377993600),
-      class = c("POSIXct", "POSIXt"), tzone = "UTC"), total = c(-10.3,
-      11.7)), .Names = c("month", "total"), row.names = c(NA, -2L), class =
-      "data.frame")
+  dt <- structure(
+    list(
+      month = structure(
+        c(1364774400, 1377993600),
+        class = c("POSIXct", "POSIXt"),
+        tzone = "UTC"
+      ),
+      total = c(-10.3, 11.7)
+    ),
+    .Names = c("month", "total"),
+    row.names = c(NA, -2L),
+    class = "data.frame"
+  )
 
   p <- ggplot(dt, aes(month, total)) +
     geom_point() +
-    annotate("segment",
+    annotate(
+      "segment",
       x = as.POSIXct("2013-04-01"),
       xend = as.POSIXct("2013-07-01"),
       y = -10,
@@ -40,4 +50,15 @@ test_that("annotate() warns about `stat` or `position` arguments", {
   expect_snapshot_warning(
     annotate("point", 1:3, 1:3, stat = "density", position = "dodge")
   )
+})
+
+test_that("annotate() treats `group` as a per-observation aesthetic (#6862)", {
+  df <- data_frame(foo = c(1, 2))
+  p <- ggplot(df, aes(foo, foo)) +
+    geom_point() +
+    facet_wrap(~foo) +
+    annotate("line", x = 1:2, y = 1:2, group = 1:2)
+
+  expect_no_error(ld <- get_layer_data(p, 2))
+  expect_equal(ld$group, rep(1:2, 2))
 })

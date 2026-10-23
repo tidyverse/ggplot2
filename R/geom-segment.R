@@ -3,50 +3,76 @@
 #' @usage NULL
 #' @export
 GeomSegment <- ggproto(
-  "GeomSegment", Geom,
+  "GeomSegment",
+  Geom,
   required_aes = c("x", "y", "xend|yend"),
   non_missing_aes = c("linetype", "linewidth"),
 
   default_aes = GeomPath$default_aes,
 
-  draw_panel = function(self, data, panel_params, coord, arrow = NULL, arrow.fill = NULL,
-                        lineend = "butt", linejoin = "round", na.rm = FALSE) {
+  draw_panel = function(
+    self,
+    data,
+    panel_params,
+    coord,
+    arrow = NULL,
+    arrow.fill = NULL,
+    lineend = "butt",
+    linejoin = "round",
+    na.rm = FALSE
+  ) {
     data$xend <- data$xend %||% data$x
     data$yend <- data$yend %||% data$y
     data <- fix_linewidth(data, snake_class(self))
-    data <- remove_missing(data, na.rm = na.rm,
-                           c("x", "y", "xend", "yend", "linetype", "linewidth"),
-                           name = "geom_segment"
+    data <- remove_missing(
+      data,
+      na.rm = na.rm,
+      c("x", "y", "xend", "yend", "linetype", "linewidth"),
+      name = "geom_segment"
     )
 
-    if (empty(data)) return(zeroGrob())
+    if (empty(data)) {
+      return(zeroGrob())
+    }
 
     if (coord$is_linear()) {
       coord <- coord$transform(data, panel_params)
       arrow.fill <- arrow.fill %||% coord$colour
-      return(segmentsGrob(coord$x, coord$y, coord$xend, coord$yend,
-                          default.units = "native",
-                          gp = gg_par(
-                            col = alpha(coord$colour, coord$alpha),
-                            fill = alpha(arrow.fill, coord$alpha),
-                            lwd = coord$linewidth,
-                            lty = coord$linetype,
-                            lineend = lineend,
-                            linejoin = linejoin
-                          ),
-                          arrow = arrow
+      return(segmentsGrob(
+        coord$x,
+        coord$y,
+        coord$xend,
+        coord$yend,
+        default.units = "native",
+        gp = gg_par(
+          col = alpha(coord$colour, coord$alpha),
+          fill = alpha(arrow.fill, coord$alpha),
+          lwd = coord$linewidth,
+          lty = coord$linetype,
+          lineend = lineend,
+          linejoin = linejoin
+        ),
+        arrow = arrow
       ))
     }
 
     data$group <- seq_len(nrow(data))
     starts <- subset(data, select = c(-xend, -yend))
-    ends <- rename(subset(data, select = c(-x, -y)), c("xend" = "x", "yend" = "y"))
+    ends <- rename(
+      subset(data, select = c(-x, -y)),
+      c("xend" = "x", "yend" = "y")
+    )
 
     pieces <- vec_rbind0(starts, ends)
-    pieces <- pieces[order(pieces$group),]
+    pieces <- pieces[order(pieces$group), ]
 
-    GeomPath$draw_panel(pieces, panel_params, coord, arrow = arrow,
-                        lineend = lineend)
+    GeomPath$draw_panel(
+      pieces,
+      panel_params,
+      coord,
+      arrow = arrow,
+      lineend = lineend
+    )
   },
 
   draw_key = draw_key_path,

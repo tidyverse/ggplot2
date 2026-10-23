@@ -20,6 +20,14 @@
 
     The `scale_name` argument of `binned_scale()` is deprecated as of ggplot2 3.5.0.
 
+# mismatch between `na.value` and `palette` throws error
+
+    Code
+      sc$map(x)
+    Condition
+      Error in `vec_assign()`:
+      ! Can't convert `na.value` <double> to match type of `palette` <character>.
+
 # continuous scales warn about faulty `limits`
 
     Code

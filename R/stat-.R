@@ -200,7 +200,9 @@ Stat <- ggproto(
       unlist(strsplit(self$required_aes, "|", fixed = TRUE))
     )
 
-    data <- remove_missing(data, params$na.rm,
+    data <- remove_missing(
+      data,
+      params$na.rm,
       c(required_aes, self$non_missing_aes),
       snake_class(self),
       finite = TRUE
@@ -215,7 +217,10 @@ Stat <- ggproto(
       try_fetch(
         inject(self$compute_panel(data = data, scales = scales, !!!params)),
         error = function(cnd) {
-          cli::cli_warn("Computation failed in {.fn {snake_class(self)}}.", parent = cnd)
+          cli::cli_warn(
+            "Computation failed in {.fn {snake_class(self)}}.",
+            parent = cnd
+          )
           data_frame0()
         }
       )
@@ -251,7 +256,9 @@ Stat <- ggproto(
   #'
   #' A data frame with layer data
   compute_panel = function(self, data, scales, ...) {
-    if (empty(data)) return(data_frame0())
+    if (empty(data)) {
+      return(data_frame0())
+    }
 
     groups <- split(data, data$group)
     stats <- lapply(groups, function(group) {
@@ -261,39 +268,49 @@ Stat <- ggproto(
     # Record columns that are not constant within groups. We will drop them later.
     non_constant_columns <- character(0)
 
-    stats <- mapply(function(new, old) {
-      # In this function,
-      #
-      #   - `new` is the computed result. All the variables will be picked.
-      #   - `old` is the original data. There are 3 types of variables:
-      #     1) If the variable is already included in `new`, it's ignored
-      #        because the values of `new` will be used.
-      #     2) If the variable is not included in `new` and the value is
-      #        constant within the group, it will be picked.
-      #     3) If the variable is not included in `new` and the value is not
-      #        constant within the group, it will be dropped. We need to record
-      #        the dropped columns to drop it consistently later.
+    stats <- mapply(
+      function(new, old) {
+        # In this function,
+        #
+        #   - `new` is the computed result. All the variables will be picked.
+        #   - `old` is the original data. There are 3 types of variables:
+        #     1) If the variable is already included in `new`, it's ignored
+        #        because the values of `new` will be used.
+        #     2) If the variable is not included in `new` and the value is
+        #        constant within the group, it will be picked.
+        #     3) If the variable is not included in `new` and the value is not
+        #        constant within the group, it will be dropped. We need to record
+        #        the dropped columns to drop it consistently later.
 
-      if (empty(new)) return(data_frame0())
+        if (empty(new)) {
+          return(data_frame0())
+        }
 
-      # First, filter out the columns already included `new` (type 1).
-      old <- old[, !(names(old) %in% names(new)), drop = FALSE]
+        # First, filter out the columns already included `new` (type 1).
+        old <- old[, !(names(old) %in% names(new)), drop = FALSE]
 
-      # Then, check whether the rest of the columns have constant values (type 2)
-      # or not (type 3).
-      non_constant <- vapply(old, vec_unique_count, integer(1)) > 1L
+        # Then, check whether the rest of the columns have constant values (type 2)
+        # or not (type 3).
+        non_constant <- vapply(old, vec_unique_count, integer(1)) > 1L
 
-      # Record the non-constant columns.
-      non_constant_columns <<- c(non_constant_columns, names(old)[non_constant])
+        # Record the non-constant columns.
+        non_constant_columns <<- c(
+          non_constant_columns,
+          names(old)[non_constant]
+        )
 
-      vec_cbind(
-        new,
-        # Note that, while the non-constant columns should be dropped, we don't
-        # do this here because it can be filled by vec_rbind() later if either
-        # one of the group has a constant value (see #4394 for the details).
-        old[rep(1, nrow(new)), , drop = FALSE]
-      )
-    }, stats, groups, SIMPLIFY = FALSE)
+        vec_cbind(
+          new,
+          # Note that, while the non-constant columns should be dropped, we don't
+          # do this here because it can be filled by vec_rbind() later if either
+          # one of the group has a constant value (see #4394 for the details).
+          old[rep(1, nrow(new)), , drop = FALSE]
+        )
+      },
+      stats,
+      groups,
+      SIMPLIFY = FALSE
+    )
 
     non_constant_columns <- unique0(non_constant_columns)
 
@@ -400,7 +417,6 @@ Stat <- ggproto(
     }
     c(union(required_aes, names(self$default_aes)), self$optional_aes, "group")
   }
-
 )
 
 #' @export

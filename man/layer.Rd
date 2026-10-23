@@ -128,7 +128,7 @@ ggplot(mpg, aes(displ, hwy)) +
 \seealso{
 The \href{https://ggplot2-book.org/layers}{plot building chapter} and \href{https://ggplot2-book.org/individual-geoms}{geoms chapter} of the online ggplot2 book.
 
-Other layer documentation: 
+Other layer documentation:
 \code{\link{layer_geoms}},
 \code{\link{layer_positions}},
 \code{\link{layer_stats}}

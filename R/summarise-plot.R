@@ -68,8 +68,8 @@ summarise_layout <- function(p) {
   layout <- l$layout
   layout <- data_frame0(
     panel = l$layout$PANEL,
-    row   = l$layout$ROW,
-    col   = l$layout$COL
+    row = l$layout$ROW,
+    col = l$layout$COL
   )
 
   # layout data frame has columns named for facet vars; rename them so we don't

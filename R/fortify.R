@@ -51,7 +51,8 @@ check_data_frame_like <- function(data) {
       "{.code dim(data)} must return an {.cls integer} of length 2."
     )
   }
-  if (anyNA(orig_dims) || any(orig_dims < 0)) { # extra-paranoid mode
+  if (anyNA(orig_dims) || any(orig_dims < 0)) {
+    # extra-paranoid mode
     cli::cli_abort(
       "{.code dim(data)} can't have {.code NA}s or negative values."
     )

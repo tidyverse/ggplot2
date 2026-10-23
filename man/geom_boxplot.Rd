@@ -53,6 +53,7 @@ stat_boxplot(
   ...,
   orientation = NA,
   coef = 1.5,
+  min.group.n = 1L,
   quantile.type = 7,
   na.rm = FALSE,
   show.legend = NA,
@@ -181,6 +182,11 @@ overriding these connections, see how the \link[=layer_stats]{stat} and
 \link[=layer_geoms]{geom} arguments work.}
 
 \item{coef}{Length of the whiskers as multiple of IQR. Defaults to 1.5.}
+
+\item{min.group.n}{An integer setting the minimum size of a group to draw
+the box and whiskers. Groups with less observations will be displayed as
+points styled like outliers without box and whiskers. The default (1) draws
+box and whiskers for all groups.}
 
 \item{quantile.type}{An integer between 1 and 9 setting the quantile algorithm
 per \code{\link[stats:quantile]{stats::quantile(type)}}. Defaults to \code{7}}

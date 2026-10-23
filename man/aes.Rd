@@ -40,11 +40,11 @@ some stats or position adjustments, that may yield unexpected results with
 \section{Quasiquotation}{
 
 
-\code{aes()} is a \link[rlang:topic-defuse]{quoting function}. This means that
+\code{aes()} is a \link[rlang:quotation]{quoting function}. This means that
 its inputs are quoted to be evaluated in the context of the
 data. This makes it easy to work with variables from the data frame
 because you can name those directly. The flip side is that you have
-to use \link[rlang:topic-inject]{quasiquotation} to program with
+to use \link[rlang:quasiquotation]{quasiquotation} to program with
 \code{aes()}. See a tidy evaluation tutorial such as the \href{https://dplyr.tidyverse.org/articles/programming.html}{dplyr programming vignette}
 to learn more about these techniques.
 }
@@ -100,7 +100,7 @@ that can be modified.
 
 \link[=aes_eval]{Delayed evaluation} for working with computed variables.
 
-Other aesthetics documentation: 
+Other aesthetics documentation:
 \code{\link{aes_colour_fill_alpha}},
 \code{\link{aes_group_order}},
 \code{\link{aes_linetype_size_shape}},

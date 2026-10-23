@@ -24,6 +24,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Thomas Lin Pedersen \email{thomas.pedersen@posit.co} (\href{https://orcid.org/0000-0002-5147-4711}{ORCID})
   \item Hadley Wickham \email{hadley@posit.co} (\href{https://orcid.org/0000-0003-4757-117X}{ORCID})
   \item Winston Chang (\href{https://orcid.org/0000-0002-1576-2126}{ORCID})
   \item Lionel Henry

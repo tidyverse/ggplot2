@@ -1,3 +1,20 @@
+test_that("built plots retain legacy classes when converted to S7 subclasses", {
+  BuiltChild <- S7::new_class(
+    name = "BuiltChild",
+    parent = class_ggplot_built,
+    package = NULL
+  )
+  built <- ggplot_build(ggplot())
+  child <- S7::convert(built, to = BuiltChild)
+
+  expect_s7_class(child, BuiltChild)
+  expect_s7_class(child, class_gg)
+  expect_identical(class(child)[-1], class(built))
+  expect_s3_class(child, "ggplot_built")
+  expect_identical(child@data, built@data)
+  expect_s3_class(ggplot_gtable(child), "gtable")
+})
+
 # Test the complete path from plot specification to rendered data
 df <- data_frame(x = 1:3, y = 3:1, z = letters[1:3])
 
@@ -34,8 +51,16 @@ test_that("non-position aesthetics are mapped", {
   expect_named(
     get_layer_data(l1, 1),
     c(
-      "x", "y", "fill", "group", "colour", "shape", "size", "PANEL",
-      "alpha", "stroke"
+      "x",
+      "y",
+      "fill",
+      "group",
+      "colour",
+      "shape",
+      "size",
+      "PANEL",
+      "alpha",
+      "stroke"
     ),
     ignore.order = TRUE
   )

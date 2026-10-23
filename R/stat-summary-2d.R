@@ -3,14 +3,14 @@
 #' @usage NULL
 #' @export
 StatSummary2d <- ggproto(
-  "StatSummary2d", Stat,
+  "StatSummary2d",
+  Stat,
   default_aes = aes(fill = after_stat(value)),
 
   required_aes = c("x", "y", "z"),
   dropped_aes = "z", # z gets dropped during statistical transformation
 
   setup_params = function(self, data, params) {
-
     if (is.character(params$drop)) {
       params$drop <- !identical(params$drop, "none")
     }
@@ -25,19 +25,40 @@ StatSummary2d <- ggproto(
 
   extra_params = c("na.rm", "origin"),
 
-  compute_group = function(data, scales, binwidth = NULL, bins = 30,
-                           breaks = NULL, drop = TRUE,
-                           fun = "mean", fun.args = list(),
-                           boundary = 0, closed = NULL, center = NULL) {
+  compute_group = function(
+    data,
+    scales,
+    binwidth = NULL,
+    bins = 30,
+    breaks = NULL,
+    drop = TRUE,
+    fun = "mean",
+    fun.args = list(),
+    boundary = 0,
+    closed = NULL,
+    center = NULL
+  ) {
     bins <- dual_param(bins, list(x = 30, y = 30))
 
     xbin <- compute_bins(
-      data$x, scales$x, breaks$x, binwidth$x, bins$x,
-      center$x, boundary$x, closed$x
+      data$x,
+      scales$x,
+      breaks$x,
+      binwidth$x,
+      bins$x,
+      center$x,
+      boundary$x,
+      closed$x
     )
     ybin <- compute_bins(
-      data$y, scales$y, breaks$y, binwidth$y, bins$y,
-      center$y, boundary$y, closed$y
+      data$y,
+      scales$y,
+      breaks$y,
+      binwidth$y,
+      bins$y,
+      center$y,
+      boundary$y,
+      closed$y
     )
     cut_id <- list(
       xbin = as.integer(bin_cut(data$x, xbin)),

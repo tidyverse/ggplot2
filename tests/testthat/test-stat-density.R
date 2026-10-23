@@ -20,7 +20,8 @@ test_that("stat_density can make weighted density estimation", {
   df$weight <- mtcars$cyl
 
   dens <- stats::density(
-    df$mpg, weights = df$weight / sum(df$weight),
+    df$mpg,
+    weights = df$weight / sum(df$weight),
     bw = stats::bw.nrd0(df$mpg)
   )
   expected_density_fun <- stats::approxfun(data.frame(x = dens$x, y = dens$y))
@@ -112,7 +113,7 @@ test_that("stat_density works in both directions", {
 
   x$flipped_aes <- NULL
   y$flipped_aes <- NULL
-  expect_identical(x, flip_data(y, TRUE)[,names(x)])
+  expect_identical(x, flip_data(y, TRUE)[, names(x)])
 
   p <- ggplot(mpg) + stat_density()
   expect_snapshot_error(ggplot_build(p))
@@ -122,7 +123,10 @@ test_that("compute_density returns useful df and throws warning when <2 values",
   expect_snapshot_warning(dens <- compute_density(1, NULL, from = 0, to = 0))
 
   expect_equal(nrow(dens), 1)
-  expect_named(dens, c("x", "density", "scaled", "ndensity", "count", "wdensity", "n"))
+  expect_named(
+    dens,
+    c("x", "density", "scaled", "ndensity", "count", "wdensity", "n")
+  )
   expect_type(dens$x, "double")
 })
 

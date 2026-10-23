@@ -40,7 +40,8 @@ test_that("current theme can be updated with new elements", {
 
 test_that("replacing theme elements with %+replace% operator works", {
   # Changing a "leaf node" works
-  t <- theme_grey() %+replace% theme(axis.title.x = element_text(colour = 'red'))
+  t <- theme_grey() %+replace%
+    theme(axis.title.x = element_text(colour = 'red'))
   expect_identical(t$axis.title.x, element_text(colour = 'red'))
   # Make sure the class didn't change or get dropped
   expect_s7_class(t, class_theme)

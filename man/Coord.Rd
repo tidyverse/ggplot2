@@ -2,7 +2,6 @@
 % Please edit documentation in R/coord-.R, R/coord-cartesian-.R,
 %   R/coord-fixed.R, R/coord-flip.R, R/coord-map.R, R/coord-polar.R,
 %   R/coord-quickmap.R, R/coord-radial.R, R/coord-transform.R
-\docType{data}
 \name{Coord}
 \alias{Coord}
 \alias{CoordCartesian}
@@ -531,10 +530,9 @@ ggplot(mpg, aes(drv, displ)) +
 \seealso{
 The \href{https://ggplot2-book.org/extensions#sec-new-coords}{new coords section} of the online ggplot2 book.
 
-Other Layout components: 
+Other Layout components:
 \code{\link{Facet}},
 \code{\link{Layout}}
 }
 \concept{Layout components}
-\keyword{datasets}
 \keyword{internal}

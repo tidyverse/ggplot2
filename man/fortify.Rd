@@ -21,9 +21,9 @@ may be deprecated in the future.
 \seealso{
 \code{\link[=fortify.lm]{fortify.lm()}}
 
-Other plotting automation topics: 
-\code{\link{autolayer}()},
+Other plotting automation topics:
+\code{\link[=autolayer]{autolayer()}},
 \code{\link{automatic_plotting}},
-\code{\link{autoplot}()}
+\code{\link[=autoplot]{autoplot()}}
 }
 \concept{plotting automation topics}

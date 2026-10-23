@@ -9,12 +9,11 @@ test_that("construction checks input", {
   expect_snapshot_error(ggproto("Test", NULL, function(self, a) a))
   expect_snapshot_error(ggproto("Test", NULL, a <- function(self, a) a))
   expect_snapshot_error(ggproto("Test", mtcars, a = function(self, a) a))
-  # Duplicate names
-  expect_snapshot_error(ggproto("Test", NULL, foo = 20, foo = "A"))
+  # Duplicate names (tolerated for now)
+  expect_snapshot(ggproto("Test", NULL, foo = 20, foo = "A"))
 })
 
 test_that("all ggproto methods start with `{` (#6459)", {
-
   ggprotos <- Filter(
     function(x) inherits(x, "ggproto"),
     mget(ls("package:ggplot2"), asNamespace("ggplot2"), ifnotfound = list(NULL))
@@ -47,7 +46,9 @@ test_that("all ggproto methods start with `{` (#6459)", {
   # Test to make sure we're testing correctly
   ctrl <- list(
     foo = ggproto("Dummy", dummy = function(x) x + 10),
-    bar = ggproto("Dummy", dummy = function(x) {x + 10})
+    bar = ggproto("Dummy", dummy = function(x) {
+      x + 10
+    })
   )
   ctrl <- lapply(ctrl, report_no_bracket)
   expect_equal(ctrl, list(foo = "dummy", bar = character()))

@@ -1,6 +1,6 @@
 Package: ggplot2
 Title: Create Elegant Data Visualisations Using the Grammar of Graphics
-Version: 4.0.2.9000
+Version: 4.0.3.9000
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@posit.co", role = "aut",
            comment = c(ORCID = "0000-0003-4757-117X")),
@@ -65,7 +65,6 @@ Suggests:
     quantreg,
     quarto,
     ragg (>= 1.2.6),
-    RColorBrewer,
     roxygen2,
     rpart,
     sf (>= 0.7-3),
@@ -79,12 +78,12 @@ Enhances:
 VignetteBuilder: 
     quarto
 Config/Needs/website: ggtext, tidyr, forcats, tidyverse/tidytemplate
+Config/roxygen2/version: 8.1.0
 Config/testthat/edition: 3
 Config/usethis/last-upkeep: 2025-04-23
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 Collate:
     'aes-delayed-eval.R'
     'aes-variants.R'
@@ -248,6 +247,7 @@ Collate:
     'stat-bindot.R'
     'stat-binhex.R'
     'stat-boxplot.R'
+    'stat-chain.R'
     'stat-connect.R'
     'stat-contour.R'
     'stat-count.R'

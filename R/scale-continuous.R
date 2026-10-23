@@ -79,51 +79,88 @@ NULL
 #' @param sec.axis [sec_axis()] is used to specify a secondary axis.
 #'
 #' @export
-scale_x_continuous <- function(name = waiver(), breaks = waiver(),
-                               minor_breaks = waiver(), n.breaks = NULL,
-                               labels = waiver(), limits = NULL,
-                               expand = waiver(), oob = censor,
-                               na.value = NA_real_, transform = "identity",
-                               trans = deprecated(),
-                               guide = waiver(), position = "bottom",
-                               sec.axis = waiver()) {
+scale_x_continuous <- function(
+  name = waiver(),
+  breaks = waiver(),
+  minor_breaks = waiver(),
+  n.breaks = NULL,
+  labels = waiver(),
+  limits = NULL,
+  expand = waiver(),
+  oob = censor,
+  na.value = NA_real_,
+  transform = "identity",
+  trans = deprecated(),
+  guide = waiver(),
+  position = "bottom",
+  sec.axis = waiver()
+) {
   call <- caller_call()
   if (scale_override_call(call)) {
     call <- current_call()
   }
   sc <- continuous_scale(
     ggplot_global$x_aes,
-    palette = identity, name = name, breaks = breaks, n.breaks = n.breaks,
-    minor_breaks = minor_breaks, labels = labels, limits = limits,
-    expand = expand, oob = oob, na.value = na.value, transform = transform,
-    trans = trans, guide = guide, position = position, call = call,
+    palette = identity,
+    name = name,
+    breaks = breaks,
+    n.breaks = n.breaks,
+    minor_breaks = minor_breaks,
+    labels = labels,
+    limits = limits,
+    expand = expand,
+    oob = oob,
+    na.value = na.value,
+    transform = transform,
+    trans = trans,
+    guide = guide,
+    position = position,
+    call = call,
     super = ScaleContinuousPosition
   )
 
   set_sec_axis(sec.axis, sc)
-
 }
 
 #' @rdname scale_continuous
 #' @export
-scale_y_continuous <- function(name = waiver(), breaks = waiver(),
-                               minor_breaks = waiver(), n.breaks = NULL,
-                               labels = waiver(), limits = NULL,
-                               expand = waiver(), oob = censor,
-                               na.value = NA_real_, transform = "identity",
-                               trans = deprecated(),
-                               guide = waiver(), position = "left",
-                               sec.axis = waiver()) {
+scale_y_continuous <- function(
+  name = waiver(),
+  breaks = waiver(),
+  minor_breaks = waiver(),
+  n.breaks = NULL,
+  labels = waiver(),
+  limits = NULL,
+  expand = waiver(),
+  oob = censor,
+  na.value = NA_real_,
+  transform = "identity",
+  trans = deprecated(),
+  guide = waiver(),
+  position = "left",
+  sec.axis = waiver()
+) {
   call <- caller_call()
   if (scale_override_call(call)) {
     call <- current_call()
   }
   sc <- continuous_scale(
     ggplot_global$y_aes,
-    palette = identity, name = name, breaks = breaks, n.breaks = n.breaks,
-    minor_breaks = minor_breaks, labels = labels, limits = limits,
-    expand = expand, oob = oob, na.value = na.value, transform = transform,
-    trans = trans, guide = guide, position = position, call = call,
+    palette = identity,
+    name = name,
+    breaks = breaks,
+    n.breaks = n.breaks,
+    minor_breaks = minor_breaks,
+    labels = labels,
+    limits = limits,
+    expand = expand,
+    oob = oob,
+    na.value = na.value,
+    transform = transform,
+    trans = trans,
+    guide = guide,
+    position = position,
+    call = call,
     super = ScaleContinuousPosition
   )
 
@@ -135,7 +172,9 @@ scale_y_continuous <- function(name = waiver(), breaks = waiver(),
 #' @format NULL
 #' @usage NULL
 #' @export
-ScaleContinuousPosition <- ggproto("ScaleContinuousPosition", ScaleContinuous,
+ScaleContinuousPosition <- ggproto(
+  "ScaleContinuousPosition",
+  ScaleContinuous,
   secondary.axis = waiver(),
   # Position aesthetics don't map, because the coordinate system takes
   # care of it. But they do need to be made in to doubles, so stat methods
@@ -212,4 +251,3 @@ scale_override_call <- function(call = NULL) {
   }
   !any(startsWith(as.character(call[[1]]), "scale_"))
 }
-

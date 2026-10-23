@@ -15,7 +15,10 @@ test_that("guide_coloursteps and guide_bins return ordered breaks", {
   expect_true(all(diff(key$.value) > 0))
 
   # Out of bound breaks are removed
-  scale <- scale_colour_viridis_c(breaks = c(10, 20, 30, 40, 50), na.value = "grey50")
+  scale <- scale_colour_viridis_c(
+    breaks = c(10, 20, 30, 40, 50),
+    na.value = "grey50"
+  )
   scale$train(c(15, 45))
 
   g <- guide_colorsteps()
@@ -24,14 +27,13 @@ test_that("guide_coloursteps and guide_bins return ordered breaks", {
 })
 
 test_that("guide_coloursteps can parse (un)even steps from discrete scales", {
-
   val <- cut(1:10, breaks = c(0, 3, 5, 10), include.lowest = TRUE)
   scale <- scale_colour_viridis_d()
   scale$train(val)
 
   g <- guide_coloursteps(even.steps = TRUE)
   decor <- g$train(scale = scale, aesthetics = "colour")$decor
-  expect_equal(decor$max - decor$min, rep(1/3, 3))
+  expect_equal(decor$max - decor$min, rep(1 / 3, 3))
 
   g <- guide_coloursteps(even.steps = FALSE)
   decor <- g$train(scale = scale, aesthetics = "colour")$decor
@@ -39,7 +41,6 @@ test_that("guide_coloursteps can parse (un)even steps from discrete scales", {
 })
 
 test_that("bins can be parsed by guides for all scale types", {
-
   breaks <- c(90, 100, 200, 300)
   limits <- c(0, 1000)
 
@@ -67,7 +68,6 @@ test_that("bins can be parsed by guides for all scale types", {
 })
 
 test_that("binned breaks can have hardcoded labels when oob", {
-
   sc <- scale_colour_steps(breaks = 1:3, labels = as.character(1:3))
   sc$train(c(1, 2))
 

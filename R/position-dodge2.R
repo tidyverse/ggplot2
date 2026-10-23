@@ -5,10 +5,16 @@
 #' @param group.row Relationship between groups and rows. Can be `"single"` if
 #'   every row represents a single group, or `"many"` if many rows represent
 #'   a group.
-position_dodge2 <- function(width = NULL, preserve = "total",
-                            padding = 0.1, reverse = FALSE,
-                            group.row = "single") {
-  ggproto(NULL, PositionDodge2,
+position_dodge2 <- function(
+  width = NULL,
+  preserve = "total",
+  padding = 0.1,
+  reverse = FALSE,
+  group.row = "single"
+) {
+  ggproto(
+    NULL,
+    PositionDodge2,
     width = width,
     preserve = arg_match0(preserve, c("total", "single")),
     padding = padding,
@@ -21,7 +27,9 @@ position_dodge2 <- function(width = NULL, preserve = "total",
 #' @format NULL
 #' @usage NULL
 #' @export
-PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
+PositionDodge2 <- ggproto(
+  "PositionDodge2",
+  PositionDodge,
   preserve = "total",
   padding = 0.1,
   reverse = FALSE,
@@ -31,7 +39,9 @@ PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
     flipped_aes <- has_flipped_aes(data)
     data <- flip_data(data, flipped_aes)
     if (is.null(data$xmin) && is.null(data$xmax) && is.null(self$width)) {
-      cli::cli_warn("Width not defined. Set with {.code position_dodge2(width = ...)}")
+      cli::cli_warn(
+        "Width not defined. Set with {.code position_dodge2(width = ...)}"
+      )
     }
 
     if (identical(self$preserve, "total")) {
@@ -154,12 +164,11 @@ pos_dodge2 <- function(df, width, n = NULL, padding = 0.1) {
 
 # Find groups of overlapping elements that need to be dodged from one another
 find_x_overlaps <- function(df) {
-
-  start   <- df$xmin
+  start <- df$xmin
   nonzero <- df$xmax != df$xmin
   missing <- is.na(df$xmin) | is.na(df$xmax)
-  start   <- vec_fill_missing(start, "downup")
-  end     <- vec_fill_missing(df$xmax, "downup")
+  start <- vec_fill_missing(start, "downup")
+  end <- vec_fill_missing(df$xmax, "downup")
 
   # For end we take largest end seen so far of previous observation
   end <- cummax(c(end[1], end[-nrow(df)]))

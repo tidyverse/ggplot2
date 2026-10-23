@@ -20,7 +20,7 @@ cut_width(x, width, center = NULL, boundary = NULL, closed = "right", ...)
 \item{length}{length of each interval}
 
 \item{...}{
-  Arguments passed on to \code{\link[base:cut]{base::cut.default}}
+  Arguments passed on to \code{\link[base:cut.default]{base::cut.default}}
   \describe{
     \item{\code{breaks}}{either a numeric vector of two or more unique cut points or a
     single number (greater than or equal to 2) giving the number of

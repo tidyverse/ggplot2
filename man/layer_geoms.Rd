@@ -122,7 +122,7 @@ ggplot(df, aes(x = 1)) +
 }
 
 \section{Under the hood}{
-Internally, geoms are represented as \code{\link[=ggproto]{ggproto}} classes that
+Internally, geoms are represented as \code{\link{ggproto}} classes that
 occupy a slot in a layer. All these classes inherit from the parental
 \code{\link{Geom}} ggproto object that orchestrates how geoms work. Briefly, geoms
 are given the opportunity to draw the data of the layer as a whole,
@@ -136,8 +136,8 @@ of the \href{https://ggplot2-book.org/extensions.html#new-geoms}{online book}.
 For an overview of all geom layers, see the
 \href{https://ggplot2.tidyverse.org/reference/index.html#geoms}{online reference}.
 
-Other layer documentation: 
-\code{\link{layer}()},
+Other layer documentation:
+\code{\link[=layer]{layer()}},
 \code{\link{layer_positions}},
 \code{\link{layer_stats}}
 }

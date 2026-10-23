@@ -7,14 +7,14 @@
 complete_theme(theme = NULL, default = theme_get())
 }
 \arguments{
-\item{theme}{An incomplete \link[=theme]{theme} object to complete, or \code{NULL}
+\item{theme}{An incomplete \link{theme} object to complete, or \code{NULL}
 to complete the default theme.}
 
-\item{default}{A complete \link[=theme]{theme} to fill in missing pieces.
+\item{default}{A complete \link{theme} to fill in missing pieces.
 Defaults to the global theme settings.}
 }
 \value{
-A \link[=theme]{theme} object.
+A \link{theme} object.
 }
 \description{
 This function takes a theme and completes it so that it can be used

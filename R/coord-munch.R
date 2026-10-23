@@ -12,8 +12,16 @@
 #' @param is_closed Whether data should be considered as a closed polygon.
 #' @keywords internal
 #' @export
-coord_munch <- function(coord, data, range, segment_length = 0.01, is_closed = FALSE) {
-  if (coord$is_linear()) return(coord$transform(data, range))
+coord_munch <- function(
+  coord,
+  data,
+  range,
+  segment_length = 0.01,
+  is_closed = FALSE
+) {
+  if (coord$is_linear()) {
+    return(coord$transform(data, range))
+  }
 
   if (is_closed) {
     data <- close_poly(data)
@@ -26,9 +34,9 @@ coord_munch <- function(coord, data, range, segment_length = 0.01, is_closed = F
   # Only need to work with x and y because for munching, those are the
   # only position aesthetics that are transformed
   data$x[data$x == -Inf] <- ranges$x[1]
-  data$x[data$x == Inf]  <- ranges$x[2]
+  data$x[data$x == Inf] <- ranges$x[2]
   data$y[data$y == -Inf] <- ranges$y[1]
-  data$y[data$y == Inf]  <- ranges$y[2]
+  data$y[data$y == Inf] <- ranges$y[2]
 
   # Calculate distances using coord distance metric
   dist <- coord$distance(data$x, data$y, range)
@@ -65,8 +73,14 @@ munch_data <- function(data, dist = NULL, segment_length = 0.01) {
   extra[is.na(extra)] <- 1
   # Generate extra pieces for x and y values
   # The final point must be manually inserted at the end
-  x <- c(unlist(mapply(interp, data$x[-n], data$x[-1], extra, SIMPLIFY = FALSE)), data$x[n])
-  y <- c(unlist(mapply(interp, data$y[-n], data$y[-1], extra, SIMPLIFY = FALSE)), data$y[n])
+  x <- c(
+    unlist(mapply(interp, data$x[-n], data$x[-1], extra, SIMPLIFY = FALSE)),
+    data$x[n]
+  )
+  y <- c(
+    unlist(mapply(interp, data$y[-n], data$y[-1], extra, SIMPLIFY = FALSE)),
+    data$y[n]
+  )
 
   # Replicate other aesthetics: defined by start point but also
   # must include final point
@@ -80,7 +94,9 @@ munch_data <- function(data, dist = NULL, segment_length = 0.01) {
 # Interpolate n-1 evenly spaced steps (n points) from start to
 # (end - (end - start) / n). end is never included in sequence.
 interp <- function(start, end, n) {
-  if (n == 1) return(start)
+  if (n == 1) {
+    return(start)
+  }
   start + seq(0, 1, length.out = n + 1)[-(n + 1)] * (end - start)
 }
 
@@ -89,7 +105,7 @@ interp <- function(start, end, n) {
 dist_euclidean <- function(x, y) {
   n <- length(x)
 
-  sqrt((x[-n] - x[-1]) ^ 2 + (y[-n] - y[-1]) ^ 2)
+  sqrt((x[-n] - x[-1])^2 + (y[-n] - y[-1])^2)
 }
 
 # Compute central angle between two points.
@@ -101,7 +117,7 @@ dist_central_angle <- function(lon, lat) {
   lat <- lat * pi / 180
   lon <- lon * pi / 180
 
-  hav <- function(x) sin(x / 2) ^ 2
+  hav <- function(x) sin(x / 2)^2
   ahav <- function(x) 2 * asin(x)
 
   n <- length(lat)
@@ -116,7 +132,6 @@ dist_central_angle <- function(lon, lat) {
 # warped into polar space. These lines are all spiral arcs, circular
 # arcs, or segments of rays.
 dist_polar <- function(r, theta) {
-
   # Pretending that theta is x and r is y, find the slope and intercepts
   # for each line segment.
   # This is just like finding the x-intercept of a line in cartesian coordinates.
@@ -125,8 +140,17 @@ dist_polar <- function(r, theta) {
   # Rename x and y columns to r and t, since we're working in polar
   # Note that 'slope' actually means the spiral slope, 'a' in the spiral
   #   formula r = a * theta
-  lf <- rename(lf, c(x1 = "t1", x2 = "t2", y1 = "r1", y2 = "r2",
-    yintercept = "r_int",  xintercept = "t_int"))
+  lf <- rename(
+    lf,
+    c(
+      x1 = "t1",
+      x2 = "t2",
+      y1 = "r1",
+      y2 = "r2",
+      yintercept = "r_int",
+      xintercept = "t_int"
+    )
+  )
 
   # Re-normalize the theta values so that intercept for each is 0
   # This is necessary for calculating spiral arc length.
@@ -210,9 +234,10 @@ find_line_formula <- function(x, y) {
 spiral_arc_length <- function(a, theta1, theta2) {
   # Archimedes' spiral arc length formula from
   # http://mathworld.wolfram.com/ArchimedesSpiral.html
-  0.5 * a * (
-    (theta1 * sqrt(1 + theta1 * theta1) + asinh(theta1)) -
-    (theta2 * sqrt(1 + theta2 * theta2) + asinh(theta2)))
+  0.5 *
+    a *
+    ((theta1 * sqrt(1 + theta1 * theta1) + asinh(theta1)) -
+      (theta2 * sqrt(1 + theta2 * theta2) + asinh(theta2)))
 }
 
 # Closes a polygon type data structure by repeating the first-in-group after

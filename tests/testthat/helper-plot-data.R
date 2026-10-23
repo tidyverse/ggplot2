@@ -5,7 +5,11 @@ cdata <- function(plot) {
   lapply(pieces@data, function(d) {
     dapply(d, "PANEL", function(panel_data) {
       scales <- pieces@layout$get_scales(panel_data$PANEL[1])
-      panel_params <- plot@coordinates$setup_panel_params(scales$x, scales$y, params = pieces@layout$coord_params)
+      panel_params <- plot@coordinates$setup_panel_params(
+        scales$x,
+        scales$y,
+        params = pieces@layout$coord_params
+      )
       plot@coordinates$transform(panel_data, panel_params)
     })
   })
@@ -17,10 +21,8 @@ pranges <- function(plot) {
   x_ranges <- lapply(layout$panel_scales_x, function(scale) scale$get_limits())
   y_ranges <- lapply(layout$panel_scales_y, function(scale) scale$get_limits())
 
-
   npscales <- plot@scales$non_position_scales()
   npranges <- lapply(npscales$scales$scales, function(scale) scale$get_limits())
-
 
   c(list(x = x_ranges, y = y_ranges), npranges)
 }

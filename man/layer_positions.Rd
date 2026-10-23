@@ -96,7 +96,7 @@ like \code{\link[=geom_bar]{geom_bar()}}, \code{\link[=geom_area]{geom_area()}} 
 }
 
 \section{Under the hood}{
-Internally, positions are represented as \code{\link[=ggproto]{ggproto}} classes that
+Internally, positions are represented as \code{\link{ggproto}} classes that
 occupy a slot in a layer. All these classes inherit from the parental
 \code{\link{Position}} ggproto object that orchestrates how positions work. Briefly,
 positions are given the opportunity to adjust the data of each facet panel.
@@ -109,8 +109,8 @@ section of the
 For an overview of all position adjustments, see the
 \href{https://ggplot2.tidyverse.org/reference/index.html#position-adjustment}{online reference}.
 
-Other layer documentation: 
-\code{\link{layer}()},
+Other layer documentation:
+\code{\link[=layer]{layer()}},
 \code{\link{layer_geoms}},
 \code{\link{layer_stats}}
 }

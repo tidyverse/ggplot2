@@ -100,7 +100,7 @@ use \code{position_jitter()}, give the position as \code{"jitter"}.
 }}
 
 \item{...}{
-  Arguments passed on to \code{\link[=geom_contour]{geom_contour}}
+  Arguments passed on to \code{\link{geom_contour}}
   \describe{
     \item{\code{binwidth}}{The width of the contour bins. Overridden by \code{bins}.}
     \item{\code{bins}}{Number of contour bins. Overridden by \code{breaks}.}

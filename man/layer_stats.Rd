@@ -116,7 +116,7 @@ computed variables:
 }
 
 \section{Under the hood}{
-Internally, stats are represented as \code{\link[=ggproto]{ggproto}} classes that
+Internally, stats are represented as \code{\link{ggproto}} classes that
 occupy a slot in a layer. All these classes inherit from the parental
 \code{\link{Stat}} ggproto object that orchestrates how stats work. Briefly, stats
 are given the opportunity to perform computation either on the layer as a
@@ -133,8 +133,8 @@ For an overview of all stat layers, see the
 
 How \link[=after_stat]{computed aesthetics} work.
 
-Other layer documentation: 
-\code{\link{layer}()},
+Other layer documentation:
+\code{\link[=layer]{layer()}},
 \code{\link{layer_geoms}},
 \code{\link{layer_positions}}
 }

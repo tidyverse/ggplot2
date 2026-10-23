@@ -1,5 +1,4 @@
 test_that("ViewScales can make fixed copies", {
-
   p1 <- ggplot(mpg, aes(drv, displ)) +
     geom_boxplot() +
     annotate("point", x = 5, y = 10) +

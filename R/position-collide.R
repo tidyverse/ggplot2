@@ -1,7 +1,13 @@
 # Detect and prevent collisions.
 # Powers dodging, stacking and filling.
-collide_setup <- function(data, width = NULL, name, strategy,
-                          check.width = TRUE, reverse = FALSE) {
+collide_setup <- function(
+  data,
+  width = NULL,
+  name,
+  strategy,
+  check.width = TRUE,
+  reverse = FALSE
+) {
   # Determine width
   if (!is.null(width)) {
     # Width set manually
@@ -19,18 +25,25 @@ collide_setup <- function(data, width = NULL, name, strategy,
     widths <- unique0(data$xmax - data$xmin)
     widths <- widths[!is.na(widths)]
 
-#   # Suppress warning message since it's not reliable
-#     if (!zero_range(range(widths))) {
-#       warn(name, " requires constant width: output may be incorrect")
-#     }
+    #   # Suppress warning message since it's not reliable
+    #     if (!zero_range(range(widths))) {
+    #       warn(name, " requires constant width: output may be incorrect")
+    #     }
     width <- widths[1]
   }
 
   list(data = data, width = width)
 }
 
-collide <- function(data, width = NULL, name, strategy,
-                    ..., check.width = TRUE, reverse = FALSE) {
+collide <- function(
+  data,
+  width = NULL,
+  name,
+  strategy,
+  ...,
+  check.width = TRUE,
+  reverse = FALSE
+) {
   dlist <- collide_setup(data, width, name, strategy, check.width, reverse)
   data <- dlist$data
   width <- dlist$width
@@ -67,8 +80,15 @@ collide <- function(data, width = NULL, name, strategy,
 }
 
 # Alternate version of collide() used by position_dodge2()
-collide2 <- function(data, width = NULL, name, strategy,
-                     ..., check.width = TRUE, reverse = FALSE) {
+collide2 <- function(
+  data,
+  width = NULL,
+  name,
+  strategy,
+  ...,
+  check.width = TRUE,
+  reverse = FALSE
+) {
   dlist <- collide_setup(data, width, name, strategy, check.width, reverse)
   data <- dlist$data
   width <- dlist$width

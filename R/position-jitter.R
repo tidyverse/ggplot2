@@ -46,18 +46,16 @@
 #'   geom_point(position = jitter) +
 #'   geom_point(position = jitter, color = "red", aes(am + 0.2, vs + 0.2))
 position_jitter <- function(width = NULL, height = NULL, seed = NA) {
-  ggproto(NULL, PositionJitter,
-    width = width,
-    height = height,
-    seed = seed
-  )
+  ggproto(NULL, PositionJitter, width = width, height = height, seed = seed)
 }
 
 #' @rdname Position
 #' @format NULL
 #' @usage NULL
 #' @export
-PositionJitter <- ggproto("PositionJitter", Position,
+PositionJitter <- ggproto(
+  "PositionJitter",
+  Position,
   seed = NA,
   required_aes = c("x", "y"),
 
@@ -80,11 +78,10 @@ PositionJitter <- ggproto("PositionJitter", Position,
 )
 
 compute_jitter <- function(data, width = NULL, height = NULL, seed = NA) {
-
-  width  <- width  %||% (resolution(data$x, zero = FALSE, TRUE) * 0.4)
+  width <- width %||% (resolution(data$x, zero = FALSE, TRUE) * 0.4)
   height <- height %||% (resolution(data$y, zero = FALSE, TRUE) * 0.4)
 
-  trans_x <- if (width > 0)  function(x) jitter(x, amount = width)
+  trans_x <- if (width > 0) function(x) jitter(x, amount = width)
   trans_y <- if (height > 0) function(x) jitter(x, amount = height)
 
   x_aes <- intersect(ggplot_global$x_aes, names(data))

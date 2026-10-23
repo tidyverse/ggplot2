@@ -6,7 +6,8 @@ censor_fun_env <- function(x) {
 
 test_that("make_constructor builds a geom constructor", {
   GeomFoo <- ggproto(
-    "GeomFoo", Geom,
+    "GeomFoo",
+    Geom,
     draw_panel = function(data, panel_params, coord, my_param = "foo") {
       zeroGrob()
     }
@@ -18,7 +19,8 @@ test_that("make_constructor builds a geom constructor", {
 
 test_that("make_constructor builds a stat constructor", {
   StatFoo <- ggproto(
-    "StatFoo", Stat,
+    "StatFoo",
+    Stat,
     compute_panel = function(data, scales, my_param = "foo") {
       data
     }
@@ -43,7 +45,8 @@ test_that("make_constructor refuses overdefined cases", {
 test_that("make_constructor complains about default values", {
   # No default value for my_param
   GeomFoo <- ggproto(
-    "GeomFoo", Geom,
+    "GeomFoo",
+    Geom,
     draw_panel = function(data, panel_params, coord, my_param) {
       zeroGrob()
     }
@@ -52,7 +55,8 @@ test_that("make_constructor complains about default values", {
     make_constructor(GeomFoo)
   )
   StatFoo <- ggproto(
-    "StatFoo", Stat,
+    "StatFoo",
+    Stat,
     compute_panel = function(data, scales, my_param) {
       data
     }

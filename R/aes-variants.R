@@ -50,8 +50,12 @@ aes_ <- function(x, y, ...) {
     details = "Please use tidy evaluation idioms with `aes()`"
   )
   mapping <- list(...)
-  if (!missing(x)) mapping["x"] <- list(x)
-  if (!missing(y)) mapping["y"] <- list(y)
+  if (!missing(x)) {
+    mapping["x"] <- list(x)
+  }
+  if (!missing(y)) {
+    mapping["y"] <- list(y)
+  }
 
   caller_env <- parent.frame()
 
@@ -61,7 +65,9 @@ aes_ <- function(x, y, ...) {
     } else if (is.null(x) || is.call(x) || is.name(x) || is.atomic(x)) {
       new_aesthetic(x, caller_env)
     } else {
-      cli::cli_abort("Aesthetic must be a one-sided formula, call, name, or constant.")
+      cli::cli_abort(
+        "Aesthetic must be a one-sided formula, call, name, or constant."
+      )
     }
   }
   mapping <- lapply(mapping, as_quosure_aes)
@@ -80,8 +86,12 @@ aes_string <- function(x, y, ...) {
     )
   )
   mapping <- list(...)
-  if (!missing(x)) mapping["x"] <- list(x)
-  if (!missing(y)) mapping["y"] <- list(y)
+  if (!missing(x)) {
+    mapping["x"] <- list(x)
+  }
+  if (!missing(y)) {
+    mapping["y"] <- list(y)
+  }
 
   caller_env <- parent.frame()
   mapping <- lapply(mapping, function(x) {
@@ -112,7 +122,9 @@ aes_all <- function(vars) {
 
   # Quosure the symbols in the empty environment because they can only
   # refer to the data mask
-  x <- class_mapping(lapply(vars, function(x) new_quosure(as.name(x), emptyenv())))
+  x <- class_mapping(lapply(vars, function(x) {
+    new_quosure(as.name(x), emptyenv())
+  }))
   add_class(x, "unlabelled")
 }
 
@@ -128,4 +140,3 @@ aes_all <- function(vars) {
 aes_auto <- function(data = NULL, ...) {
   deprecate("2.0.0", "aes_auto()")
 }
-

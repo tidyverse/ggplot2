@@ -3,7 +3,8 @@
 #' @usage NULL
 #' @export
 StatIdentity <- ggproto(
-  "StatIdentity", Stat,
+  "StatIdentity",
+  Stat,
   compute_layer = function(self, data, params, layout) {
     data
   }

@@ -9,14 +9,13 @@ test_that("stat_ecdf works in both directions", {
 
   x$flipped_aes <- NULL
   y$flipped_aes <- NULL
-  expect_identical(x, flip_data(y, TRUE)[,names(x)])
+  expect_identical(x, flip_data(y, TRUE)[, names(x)])
 
   p <- ggplot(mpg) + stat_ecdf()
   expect_snapshot_error(ggplot_build(p))
 })
 
 test_that("weighted ecdf computes sensible results", {
-
   set.seed(42)
   x <- rpois(100, 5)
   ux <- sort(unique0(x))
@@ -34,7 +33,7 @@ test_that("weighted ecdf computes sensible results", {
   )
 
   # Tabulated weights should be the same as the original
-  tab   <- as.data.frame(table(x), stringsAsFactors = FALSE)
+  tab <- as.data.frame(table(x), stringsAsFactors = FALSE)
   tab$x <- as.numeric(tab$x)
   expect_equal(
     ecdf(x)(ux),
@@ -43,7 +42,6 @@ test_that("weighted ecdf computes sensible results", {
 })
 
 test_that("weighted ecdf warns about weird weights", {
-
   # Should warn when provided with illegal weights
   expect_snapshot_warning(wecdf(1:10, c(NA, rep(1, 9))))
 

@@ -3,7 +3,6 @@
 %   R/guide-axis-logticks.R, R/guide-axis-stack.R, R/guide-axis-theta.R,
 %   R/guide-legend.R, R/guide-bins.R, R/guide-colorbar.R, R/guide-colorsteps.R,
 %   R/guide-custom.R, R/guide-none.R, R/guide-old.R
-\docType{data}
 \name{Guide}
 \alias{Guide}
 \alias{GuideAxis}
@@ -669,5 +668,4 @@ ggplot(mpg, aes(displ, hwy, colour = class)) +
 Run \code{vignette("extending-ggplot2")}, in particular the "Creating
 new guides" section.
 }
-\keyword{datasets}
 \keyword{internal}

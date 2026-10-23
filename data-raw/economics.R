@@ -22,7 +22,9 @@ csv <- file.path(RAW_CSV_DIR, paste0(series, ".csv"))
 #   walk2(url, csv, function(x, dest) download.file(x, destfile = dest))
 
 # read the CSV files
-fields <- map(csv, read_csv,
+fields <- map(
+  csv,
+  read_csv,
   col_types = cols(
     DATE = col_date(format = ""),
     VALUE = col_double()

@@ -101,7 +101,6 @@ Position <- ggproto(
   #'
   #' A data frame with completed layer data
   use_defaults = function(self, data, params = list()) {
-
     if (empty(data)) {
       return(data)
     }
@@ -111,7 +110,10 @@ Position <- ggproto(
 
     params <- params[intersect(names(params), aes)]
     params <- params[setdiff(names(params), names(data))]
-    defaults <- defaults[setdiff(names(defaults), c(names(params), names(data)))]
+    defaults <- defaults[setdiff(
+      names(defaults),
+      c(names(params), names(data))
+    )]
 
     if ((length(params) + length(defaults)) < 1) {
       return(data)
@@ -130,7 +132,6 @@ Position <- ggproto(
 
     data[names(new)] <- new
     data
-
   },
 
   #' @field setup_params
@@ -205,7 +206,9 @@ Position <- ggproto(
   #' A data frame with layer data
   compute_layer = function(self, data, params, layout) {
     dapply(data, "PANEL", function(data) {
-      if (empty(data)) return(data_frame0())
+      if (empty(data)) {
+        return(data_frame0())
+      }
 
       scales <- layout$get_scales(data$PANEL[1])
       self$compute_panel(data = data, params = params, scales = scales)

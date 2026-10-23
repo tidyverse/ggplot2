@@ -14,7 +14,7 @@ test_that("fortify.default can handle healthy data-frame-like objects", {
 
   # Unhealthy data-frame-like (matrix with no colnames)
 
-  expect_snapshot(fortify(cbind(X, Y, Z, deparse.level=0)), error = TRUE)
+  expect_snapshot(fortify(cbind(X, Y, Z, deparse.level = 0)), error = TRUE)
 
   # Healthy data-frame-like (matrix with colnames)
 
@@ -34,11 +34,11 @@ test_that("fortify.default can handle healthy data-frame-like objects", {
 
   as.data.frame.foo <- function(x, row.names = NULL, ...) {
     key <- if (is.null(names(x))) rownames(x) else names(x)
-    data.frame(key=key, value=unname(unclass(x)))
+    data.frame(key = key, value = unname(unclass(x)))
   }
   registerS3method("as.data.frame", "foo", as.data.frame.foo)
 
-  expect_identical(fortify(object), data.frame(key=names(object), value=Y))
+  expect_identical(fortify(object), data.frame(key = names(object), value = Y))
 
   # Rejected by fortify.default() because of unhealthy dim() behavior
 
@@ -71,7 +71,7 @@ test_that("fortify.default can handle healthy data-frame-like objects", {
 
   # Rejected by fortify.default() because of unhealthy colnames() behavior
 
-  dimnames.foo <- function(x) list()  # this breaks colnames(<foo>)
+  dimnames.foo <- function(x) list() # this breaks colnames(<foo>)
   registerS3method("dimnames", "foo", dimnames.foo)
   expect_snapshot(fortify(object), error = TRUE)
 
@@ -108,7 +108,7 @@ test_that("fortify.default can handle healthy data-frame-like objects", {
 
   as.data.frame.foo <- function(x, row.names = NULL, ...) {
     key <- if (is.null(names(x))) rownames(x) else names(x)
-    data.frame(oops=key, value=unname(unclass(x)))
+    data.frame(oops = key, value = unname(unclass(x)))
   }
   registerS3method("as.data.frame", "foo", as.data.frame.foo)
   expect_snapshot(fortify(object), error = TRUE)

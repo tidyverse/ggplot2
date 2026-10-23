@@ -3,7 +3,8 @@
 #' @usage NULL
 #' @export
 StatSmooth <- ggproto(
-  "StatSmooth", Stat,
+  "StatSmooth",
+  Stat,
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)
     msg <- character()
@@ -22,8 +23,10 @@ StatSmooth <- ggproto(
       msg <- c(msg, paste0("method = '", method, "'"))
     }
 
-    if (identical(method, "gam") &&
-        !prompt_install("mgcv", "for using {.code method = \"gam\"}")) {
+    if (
+      identical(method, "gam") &&
+        !prompt_install("mgcv", "for using {.code method = \"gam\"}")
+    ) {
       cli::cli_inform(c(
         "The {.arg method} was set to {.val gam}, but {.pkg mgcv} is not installed.",
         "!" = "Falling back to {.code method = \"lm\"}.",
@@ -56,7 +59,8 @@ StatSmooth <- ggproto(
     }
     # If gam and gam's method is not specified by the user then use REML
     if (identical(method, gam_method())) {
-      params$method.args[["method"]] <- params$method.args[["method"]] %||% "REML"
+      params$method.args[["method"]] <- params$method.args[["method"]] %||%
+        "REML"
     }
 
     if (length(msg) > 0) {
@@ -69,17 +73,30 @@ StatSmooth <- ggproto(
 
   extra_params = c("na.rm", "orientation"),
 
-  compute_group = function(data, scales, method = NULL, formula = NULL,
-                           se = TRUE, n = 80, span = 0.75, fullrange = FALSE,
-                           xseq = NULL, level = 0.95, method.args = list(),
-                           na.rm = FALSE, flipped_aes = NA) {
+  compute_group = function(
+    data,
+    scales,
+    method = NULL,
+    formula = NULL,
+    se = TRUE,
+    n = 80,
+    span = 0.75,
+    fullrange = FALSE,
+    xseq = NULL,
+    level = 0.95,
+    method.args = list(),
+    na.rm = FALSE,
+    flipped_aes = NA
+  ) {
     data <- flip_data(data, flipped_aes)
     if (vec_unique_count(data$x) < 2) {
       # Not enough data to perform fit
       return(data_frame0())
     }
 
-    if (is.null(data$weight)) data$weight <- 1
+    if (is.null(data$weight)) {
+      data$weight <- 1
+    }
 
     if (is.null(xseq)) {
       if (is.integer(data$x)) {

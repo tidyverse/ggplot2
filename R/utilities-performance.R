@@ -1,7 +1,9 @@
 split_matrix <- function(x, col_names = colnames(x)) {
   force(col_names)
   x <- lapply(seq_len(ncol(x)), function(i) x[, i])
-  if (!is.null(col_names)) names(x) <- col_names
+  if (!is.null(col_names)) {
+    names(x) <- col_names
+  }
   x
 }
 
@@ -12,7 +14,9 @@ mat_2_df <- function(x, col_names = colnames(x)) {
 
 # More performant modifyList without recursion
 modify_list <- function(old, new) {
-  for (i in names(new)) old[[i]] <- new[[i]]
+  for (i in names(new)) {
+    old[[i]] <- new[[i]]
+  }
   old
 }
 modifyList <- function(...) {

@@ -2,9 +2,18 @@
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomHex <- ggproto("GeomHex", Geom,
-  draw_group = function(self, data, panel_params, coord, lineend = "butt",
-                        linejoin = "mitre", linemitre = 10) {
+GeomHex <- ggproto(
+  "GeomHex",
+  Geom,
+  draw_group = function(
+    self,
+    data,
+    panel_params,
+    coord,
+    lineend = "butt",
+    linejoin = "mitre",
+    linemitre = 10
+  ) {
     if (empty(data)) {
       return(zeroGrob())
     }
@@ -20,7 +29,7 @@ GeomHex <- ggproto("GeomHex", Geom,
     # for the effect of the overlapping range in y-direction on the resolution
     # calculation
     if (!is.null(data$height)) {
-      dy <- data$height[1] /  sqrt(3) / 2
+      dy <- data$height[1] / sqrt(3) / 2
     } else {
       dy <- resolution(data$y, FALSE, TRUE) / sqrt(3) / 2 * 1.15
     }
@@ -28,26 +37,32 @@ GeomHex <- ggproto("GeomHex", Geom,
     n <- nrow(data)
     hexC <- hexbin::hexcoords(dx, dy, n = n)
 
-    hexdata <- vec_rep_each(data[c("x", "y", "radius")], times = 6L)
+    columns <- intersect(c("x", "y", "radius"), names(data))
+    hexdata <- vec_rep_each(data[columns], times = 6L)
+    hexdata$radius <- hexdata$radius %||% 1
     hexdata$x <- hexC$x * hexdata$radius + hexdata$x
     hexdata$y <- hexC$y * hexdata$radius + hexdata$y
 
     coords <- coord$transform(hexdata, panel_params)
 
-    ggname("geom_hex", polygonGrob(
-      coords$x, coords$y,
-      gp = gg_par(
-        col = data$colour,
-        fill = fill_alpha(data$fill, data$alpha),
-        lwd = data$linewidth,
-        lty = data$linetype,
-        lineend = lineend,
-        linejoin = linejoin,
-        linemitre = linemitre
-      ),
-      default.units = "native",
-      id.lengths = rep.int(6, n)
-    ))
+    ggname(
+      "geom_hex",
+      polygonGrob(
+        coords$x,
+        coords$y,
+        gp = gg_par(
+          col = data$colour,
+          fill = fill_alpha(data$fill, data$alpha),
+          lwd = data$linewidth,
+          lty = data$linetype,
+          lineend = lineend,
+          linejoin = linejoin,
+          linemitre = linemitre
+        ),
+        default.units = "native",
+        id.lengths = rep.int(6, n)
+      )
+    )
   },
 
   required_aes = c("x", "y"),

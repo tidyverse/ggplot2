@@ -12,10 +12,46 @@ test_that("titleGrob() and margins() work correctly", {
   expect_equal(height_cm(g1), height_cm(g4))
 
   # margins
-  g5 <- titleGrob("aaaa", 0, 0, 0.5, 0.5, margin = margin(t = 1, r = 0, b = 0, l = 0, unit = "cm"), margin_x = TRUE, margin_y = TRUE)
-  g6 <- titleGrob("aaaa", 0, 0, 0.5, 0.5, margin = margin(t = 0, r = 1, b = 0, l = 0, unit = "cm"), margin_x = TRUE, margin_y = TRUE)
-  g7 <- titleGrob("aaaa", 0, 0, 0.5, 0.5, margin = margin(t = 0, r = 0, b = 1, l = 0, unit = "cm"), margin_x = TRUE, margin_y = TRUE)
-  g8 <- titleGrob("aaaa", 0, 0, 0.5, 0.5, margin = margin(t = 0, r = 0, b = 0, l = 1, unit = "cm"), margin_x = TRUE, margin_y = TRUE)
+  g5 <- titleGrob(
+    "aaaa",
+    0,
+    0,
+    0.5,
+    0.5,
+    margin = margin(t = 1, r = 0, b = 0, l = 0, unit = "cm"),
+    margin_x = TRUE,
+    margin_y = TRUE
+  )
+  g6 <- titleGrob(
+    "aaaa",
+    0,
+    0,
+    0.5,
+    0.5,
+    margin = margin(t = 0, r = 1, b = 0, l = 0, unit = "cm"),
+    margin_x = TRUE,
+    margin_y = TRUE
+  )
+  g7 <- titleGrob(
+    "aaaa",
+    0,
+    0,
+    0.5,
+    0.5,
+    margin = margin(t = 0, r = 0, b = 1, l = 0, unit = "cm"),
+    margin_x = TRUE,
+    margin_y = TRUE
+  )
+  g8 <- titleGrob(
+    "aaaa",
+    0,
+    0,
+    0.5,
+    0.5,
+    margin = margin(t = 0, r = 0, b = 0, l = 1, unit = "cm"),
+    margin_x = TRUE,
+    margin_y = TRUE
+  )
 
   expect_equal(height_cm(g5), height_cm(g1) + 1)
   expect_equal(width_cm(g5), width_cm(g1))
@@ -27,8 +63,26 @@ test_that("titleGrob() and margins() work correctly", {
   expect_equal(width_cm(g8), width_cm(g1) + 1)
 
   # no margins when set to false
-  g9 <- titleGrob("aaaa", 0, 0, 0.5, 0.5, margin = margin(t = 1, r = 1, b = 1, l = 1, unit = "cm"), margin_x = FALSE, margin_y = TRUE)
-  g10 <- titleGrob("aaaa", 0, 0, 0.5, 0.5, margin = margin(t = 1, r = 1, b = 1, l = 1, unit = "cm"), margin_x = TRUE, margin_y = FALSE)
+  g9 <- titleGrob(
+    "aaaa",
+    0,
+    0,
+    0.5,
+    0.5,
+    margin = margin(t = 1, r = 1, b = 1, l = 1, unit = "cm"),
+    margin_x = FALSE,
+    margin_y = TRUE
+  )
+  g10 <- titleGrob(
+    "aaaa",
+    0,
+    0,
+    0.5,
+    0.5,
+    margin = margin(t = 1, r = 1, b = 1, l = 1, unit = "cm"),
+    margin_x = TRUE,
+    margin_y = FALSE
+  )
   expect_equal(height_cm(g9), height_cm(g1) + 2)
   # when one of margin_x or margin_y is set to FALSE and the other to TRUE, then the dimension for FALSE turns into
   # length 1null.
@@ -42,7 +96,6 @@ test_that("margins() warn against wrong input lengths", {
 })
 
 test_that("margin_part() mechanics work as expected", {
-
   t <- theme_gray() +
     theme(plot.margin = margin_part(b = 11))
 

@@ -99,7 +99,7 @@ optionally followed by 's'.}
 \item{call}{The \code{call} used to construct the scale for reporting messages.}
 
 \item{...}{
-  Arguments passed on to \code{\link[=continuous_scale]{continuous_scale}}
+  Arguments passed on to \code{\link{continuous_scale}}
   \describe{
     \item{\code{scale_name}}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} The name of the scale
 that should be used for error messages associated with this scale.}
@@ -134,10 +134,10 @@ scales, which always use \code{\link[scales:rescale]{scales::rescale()}}. Also a
 \item Function that handles limits outside of the scale limits
 (out of bounds). Also accepts rlang \link[rlang:as_function]{lambda}
 function notation.
-\item The default (\code{\link[scales:oob]{scales::censor()}}) replaces out of
+\item The default (\code{\link[scales:censor]{scales::censor()}}) replaces out of
 bounds values with \code{NA}.
-\item \code{\link[scales:oob]{scales::squish()}} for squishing out of bounds values into range.
-\item \code{\link[scales:oob]{scales::squish_infinite()}} for squishing infinite values into range.
+\item \code{\link[scales:squish]{scales::squish()}} for squishing out of bounds values into range.
+\item \code{\link[scales:squish_infinite]{scales::squish_infinite()}} for squishing infinite values into range.
 }}
     \item{\code{na.value}}{Missing values will be replaced with this value.}
     \item{\code{expand}}{For position scales, a vector of range expansion constants used to add some

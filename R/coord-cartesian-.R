@@ -75,13 +75,21 @@
 #' # When zooming the coordinate system, we see a subset of original 50 bins,
 #' # displayed bigger
 #' d + coord_cartesian(xlim = c(0, 1))
-coord_cartesian <- function(xlim = NULL, ylim = NULL, expand = TRUE,
-                            default = FALSE, clip = "on", reverse = "none",
-                            ratio = NULL) {
+coord_cartesian <- function(
+  xlim = NULL,
+  ylim = NULL,
+  expand = TRUE,
+  default = FALSE,
+  clip = "on",
+  reverse = "none",
+  ratio = NULL
+) {
   check_coord_limits(xlim)
   check_coord_limits(ylim)
   check_number_decimal(ratio, allow_infinite = FALSE, allow_null = TRUE)
-  ggproto(NULL, CoordCartesian,
+  ggproto(
+    NULL,
+    CoordCartesian,
     limits = list(x = xlim, y = ylim),
     reverse = reverse,
     expand = expand,
@@ -95,7 +103,9 @@ coord_cartesian <- function(xlim = NULL, ylim = NULL, expand = TRUE,
 #' @format NULL
 #' @usage NULL
 #' @export
-CoordCartesian <- ggproto("CoordCartesian", Coord,
+CoordCartesian <- ggproto(
+  "CoordCartesian",
+  Coord,
 
   is_linear = function() {
     TRUE
@@ -113,7 +123,10 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
   },
 
   distance = function(x, y, panel_params) {
-    max_dist <- dist_euclidean(panel_params$x$dimension(), panel_params$y$dimension())
+    max_dist <- dist_euclidean(
+      panel_params$x$dimension(),
+      panel_params$y$dimension()
+    )
     dist_euclidean(x, y) / max_dist
   },
 
@@ -148,12 +161,16 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
   render_axis_h = function(panel_params, theme) {
     list(
       top = panel_guides_grob(
-        panel_params$guides, position = "top",
-        theme = theme, labels = panel_params$draw_labels$top
+        panel_params$guides,
+        position = "top",
+        theme = theme,
+        labels = panel_params$draw_labels$top
       ),
       bottom = panel_guides_grob(
-        panel_params$guides, position = "bottom",
-        theme = theme, labels = panel_params$draw_labels$bottom
+        panel_params$guides,
+        position = "bottom",
+        theme = theme,
+        labels = panel_params$draw_labels$bottom
       )
     )
   },
@@ -161,12 +178,16 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
   render_axis_v = function(panel_params, theme) {
     list(
       left = panel_guides_grob(
-        panel_params$guides, position = "left",
-        theme = theme, labels = panel_params$draw_labels$left
-        ),
+        panel_params$guides,
+        position = "left",
+        theme = theme,
+        labels = panel_params$draw_labels$left
+      ),
       right = panel_guides_grob(
-        panel_params$guides, position = "right",
-        theme = theme, labels = panel_params$draw_labels$right
+        panel_params$guides,
+        position = "right",
+        theme = theme,
+        labels = panel_params$draw_labels$right
       )
     )
   }
@@ -175,7 +196,12 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
 view_scales_from_scale <- function(scale, coord_limits = NULL, expand = TRUE) {
   expansion <- default_expansion(scale, expand = expand)
   limits <- scale$get_limits()
-  continuous_range <- expand_limits_scale(scale, expansion, limits, coord_limits = coord_limits)
+  continuous_range <- expand_limits_scale(
+    scale,
+    expansion,
+    limits,
+    coord_limits = coord_limits
+  )
   aesthetic <- scale$aesthetics[1]
 
   view_scales <- list(
@@ -183,7 +209,10 @@ view_scales_from_scale <- function(scale, coord_limits = NULL, expand = TRUE) {
     sec = view_scale_secondary(scale, limits, continuous_range),
     range = continuous_range
   )
-  names(view_scales) <- c(aesthetic, paste0(aesthetic, ".", names(view_scales)[-1]))
+  names(view_scales) <- c(
+    aesthetic,
+    paste0(aesthetic, ".", names(view_scales)[-1])
+  )
 
   view_scales
 }

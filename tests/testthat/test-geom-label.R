@@ -17,7 +17,8 @@ test_that("geom_label() rotates labels", {
 
   vps <- lapply(
     get_layer_grob(p, 1)[[1]]$children,
-    `[[`, "vp"
+    `[[`,
+    "vp"
   )
   angle_out <- unname(vapply(vps, `[[`, numeric(1), "angle"))
   expect_equal(angle_in, angle_out)
@@ -29,7 +30,11 @@ test_that("geom_label handles line parameters and colours", {
   p <- ggplot(df, aes(x, label = labels, colour = labels, linewidth = x)) +
     geom_label(aes(y = 1), border.colour = "black", linetype = 1) +
     geom_label(aes(y = 2), text.colour = "black", linetype = 2) +
-    scale_linewidth(range = c(0.1, 1))
+    scale_linewidth(range = c(0.1, 1)) +
+    guides(
+      colour = guide_legend(order = 1),
+      linewidth = guide_legend(order = 2)
+    )
 
   expect_doppelganger("geom_label with line parameters", p)
 })

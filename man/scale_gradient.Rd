@@ -99,7 +99,7 @@ mapping used for that aesthetic. If \code{NULL}, the legend title will be
 omitted.}
 
 \item{...}{
-  Arguments passed on to \code{\link[=continuous_scale]{continuous_scale}}
+  Arguments passed on to \code{\link{continuous_scale}}
   \describe{
     \item{\code{scale_name}}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} The name of the scale
 that should be used for error messages associated with this scale.}
@@ -110,7 +110,7 @@ that should be used for error messages associated with this scale.}
 \link[scales:new_transform]{transformation object}
 \item A numeric vector of positions
 \item A function that takes the limits as input and returns breaks
-as output (e.g., a function returned by \code{\link[scales:breaks_extended]{scales::extended_breaks()}}).
+as output (e.g., a function returned by \code{\link[scales:extended_breaks]{scales::extended_breaks()}}).
 Note that for position scales, limits are provided after scale expansion.
 Also accepts rlang \link[rlang:as_function]{lambda} function notation.
 }}
@@ -165,10 +165,10 @@ scales, which always use \code{\link[scales:rescale]{scales::rescale()}}. Also a
 \item Function that handles limits outside of the scale limits
 (out of bounds). Also accepts rlang \link[rlang:as_function]{lambda}
 function notation.
-\item The default (\code{\link[scales:oob]{scales::censor()}}) replaces out of
+\item The default (\code{\link[scales:censor]{scales::censor()}}) replaces out of
 bounds values with \code{NA}.
-\item \code{\link[scales:oob]{scales::squish()}} for squishing out of bounds values into range.
-\item \code{\link[scales:oob]{scales::squish_infinite()}} for squishing infinite values into range.
+\item \code{\link[scales:squish]{scales::squish()}} for squishing out of bounds values into range.
+\item \code{\link[scales:squish_infinite]{scales::squish_infinite()}} for squishing infinite values into range.
 }}
     \item{\code{trans}}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Deprecated in favour of
 \code{transform}.}
@@ -295,16 +295,16 @@ palette, \code{\link[=scale_colour_steps]{scale_colour_steps()}} for binned vari
 
 The documentation on \link[=aes_colour_fill_alpha]{colour aesthetics}.
 
-Other colour scales: 
-\code{\link{scale_alpha}()},
-\code{\link{scale_colour_brewer}()},
-\code{\link{scale_colour_continuous}()},
-\code{\link{scale_colour_discrete}()},
-\code{\link{scale_colour_grey}()},
-\code{\link{scale_colour_hue}()},
-\code{\link{scale_colour_identity}()},
-\code{\link{scale_colour_manual}()},
-\code{\link{scale_colour_steps}()},
-\code{\link{scale_colour_viridis_d}()}
+Other colour scales:
+\code{\link[=scale_alpha]{scale_alpha()}},
+\code{\link[=scale_colour_brewer]{scale_colour_brewer()}},
+\code{\link[=scale_colour_continuous]{scale_colour_continuous()}},
+\code{\link[=scale_colour_discrete]{scale_colour_discrete()}},
+\code{\link[=scale_colour_grey]{scale_colour_grey()}},
+\code{\link[=scale_colour_hue]{scale_colour_hue()}},
+\code{\link[=scale_colour_identity]{scale_colour_identity()}},
+\code{\link[=scale_colour_manual]{scale_colour_manual()}},
+\code{\link[=scale_colour_steps]{scale_colour_steps()}},
+\code{\link[=scale_colour_viridis_d]{scale_colour_viridis_d()}}
 }
 \concept{colour scales}

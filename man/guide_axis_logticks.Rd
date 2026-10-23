@@ -51,14 +51,14 @@ be \code{"none"} (default) to draw the axis line along the whole panel, or
 \code{"both"} to only draw the line in between the most extreme breaks. \code{TRUE}
 and \code{FALSE} are shorthand for \code{"both"} and \code{"none"} respectively.}
 
-\item{theme}{A \code{\link[=theme]{theme}} object to style the guide individually or
+\item{theme}{A \code{\link{theme}} object to style the guide individually or
 differently from the plot's theme settings. The \code{theme} argument in the
 guide partially overrides, and is combined with, the plot's theme.}
 
 \item{prescale_base, negative_small, short_theme}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
 
 \item{...}{
-  Arguments passed on to \code{\link[=guide_axis]{guide_axis}}
+  Arguments passed on to \code{\link{guide_axis}}
   \describe{
     \item{\code{check.overlap}}{silently remove overlapping labels,
 (recursively) prioritizing the first, last, and middle labels.}

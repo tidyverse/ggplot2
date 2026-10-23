@@ -2,7 +2,9 @@
 #' @rdname ggsf
 #' @usage NULL
 #' @format NULL
-CoordSf <- ggproto("CoordSf", CoordCartesian,
+CoordSf <- ggproto(
+  "CoordSf",
+  CoordCartesian,
 
   # CoordSf needs to keep track of some parameters
   # internally as the plot is built. These are stored
@@ -37,12 +39,14 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     for (layer_data in data) {
       if (is_sf(layer_data)) {
         geometry <- sf::st_geometry(layer_data)
-      } else
+      } else {
         next
+      }
 
       crs <- sf::st_crs(geometry)
-      if (is.na(crs))
+      if (is.na(crs)) {
         next
+      }
 
       return(crs)
     }
@@ -52,16 +56,21 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
   # Transform all layers to common CRS (if provided)
   setup_data = function(data, params) {
-    if (is.null(params$crs))
+    if (is.null(params$crs)) {
       return(data)
+    }
 
     lapply(data, function(layer_data) {
-      if (! is_sf(layer_data)) {
+      if (!is_sf(layer_data)) {
         return(layer_data)
       }
 
       idx <- vapply(layer_data, inherits, what = "sfc", FUN.VALUE = logical(1L))
-      layer_data[idx] <- lapply(layer_data[idx], sf::st_transform, crs = params$crs)
+      layer_data[idx] <- lapply(
+        layer_data[idx],
+        sf::st_transform,
+        crs = params$crs
+      )
       layer_data
     })
   },
@@ -91,9 +100,10 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     y_range <- switch(reverse, xy = , y = rev, identity)(panel_params$y_range)
 
     # normalize geometry data, it should already be in the correct crs here
-    data[[ geom_column(data) ]] <- sf_rescale01(
-      data[[ geom_column(data) ]],
-      x_range, y_range
+    data[[geom_column(data)]] <- sf_rescale01(
+      data[[geom_column(data)]],
+      x_range,
+      y_range
     )
 
     # transform and normalize regular position data
@@ -106,10 +116,15 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     transform_position(data, squish_infinite, squish_infinite)
   },
 
-
   # internal function used by setup_panel_params,
   # overrides the graticule labels based on scale settings if necessary
-  fixup_graticule_labels = function(self, graticule, scale_x, scale_y, params = list()) {
+  fixup_graticule_labels = function(
+    self,
+    graticule,
+    scale_x,
+    scale_y,
+    params = list()
+  ) {
     needs_parsing <- rep(FALSE, nrow(graticule))
     needs_autoparsing <- rep(FALSE, nrow(graticule))
 
@@ -128,15 +143,17 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
       # all labels need to be temporarily stored as character vectors,
       # but expressions need to be parsed afterwards
-      needs_parsing[graticule$type == "E"] <- !(is.character(x_labels) || is.factor(x_labels))
+      needs_parsing[graticule$type == "E"] <- !(is.character(x_labels) ||
+        is.factor(x_labels))
       x_labels <- as.character(x_labels)
     }
 
     if (length(x_labels) != length(x_breaks)) {
-      cli::cli_abort("{.arg breaks} and {.arg labels} along {.code x} direction have different lengths.")
+      cli::cli_abort(
+        "{.arg breaks} and {.arg labels} along {.code x} direction have different lengths."
+      )
     }
     graticule$degree_label[graticule$type == "E"] <- x_labels
-
 
     y_breaks <- graticule$degree[graticule$type == "N"]
     if (is.null(scale_y$labels)) {
@@ -153,12 +170,15 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
       # all labels need to be temporarily stored as character vectors,
       # but expressions need to be parsed afterwards
-      needs_parsing[graticule$type == "N"] <- !(is.character(y_labels) || is.factor(y_labels))
+      needs_parsing[graticule$type == "N"] <- !(is.character(y_labels) ||
+        is.factor(y_labels))
       y_labels <- as.character(y_labels)
     }
 
     if (length(y_labels) != length(y_breaks)) {
-      cli::cli_abort("{.arg breaks} and {.arg labels} along {.code y} direction have different lengths.")
+      cli::cli_abort(
+        "{.arg breaks} and {.arg labels} along {.code y} direction have different lengths."
+      )
     }
     graticule$degree_label[graticule$type == "N"] <- y_labels
 
@@ -195,20 +215,36 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     # box
     scales_bbox <- calc_limits_bbox(
       self$lims_method,
-      scale_xlim, scale_ylim,
-      params$crs, params$default_crs
+      scale_xlim,
+      scale_ylim,
+      params$crs,
+      params$default_crs
     )
 
     # merge coord bbox into scale limits if scale limits not explicitly set
-    if (is.null(self$limits$x) && is.null(self$limits$y) &&
-        is.null(scale_x$limits) && is.null(scale_y$limits)) {
+    if (
+      is.null(self$limits$x) &&
+        is.null(self$limits$y) &&
+        is.null(scale_x$limits) &&
+        is.null(scale_y$limits)
+    ) {
       coord_bbox <- self$params$bbox
-      scales_xrange <- range(scales_bbox$x, coord_bbox$xmin, coord_bbox$xmax, na.rm = TRUE)
-      scales_yrange <- range(scales_bbox$y, coord_bbox$ymin, coord_bbox$ymax, na.rm = TRUE)
+      scales_xrange <- range(
+        scales_bbox$x,
+        coord_bbox$xmin,
+        coord_bbox$xmax,
+        na.rm = TRUE
+      )
+      scales_yrange <- range(
+        scales_bbox$y,
+        coord_bbox$ymin,
+        coord_bbox$ymax,
+        na.rm = TRUE
+      )
     } else if (any(!is.finite(scales_bbox$x) | !is.finite(scales_bbox$y))) {
       if (self$lims_method != "geometry_bbox") {
         cli::cli_warn(c(
-                "Projection of {.field x} or {.field y} limits failed in {.fn coord_sf}.",
+          "Projection of {.field x} or {.field y} limits failed in {.fn coord_sf}.",
           "i" = "Consider setting {.code lims_method = {.val geometry_bbox}} or {.code default_crs = NULL}."
         ))
       }
@@ -224,8 +260,10 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     x_range <- expand_limits_continuous(scales_xrange, expansion_x)
     y_range <- expand_limits_continuous(scales_yrange, expansion_y)
     bbox <- c(
-      x_range[1], y_range[1],
-      x_range[2], y_range[2]
+      x_range[1],
+      y_range[1],
+      x_range[2],
+      y_range[2]
     )
 
     breaks <- sf_breaks(scale_x, scale_y, bbox, params$crs)
@@ -248,7 +286,12 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     }
 
     # override graticule labels provided by sf::st_graticule() if necessary
-    graticule <- self$fixup_graticule_labels(graticule, scale_x, scale_y, params)
+    graticule <- self$fixup_graticule_labels(
+      graticule,
+      scale_x,
+      scale_y,
+      params
+    )
 
     # Convert graticule to viewscales for axis guides
     viewscales <- Map(
@@ -282,7 +325,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     # CRS to prevent a double transformation.
     panel_params$guides <- ggproto_parent(Coord, self)$train_panel_guides(
       vec_assign(panel_params, "default_crs", panel_params["crs"]),
-      layers, params
+      layers,
+      params
     )$guides
     panel_params
   },
@@ -351,7 +395,11 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       )
       grobs <- c(
         list(element_render(theme, "panel.background")),
-        lapply(sf::st_geometry(panel_params$graticule), sf::st_as_grob, gp = line_gp)
+        lapply(
+          sf::st_geometry(panel_params$graticule),
+          sf::st_as_grob,
+          gp = line_gp
+        )
       )
     }
     ggname("grill", inject(grobTree(!!!grobs)))
@@ -389,19 +437,31 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 #' }
 #' @keywords internal
 #' @export
-sf_transform_xy <- function(data, target_crs, source_crs, authority_compliant = FALSE) {
-  if (identical(target_crs, source_crs) ||
-      is.null(target_crs) || is.null(source_crs) || is.null(data) ||
-      is.na(target_crs) || is.na(source_crs) ||
-      !all(c("x", "y") %in% names(data))) {
+sf_transform_xy <- function(
+  data,
+  target_crs,
+  source_crs,
+  authority_compliant = FALSE
+) {
+  if (
+    identical(target_crs, source_crs) ||
+      is.null(target_crs) ||
+      is.null(source_crs) ||
+      is.null(data) ||
+      is.na(target_crs) ||
+      is.na(source_crs) ||
+      !all(c("x", "y") %in% names(data))
+  ) {
     return(data)
   }
 
   sf_data <- cbind(data$x, data$y)
   out <- sf::sf_project(
-    sf::st_crs(source_crs), sf::st_crs(target_crs),
+    sf::st_crs(source_crs),
+    sf::st_crs(target_crs),
     sf_data,
-    keep = TRUE, warn = FALSE,
+    keep = TRUE,
+    warn = FALSE,
     authority_compliant = authority_compliant
   )
   out <- ifelse(is.finite(out), out, NA) # replace any infinites with NA
@@ -441,7 +501,7 @@ sf_rescale01 <- function(x, x_range, y_range) {
 calc_limits_bbox <- function(method, xlim, ylim, crs, default_crs) {
   if (!all(is.finite(c(xlim, ylim))) && method != "geometry_bbox") {
     cli::cli_abort(c(
-            "Scale limits cannot be mapped onto spatial coordinates in {.fn coord_sf}.",
+      "Scale limits cannot be mapped onto spatial coordinates in {.fn coord_sf}.",
       "i" = "Consider setting {.code lims_method = \"geometry_bbox\"} or {.code default_crs = NULL}."
     ))
   }
@@ -453,12 +513,16 @@ calc_limits_bbox <- function(method, xlim, ylim, crs, default_crs) {
     # better cover the respective area under non-linear transformation
     box = list(
       x = c(
-        rep(xlim[1], 20), seq(xlim[1], xlim[2], length.out = 20),
-        rep(xlim[2], 20), seq(xlim[2], xlim[1], length.out = 20)
+        rep(xlim[1], 20),
+        seq(xlim[1], xlim[2], length.out = 20),
+        rep(xlim[2], 20),
+        seq(xlim[2], xlim[1], length.out = 20)
       ),
       y = c(
-        seq(ylim[1], ylim[2], length.out = 20), rep(ylim[2], 20),
-        seq(ylim[2], ylim[1], length.out = 20), rep(ylim[1], 20)
+        seq(ylim[1], ylim[2], length.out = 20),
+        rep(ylim[2], 20),
+        seq(ylim[2], ylim[1], length.out = 20),
+        rep(ylim[1], 20)
       )
     ),
     # For method "geometry_bbox" we ignore all limits info provided here
@@ -476,7 +540,7 @@ calc_limits_bbox <- function(method, xlim, ylim, crs, default_crs) {
     # rotated in projected space
     #
     # Method "cross" is also the default
-    cross =,
+    cross = ,
     list(
       x = c(rep(mean(xlim), 20), seq(xlim[1], xlim[2], length.out = 20)),
       y = c(seq(ylim[1], ylim[2], length.out = 20), rep(mean(ylim), 20))
@@ -552,14 +616,21 @@ calc_limits_bbox <- function(method, xlim, ylim, crs, default_crs) {
 #' @inheritParams coord_cartesian
 #' @export
 #' @rdname ggsf
-coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
-                     crs = NULL, default_crs = NULL,
-                     datum = sf::st_crs(4326),
-                     label_graticule = waiver(),
-                     label_axes = waiver(), lims_method = "cross",
-                     ndiscr = 100, default = FALSE, clip = "on",
-                     reverse = "none") {
-
+coord_sf <- function(
+  xlim = NULL,
+  ylim = NULL,
+  expand = TRUE,
+  crs = NULL,
+  default_crs = NULL,
+  datum = sf::st_crs(4326),
+  label_graticule = waiver(),
+  label_axes = waiver(),
+  lims_method = "cross",
+  ndiscr = 100,
+  default = FALSE,
+  clip = "on",
+  reverse = "none"
+) {
   if (is_waiver(label_graticule) && is_waiver(label_axes)) {
     # if both `label_graticule` and `label_axes` are set to waive then we
     # use the default of labels on the left and at the bottom
@@ -583,13 +654,18 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
   if (is.null(default_crs) && is_missing(lims_method)) {
     lims_method <- "orthogonal"
   } else {
-    lims_method <- arg_match0(lims_method, c("cross", "box", "orthogonal", "geometry_bbox"))
+    lims_method <- arg_match0(
+      lims_method,
+      c("cross", "box", "orthogonal", "geometry_bbox")
+    )
   }
 
   check_coord_limits(xlim)
   check_coord_limits(ylim)
 
-  ggproto(NULL, CoordSf,
+  ggproto(
+    NULL,
+    CoordSf,
     limits = list(x = xlim, y = ylim),
     lims_method = lims_method,
     datum = datum,
@@ -621,13 +697,11 @@ parse_axes_labeling <- function(x, call = caller_env()) {
 #   2. It discards non-finite breaks because they are invalid input to the
 #      graticule. This may cause atomic `labels` to be out-of-sync.
 sf_breaks <- function(scale_x, scale_y, bbox, crs) {
-
   has_x <- !is.null(scale_x$breaks) || !is.null(scale_x$n.breaks)
   has_y <- !is.null(scale_y$breaks) || !is.null(scale_y$n.breaks)
 
   x_breaks <- if (has_x) waiver() else NULL
   y_breaks <- if (has_y) waiver() else NULL
-
 
   if (has_x || has_y) {
     if (!is.null(crs)) {
@@ -682,8 +756,14 @@ sf_breaks <- function(scale_x, scale_y, bbox, crs) {
 #' @return A `ViewScale` object.
 #' @noRd
 #' @keywords internal
-view_scales_from_graticule <- function(graticule, scale, aesthetic,
-                                       label, label_graticule, bbox) {
+view_scales_from_graticule <- function(
+  graticule,
+  scale,
+  aesthetic,
+  label,
+  label_graticule,
+  bbox
+) {
   if (empty(graticule)) {
     return(ggproto(NULL, ViewScale))
   }
@@ -693,28 +773,28 @@ view_scales_from_graticule <- function(graticule, scale, aesthetic,
   # left/right doesn't necessarily mean to label the parallels.
   position <- switch(
     arg_match0(aesthetic, c("x", "x.sec", "y", "y.sec")),
-    "x"     = "bottom",
+    "x" = "bottom",
     "x.sec" = "top",
-    "y"     = "left",
+    "y" = "left",
     "y.sec" = "right"
   )
   axis <- gsub("\\.sec$", "", aesthetic)
   if (axis == "x") {
-    orth   <- "y"
-    thres  <- bbox[c(2, 4)] # To determine graticule is close to axis
+    orth <- "y"
+    thres <- bbox[c(2, 4)] # To determine graticule is close to axis
     limits <- bbox[c(1, 3)] # To use as scale limits
   } else {
-    orth   <- "x"
-    thres  <- bbox[c(1, 3)]
+    orth <- "x"
+    thres <- bbox[c(1, 3)]
     limits <- bbox[c(2, 4)]
   }
 
   # Determine what columns in the graticule contain the starts and ends of the
   # axis direction and the orthogonal direction.
   axis_start <- paste0(axis, "_start")
-  axis_end   <- paste0(axis, "_end")
+  axis_end <- paste0(axis, "_end")
   orth_start <- paste0(orth, "_start")
-  orth_end   <- paste0(orth, "_end")
+  orth_end <- paste0(orth, "_end")
 
   # Find the start and endpoints in the graticule that are in close proximity
   # to the axis position to generate 'accepted' starts and ends. Close proximity
@@ -722,18 +802,18 @@ view_scales_from_graticule <- function(graticule, scale, aesthetic,
   if (position %in% c("top", "right")) {
     thres <- thres[1] + 0.999 * diff(thres)
     accept_start <- graticule[[orth_start]] > thres
-    accept_end   <- graticule[[orth_end]]   > thres
+    accept_end <- graticule[[orth_end]] > thres
   } else {
     thres <- thres[1] + 0.001 * diff(thres)
     accept_start <- graticule[[orth_start]] < thres
-    accept_end   <- graticule[[orth_end]]   < thres
+    accept_end <- graticule[[orth_end]] < thres
   }
   if (!any(accept_start | accept_end)) {
     eps <- sqrt(.Machine$double.xmin)
     subtract <- switch(position, top = , bottom = 90, 0)
     straight <-
       abs(graticule$angle_start - subtract) < eps &
-      abs(graticule$angle_end   - subtract) < eps
+      abs(graticule$angle_end - subtract) < eps
     accept_start <- straight
   }
 
@@ -742,7 +822,7 @@ view_scales_from_graticule <- function(graticule, scale, aesthetic,
   type <- graticule$type
   idx_start <- idx_end <- integer(0)
   idx_start <- c(idx_start, which(type == label & accept_start))
-  idx_end   <- c(idx_end,   which(type == label & accept_end))
+  idx_end <- c(idx_end, which(type == label & accept_end))
 
   # Parsing the information of the `label_graticule` argument. Because
   # geometry can be rotated, not all meridians are guaranteed to intersect the
@@ -752,25 +832,25 @@ view_scales_from_graticule <- function(graticule, scale, aesthetic,
     idx_start <- c(idx_start, which(type == "E" & accept_start))
   }
   if ("N" %in% label_graticule) {
-    idx_end   <- c(idx_end,   which(type == "E" & accept_end))
+    idx_end <- c(idx_end, which(type == "E" & accept_end))
   }
   if ("W" %in% label_graticule) {
     idx_start <- c(idx_start, which(type == "N" & accept_start))
   }
   if ("E" %in% label_graticule) {
-    idx_end   <- c(idx_end,   which(type == "N" & accept_end))
+    idx_end <- c(idx_end, which(type == "N" & accept_end))
   }
 
   # Combine start and end positions for tick marks and labels
   tick_start <- vec_slice(graticule, unique0(idx_start))
-  tick_end   <- vec_slice(graticule, unique0(idx_end))
-  positions  <- c(field(tick_start, axis_start), field(tick_end, axis_end))
-  labels     <- c(tick_start$degree_label, tick_end$degree_label)
+  tick_end <- vec_slice(graticule, unique0(idx_end))
+  positions <- c(field(tick_start, axis_start), field(tick_end, axis_end))
+  labels <- c(tick_start$degree_label, tick_end$degree_label)
 
   # The positions/labels need to be ordered for axis dodging
-  ord       <- order(positions)
+  ord <- order(positions)
   positions <- positions[ord]
-  labels    <- labels[ord]
+  labels <- labels[ord]
 
   # Find out if the scale has defined guides
   if (scale$position != position) {
@@ -790,7 +870,8 @@ view_scales_from_graticule <- function(graticule, scale, aesthetic,
   }
 
   ggproto(
-    NULL, ViewScale,
+    NULL,
+    ViewScale,
     scale = scale,
     guide = guide,
     position = position,

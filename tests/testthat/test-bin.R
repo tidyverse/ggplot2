@@ -6,27 +6,37 @@ test_that("bins() computes fuzz with non-finite breaks", {
 })
 
 test_that("bins is strictly adhered to", {
-
   nbins <- c(1, 2, 3, 4, 5, 10, 20, 30, 40, 50)
 
   # Default case
-  nbreaks <- vapply(nbins, function(bins) {
-    length(compute_bins(c(0, 10), bins = bins)$breaks)
-  }, numeric(1))
+  nbreaks <- vapply(
+    nbins,
+    function(bins) {
+      length(compute_bins(c(0, 10), bins = bins)$breaks)
+    },
+    numeric(1)
+  )
   expect_equal(nbreaks, nbins + 1)
 
   # Center is provided
-  nbreaks <- vapply(nbins, function(bins) {
-    length(compute_bins(c(0, 10), bins = bins, center = 0)$breaks)
-  }, numeric(1))
+  nbreaks <- vapply(
+    nbins,
+    function(bins) {
+      length(compute_bins(c(0, 10), bins = bins, center = 0)$breaks)
+    },
+    numeric(1)
+  )
   expect_equal(nbreaks, nbins + 1)
 
   # Boundary is provided
-  nbreaks <- vapply(nbins, function(bins) {
-    length(compute_bins(c(0, 10), bins = bins, boundary = 0)$breaks)
-  }, numeric(1))
+  nbreaks <- vapply(
+    nbins,
+    function(bins) {
+      length(compute_bins(c(0, 10), bins = bins, boundary = 0)$breaks)
+    },
+    numeric(1)
+  )
   expect_equal(nbreaks, nbins + 1)
-
 })
 
 comp_bin <- function(df, ...) {
@@ -56,9 +66,21 @@ test_that("closed left or right", {
 
   res <- comp_bin(dat, binwidth = 10, pad = FALSE, closed = "left")
   expect_identical(res$count, c(1, 1))
-  res <- comp_bin(dat, binwidth = 10, boundary = 5, pad = FALSE, closed = "left")
+  res <- comp_bin(
+    dat,
+    binwidth = 10,
+    boundary = 5,
+    pad = FALSE,
+    closed = "left"
+  )
   expect_identical(res$count, c(1, 1))
-  res <- comp_bin(dat, binwidth = 10, boundary = 0, pad = FALSE, closed = "left")
+  res <- comp_bin(
+    dat,
+    binwidth = 10,
+    boundary = 0,
+    pad = FALSE,
+    closed = "left"
+  )
   expect_identical(res$count, c(2))
   res <- comp_bin(dat, binwidth = 5, boundary = 0, pad = FALSE, closed = "left")
   expect_identical(res$count, c(1, 1))
@@ -84,5 +106,5 @@ test_that("setting boundary and center", {
 
 
 test_that("bin errors at high bin counts", {
-  expect_snapshot(compute_bins(c(1, 2e6), binwidth =  1), error = TRUE)
+  expect_snapshot(compute_bins(c(1, 2e6), binwidth = 1), error = TRUE)
 })

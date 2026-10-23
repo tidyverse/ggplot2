@@ -72,7 +72,7 @@ scale_discrete_manual(aesthetics, ..., values, breaks = waiver())
 }
 \arguments{
 \item{...}{
-  Arguments passed on to \code{\link[=discrete_scale]{discrete_scale}}
+  Arguments passed on to \code{\link{discrete_scale}}
   \describe{
     \item{\code{limits}}{One of:
 \itemize{
@@ -226,16 +226,16 @@ Other linetype scales: \code{\link[=scale_linetype]{scale_linetype()}}, \code{\l
 
 Other alpha scales: \code{\link[=scale_alpha]{scale_alpha()}}, \code{\link[=scale_alpha_identity]{scale_alpha_identity()}}.
 
-Other colour scales: 
-\code{\link{scale_alpha}()},
-\code{\link{scale_colour_brewer}()},
-\code{\link{scale_colour_continuous}()},
-\code{\link{scale_colour_discrete}()},
-\code{\link{scale_colour_gradient}()},
-\code{\link{scale_colour_grey}()},
-\code{\link{scale_colour_hue}()},
-\code{\link{scale_colour_identity}()},
-\code{\link{scale_colour_steps}()},
-\code{\link{scale_colour_viridis_d}()}
+Other colour scales:
+\code{\link[=scale_alpha]{scale_alpha()}},
+\code{\link[=scale_colour_brewer]{scale_colour_brewer()}},
+\code{\link[=scale_colour_continuous]{scale_colour_continuous()}},
+\code{\link[=scale_colour_discrete]{scale_colour_discrete()}},
+\code{\link[=scale_colour_gradient]{scale_colour_gradient()}},
+\code{\link[=scale_colour_grey]{scale_colour_grey()}},
+\code{\link[=scale_colour_hue]{scale_colour_hue()}},
+\code{\link[=scale_colour_identity]{scale_colour_identity()}},
+\code{\link[=scale_colour_steps]{scale_colour_steps()}},
+\code{\link[=scale_colour_viridis_d]{scale_colour_viridis_d()}}
 }
 \concept{colour scales}
