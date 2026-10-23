@@ -63,29 +63,33 @@ one might be accustomed to in regular objects. Instead they have
 \href{https://adv-r.hadley.nz/names-values.html#env-modify}{'modify in place'}
 semantics.
 
-In practice, most ggplot2 layer classes (Geoms, Stats, Scales) are
-stateless: their methods read from arguments rather than from
-\code{self} fields. Extension authors are encouraged to follow this
-pattern, reserving stateful fields for cases where a method
-genuinely needs to track values across calls.
+It is fine for a method to read fields through \code{self}, but it should not
+assign to them (e.g. \code{self$x <- value}): such a change persists after the
+method returns and affects every other use of the object.
 }
 
 \examples{
-# A stateless class with static methods (no use of `self` fields):
-Math <- ggproto("Math",
-  double = function(n) n * 2,
-  square = function(n) n * n
+Adder <- ggproto("Adder",
+  x = 0,
+  add = function(self, n) {
+    n + self$x
+  }
 )
-is_ggproto(Math)
-Math$double(5)
-Math$square(5)
+is_ggproto(Adder)
 
-# Inheritance: child overrides parent. `self` is threaded only to call
-# `ggproto_parent()` — the class remains stateless (no `self$*` access).
-Mather <- ggproto("Mather", Math,
-  square = function(self, n) ggproto_parent(Math, self)$double(n) * n
+Adder$add(10)
+
+# A child class can override fields as well as methods. When the parent's
+# method is called through `ggproto_parent()`, `self` is still the child,
+# so `self$x` is the child's value.
+Doubler <- ggproto("Doubler", Adder,
+  x = 5,
+  add = function(self, n) {
+    ggproto_parent(Adder, self)$add(n * 2)
+  }
 )
-Mather$square(5)
+Doubler$x
+Doubler$add(10)
 }
 \seealso{
 The \href{https://ggplot2-book.org/internals#sec-ggproto}{ggproto introduction section} of the online ggplot2 book.

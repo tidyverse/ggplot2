@@ -55,9 +55,9 @@
 * `theme(strip.placement.x)` and `theme(strip.placement.y)` can be used for more
   granular control of strip placement when facetting. These have existed for some
   time but were not previously documented (@arcresu, #6827).
-* The example in `?ggproto` now demonstrates a stateless class,
-  with additional guidance noting that most ggplot2 layer classes
-  are stateless (@CuiweiG, #6582).
+* The example in `?ggproto` no longer assigns to a field inside a method, and
+  the documentation now notes that methods should read fields but not write to
+  them (@CuiweiG, #6582).
 * Added support for weighted quantiles in `geom_violin()` (@hughjonesd, #6853)
 * The `dir` argument of `facet_wrap()` is now documented with all
   eight two-letter codes, clarifying their starting corner and fill

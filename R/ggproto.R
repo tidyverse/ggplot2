@@ -34,11 +34,9 @@
 #' ['modify in place'](https://adv-r.hadley.nz/names-values.html#env-modify)
 #' semantics.
 #'
-#' In practice, most ggplot2 layer classes (Geoms, Stats, Scales) are
-#' stateless: their methods read from arguments rather than from
-#' `self` fields. Extension authors are encouraged to follow this
-#' pattern, reserving stateful fields for cases where a method
-#' genuinely needs to track values across calls.
+#' It is fine for a method to read fields through `self`, but it should not
+#' assign to them (e.g. `self$x <- value`): such a change persists after the
+#' method returns and affects every other use of the object.
 #'
 #' @param _class Class name to assign to the object. This is stored as the class
 #'   attribute of the object. This is optional: if `NULL` (the default),
@@ -51,21 +49,27 @@
 #' The `r link_book("ggproto introduction section", "internals#sec-ggproto")`
 #' @export
 #' @examples
-#' # A stateless class with static methods (no use of `self` fields):
-#' Math <- ggproto("Math",
-#'   double = function(n) n * 2,
-#'   square = function(n) n * n
+#' Adder <- ggproto("Adder",
+#'   x = 0,
+#'   add = function(self, n) {
+#'     n + self$x
+#'   }
 #' )
-#' is_ggproto(Math)
-#' Math$double(5)
-#' Math$square(5)
+#' is_ggproto(Adder)
 #'
-#' # Inheritance: child overrides parent. `self` is threaded only to call
-#' # `ggproto_parent()` — the class remains stateless (no `self$*` access).
-#' Mather <- ggproto("Mather", Math,
-#'   square = function(self, n) ggproto_parent(Math, self)$double(n) * n
+#' Adder$add(10)
+#'
+#' # A child class can override fields as well as methods. When the parent's
+#' # method is called through `ggproto_parent()`, `self` is still the child,
+#' # so `self$x` is the child's value.
+#' Doubler <- ggproto("Doubler", Adder,
+#'   x = 5,
+#'   add = function(self, n) {
+#'     ggproto_parent(Adder, self)$add(n * 2)
+#'   }
 #' )
-#' Mather$square(5)
+#' Doubler$x
+#' Doubler$add(10)
 ggproto <- function(`_class` = NULL, `_inherit` = NULL, ...) {
   e <- new.env(parent = emptyenv())
 
