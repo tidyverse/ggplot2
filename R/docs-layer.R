@@ -102,6 +102,9 @@
 #' * The `key_glyph` argument of [`layer()`] may also be passed on through
 #'   `...`. This can be one of the functions described as
 #'   [key glyphs][draw_key], to change the display of the layer in the legend.
+#' * A `clip` argument passed on to `geom`, one of `"on"`, `"off"` or
+#'   `"inherit"` (default). Can be used to escape coord clipping settings. The
+#'   default (`"inherit"`) lets layer retain the coord's setting.
 #'
 #' @param lineend
 #' Line end style, one of `"round"`, `"butt"` or `"square"`.

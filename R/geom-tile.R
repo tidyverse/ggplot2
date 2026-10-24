@@ -6,7 +6,7 @@
 GeomTile <- ggproto(
   "GeomTile",
   GeomRect,
-  extra_params = c("na.rm"),
+  extra_params = c("na.rm", "clip"),
 
   setup_data = function(self, data, params) {
     data <- compute_data_size(
