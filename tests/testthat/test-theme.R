@@ -340,7 +340,7 @@ test_that("Element subclasses are inherited", {
   class(rich) <- c("element_rich", class(rich))
 
   # `poor` should acquire `rich`
-  test <- combine_elements(poor, rich)
+  test <- merge_element(poor, rich, inherit = TRUE)
   expect_s3_class(test, "element_rich")
   expect_equal(
     S7::props(test)[c("colour", "linetype", "linewidth")],
@@ -348,7 +348,7 @@ test_that("Element subclasses are inherited", {
   )
 
   # `rich` should stay `rich`
-  test <- combine_elements(rich, poor)
+  test <- merge_element(rich, poor, inherit = TRUE)
   expect_s3_class(test, "element_rich")
   expect_equal(
     S7::props(test)[c("colour", "linetype", "linewidth")],
@@ -360,7 +360,7 @@ test_that("Element subclasses are inherited", {
   class(sibling) <- c("element_sibling", class(sibling))
 
   # `sibling` should stay `sibling`
-  test <- combine_elements(sibling, rich)
+  test <- merge_element(sibling, rich, inherit = TRUE)
   expect_s3_class(test, "element_sibling")
   expect_equal(
     S7::props(test)[c("colour", "linetype", "linewidth")],
@@ -368,7 +368,7 @@ test_that("Element subclasses are inherited", {
   )
 
   # `rich` should stay `rich`
-  test <- combine_elements(rich, sibling)
+  test <- merge_element(rich, sibling, inherit = TRUE)
   expect_s3_class(test, "element_rich")
   expect_equal(
     S7::props(test)[c("colour", "linetype", "linewidth")],

@@ -4,12 +4,17 @@
 \alias{merge_element}
 \title{Merge a parent element into a child element}
 \usage{
-merge_element(new, old, ...)
+merge_element(new, old, ..., inherit = FALSE)
 }
 \arguments{
 \item{new}{The child element in the theme hierarchy}
 
 \item{old}{The parent element in the theme hierarchy}
+
+\item{...}{Optional arguments, not currently used.}
+
+\item{inherit}{Boolean whether to replace (\code{FALSE}, default) or inherit
+(\code{TRUE}) parent values. Relevant for \code{\link[=rel]{rel()}} and \code{\link[=margin]{margin()}} values.}
 }
 \value{
 A modified version of \code{new} updated with the properties of

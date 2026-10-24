@@ -242,7 +242,11 @@ GuideAxisLogticks <- ggproto(
     length <- elements$major_length
 
     # Inherit short ticks from minor ticks
-    elements$short <- combine_elements(params$short_theme, elements$minor)
+    elements$short <- merge_element(
+      params$short_theme,
+      elements$minor,
+      inherit = TRUE
+    )
 
     # Multiply rel units with theme's tick length
     tick_length <- lapply(params[c("long", "mid", "short")], function(x) {
