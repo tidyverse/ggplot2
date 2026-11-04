@@ -101,6 +101,19 @@ test_that("geom_smooth() works when one group fails", {
   expect_gte(nrow(ld), 2)
 })
 
+test_that("loess skips the band statistics only when they are unused", {
+  args <- list(span = 0.5)
+  expect_identical(
+    adjust_method_args(stats::loess, args, se = FALSE, n_obs = 1000),
+    list(span = 0.5, statistics = "none")
+  )
+  expect_identical(adjust_method_args(stats::loess, args, TRUE, 1000), args)
+  expect_identical(adjust_method_args(stats::loess, args, FALSE, 999), args)
+  expect_identical(adjust_method_args(stats::lm, args, FALSE, 1000), args)
+  user <- list(trace.hat = "exact")
+  expect_identical(adjust_method_args(stats::loess, user, FALSE, 1000), user)
+})
+
 test_that("a fallback message is thrown when `method = 'gam'` and {mgcv} is absent", {
   p <- ggplot(mpg, aes(displ, hwy)) +
     geom_smooth(method = "gam", formula = y ~ x)

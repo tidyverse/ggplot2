@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* `stat_smooth(method = "loess", se = FALSE)` no longer computes the loess
+  statistics that only the confidence band needs, which makes it much faster
+  for large groups (@Don-Yin).
+
 * Updates for compatibility with S7 > 0.2.2.
  
 * Faceting by a named vector no longer partially matches the `names` attribute
