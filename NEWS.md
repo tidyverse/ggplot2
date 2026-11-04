@@ -2,7 +2,7 @@
 
 * `stat_smooth(method = "loess", se = FALSE)` no longer computes the loess
   statistics that only the confidence band needs, which makes it much faster
-  for large groups (@Don-Yin).
+  for large groups (@Don-Yin, #6921).
 
 * Updates for compatibility with S7 > 0.2.2.
  
