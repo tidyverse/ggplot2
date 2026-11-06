@@ -81,6 +81,10 @@ LayerSf <- ggproto(
         "other"
       )
     }
+    # The documented `show.legend = "polygon"` is the internal "other" type
+    if (identical(legend_type, "polygon")) {
+      legend_type <- "other"
+    }
 
     # Add legend type after computed_geom_params has been calculated
     self$computed_geom_params$legend <- legend_type
