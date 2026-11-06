@@ -1,22 +1,39 @@
-This is a patch release that resolves a failing test and supports some minimal
-bug fixes and a small uninvasive feature. We detected a single failure
-(ggdibbler) where a package needs to redocument. They have been notified. A
-second failure (simRestore) seems unrelated to ggplot2
+This is a patch release that provides compatibility with an anticipated S7 release.
+We found 8 package with reverse dependency issues, out of which 5 are seemingly unrelated to our changes but 3 are related.
+We've sent out pull requests to the affected 3 packages (constructive, NHSRplotthedots, xpose.extras).
 
 ## revdepcheck results
 
-We checked 6300 reverse dependencies (6276 from CRAN + 24 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
+We checked 7188 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 2 new problems
- * We failed to check 160 packages
+ * We saw 8 new problems
+ * We failed to check 16 packages
 
 Issues with CRAN packages are summarised below.
 
 ### New problems
 (This reports the first line of each new failure)
 
-* ggdibbler
-  checking for code/documentation mismatches ... WARNING
+* constructive
+  checking tests ... ERROR
 
-* simRestore
+* irelink
+  checking tests ... ERROR
+
+* NHSRplotthedots
+  checking tests ... ERROR
+
+* nycOpenData
+  checking re-building of vignette outputs ... ERROR
+
+* PGRdup
+  checking re-building of vignette outputs ... ERROR
+
+* PSAboot
+  checking re-building of vignette outputs ... ERROR
+
+* wjake
+  checking examples ... ERROR
+
+* xpose.xtras
   checking tests ... ERROR
