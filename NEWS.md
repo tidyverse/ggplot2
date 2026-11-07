@@ -2,6 +2,11 @@
 
 * Updates for compatibility with S7 > 0.2.2.
  
+* Free `space` in `facet_wrap()` and `facet_grid()` now falls back to fixed
+  space with a warning, instead of throwing a cryptic error, for coordinate
+  systems without position ranges, such as `coord_radial()`, `coord_polar()`
+  and `coord_sf()` (@josefelipe0036, #6360).
+
 * Faceting by a named vector no longer partially matches the `names` attribute
   in place of the `n` attribute (@taekop, #6891).
 

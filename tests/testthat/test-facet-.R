@@ -505,3 +505,59 @@ test_that("facet's 'axis_labels' argument correctly omits labels", {
     base + facet_wrap(vars(cyl, vs), axes = "all", axis.labels = "margins")
   )
 })
+
+test_that("free space is ignored when coords lack panel ranges (#6360)", {
+  panel_sizes <- function(p) {
+    gt <- ggplotGrob(p)
+    list(
+      widths = as.numeric(gt$widths[panel_cols(gt)$l]),
+      heights = as.numeric(gt$heights[panel_rows(gt)$t])
+    )
+  }
+  p <- ggplot(mtcars, aes(disp, mpg)) +
+    geom_point()
+  radial <- coord_radial(start = -0.4 * pi, end = 0.4 * pi, inner.radius = 0.3)
+
+  # The plot from the issue renders with a warning, with the panel sizes of
+  # `space = "fixed"`
+  free <- p +
+    facet_wrap(vars(cyl), scales = "free_x", space = "free_x") +
+    radial
+  fixed <- p + facet_wrap(vars(cyl), scales = "free_x", nrow = 1) + radial
+  expect_snapshot_warning(
+    expect_doppelganger("facet_wrap with free space and coord_radial", free)
+  )
+  expect_equal(suppressWarnings(panel_sizes(free)), panel_sizes(fixed))
+
+  free <- p + facet_grid(vars(vs), vars(cyl), space = "free") + coord_polar()
+  fixed <- p + facet_grid(vars(vs), vars(cyl)) + coord_polar()
+  expect_snapshot_warning(panel_sizes(free))
+  expect_equal(suppressWarnings(panel_sizes(free)), panel_sizes(fixed))
+
+  # Empty panels from unused factor levels and missing values
+  df <- data_frame(
+    x = 1:3,
+    y = 1:3,
+    f = factor(c("a", "b", NA), levels = c("a", "b", "c"))
+  )
+  p <- ggplot(df, aes(x, y)) +
+    geom_point() +
+    coord_radial()
+  free <- p + facet_grid(cols = vars(f), space = "free_x", drop = FALSE)
+  fixed <- p + facet_grid(cols = vars(f), drop = FALSE)
+  expect_warning(panel_sizes(free), "can't use free")
+  expect_length(panel_sizes(fixed)$widths, 4)
+  expect_equal(suppressWarnings(panel_sizes(free)), panel_sizes(fixed))
+
+  skip_if_not_installed("sf")
+  pts <- sf::st_as_sf(
+    data_frame(x = 1:4, y = 1:4, g = c("a", "a", "b", "b")),
+    coords = c("x", "y")
+  )
+  p <- ggplot(pts) +
+    geom_sf()
+  free <- p + facet_grid(cols = vars(g), space = "free_x")
+  fixed <- p + facet_grid(cols = vars(g))
+  expect_warning(panel_sizes(free), "can't use free")
+  expect_equal(suppressWarnings(panel_sizes(free)), panel_sizes(fixed))
+})
