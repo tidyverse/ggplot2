@@ -1,4 +1,4 @@
-# ggplot2 (development version)
+# ggplot2 4.0.4
 
 This is a hotfix release anticipating the upcoming changes in the S7 package.
 
