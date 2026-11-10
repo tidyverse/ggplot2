@@ -63,6 +63,8 @@
   had duplicated `order` aesthetic values (@teunbrand, #6775).
 * New `stat_chain()` to combine multiple stat computations. It comes with a 
   `link_stat()` helper to feed parameters and mappings (@teunbrand, #6325).
+* Fixed bug where guides were misshapen when stretched in a different direction
+  than `theme(legend.box)` indicated (#6926)
   
 # ggplot2 4.0.3
 
