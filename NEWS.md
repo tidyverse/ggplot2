@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `geom_sf(show.legend = "polygon")` now draws a polygon legend key instead of
+  throwing an error or drawing an empty key (@josefelipe0036, #6804).
+
 * Updates for compatibility with S7 > 0.2.2.
  
 * Faceting by a named vector no longer partially matches the `names` attribute
