@@ -72,19 +72,13 @@ LayerSf <- ggproto(
     data <- ggproto_parent(Layer, self)$compute_geom_1(data)
 
     # Determine the legend type
-    legend_type <- self$legend_key_type
-    if (is.null(legend_type)) {
-      legend_type <- switch(
-        detect_sf_type(data$geometry),
-        point = "point",
-        line = "line",
-        "other"
-      )
-    }
-    # The documented `show.legend = "polygon"` is the internal "other" type
-    if (identical(legend_type, "polygon")) {
-      legend_type <- "other"
-    }
+    legend_type <- switch(
+      self$legend_key_type %||% detect_sf_type(data$geometry),
+      point = "point",
+      line = "line",
+      collection = "collection",
+      "other"
+    )
 
     # Add legend type after computed_geom_params has been calculated
     self$computed_geom_params$legend <- legend_type

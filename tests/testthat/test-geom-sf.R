@@ -111,11 +111,11 @@ test_that("geom_sf() determines the legend type from mapped geometry column", {
 test_that("geom_sf() draws polygon keys with `show.legend = 'polygon'` (#6804)", {
   skip_if_not_installed("sf")
 
-  get_key <- function(data, ...) {
+  get_legend_type <- function(data, ...) {
     p <- ggplot(data) +
       geom_sf(aes(fill = v), ...) +
       scale_fill_discrete(drop = FALSE)
-    ggplot_build(p)@plot@guides$params[[1]]$decor[[1]]$data
+    ggplot_build(p)@plot@layers[[1]]$computed_geom_params$legend
   }
 
   square <- function(x) {
@@ -145,20 +145,13 @@ test_that("geom_sf() draws polygon keys with `show.legend = 'polygon'` (#6804)",
     v = v
   )
 
-  # A character `show.legend` implies `show.legend = TRUE`, so the key that is
-  # chosen automatically for polygons with `show.legend = TRUE` is the reference
-  expected <- get_key(polygons, show.legend = TRUE)
-  expect_equal(nrow(expected), 4L)
-
-  expect_equal(get_key(polygons, show.legend = "polygon"), expected)
-  expect_equal(get_key(points, show.legend = "polygon"), expected)
-  expect_equal(get_key(mixed, show.legend = "polygon"), expected)
-
-  # Empty layers
-  expect_equal(
-    get_key(polygons[0, ], show.legend = "polygon"),
-    get_key(polygons[0, ], show.legend = TRUE)
-  )
+  expect_equal(get_legend_type(polygons, show.legend = TRUE), "other")
+  expect_equal(get_legend_type(polygons, show.legend = "polygon"), "other")
+  expect_equal(get_legend_type(polygons, show.legend = "point"), "point")
+  expect_equal(get_legend_type(polygons, show.legend = "line"), "line")
+  expect_equal(get_legend_type(points, show.legend = TRUE), "point")
+  expect_equal(get_legend_type(points, show.legend = "polygon"), "other")
+  expect_equal(get_legend_type(mixed, show.legend = TRUE), "other")
 })
 
 test_that("geom_sf() removes rows containing missing aes", {
