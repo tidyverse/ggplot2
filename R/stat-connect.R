@@ -115,7 +115,7 @@ StatConnect <- ggproto(
 #'
 #' @inheritParams shared_layer_parameters
 #' @param connection A specification of how two points are connected. Can be one
-#'  of the folloing:
+#'  of the following:
 #'  * A string giving a named connection. These options are:
 #'      * `"hv"` to first jump horizontally, then vertically.
 #'      * `"vh"` to first jump vertically, then horizontally.

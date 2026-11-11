@@ -481,7 +481,7 @@ is_scale <- function(x) inherits(x, "Scale")
 #' recommended to think through whether your aims cannot be implemented with
 #' one of the existing classes. Making a wrapper for the `continuous_scale()`,
 #' `discrete_scale()` and `binned_scale()` should cover many cases, and should
-#' be considered prior to commiting to build a `Scale*` extension.
+#' be considered prior to committing to build a `Scale*` extension.
 #'
 #' For example, if you aim to develop a scale for a new data type, it should
 #' generally be possible to create a new [transformation][scales::new_transform]
@@ -705,7 +705,7 @@ Scale <- ggproto(
   #'   \item{`limits`}{A length two vector giving the limits of the relevant
   #'   aesthetic, usually via the `get_limits()` method.}
   #'   \item{`range`}{A length two vector giving the range that should coincide
-  #'   with the 0-1 points. For most purpuses, this should be the same as the
+  #'   with the 0-1 points. For most purposes, this should be the same as the
   #'   `limits` argument.}
   #' }
   #'
