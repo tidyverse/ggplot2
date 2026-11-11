@@ -1,6 +1,7 @@
 # Shared parameters -------------------------------------------------------
 
 #' @name shared_layer_parameters
+#' @aliases shared_layer_parameters
 #' @title Shared layer parameters
 #' @description
 #' This is a central place for describing typical layer parameters.
