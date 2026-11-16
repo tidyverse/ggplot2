@@ -93,3 +93,11 @@
     "ROW" is not an allowed name for faceting variables.
     i Change the name of your data columns to not be "PANEL", "ROW", "COL", "SCALE_X", or "SCALE_Y".
 
+# free space is ignored when coords lack panel ranges (#6360)
+
+    `facet_wrap()` can't use free `space` with `coord_radial()`.
+
+---
+
+    `facet_grid()` can't use free `space` with `coord_polar()`.
+

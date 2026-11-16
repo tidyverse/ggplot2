@@ -530,6 +530,19 @@ Facet <- ggproto(
     free <- params$free %||% list(x = FALSE, y = FALSE)
     space <- params$space_free %||% list(x = FALSE, y = FALSE)
 
+    # Free space sizes panels by their position ranges, which some coordinate
+    # systems, like `coord_radial()`, don't have (#6360)
+    missing_range <- (space$x && is.null(ranges[[1]]$x.range)) ||
+      (space$y && is.null(ranges[[1]]$y.range))
+    if (missing_range) {
+      cli::cli_warn(
+        "{.fn {snake_class(self)}} can't use free {.arg space} with \\
+        {.fn {snake_class(coord)}}."
+      )
+      space <- list(x = FALSE, y = FALSE)
+      params$space_free <- space
+    }
+
     aspect_ratio <- theme$aspect.ratio
     if (!is.null(aspect_ratio) && (space$x || space$y)) {
       cli::cli_abort("Free scales cannot be mixed with a fixed aspect ratio.")
