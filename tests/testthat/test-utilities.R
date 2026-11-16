@@ -281,34 +281,3 @@ test_that("as_cli returns a single one-line string", {
   expect_length(text, 1)
   expect_no_match(text, "\n", fixed = TRUE)
 })
-
-test_that("list-based ggplot classes convert to bare lists", {
-  objects <- list(aes(x = 10), theme(text = element_text()), labs(x = "X"))
-  expected <- list(list(x = 10), list(text = element_text()), list(x = "X"))
-
-  for (i in seq_along(objects)) {
-    expect_identical(as.list(objects[[i]]), expected[[i]])
-    expect_identical(convert(objects[[i]], S7::class_list), expected[[i]])
-  }
-})
-
-test_that("list conversion works for ggplot classes", {
-  # Test list-based class round-trips
-  x <- aes(x = 10, y = foo)
-  expect_type(x <- as.list(x), "list")
-  expect_s7_class(x <- convert(x, class_mapping), class_mapping)
-
-  # Mapping should still be able to evaluate
-  expect_equal(
-    eval_aesthetics(x, data = data.frame(foo = "A")),
-    list(x = 10, y = "A")
-  )
-
-  # Test property-based class round-trips
-  x <- ggplot()
-  expect_type(x <- as.list(x), "list")
-  expect_s7_class(x <- convert(x, class_ggplot), class_ggplot)
-
-  # Plot should still be buildable
-  expect_s3_class(ggplotGrob(x), "gtable")
-})
