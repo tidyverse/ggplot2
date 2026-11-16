@@ -165,6 +165,20 @@
   ([@teunbrand](https://github.com/teunbrand),
   [\#6325](https://github.com/tidyverse/ggplot2/issues/6325)).
 
+## ggplot2 4.0.4
+
+CRAN release: 2026-11-13
+
+This is a hotfix release anticipating the upcoming changes in the S7
+package.
+
+- Updates for compatibility with S7 \> 0.2.2
+  ([\#6914](https://github.com/tidyverse/ggplot2/issues/6914)).
+- S7 subclasses now inherit legacy ‘compatibility names’ in their class
+  definitions
+  ([\#6915](https://github.com/tidyverse/ggplot2/issues/6915)).
+- Fixed NOTE on CRAN in R-devel.
+
 ## ggplot2 4.0.3
 
 CRAN release: 2026-04-22
@@ -203,16 +217,10 @@ versions.
 CRAN release: 2025-11-14
 
 This is a smaller patch release focussed on fixing regressions from
-4.0.0 and \# ggplot2 4.0.1
-
-This is a smaller patch release focussed on fixing regressions from
 4.0.0 and polishing the recent features.
 
 ### Bug fixes
 
-- Fixed regression where
-  [`geom_area()`](https://ggplot2.tidyverse.org/dev/reference/geom_ribbon.md)
-  didn’t draw panels with single groups
 - Fixed regression where
   [`geom_area()`](https://ggplot2.tidyverse.org/dev/reference/geom_ribbon.md)
   didn’t draw panels with single groups when `stat = "align"`
@@ -243,8 +251,6 @@ This is a smaller patch release focussed on fixing regressions from
   ([@yutannihilation](https://github.com/yutannihilation),
   [\#6617](https://github.com/tidyverse/ggplot2/issues/6617)).
 - Fixed regression where the first (unnamed) argument to colour/fill
-  scales was
-- Fixed regression where the first (unnamed) argument to colour/fill
   scales was not passed as the `name` argument
   ([@teunbrand](https://github.com/teunbrand),
   [\#6623](https://github.com/tidyverse/ggplot2/issues/6623))
@@ -262,34 +268,6 @@ This is a smaller patch release focussed on fixing regressions from
 - Fixed axis misplacement in `coor_radial()` when labels are blank
   ([@teunbrand](https://github.com/teunbrand),
   [\#6574](https://github.com/tidyverse/ggplot2/issues/6574))
-
-### Improvements
-
-- Improved palette fallback mechanism in scales
-  ([@teunbrand](https://github.com/teunbrand),
-  [\#6669](https://github.com/tidyverse/ggplot2/issues/6669)).
-- Allow `stat` in `geom_hline`, `geom_vline`, and `geom_abline`.
-  ([@sierrajohnson](https://github.com/sierrajohnson),
-  [\#6559](https://github.com/tidyverse/ggplot2/issues/6559))
-- [`stat_boxplot()`](https://ggplot2.tidyverse.org/dev/reference/geom_boxplot.md)
-  treats `width` as an optional aesthetic
-  ([@Yunuuuu](https://github.com/Yunuuuu),
-  [\#6575](https://github.com/tidyverse/ggplot2/issues/6575))
-- The `theme(panel.widths, panel.heights)` setting attempts to preserve
-  the plot’s aspect ratio when only one of the two settings is given,
-  and the plot has a single panel
-  ([@teunbrand](https://github.com/teunbrand),
-  [\#6701](https://github.com/tidyverse/ggplot2/issues/6701)).
-- Logical values for the linetype aesthetic will be interpreted
-  numerically, so that `linetype = FALSE` becomes 0/‘blank’ and
-  `linetype = TRUE` becomes 1/‘solid’
-  ([@teunbrand](https://github.com/teunbrand),
-  [\#6641](https://github.com/tidyverse/ggplot2/issues/6641))
-- Out-of-bounds datapoints used as padding by
-  [`stat_align()`](https://ggplot2.tidyverse.org/dev/reference/geom_ribbon.md)
-  now get removed silently rather than verbosely
-  ([@teunbrand](https://github.com/teunbrand),
-  [\#6667](https://github.com/tidyverse/ggplot2/issues/6667))
 
 ### Improvements
 

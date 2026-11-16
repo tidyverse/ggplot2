@@ -5,6 +5,10 @@ the default top-level print method will do it for you. You will,
 however, need to call [`print()`](https://rdrr.io/r/base/print.html)
 explicitly if you want to draw a plot inside a function or for loop.
 
+## Value
+
+Invisibly returns the original plot.
+
 ## Arguments
 
 - x:
@@ -22,10 +26,6 @@ explicitly if you want to draw a plot inside a function or for loop.
 - ...:
 
   other arguments not used by this method
-
-## Value
-
-Invisibly returns the original plot.
 
 ## Examples
 
