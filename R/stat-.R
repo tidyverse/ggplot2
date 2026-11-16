@@ -85,7 +85,7 @@ Stat <- ggproto(
   non_missing_aes = character(),
 
   #' @field optional_aes A character vector naming aesthetics that will be
-  #' accepted by `layer()`, but are not required or dscribed in the `default_aes`
+  #' accepted by `layer()`, but are not required or described in the `default_aes`
   #' field.
   optional_aes = character(),
 

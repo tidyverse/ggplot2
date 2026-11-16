@@ -188,7 +188,7 @@ round_any <- function(x, accuracy, f = round) {
 #'
 #' This function is akin to `plyr::ddply`. It takes a single data.frame,
 #' splits it by the unique combinations of the columns given in `by`, apply a
-#' function to each split, and then reassembles the results into a sigle
+#' function to each split, and then reassembles the results into a single
 #' data.frame again.
 #'
 #' @param df A data.frame

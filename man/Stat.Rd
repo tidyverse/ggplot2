@@ -71,7 +71,7 @@ to compute the stat.}
 removal if they have missing values.}
 
 \item{\code{optional_aes}}{A character vector naming aesthetics that will be
-accepted by \code{layer()}, but are not required or dscribed in the \code{default_aes}
+accepted by \code{layer()}, but are not required or described in the \code{default_aes}
 field.}
 
 \item{\code{default_aes}}{A \link[=aes]{mapping} of default values for aesthetics.

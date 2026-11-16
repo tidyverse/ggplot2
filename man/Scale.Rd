@@ -47,7 +47,7 @@ Before you attempt to create a new \verb{Scale*} class of your own, it is
 recommended to think through whether your aims cannot be implemented with
 one of the existing classes. Making a wrapper for the \code{continuous_scale()},
 \code{discrete_scale()} and \code{binned_scale()} should cover many cases, and should
-be considered prior to commiting to build a \verb{Scale*} extension.
+be considered prior to committing to build a \verb{Scale*} extension.
 
 For example, if you aim to develop a scale for a new data type, it should
 generally be possible to create a new \link[scales:new_transform]{transformation}
@@ -172,7 +172,7 @@ or missing values depending on the \code{map()} method.}
 \item{\code{limits}}{A length two vector giving the limits of the relevant
 aesthetic, usually via the \code{get_limits()} method.}
 \item{\code{range}}{A length two vector giving the range that should coincide
-with the 0-1 points. For most purpuses, this should be the same as the
+with the 0-1 points. For most purposes, this should be the same as the
 \code{limits} argument.}
 }
 

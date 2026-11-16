@@ -24,7 +24,7 @@
 \alias{is_scale}
 \alias{is_theme}
 \alias{is.theme}
-\title{Reports wether \code{x} is a type of object}
+\title{Reports whether \code{x} is a type of object}
 \usage{
 is_ggproto(x)
 
@@ -73,6 +73,6 @@ is.theme(x) # Deprecated
 \code{"blank"}, \code{"rect"}, \code{"line"}, \code{"text"}, \code{"polygon"}, \code{"point"} or \code{"geom"}.}
 }
 \description{
-Reports wether \code{x} is a type of object
+Reports whether \code{x} is a type of object
 }
 \keyword{internal}

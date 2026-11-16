@@ -151,7 +151,7 @@ plot_clone <- function(plot) {
   p
 }
 
-#' Reports wether `x` is a type of object
+#' Reports whether `x` is a type of object
 #' @param x An object to test
 #' @keywords internal
 #' @export

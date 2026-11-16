@@ -284,7 +284,7 @@ A list of parameters}
 
 A function method is the main orchestrator for drawing the guide. It sets
 up the final pieces in context of the position, direction and theme
-and. Subsequenty, it renders the individual components like titles, ticks,
+and. Subsequently, it renders the individual components like titles, ticks,
 labels and decor. Finally, it arranges these components into a guide.
 
 This method should only be overridden if the extension has non standard

@@ -197,7 +197,7 @@ make_labels <- function(mapping) {
 #'
 #' # Set labels by variable name instead of aesthetic
 #' p + labs(dictionary = c(
-#'   disp = "Displacment", # Not in use
+#'   disp = "Displacement", # Not in use
 #'   cyl  = "Number of cylinders",
 #'   mpg  = "Miles per gallon",
 #'   wt   = "Weight (1000 lbs)"

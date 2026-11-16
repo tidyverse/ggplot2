@@ -87,7 +87,7 @@ which parameters it can accept.
 }}
 
 \item{connection}{A specification of how two points are connected. Can be one
-of the folloing:
+of the following:
 \itemize{
 \item A string giving a named connection. These options are:
 \itemize{
