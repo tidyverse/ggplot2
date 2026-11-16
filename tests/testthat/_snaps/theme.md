@@ -58,10 +58,6 @@
 
     Unknown arguments to `element_text()`: `italic`, `fontweight`, and `fontwidth`.
 
----
-
-    Unknown arguments to `element_text()`: `italic`, `fontweight`, and `fontwidth`.
-
 # all expected theme elements are documented
 
     Code
