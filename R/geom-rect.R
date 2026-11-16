@@ -2,11 +2,14 @@
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomRect <- ggproto("GeomRect", Geom,
+GeomRect <- ggproto(
+  "GeomRect",
+  Geom,
   default_aes = aes(
     colour = from_theme(colour %||% NA),
     fill = from_theme(fill %||% col_mix(ink, paper, 0.35)),
-    linewidth = from_theme(borderwidth), linetype = from_theme(bordertype),
+    linewidth = from_theme(borderwidth),
+    linetype = from_theme(bordertype),
     alpha = NA
   ),
 
@@ -19,24 +22,30 @@ GeomRect <- ggproto("GeomRect", Geom,
 
     # Fill in missing aesthetics from parameters
     required <- strsplit(self$required_aes, "|", fixed = TRUE)
-    missing  <- setdiff(unlist(required), names(data))
+    missing <- setdiff(unlist(required), names(data))
     default <- params[intersect(missing, names(params))]
     data[names(default)] <- default
 
     if (is.null(data$xmin) || is.null(data$xmax)) {
       x <- resolve_rect(
-        data[["xmin"]], data[["xmax"]],
-        data[["x"]], data[["width"]],
-        fun = snake_class(self), type = "x"
+        data[["xmin"]],
+        data[["xmax"]],
+        data[["x"]],
+        data[["width"]],
+        fun = snake_class(self),
+        type = "x"
       )
       i <- lengths(x) > 1
       data[c("xmin", "xmax")[i]] <- x[i]
     }
     if (is.null(data$ymin) || is.null(data$ymax)) {
       y <- resolve_rect(
-        data[["ymin"]], data[["ymax"]],
-        data[["y"]], data[["height"]],
-        fun = snake_class(self), type = "y"
+        data[["ymin"]],
+        data[["ymax"]],
+        data[["y"]],
+        data[["height"]],
+        fun = snake_class(self),
+        type = "y"
       )
       i <- lengths(y) > 1
       data[c("ymin", "ymax")[i]] <- y[i]
@@ -44,11 +53,19 @@ GeomRect <- ggproto("GeomRect", Geom,
     data
   },
 
-  draw_panel = function(self, data, panel_params, coord, lineend = "butt", linejoin = "mitre") {
+  draw_panel = function(
+    self,
+    data,
+    panel_params,
+    coord,
+    lineend = "butt",
+    linejoin = "mitre"
+  ) {
     data <- fix_linewidth(data, snake_class(self))
     if (!coord$is_linear()) {
       aesthetics <- setdiff(
-        names(data), c("x", "y", "xmin", "xmax", "ymin", "ymax")
+        names(data),
+        c("x", "y", "xmin", "xmax", "ymin", "ymax")
       )
       index <- rep(seq_len(nrow(data)), each = 4)
 
@@ -57,26 +74,37 @@ GeomRect <- ggproto("GeomRect", Geom,
       new$y <- vec_interleave(data$ymax, data$ymax, data$ymin, data$ymin)
       new$group <- index
 
-      ggname("geom_rect", GeomPolygon$draw_panel(
-        new, panel_params, coord, lineend = lineend, linejoin = linejoin
-      ))
+      ggname(
+        "geom_rect",
+        GeomPolygon$draw_panel(
+          new,
+          panel_params,
+          coord,
+          lineend = lineend,
+          linejoin = linejoin
+        )
+      )
     } else {
       coords <- coord$transform(data, panel_params)
-      ggname("geom_rect", rectGrob(
-        coords$xmin, coords$ymax,
-        width = coords$xmax - coords$xmin,
-        height = coords$ymax - coords$ymin,
-        default.units = "native",
-        just = c("left", "top"),
-        gp = gg_par(
-          col = coords$colour,
-          fill = fill_alpha(coords$fill, coords$alpha),
-          lwd = coords$linewidth,
-          lty = coords$linetype,
-          linejoin = linejoin,
-          lineend = lineend
+      ggname(
+        "geom_rect",
+        rectGrob(
+          coords$xmin,
+          coords$ymax,
+          width = coords$xmax - coords$xmin,
+          height = coords$ymax - coords$ymin,
+          default.units = "native",
+          just = c("left", "top"),
+          gp = gg_par(
+            col = coords$colour,
+            fill = fill_alpha(coords$fill, coords$alpha),
+            lwd = coords$linewidth,
+            lty = coords$linetype,
+            linejoin = linejoin,
+            lineend = lineend
+          )
         )
-      ))
+      )
     }
   },
 
@@ -89,8 +117,14 @@ GeomRect <- ggproto("GeomRect", Geom,
 #' @rdname geom_tile
 geom_rect <- make_constructor(GeomRect)
 
-resolve_rect <- function(min = NULL, max = NULL, center = NULL, length = NULL,
-                         fun, type) {
+resolve_rect <- function(
+  min = NULL,
+  max = NULL,
+  center = NULL,
+  length = NULL,
+  fun,
+  type
+) {
   absent <- c(is.null(min), is.null(max), is.null(center), is.null(length))
   if (sum(absent) > 2) {
     missing <- switch(

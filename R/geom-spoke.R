@@ -3,14 +3,20 @@
 #' @usage NULL
 #' @export
 GeomSpoke <- ggproto(
-  "GeomSpoke", GeomSegment,
+  "GeomSpoke",
+  GeomSegment,
   setup_data = function(data, params) {
     data$radius <- data$radius %||% params$radius
     data$angle <- data$angle %||% params$angle
 
-    transform(data,
-              xend = x + cos(angle) * radius,
-              yend = y + sin(angle) * radius
+    if (any(is.infinite(data$radius))) {
+      cli::cli_warn("Infinite {.field radius} values are unreliable.")
+    }
+
+    transform(
+      data,
+      xend = x + cos(angle) * radius,
+      yend = y + sin(angle) * radius
     )
   },
   required_aes = c("x", "y", "angle", "radius")
@@ -23,8 +29,7 @@ GeomSpoke <- ggproto(
 #' The angles start from east and increase counterclockwise.
 #'
 #' @aesthetics GeomSpoke
-#' @inheritParams layer
-#' @inheritParams geom_segment
+#' @inheritParams shared_layer_parameters
 #' @export
 #' @examples
 #' df <- expand.grid(x = 1:10, y=1:10)
@@ -46,5 +51,5 @@ geom_spoke <- make_constructor(GeomSpoke)
 #' @rdname geom_spoke
 #' @usage NULL
 stat_spoke <- function(...) {
-  lifecycle::deprecate_stop("2.0.0", "stat_spoke()", "geom_spoke()")
+  deprecate("2.0.0", "stat_spoke()", "geom_spoke()")
 }

@@ -5,13 +5,13 @@
 #' [stat_bin()]: instead of just counting, they can compute any
 #' aggregate.
 #'
-#' @eval rd_orientation()
+#' @inheritSection shared_layer_parameters Orientation
 #'
 #' @aesthetics StatSummary
 #' @seealso [geom_errorbar()], [geom_pointrange()],
 #'  [geom_linerange()], [geom_crossbar()] for geoms to
 #'  display summarised data
-#' @inheritParams stat_identity
+#' @inheritParams shared_layer_parameters
 #' @section Summary functions:
 #' You can either supply summary functions individually (`fun`,
 #' `fun.max`, `fun.min`), or as a single function (`fun.data`):
@@ -126,31 +126,35 @@
 #' m2 + coord_transform(y="log10")
 #' }
 #' }
-stat_summary <- function(mapping = NULL, data = NULL,
-                         geom = "pointrange", position = "identity",
-                         ...,
-                         fun.data = NULL,
-                         fun = NULL,
-                         fun.max = NULL,
-                         fun.min = NULL,
-                         fun.args = list(),
-                         na.rm = FALSE,
-                         orientation = NA,
-                         show.legend = NA,
-                         inherit.aes = TRUE,
-                         fun.y = deprecated(),
-                         fun.ymin = deprecated(),
-                         fun.ymax = deprecated()) {
+stat_summary <- function(
+  mapping = NULL,
+  data = NULL,
+  geom = "pointrange",
+  position = "identity",
+  ...,
+  fun.data = NULL,
+  fun = NULL,
+  fun.max = NULL,
+  fun.min = NULL,
+  fun.args = list(),
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  fun.y = deprecated(),
+  fun.ymin = deprecated(),
+  fun.ymax = deprecated()
+) {
   if (lifecycle::is_present(fun.y)) {
-    deprecate_warn0("3.3.0", "stat_summary(fun.y)", "stat_summary(fun)")
+    deprecate("3.3.0", "stat_summary(fun.y)", "stat_summary(fun)")
     fun <- fun %||% fun.y
   }
   if (lifecycle::is_present(fun.ymin)) {
-    deprecate_warn0("3.3.0", "stat_summary(fun.ymin)", "stat_summary(fun.min)")
+    deprecate("3.3.0", "stat_summary(fun.ymin)", "stat_summary(fun.min)")
     fun.min <- fun.min %||% fun.ymin
   }
   if (lifecycle::is_present(fun.ymax)) {
-    deprecate_warn0("3.3.0", "stat_summary(fun.ymax)", "stat_summary(fun.max)")
+    deprecate("3.3.0", "stat_summary(fun.ymax)", "stat_summary(fun.max)")
     fun.max <- fun.max %||% fun.ymax
   }
   layer(
@@ -178,23 +182,39 @@ stat_summary <- function(mapping = NULL, data = NULL,
 #' @format NULL
 #' @usage NULL
 #' @export
-StatSummary <- ggproto("StatSummary", Stat,
+StatSummary <- ggproto(
+  "StatSummary",
+  Stat,
   required_aes = c("x", "y"),
 
-  extra_params = c("na.rm", "orientation", "fun.data", "fun.max", "fun.min", "fun.args"),
+  extra_params = c(
+    "na.rm",
+    "orientation",
+    "fun.data",
+    "fun.max",
+    "fun.min",
+    "fun.args"
+  ),
 
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params)
     params[["fun"]] <- make_summary_fun(
-      params$fun.data, params[["fun"]],
-      params$fun.max, params$fun.min,
+      params$fun.data,
+      params[["fun"]],
+      params$fun.max,
+      params$fun.min,
       params$fun.args %||% list()
     )
     params
   },
 
-  compute_panel = function(data, scales, fun = NULL,
-                           na.rm = FALSE, flipped_aes = FALSE) {
+  compute_panel = function(
+    data,
+    scales,
+    fun = NULL,
+    na.rm = FALSE,
+    flipped_aes = FALSE
+  ) {
     data <- flip_data(data, flipped_aes)
     summarised <- summarise_by_x(data, fun %||% function(df) mean_se(df$y))
     summarised$flipped_aes <- flipped_aes
@@ -260,7 +280,6 @@ uniquecols <- function(df) {
 NULL
 
 wrap_hmisc <- function(fun) {
-
   function(x, ...) {
     check_installed("Hmisc")
 

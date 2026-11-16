@@ -49,7 +49,7 @@ omitted.}
 \link[scales:new_transform]{transformation object}
 \item A numeric vector of positions
 \item A function that takes the limits as input and returns breaks
-as output (e.g., a function returned by \code{\link[scales:breaks_extended]{scales::extended_breaks()}}).
+as output (e.g., a function returned by \code{\link[scales:extended_breaks]{scales::extended_breaks()}}).
 Note that for position scales, limits are provided after scale expansion.
 Also accepts rlang \link[rlang:as_function]{lambda} function notation.
 }}

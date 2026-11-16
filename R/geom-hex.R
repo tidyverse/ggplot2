@@ -2,13 +2,22 @@
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomHex <- ggproto("GeomHex", Geom,
-  draw_group = function(self, data, panel_params, coord, lineend = "butt",
-                        linejoin = "mitre", linemitre = 10) {
-    data <- fix_linewidth(data, snake_class(self))
+GeomHex <- ggproto(
+  "GeomHex",
+  Geom,
+  draw_group = function(
+    self,
+    data,
+    panel_params,
+    coord,
+    lineend = "butt",
+    linejoin = "mitre",
+    linemitre = 10
+  ) {
     if (empty(data)) {
       return(zeroGrob())
     }
+    data <- fix_linewidth(data, snake_class(self))
 
     # Get hex sizes
     if (!is.null(data$width)) {
@@ -20,35 +29,40 @@ GeomHex <- ggproto("GeomHex", Geom,
     # for the effect of the overlapping range in y-direction on the resolution
     # calculation
     if (!is.null(data$height)) {
-      dy <- data$height[1] /  sqrt(3) / 2
+      dy <- data$height[1] / sqrt(3) / 2
     } else {
       dy <- resolution(data$y, FALSE, TRUE) / sqrt(3) / 2 * 1.15
     }
 
-    hexC <- hexbin::hexcoords(dx, dy, n = 1)
-
     n <- nrow(data)
+    hexC <- hexbin::hexcoords(dx, dy, n = n)
 
-    hexdata <- data[rep(seq_len(n), each = 6), c("x", "y")]
-    hexdata$x <- rep.int(hexC$x, n) + hexdata$x
-    hexdata$y <- rep.int(hexC$y, n) + hexdata$y
+    columns <- intersect(c("x", "y", "radius"), names(data))
+    hexdata <- vec_rep_each(data[columns], times = 6L)
+    hexdata$radius <- hexdata$radius %||% 1
+    hexdata$x <- hexC$x * hexdata$radius + hexdata$x
+    hexdata$y <- hexC$y * hexdata$radius + hexdata$y
 
     coords <- coord$transform(hexdata, panel_params)
 
-    ggname("geom_hex", polygonGrob(
-      coords$x, coords$y,
-      gp = gg_par(
-        col = data$colour,
-        fill = fill_alpha(data$fill, data$alpha),
-        lwd = data$linewidth,
-        lty = data$linetype,
-        lineend = lineend,
-        linejoin = linejoin,
-        linemitre = linemitre
-      ),
-      default.units = "native",
-      id.lengths = rep.int(6, n)
-    ))
+    ggname(
+      "geom_hex",
+      polygonGrob(
+        coords$x,
+        coords$y,
+        gp = gg_par(
+          col = data$colour,
+          fill = fill_alpha(data$fill, data$alpha),
+          lwd = data$linewidth,
+          lty = data$linetype,
+          lineend = lineend,
+          linejoin = linejoin,
+          linemitre = linemitre
+        ),
+        default.units = "native",
+        id.lengths = rep.int(6, n)
+      )
+    )
   },
 
   required_aes = c("x", "y"),
@@ -58,6 +72,7 @@ GeomHex <- ggproto("GeomHex", Geom,
     fill = from_theme(fill %||% col_mix(ink, paper)),
     linewidth = from_theme(borderwidth),
     linetype = from_theme(bordertype),
+    radius = 1,
     alpha = NA
   ),
 
@@ -80,11 +95,7 @@ GeomHex <- ggproto("GeomHex", Geom,
 #'   `stat_bin_hex()`. For more information about overriding these connections,
 #'   see how the [stat][layer_stats] and [geom][layer_geoms] arguments work.
 #' @export
-#' @inheritParams layer
-#' @inheritParams geom_point
-#' @param lineend Line end style (round, butt, square).
-#' @param linejoin Line join style (round, mitre, bevel).
-#' @param linemitre Line mitre limit (number greater than 1).
+#' @inheritParams shared_layer_parameters
 #' @export
 #' @examples
 #' d <- ggplot(diamonds, aes(carat, price))
@@ -99,5 +110,8 @@ GeomHex <- ggproto("GeomHex", Geom,
 #' # Or by specifying the width of the bins
 #' d + geom_hex(binwidth = c(1, 1000))
 #' d + geom_hex(binwidth = c(.1, 500))
+#'
+#' # The hexagons can be scaled by tuning the radius aesthetic
+#' d + geom_hex(aes(radius = after_stat(ncount)))
 #' }
 geom_hex <- make_constructor(GeomHex, stat = 'binhex')

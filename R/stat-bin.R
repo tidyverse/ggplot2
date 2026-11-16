@@ -3,9 +3,14 @@
 #' @usage NULL
 #' @export
 StatBin <- ggproto(
-  "StatBin", Stat,
+  "StatBin",
+  Stat,
   setup_params = function(self, data, params) {
-    params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE)
+    params$flipped_aes <- has_flipped_aes(
+      data,
+      params,
+      main_is_orthogonal = FALSE
+    )
 
     if (is.logical(params$drop)) {
       params$drop <- if (isTRUE(params$drop)) "all" else "none"
@@ -13,16 +18,21 @@ StatBin <- ggproto(
     drop <- params$drop
     params$drop <- arg_match0(
       params$drop %||% "none",
-      c("all", "none", "extremes"), arg_nm = "drop"
+      c("all", "none", "extremes"),
+      arg_nm = "drop"
     )
 
     has_x <- !(is.null(data$x) && is.null(params$x))
     has_y <- !(is.null(data$y) && is.null(params$y))
     if (!has_x && !has_y) {
-      cli::cli_abort("{.fn {snake_class(self)}} requires an {.field x} or {.field y} aesthetic.")
+      cli::cli_abort(
+        "{.fn {snake_class(self)}} requires an {.field x} or {.field y} aesthetic."
+      )
     }
     if (has_x && has_y) {
-      cli::cli_abort("{.fn {snake_class(self)}} must only have an {.field x} {.emph or} {.field y} aesthetic.")
+      cli::cli_abort(
+        "{.fn {snake_class(self)}} must only have an {.field x} {.emph or} {.field y} aesthetic."
+      )
     }
 
     x <- flipped_names(params$flipped_aes)$x
@@ -40,15 +50,29 @@ StatBin <- ggproto(
 
   extra_params = c("na.rm", "orientation"),
 
-  compute_group = function(data, scales, binwidth = NULL, bins = NULL,
-                           center = NULL, boundary = NULL,
-                           closed = c("right", "left"), pad = FALSE,
-                           breaks = NULL, flipped_aes = FALSE, drop = "none") {
+  compute_group = function(
+    data,
+    scales,
+    binwidth = NULL,
+    bins = NULL,
+    center = NULL,
+    boundary = NULL,
+    closed = c("right", "left"),
+    pad = FALSE,
+    breaks = NULL,
+    flipped_aes = FALSE,
+    drop = "none"
+  ) {
     x <- flipped_names(flipped_aes)$x
     bins <- compute_bins(
-      data[[x]], scales[[x]],
-      breaks = breaks, binwidth = binwidth, bins = bins,
-      center = center, boundary = boundary, closed = closed
+      data[[x]],
+      scales[[x]],
+      breaks = breaks,
+      binwidth = binwidth,
+      bins = bins,
+      center = center,
+      boundary = boundary,
+      closed = closed
     )
     bins <- bin_vector(data[[x]], bins, weight = data$weight, pad = pad)
 
@@ -122,7 +146,9 @@ StatBin <- ggproto(
 #' @export
 #' @rdname geom_histogram
 stat_bin <- make_constructor(
-  StatBin, geom = "bar", position = "stack",
+  StatBin,
+  geom = "bar",
+  position = "stack",
   orientation = NA
 )
 

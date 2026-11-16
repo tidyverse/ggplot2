@@ -196,16 +196,16 @@ v + scale_fill_viridis_b()
 \seealso{
 The documentation on \link[=aes_colour_fill_alpha]{colour aesthetics}.
 
-Other colour scales: 
-\code{\link{scale_alpha}()},
-\code{\link{scale_colour_brewer}()},
-\code{\link{scale_colour_continuous}()},
-\code{\link{scale_colour_discrete}()},
-\code{\link{scale_colour_gradient}()},
-\code{\link{scale_colour_grey}()},
-\code{\link{scale_colour_hue}()},
-\code{\link{scale_colour_identity}()},
-\code{\link{scale_colour_manual}()},
-\code{\link{scale_colour_steps}()}
+Other colour scales:
+\code{\link[=scale_alpha]{scale_alpha()}},
+\code{\link[=scale_colour_brewer]{scale_colour_brewer()}},
+\code{\link[=scale_colour_continuous]{scale_colour_continuous()}},
+\code{\link[=scale_colour_discrete]{scale_colour_discrete()}},
+\code{\link[=scale_colour_gradient]{scale_colour_gradient()}},
+\code{\link[=scale_colour_grey]{scale_colour_grey()}},
+\code{\link[=scale_colour_hue]{scale_colour_hue()}},
+\code{\link[=scale_colour_identity]{scale_colour_identity()}},
+\code{\link[=scale_colour_manual]{scale_colour_manual()}},
+\code{\link[=scale_colour_steps]{scale_colour_steps()}}
 }
 \concept{colour scales}

@@ -27,8 +27,11 @@
 #'   geom_polygon(aes(group = group), colour = "white")
 #' }
 fortify.map <- function(model, data, ...) {
-  lifecycle::deprecate_warn(
-    "4.0.0", I("`fortify(<map>)`"), "map_data()"
+  deprecate(
+    "4.0.0",
+    I("`fortify(<map>)`"),
+    "map_data()",
+    escalate = "warn"
   )
   df <- data_frame0(
     long = model$x,
@@ -85,7 +88,14 @@ fortify.map <- function(model, data, ...) {
 #' }
 map_data <- function(map, region = ".", exact = FALSE, ...) {
   check_installed("maps", reason = "for `map_data()`.")
-  map_obj <- maps::map(map, region, exact = exact, plot = FALSE, fill = TRUE, ...)
+  map_obj <- maps::map(
+    map,
+    region,
+    exact = exact,
+    plot = FALSE,
+    fill = TRUE,
+    ...
+  )
 
   if (!inherits(map_obj, "map")) {
     cli::cli_abort(c(
@@ -96,8 +106,8 @@ map_data <- function(map, region = ".", exact = FALSE, ...) {
   }
 
   df <- data_frame0(
-    long  = map_obj$x,
-    lat   = map_obj$y,
+    long = map_obj$x,
+    lat = map_obj$y,
     group = cumsum(is.na(map_obj$x) & is.na(map_obj$y)) + 1,
     order = seq_along(map_obj$x),
     .size = length(map_obj$x)

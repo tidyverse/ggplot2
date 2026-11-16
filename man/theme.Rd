@@ -74,6 +74,7 @@ theme(
   axis.line.y.right,
   axis.line.theta,
   axis.line.r,
+  axis.ontop,
   legend.background,
   legend.margin,
   legend.spacing,
@@ -141,6 +142,8 @@ theme(
   strip.background.y,
   strip.clip,
   strip.placement,
+  strip.placement.x,
+  strip.placement.y,
   strip.text,
   strip.text.x,
   strip.text.x.bottom,
@@ -213,6 +216,9 @@ for each axis (using \code{axis.line.x.bottom}, \code{axis.line.x.top},
 \code{axis.line.y.left}, \code{axis.line.y.right}). \verb{axis.line.*.*} inherits from
 \verb{axis.line.*} which inherits from \code{axis.line}, which in turn inherits
 from \code{line}}
+
+\item{axis.ontop}{Controls whether axes are displayed above panel elements
+(\code{TRUE}, default) or below panel elements (\code{FALSE}).}
 
 \item{legend.background}{background of legend (\code{\link[=element_rect]{element_rect()}}; inherits
 from \code{rect})}
@@ -378,9 +384,10 @@ to the extend of the strip background? Options are \code{"on"} to clip, \code{"o
 to disable clipping or \code{"inherit"} (default) to take the clipping setting
 from the parent viewport.}
 
-\item{strip.placement}{placement of strip with respect to axes,
-either "inside" or "outside". Only important when axes and strips are
-on the same side of the plot.}
+\item{strip.placement, strip.placement.x, strip.placement.y}{placement of strip with respect to axes, either "inside" or "outside".
+Only important when axes and strips are on the same side of the plot.
+Horizontal (\code{strip.placement.x}) & vertical (\code{strip.placement.y}) placements
+inherit from \code{strip.placement} or can be specified separately}
 
 \item{strip.text, strip.text.x, strip.text.y, strip.text.x.top, strip.text.x.bottom, strip.text.y.left, strip.text.y.right}{facet labels (\code{\link[=element_text]{element_text()}}; inherits from  \code{text}). Horizontal facet labels (\code{strip.text.x}) & vertical
 facet labels (\code{strip.text.y}) inherit from \code{strip.text} or can be specified

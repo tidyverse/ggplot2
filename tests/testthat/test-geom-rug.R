@@ -20,7 +20,7 @@ test_that("coord_flip flips the rugs", {
 })
 
 test_that("Rug length needs unit object", {
-  p <- ggplot(df, aes(x,y))
+  p <- ggplot(df, aes(x, y))
   expect_snapshot_error(print(p + geom_rug(length = 0.01)))
 })
 
@@ -31,26 +31,24 @@ test_that("Rug lengths are correct", {
   expect_equal(a[[1]]$children[[1]]$x0, unit(0, "npc"))
   expect_equal(a[[1]]$children[[1]]$x1, unit(0.03, "npc"))
 
-  p <- ggplot(df, aes(x, y)) + geom_point() + geom_rug(sides = 'l', length = unit(12, "pt"))
+  p <- ggplot(df, aes(x, y)) +
+    geom_point() +
+    geom_rug(sides = 'l', length = unit(12, "pt"))
   b <- get_layer_grob(p, 2)
 
   # Check default length is changed
   expect_equal(a[[1]]$children[[1]]$x0, unit(0, "npc"))
   expect_equal(b[[1]]$children[[1]]$x1, unit(12, "pt"))
-
 })
 
-test_that(
-  "geom_rug() warns about missing values when na.rm = FALSE",
-  {
-    df2 <- df
-    n_missing <- 2
-    df2$x[sample(nrow(df2), size = n_missing)] <- NA
+test_that("geom_rug() warns about missing values when na.rm = FALSE", {
+  df2 <- df
+  n_missing <- 2
+  df2$x[sample(nrow(df2), size = n_missing)] <- NA
 
-    p1 <- ggplot(df2, aes(x = x)) + geom_rug()
-    p2 <- ggplot(df2, aes(x = x)) + geom_rug(na.rm = TRUE)
+  p1 <- ggplot(df2, aes(x = x)) + geom_rug()
+  p2 <- ggplot(df2, aes(x = x)) + geom_rug(na.rm = TRUE)
 
-    expect_snapshot_warning(ggplotGrob(p1))
-    expect_no_warning(ggplotGrob(p2))
-  }
-)
+  expect_snapshot_warning(ggplotGrob(p1))
+  expect_no_warning(ggplotGrob(p2))
+})

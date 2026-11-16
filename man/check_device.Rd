@@ -37,7 +37,7 @@ be in case the device capabilities cannot be assessed. When the current
 device is the 'null device', \code{maybe} is returned.}
 
 \item{call}{The execution environment of a currently running function, e.g.
-\code{\link[rlang:stack]{caller_env()}}. The function will be mentioned in
+\code{\link[rlang:caller_env]{caller_env()}}. The function will be mentioned in
 warnings and error messages as the source of the warning or error. See
 the \code{call} argument of \code{\link[rlang:abort]{abort()}} for more information.}
 }

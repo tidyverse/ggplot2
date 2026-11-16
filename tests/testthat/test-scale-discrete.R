@@ -56,7 +56,10 @@ test_that("discrete ranges also encompass continuous values", {
 
   expect_equal(x_range(base + geom_point(aes(x1))), c(1, 3))
   expect_equal(x_range(base + geom_point(aes(x2))), c(0, 4))
-  expect_equal(x_range(base + geom_point(aes(x1)) + geom_point(aes(x2))), c(0, 4))
+  expect_equal(
+    x_range(base + geom_point(aes(x1)) + geom_point(aes(x2))),
+    c(0, 4)
+  )
 })
 
 test_that("discrete ranges have limits even when all values are continuous", {
@@ -67,7 +70,8 @@ test_that("discrete ranges have limits even when all values are continuous", {
 
 test_that("discrete scale shrinks to range when setting limits", {
   df <- data_frame(x = letters[1:10], y = 1:10)
-  p <- ggplot(df, aes(x, y)) + geom_point() +
+  p <- ggplot(df, aes(x, y)) +
+    geom_point() +
     scale_x_discrete(limits = c("a", "b"))
 
   expect_equal(get_panel_scales(p)$x$dimension(c(0, 1)), c(0, 3))
@@ -87,14 +91,18 @@ test_that("discrete non-position scales can accept functional limits", {
 
 test_that("discrete scale defaults can be set globally", {
   df <- data_frame(
-    x = 1:4, y = 1:4,
+    x = 1:4,
+    y = 1:4,
     two = c("a", "b", "a", "b"),
     four = c("a", "b", "c", "d")
   )
 
   withr::with_options(
-    list(ggplot2.discrete.fill = c("#FFFFFF", "#000000"),
-         ggplot2.discrete.colour = c("#FFFFFF", "#000000")), {
+    list(
+      ggplot2.discrete.fill = c("#FFFFFF", "#000000"),
+      ggplot2.discrete.colour = c("#FFFFFF", "#000000")
+    ),
+    {
       # nlevels == ncodes
       two <- ggplot(df, aes(x, y, colour = two, fill = two)) + geom_point()
       expect_equal(get_layer_data(two)$colour, rep(c("#FFFFFF", "#000000"), 2))
@@ -104,7 +112,10 @@ test_that("discrete scale defaults can be set globally", {
       four_default <- ggplot(df, aes(x, y, colour = four, fill = four)) +
         geom_point()
       four_hue <- four_default + scale_fill_hue()
-      expect_equal(get_layer_data(four_default)$colour, get_layer_data(four_hue)$colour)
+      expect_equal(
+        get_layer_data(four_default)$colour,
+        get_layer_data(four_hue)$colour
+      )
     }
   )
 
@@ -118,7 +129,8 @@ test_that("discrete scale defaults can be set globally", {
         c("#FFFFFF", "#000000"),
         c("#FF0000", "#00FF00", "#0000FF", "#FF00FF")
       )
-    ), {
+    ),
+    {
       # nlevels == 2
       two <- ggplot(df, aes(x, y, colour = two, fill = two)) + geom_point()
       expect_equal(get_layer_data(two)$colour, rep(c("#FFFFFF", "#000000"), 2))
@@ -126,15 +138,24 @@ test_that("discrete scale defaults can be set globally", {
 
       # nlevels == 4
       four <- ggplot(df, aes(x, y, colour = four, fill = four)) + geom_point()
-      expect_equal(get_layer_data(four)$colour, c("#FF0000", "#00FF00", "#0000FF", "#FF00FF"))
-      expect_equal(get_layer_data(four)$fill, c("#FF0000", "#00FF00", "#0000FF", "#FF00FF"))
+      expect_equal(
+        get_layer_data(four)$colour,
+        c("#FF0000", "#00FF00", "#0000FF", "#FF00FF")
+      )
+      expect_equal(
+        get_layer_data(four)$fill,
+        c("#FF0000", "#00FF00", "#0000FF", "#FF00FF")
+      )
     }
   )
 })
 
 test_that("Scale is checked in default colour scale", {
   # Check scale type
-  expect_snapshot(scale_colour_discrete(type = scale_colour_gradient), error = TRUE)
+  expect_snapshot(
+    scale_colour_discrete(type = scale_colour_gradient),
+    error = TRUE
+  )
   expect_snapshot(scale_fill_discrete(type = scale_fill_gradient), error = TRUE)
 
   # Check aesthetic
@@ -165,7 +186,6 @@ test_that("mapped_discrete vectors behaves as predicted", {
 # Palettes ----------------------------------------------------------------
 
 test_that("palettes work for discrete scales", {
-
   df <- data.frame(x = c("A", "B", "C"), y = 1:3)
   values <- c(1, 10, 100)
 
@@ -186,7 +206,6 @@ test_that("palettes work for discrete scales", {
 })
 
 test_that("invalid palettes trigger errors", {
-
   df <- data.frame(x = c("A", "B", "C"), y = 1:3)
 
   p <- ggplot(df, aes(x, y)) +
@@ -202,4 +221,3 @@ test_that("invalid palettes trigger errors", {
     error = TRUE
   )
 })
-

@@ -19,7 +19,7 @@ mapping used for that aesthetic. If \code{NULL}, the legend title will be
 omitted.}
 
 \item{...}{
-  Arguments passed on to \code{\link[=discrete_scale]{discrete_scale}}
+  Arguments passed on to \code{\link{discrete_scale}}
   \describe{
     \item{\code{breaks}}{One of:
 \itemize{

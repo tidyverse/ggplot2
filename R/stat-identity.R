@@ -3,7 +3,8 @@
 #' @usage NULL
 #' @export
 StatIdentity <- ggproto(
-  "StatIdentity", Stat,
+  "StatIdentity",
+  Stat,
   compute_layer = function(self, data, params, layout) {
     data
   }
@@ -13,8 +14,7 @@ StatIdentity <- ggproto(
 #'
 #' The identity statistic leaves the data unchanged.
 #'
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(wt, mpg))

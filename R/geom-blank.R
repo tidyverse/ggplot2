@@ -5,16 +5,19 @@
 #' more details.
 #'
 #' @export
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @examples
 #' ggplot(mtcars, aes(wt, mpg))
 #' # Nothing to see here!
-geom_blank <- function(mapping = NULL, data = NULL,
-                       stat = "identity", position = "identity",
-                       ...,
-                       show.legend = NA,
-                       inherit.aes = TRUE) {
+geom_blank <- function(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  show.legend = NA,
+  inherit.aes = TRUE
+) {
   layer(
     data = data,
     mapping = mapping,
@@ -33,7 +36,9 @@ geom_blank <- function(mapping = NULL, data = NULL,
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomBlank <- ggproto("GeomBlank", Geom,
+GeomBlank <- ggproto(
+  "GeomBlank",
+  Geom,
   default_aes = aes(),
   handle_na = function(data, params) {
     data

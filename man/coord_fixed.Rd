@@ -14,7 +14,7 @@ is the same length as one unit on the y-axis. Ratios higher than one make
 units on the y-axis longer than units on the x-axis, and vice versa.}
 
 \item{...}{
-  Arguments passed on to \code{\link[=coord_cartesian]{coord_cartesian}}
+  Arguments passed on to \code{\link{coord_cartesian}}
   \describe{
     \item{\code{xlim,ylim}}{Limits for the x and y axes.}
     \item{\code{expand}}{If \code{TRUE}, the default, adds a small expansion factor to

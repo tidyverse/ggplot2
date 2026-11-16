@@ -3,7 +3,8 @@
 #' @usage NULL
 #' @export
 GeomLinerange <- ggproto(
-  "GeomLinerange", Geom,
+  "GeomLinerange",
+  Geom,
 
   default_aes = GeomPath$default_aes,
 
@@ -12,10 +13,19 @@ GeomLinerange <- ggproto(
   required_aes = c("x|y", "ymin|xmin", "ymax|xmax"),
 
   setup_params = function(data, params) {
-    params$flipped_aes <- has_flipped_aes(data, params, range_is_orthogonal = TRUE)
+    params$flipped_aes <- has_flipped_aes(
+      data,
+      params,
+      range_is_orthogonal = TRUE
+    )
     # if flipped_aes == TRUE then y, xmin, xmax is present
-    if (!(params$flipped_aes || all(c("x", "ymin", "ymax") %in% c(names(data), names(params))))) {
-      cli::cli_abort("Either, {.field x}, {.field ymin}, and {.field ymax} {.emph or} {.field y}, {.field xmin}, and {.field xmax} must be supplied.")
+    if (
+      !(params$flipped_aes ||
+        all(c("x", "ymin", "ymax") %in% c(names(data), names(params))))
+    ) {
+      cli::cli_abort(
+        "Either, {.field x}, {.field ymin}, and {.field ymax} {.emph or} {.field y}, {.field xmin}, and {.field xmax} must be supplied."
+      )
     }
     params
   },
@@ -27,11 +37,29 @@ GeomLinerange <- ggproto(
     data
   },
 
-  draw_panel = function(data, panel_params, coord, lineend = "butt", flipped_aes = FALSE, na.rm = FALSE) {
+  draw_panel = function(
+    data,
+    panel_params,
+    coord,
+    lineend = "butt",
+    flipped_aes = FALSE,
+    na.rm = FALSE,
+    arrow = NULL,
+    arrow.fill = NULL
+  ) {
     data <- flip_data(data, flipped_aes)
     data <- transform(data, xend = x, y = ymin, yend = ymax)
     data <- flip_data(data, flipped_aes)
-    ggname("geom_linerange", GeomSegment$draw_panel(data, panel_params, coord, lineend = lineend, na.rm = na.rm))
+    grob <- GeomSegment$draw_panel(
+      data,
+      panel_params,
+      coord,
+      lineend = lineend,
+      na.rm = na.rm,
+      arrow = arrow,
+      arrow.fill = arrow.fill
+    )
+    ggname("geom_linerange", grob)
   },
 
   rename_size = TRUE
@@ -42,7 +70,7 @@ GeomLinerange <- ggproto(
 #' Various ways of representing a vertical interval defined by `x`,
 #' `ymin` and `ymax`. Each case draws a single graphical object.
 #'
-#' @eval rd_orientation()
+#' @inheritSection shared_layer_parameters Orientation
 #'
 #' @aesthetics GeomLinerange
 #' Note that `geom_pointrange()` also understands `size` for the size of the points.
@@ -53,8 +81,7 @@ GeomLinerange <- ggproto(
 #'  [stat_summary()] for examples of these guys in use,
 #'  [geom_smooth()] for continuous analogue
 #' @export
-#' @inheritParams layer
-#' @inheritParams geom_bar
+#' @inheritParams shared_layer_parameters
 #' @examples
 #' # Create a simple example dataset
 #' df <- data.frame(

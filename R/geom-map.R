@@ -15,8 +15,7 @@ NULL
 #'   typically be created using [fortify()] on a spatial object.
 #'   It must contain columns `x` or `long`, `y` or
 #'   `lat`, and `region` or `id`.
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @examples
 #' # First, a made-up example containing a few polygons, to explain
 #' # how `geom_map()` works. It requires two data frames:
@@ -89,20 +88,31 @@ NULL
 #'    ) +
 #'    facet_wrap(~variable)
 #' }
-geom_map <- function(mapping = NULL, data = NULL,
-                     stat = "identity",
-                     ...,
-                     map,
-                     na.rm = FALSE,
-                     show.legend = NA,
-                     inherit.aes = TRUE) {
+geom_map <- function(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  ...,
+  map,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+) {
   # Get map input into correct form
   check_data_frame(map)
-  if (!is.null(map$lat)) map$y <- map$lat
-  if (!is.null(map$long)) map$x <- map$long
-  if (!is.null(map$region)) map$id <- map$region
+  if (!is.null(map$lat)) {
+    map$y <- map$lat
+  }
+  if (!is.null(map$long)) {
+    map$x <- map$long
+  }
+  if (!is.null(map$region)) {
+    map$id <- map$region
+  }
   if (!all(c("x", "y", "id") %in% names(map))) {
-    cli::cli_abort("{.arg map} must have the columns {.col x}, {.col y}, and {.col id}.")
+    cli::cli_abort(
+      "{.arg map} must have the columns {.col x}, {.col y}, and {.col id}."
+    )
   }
 
   layer(
@@ -125,9 +135,18 @@ geom_map <- function(mapping = NULL, data = NULL,
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomMap <- ggproto("GeomMap", GeomPolygon,
-  draw_panel = function(data, panel_params, coord, lineend = "butt",
-                        linejoin = "round", linemitre = 10, map) {
+GeomMap <- ggproto(
+  "GeomMap",
+  GeomPolygon,
+  draw_panel = function(
+    data,
+    panel_params,
+    coord,
+    lineend = "butt",
+    linejoin = "round",
+    linemitre = 10,
+    map
+  ) {
     # Only use matching data and map ids
     common <- intersect(data$map_id, map$id)
     data <- data[data$map_id %in% common, , drop = FALSE]
@@ -143,14 +162,21 @@ GeomMap <- ggproto("GeomMap", GeomPolygon,
     data_rows <- match(coords$id[!duplicated(grob_id)], data$map_id)
     data <- data[data_rows, , drop = FALSE]
 
-    polygonGrob(coords$x, coords$y, default.units = "native", id = grob_id,
-      gp = gg_par(
-        col = data$colour,
-        fill = fill_alpha(data$fill, data$alpha),
-        lwd = data$linewidth,
-        lineend = lineend,
-        linejoin = linejoin,
-        linemitre = linemitre
+    ggname(
+      "geom_map",
+      polygonGrob(
+        coords$x,
+        coords$y,
+        default.units = "native",
+        id = grob_id,
+        gp = gg_par(
+          col = data$colour,
+          fill = fill_alpha(data$fill, data$alpha),
+          lwd = data$linewidth,
+          lineend = lineend,
+          linejoin = linejoin,
+          linemitre = linemitre
+        )
       )
     )
   },

@@ -17,7 +17,6 @@ NULL
 #' @keywords internal
 #' @export
 new_guide <- function(..., available_aes = "any", super) {
-
   pf <- parent.frame()
   super <- validate_subclass(super, "Guide", env = pf)
 
@@ -40,7 +39,7 @@ new_guide <- function(..., available_aes = "any", super) {
   # Stop when some required parameters are missing.
   # This should only happen with mis-constructed guides
   required_params <- names(Guide$params)
-  missing_params  <- setdiff(required_params, names(params))
+  missing_params <- setdiff(required_params, names(params))
   if (length(missing_params) > 0) {
     cli::cli_abort(paste0(
       "The following parameter{?s} {?is/are} required for setting up a guide, ",
@@ -60,7 +59,8 @@ new_guide <- function(..., available_aes = "any", super) {
   vec_assert(params$order, 0L, size = 1L, arg = "order", call = pf)
 
   ggproto(
-    NULL, super,
+    NULL,
+    super,
     params = params,
     available_aes = available_aes
   )
@@ -170,13 +170,13 @@ Guide <- ggproto(
   #' * During build stages, a mutable copy of `params` holds information
   #'   about the guide.
   params = list(
-    title     = waiver(),
-    theme     = NULL,
-    name      = character(),
-    position  = waiver(),
+    title = waiver(),
+    theme = NULL,
+    name = character(),
+    position = waiver(),
     direction = NULL,
-    order     = 0,
-    hash      = character()
+    order = 0,
+    hash = character()
   ),
 
   #' @field available_aes A character vector of aesthetic names for which the
@@ -232,7 +232,7 @@ Guide <- ggproto(
   #' A modified list of parameters
   train = function(self, params = self$params, scale, aesthetic = NULL, ...) {
     params$aesthetic <- aesthetic %||% scale$aesthetics[1]
-    params$key   <- inject(self$extract_key(scale, !!!params))
+    params$key <- inject(self$extract_key(scale, !!!params))
     if (is.null(params$key)) {
       return(NULL)
     }
@@ -240,7 +240,11 @@ Guide <- ggproto(
     params <- self$extract_params(scale, params, ...)
     # Make hash
     # TODO: Maybe we only need the hash on demand during merging?
-    params$hash <- hash(lapply(unname(self$hashables), eval_tidy, data = params))
+    params$hash <- hash(lapply(
+      unname(self$hashables),
+      eval_tidy,
+      data = params
+    ))
     params
   },
 
@@ -497,17 +501,21 @@ Guide <- ggproto(
   #' **Value**
   #'
   #' A grob with the guide.
-  draw = function(self, theme, position = NULL, direction = NULL,
-                  params = self$params) {
-
+  draw = function(
+    self,
+    theme,
+    position = NULL,
+    direction = NULL,
+    params = self$params
+  ) {
     # Setup parameters
     params <- replace_null(params, position = position, direction = direction)
     params <- self$setup_params(params)
-    key    <- params$key
+    key <- params$key
 
     # Setup style options
-    elems  <- self$setup_elements(params, self$elements, theme)
-    elems  <- self$override_elements(params, elems, theme)
+    elems <- self$setup_elements(params, self$elements, theme)
+    elems <- self$override_elements(params, elems, theme)
 
     # Allow early exit when key is empty
     if (prod(dim(key)) == 0) {
@@ -517,8 +525,8 @@ Guide <- ggproto(
 
     # Build grobs
     grobs <- list(
-      title  = self$build_title(params$title, elems, params),
-      ticks  = self$build_ticks(key, elems, params)
+      title = self$build_title(params$title, elems, params),
+      ticks = self$build_ticks(key, elems, params)
     )
     if (params$draw_label %||% TRUE) {
       grobs$labels <- self$build_labels(key, elems, params)
@@ -528,7 +536,7 @@ Guide <- ggproto(
     grobs$decor <- self$build_decor(params$decor, grobs, elems, params)
 
     # Arrange and assemble grobs
-    sizes  <- self$measure_grobs(grobs, params, elems)
+    sizes <- self$measure_grobs(grobs, params, elems)
     layout <- self$arrange_layout(key, sizes, params, elems)
     self$assemble_drawing(grobs, layout, sizes, params, elems)
   },
@@ -617,7 +625,7 @@ Guide <- ggproto(
   #' A list of elements or resolved theme settings.
   setup_elements = function(params, elements, theme) {
     theme <- add_theme(theme, params$theme)
-    is_char  <- vapply(elements, is.character, logical(1))
+    is_char <- vapply(elements, is.character, logical(1))
     elements[is_char] <- lapply(elements[is_char], calc_element, theme = theme)
     elements
   },
@@ -658,7 +666,7 @@ Guide <- ggproto(
       "guide.title",
       element_grob(
         elements$title,
-        label    = label,
+        label = label,
         margin_x = TRUE,
         margin_y = TRUE
       )
@@ -695,8 +703,13 @@ Guide <- ggproto(
   #' **Value**
   #'
   #' A grob representing tick marks.
-  build_ticks = function(key, elements, params, position = params$position,
-                         length = elements$ticks_length) {
+  build_ticks = function(
+    key,
+    elements,
+    params,
+    position = params$position,
+    length = elements$ticks_length
+  ) {
     force(length)
 
     # TODO: position logic is crooked, should this be reversed?
@@ -734,7 +747,8 @@ Guide <- ggproto(
     # Build grob
     flip_element_grob(
       elements,
-      x = tick, y = mark,
+      x = tick,
+      y = mark,
       id.lengths = rep(2, n_breaks),
       flip = position %in% c("top", "bottom")
     )
@@ -926,32 +940,36 @@ Guide <- ggproto(
       return(gtable)
     }
 
-    title_width_cm  <- width_cm(title)
+    title_width_cm <- width_cm(title)
     title_height_cm <- height_cm(title)
 
     # Add extra row/col for title
     gtable <- switch(
       position,
-      top    = gtable_add_rows(gtable, unit(title_height_cm, "cm"), pos =  0),
-      right  = gtable_add_cols(gtable, unit(title_width_cm,  "cm"), pos = -1),
+      top = gtable_add_rows(gtable, unit(title_height_cm, "cm"), pos = 0),
+      right = gtable_add_cols(gtable, unit(title_width_cm, "cm"), pos = -1),
       bottom = gtable_add_rows(gtable, unit(title_height_cm, "cm"), pos = -1),
-      left   = gtable_add_cols(gtable, unit(title_width_cm,  "cm"), pos =  0)
+      left = gtable_add_cols(gtable, unit(title_width_cm, "cm"), pos = 0)
     )
 
     # Add title
     args <- switch(
       position,
-      top    = list(t =  1, l =  1, r = -1, b =  1),
-      right  = list(t =  1, l = -1, r = -1, b = -1),
-      bottom = list(t = -1, l =  1, r = -1, b = -1),
-      left   = list(t =  1, l =  1, r =  1, b = -1),
+      top = list(t = 1, l = 1, r = -1, b = 1),
+      right = list(t = 1, l = -1, r = -1, b = -1),
+      bottom = list(t = -1, l = 1, r = -1, b = -1),
+      left = list(t = 1, l = 1, r = 1, b = -1),
     )
     gtable <- inject(gtable_add_grob(
-      x = gtable, grobs = title, !!!args, z = -Inf, name = "title", clip = "off"
+      x = gtable,
+      grobs = title,
+      !!!args,
+      z = -Inf,
+      name = "title",
+      clip = "off"
     ))
 
     if (position %in% c("top", "bottom")) {
-
       if (any(unitType(gtable$widths) == "null")) {
         # Don't need to add extra title size for stretchy legends
         return(gtable)
@@ -962,11 +980,9 @@ Guide <- ggproto(
         return(gtable)
       }
       extra_width <- unit((c(1, -1) * just$hjust + c(0, 1)) * extra_width, "cm")
-      gtable <- gtable_add_cols(gtable, extra_width[1], pos =  0)
+      gtable <- gtable_add_cols(gtable, extra_width[1], pos = 0)
       gtable <- gtable_add_cols(gtable, extra_width[2], pos = -1)
-
     } else {
-
       if (any(unitType(gtable$heights) == "null")) {
         # Don't need to add extra title size for stretchy legends
         return(gtable)
@@ -976,8 +992,11 @@ Guide <- ggproto(
       if (extra_height == 0) {
         return(gtable)
       }
-      extra_height <- unit((c(-1, 1) * just$vjust + c(1, 0)) * extra_height, "cm")
-      gtable <- gtable_add_rows(gtable, extra_height[1], pos =  0)
+      extra_height <- unit(
+        (c(-1, 1) * just$vjust + c(1, 0)) * extra_height,
+        "cm"
+      )
+      gtable <- gtable_add_rows(gtable, extra_height[1], pos = 0)
       gtable <- gtable_add_rows(gtable, extra_height[2], pos = -1)
     }
 
@@ -1002,12 +1021,12 @@ flip_element_grob <- function(..., flip = FALSE) {
 
 # The flippable arguments for `flip_element_grob()`.
 flip_names <- c(
-  "x"        = "y",
-  "y"        = "x",
-  "width"    = "height",
-  "height"   = "width",
-  "hjust"    = "vjust",
-  "vjust"    = "hjust",
+  "x" = "y",
+  "y" = "x",
+  "width" = "height",
+  "height" = "width",
+  "hjust" = "vjust",
+  "vjust" = "hjust",
   "margin_x" = "margin_y",
   "margin_y" = "margin_x"
 )
@@ -1018,10 +1037,10 @@ flip_names <- c(
 opposite_position <- function(position) {
   switch(
     position,
-    top    = "bottom",
+    top = "bottom",
     bottom = "top",
-    left   = "right",
-    right  = "left",
+    left = "right",
+    right = "left",
     position
   )
 }

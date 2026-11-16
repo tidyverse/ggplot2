@@ -4,7 +4,8 @@
 #' @export
 #' @include geom-rect.R
 GeomBar <- ggproto(
-  "GeomBar", GeomRect,
+  "GeomBar",
+  GeomRect,
   required_aes = c("x", "y"),
 
   # These aes columns are created by setup_data(). They need to be listed here so
@@ -25,20 +26,34 @@ GeomBar <- ggproto(
     data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
     data <- compute_data_size(
-      data, size = params$width,
-      default = self$default_aes$width, zero = FALSE
+      data,
+      size = params$width,
+      default = self$default_aes$width,
+      zero = FALSE
     )
     data$just <- params$just %||% 0.5
-    data <- transform(data,
-                      ymin = pmin(y, 0), ymax = pmax(y, 0),
-                      xmin = x - width * just, xmax = x + width * (1 - just),
-                      width = NULL, just = NULL
+    data <- transform(
+      data,
+      ymin = pmin(y, 0),
+      ymax = pmax(y, 0),
+      xmin = x - width * just,
+      xmax = x + width * (1 - just),
+      width = NULL,
+      just = NULL
     )
     flip_data(data, params$flipped_aes)
   },
 
   rename_size = FALSE
 )
+
+#' @rdname Geom
+#' @format NULL
+#' @usage NULL
+#' @export
+#' @include geom-rect.R
+# TODO: deprecate this
+GeomCol <- ggproto("GeomCol", GeomBar)
 
 #' Bar charts
 #'
@@ -66,7 +81,7 @@ GeomBar <- ggproto(
 #' [position_fill()] shows relative proportions at each `x` by stacking the
 #' bars and then standardising each bar to have the same height.
 #'
-#' @eval rd_orientation()
+#' @inheritSection shared_layer_parameters Orientation
 #'
 #' @aesthetics GeomBar
 #' @aesthetics GeomCol
@@ -76,12 +91,7 @@ GeomBar <- ggproto(
 #'   [position_dodge()] and [position_dodge2()] for creating side-by-side
 #'   bar charts.
 #' @export
-#' @inheritParams layer
-#' @inheritParams geom_point
-#' @param orientation The orientation of the layer. The default (`NA`)
-#' automatically determines the orientation from the aesthetic mapping. In the
-#' rare event that this fails it can be given explicitly by setting `orientation`
-#' to either `"x"` or `"y"`. See the *Orientation* section for more detail.
+#' @inheritParams shared_layer_parameters
 #' @param just Adjustment for column placement. Set to `0.5` by default, meaning
 #'   that columns will be centered about axis breaks. Set to `0` or `1` to place
 #'   columns to the left/right of axis breaks. Note that this argument may have
@@ -90,8 +100,6 @@ GeomBar <- ggproto(
 #' @param geom,stat Override the default connection between `geom_bar()` and
 #'   `stat_count()`. For more information about overriding these connections,
 #'   see how the [stat][layer_stats] and [geom][layer_geoms] arguments work.
-#' @param lineend Line end style (round, butt, square).
-#' @param linejoin Line join style (round, mitre, bevel).
 #' @examples
 #' # geom_bar is designed to make it easy to create bar charts that show
 #' # counts (or sums of weights)
@@ -138,5 +146,11 @@ GeomBar <- ggproto(
 #' ggplot(df, aes(x, y)) + geom_col(just = 1)
 geom_bar <- make_constructor(
   GeomBar,
-  stat = "count", position = "stack", just = 0.5
+  stat = "count",
+  position = "stack",
+  just = 0.5
 )
+
+#' @export
+#' @rdname geom_bar
+geom_col <- make_constructor(GeomCol, position = "stack", just = 0.5)

@@ -9,6 +9,7 @@ position_jitterdodge(
   jitter.height = 0,
   dodge.width = 0.75,
   reverse = FALSE,
+  preserve = "total",
   seed = NA
 )
 }
@@ -23,6 +24,9 @@ the default \code{position_dodge()} width.}
 
 \item{reverse}{If \code{TRUE}, will reverse the default stacking order.
 This is useful if you're rotating both the plot and legend.}
+
+\item{preserve}{Should dodging preserve the \code{"total"} width of all elements
+at a position, or the width of a \code{"single"} element?}
 
 \item{seed}{A random seed to make the jitter reproducible.
 Useful if you need to apply the same jitter twice, e.g., for a point and
@@ -46,11 +50,11 @@ ggplot(dsub, aes(x = cut, y = carat, fill = clarity)) +
   geom_point(pch = 21, position = position_jitterdodge())
 }
 \seealso{
-Other position adjustments: 
-\code{\link{position_dodge}()},
-\code{\link{position_identity}()},
-\code{\link{position_jitter}()},
-\code{\link{position_nudge}()},
-\code{\link{position_stack}()}
+Other position adjustments:
+\code{\link[=position_dodge]{position_dodge()}},
+\code{\link[=position_identity]{position_identity()}},
+\code{\link[=position_jitter]{position_jitter()}},
+\code{\link[=position_nudge]{position_nudge()}},
+\code{\link[=position_stack]{position_stack()}}
 }
 \concept{position adjustments}

@@ -2,7 +2,6 @@
 % Please edit documentation in R/scale-.R, R/scale-binned.R,
 %   R/scale-continuous.R, R/scale-date.R, R/scale-discrete-.R,
 %   R/scale-identity.R
-\docType{data}
 \name{Scale}
 \alias{Scale}
 \alias{ScaleContinuous}
@@ -65,7 +64,7 @@ In such case, you can override the following:
 \section{Fields}{
 
 \describe{
-\item{\code{call}}{A \link[=call]{call} object with the user-facing constructor
+\item{\code{call}}{A \link{call} object with the user-facing constructor
 function, for use in error messaging. This field is populated by scale
 constructors.}
 
@@ -208,7 +207,7 @@ occupied by the mapped breaks, which by default take integer positions.
 
 \strong{Arguments}
 \describe{
-\item{\code{expand}}{A length 4 vector giving scale \link[=expansion]{expansion}.
+\item{\code{expand}}{A length 4 vector giving scale \link{expansion}.
 This is optional and defaults to no expansion.}
 \item{\code{limits}}{A vector of the relevant aesthetic, usually via
 the \code{get_limits()} method.}
@@ -447,5 +446,4 @@ types of constructor.
 # TODO: find easy to digest example
 NULL
 }
-\keyword{datasets}
 \keyword{internal}

@@ -11,7 +11,6 @@ test_that("points outside the limits are plotted as NA", {
 })
 
 test_that("midpoints are transformed", {
-
   scale <- scale_colour_gradient2(midpoint = 1, transform = "identity")
   scale$train(c(0, 3))
   expect_equal(scale$rescale(c(0, 3)), c(0.25, 1))

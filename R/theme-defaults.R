@@ -104,12 +104,16 @@ NULL
 #' @include theme.R
 #' @export
 #' @rdname ggtheme
-theme_grey <- function(base_size = 11, base_family = "",
-                       header_family = NULL,
-                       base_line_size = base_size / 22,
-                       base_rect_size = base_size / 22,
-                       ink = "black", paper = "white", accent = "#3366FF") {
-
+theme_grey <- function(
+  base_size = 11,
+  base_family = "",
+  header_family = NULL,
+  base_line_size = base_size / 22,
+  base_rect_size = base_size / 22,
+  ink = "black",
+  paper = "white",
+  accent = "#3366FF"
+) {
   # The half-line (base-fontsize / 2) sets up the basic vertical
   # rhythm of the theme. Most margins will be set to this value.
   # However, when we work with relative sizes, we may want to multiply
@@ -125,58 +129,97 @@ theme_grey <- function(base_size = 11, base_family = "",
   t <- theme(
     # Elements in this first block aren't used directly, but are inherited
     # by others
-    line =               element_line(
-                           colour = ink, linewidth = base_line_size,
-                           linetype = 1, lineend = "butt", linejoin = "round"
-                         ),
-    rect =               element_rect(
-                           fill = paper, colour = ink,
-                           linewidth = base_rect_size, linetype = 1,
-                           linejoin = "round"
-                         ),
-    text =               element_text(
-                            family = base_family, face = "plain",
-                            colour = ink, size = base_size,
-                            lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0,
-                            margin = margin(), debug = FALSE
-                         ),
+    line = element_line(
+      colour = ink,
+      linewidth = base_line_size,
+      linetype = 1,
+      lineend = "butt",
+      linejoin = "round"
+    ),
+    rect = element_rect(
+      fill = paper,
+      colour = ink,
+      linewidth = base_rect_size,
+      linetype = 1,
+      linejoin = "round"
+    ),
+    text = element_text(
+      family = base_family,
+      face = "plain",
+      colour = ink,
+      size = base_size,
+      lineheight = 0.9,
+      hjust = 0.5,
+      vjust = 0.5,
+      angle = 0,
+      margin = margin(),
+      debug = FALSE
+    ),
 
-    title =              element_text(family = header_family),
+    title = element_text(family = header_family),
 
     spacing = unit(half_line, "pt"),
     margins = margin_auto(half_line),
 
-    point =              element_point(
-                           colour = ink, shape = 19, fill = paper,
-                           size = (base_size / 11) * 1.5,
-                           stroke = base_line_size
-                         ),
+    point = element_point(
+      colour = ink,
+      shape = 19,
+      fill = paper,
+      size = (base_size / 11) * 1.5,
+      stroke = base_line_size
+    ),
 
-    polygon =            element_polygon(
-                           fill = paper, colour = ink,
-                           linewidth = base_rect_size, linetype = 1, linejoin = "round"
-                         ),
+    polygon = element_polygon(
+      fill = paper,
+      colour = ink,
+      linewidth = base_rect_size,
+      linetype = 1,
+      linejoin = "round"
+    ),
 
-    geom =               element_geom(
-                           ink = ink, paper = paper, accent = accent,
-                           linewidth = base_line_size, borderwidth = base_line_size,
-                           linetype = 1L, bordertype = 1L,
-                           family = base_family, fontsize = base_size,
-                           pointsize = (base_size / 11) * 1.5, pointshape = 19
-                         ),
+    geom = element_geom(
+      ink = ink,
+      paper = paper,
+      accent = accent,
+      linewidth = base_line_size,
+      borderwidth = base_line_size,
+      linetype = 1L,
+      bordertype = 1L,
+      family = base_family,
+      fontsize = base_size,
+      pointsize = (base_size / 11) * 1.5,
+      pointshape = 19
+    ),
 
-    axis.line =          element_blank(),
-    axis.line.x =        NULL,
-    axis.line.y =        NULL,
-    axis.text =          element_text(size = rel(0.8), colour = col_mix(ink, paper, 0.302)),
-    axis.text.x =        element_text(margin = margin(t = 0.8 * half_line / 2), vjust = 1),
-    axis.text.x.top =    element_text(margin = margin(b = 0.8 * half_line / 2), vjust = 0),
-    axis.text.y =        element_text(margin = margin(r = 0.8 * half_line / 2), hjust = 1),
-    axis.text.y.right =  element_text(margin = margin(l = 0.8 * half_line / 2), hjust = 0),
-    axis.text.r =        element_text(margin = margin(l = 0.8 * half_line / 2, r = 0.8 * half_line / 2),
-                                      hjust = 0.5),
-    axis.ticks =         element_line(colour = col_mix(ink, paper, 0.2)),
-    axis.ticks.length =  rel(0.5),
+    axis.line = element_blank(),
+    axis.line.x = NULL,
+    axis.line.y = NULL,
+    axis.text = element_text(
+      size = rel(0.8),
+      colour = col_mix(ink, paper, 0.302)
+    ),
+    axis.text.x = element_text(
+      margin = margin(t = 0.8 * half_line / 2),
+      vjust = 1
+    ),
+    axis.text.x.top = element_text(
+      margin = margin(b = 0.8 * half_line / 2),
+      vjust = 0
+    ),
+    axis.text.y = element_text(
+      margin = margin(r = 0.8 * half_line / 2),
+      hjust = 1
+    ),
+    axis.text.y.right = element_text(
+      margin = margin(l = 0.8 * half_line / 2),
+      hjust = 0
+    ),
+    axis.text.r = element_text(
+      margin = margin(l = 0.8 * half_line / 2, r = 0.8 * half_line / 2),
+      hjust = 0.5
+    ),
+    axis.ticks = element_line(colour = col_mix(ink, paper, 0.2)),
+    axis.ticks.length = rel(0.5),
     axis.ticks.length.x = NULL,
     axis.ticks.length.x.top = NULL,
     axis.ticks.length.x.bottom = NULL,
@@ -184,94 +227,107 @@ theme_grey <- function(base_size = 11, base_family = "",
     axis.ticks.length.y.left = NULL,
     axis.ticks.length.y.right = NULL,
     axis.minor.ticks.length = rel(0.75),
-    axis.title.x =       element_text(
-                           margin = margin(t = half_line / 2),
-                           vjust = 1
-                         ),
-    axis.title.x.top =   element_text(
-                           margin = margin(b = half_line / 2),
-                           vjust = 0
-                         ),
-    axis.title.y =       element_text(
-                           angle = 90,
-                           margin = margin(r = half_line / 2),
-                           vjust = 1
-                         ),
+    axis.title.x = element_text(
+      margin = margin(t = half_line / 2),
+      vjust = 1
+    ),
+    axis.title.x.top = element_text(
+      margin = margin(b = half_line / 2),
+      vjust = 0
+    ),
+    axis.title.y = element_text(
+      angle = 90,
+      margin = margin(r = half_line / 2),
+      vjust = 1
+    ),
     axis.title.y.right = element_text(
-                           angle = -90,
-                           margin = margin(l = half_line / 2),
-                           vjust = 1
-                         ),
+      angle = -90,
+      margin = margin(l = half_line / 2),
+      vjust = 1
+    ),
 
-    legend.background =  element_rect(colour = NA),
-    legend.spacing =     rel(2),
-    legend.spacing.x =    NULL,
-    legend.spacing.y =    NULL,
-    legend.margin =      NULL,
-    legend.key =         NULL,
-    legend.key.size =    unit(1.2, "lines"),
-    legend.key.height =  NULL,
-    legend.key.width =   NULL,
+    legend.background = element_rect(colour = NA),
+    legend.spacing = rel(2),
+    legend.spacing.x = NULL,
+    legend.spacing.y = NULL,
+    legend.margin = NULL,
+    legend.key = NULL,
+    legend.key.size = unit(1.2, "lines"),
+    legend.key.height = NULL,
+    legend.key.width = NULL,
     legend.key.spacing = NULL,
-    legend.text =        element_text(size = rel(0.8)),
-    legend.title =       element_text(hjust = 0),
+    legend.text = element_text(size = rel(0.8)),
+    legend.title = element_text(hjust = 0),
     legend.ticks.length = rel(0.2),
-    legend.position =    "right",
-    legend.direction =   NULL,
+    legend.position = "right",
+    legend.direction = NULL,
     legend.justification = "center",
-    legend.box =         NULL,
-    legend.box.margin =  margin_auto(0),
+    legend.box = NULL,
+    legend.box.margin = margin_auto(0),
     legend.box.background = element_blank(),
     legend.box.spacing = rel(2),
 
-    panel.background =   element_rect(fill = col_mix(ink, paper, 0.92), colour = NA),
-    panel.border =       element_blank(),
-    panel.grid =         element_line(colour = paper),
-    panel.grid.minor =   element_line(linewidth = rel(0.5)),
-    panel.spacing =      NULL,
-    panel.spacing.x =    NULL,
-    panel.spacing.y =    NULL,
-    panel.ontop    =     FALSE,
+    panel.background = element_rect(
+      fill = col_mix(ink, paper, 0.92),
+      colour = NA
+    ),
+    panel.border = element_blank(),
+    panel.grid = element_line(colour = paper),
+    panel.grid.minor = element_line(linewidth = rel(0.5)),
+    panel.spacing = NULL,
+    panel.spacing.x = NULL,
+    panel.spacing.y = NULL,
+    panel.ontop = FALSE,
 
-    strip.background =   element_rect(fill = col_mix(ink, paper, 0.85), colour = NA),
-    strip.clip =         "on",
-    strip.text =         element_text(
-                           colour = col_mix(ink, paper, 0.1),
-                           size = rel(0.8),
-                           margin = margin_auto(0.8 * half_line)
-                         ),
-    strip.text.x =       NULL,
-    strip.text.y =       element_text(angle = -90),
-    strip.text.y.left =  element_text(angle = 90),
-    strip.placement =    "inside",
-    strip.placement.x =  NULL,
-    strip.placement.y =  NULL,
+    strip.background = element_rect(
+      fill = col_mix(ink, paper, 0.85),
+      colour = NA
+    ),
+    strip.clip = "on",
+    strip.text = element_text(
+      colour = col_mix(ink, paper, 0.1),
+      size = rel(0.8),
+      margin = margin_auto(0.8 * half_line)
+    ),
+    strip.text.x = NULL,
+    strip.text.y = element_text(angle = -90),
+    strip.text.y.left = element_text(angle = 90),
+    strip.placement = "inside",
+    strip.placement.x = NULL,
+    strip.placement.y = NULL,
     strip.switch.pad.grid = unit(half_line / 2, "pt"),
     strip.switch.pad.wrap = unit(half_line / 2, "pt"),
 
-    plot.background =    element_rect(colour = paper),
-    plot.title =         element_text( # font size "large"
-                           size = rel(1.2),
-                           hjust = 0, vjust = 1,
-                           margin = margin(b = half_line)
-                         ),
+    plot.background = element_rect(colour = paper),
+    plot.title = element_text(
+      # font size "large"
+      size = rel(1.2),
+      hjust = 0,
+      vjust = 1,
+      margin = margin(b = half_line)
+    ),
     plot.title.position = "panel",
-    plot.subtitle =      element_text( # font size "regular"
-                           hjust = 0, vjust = 1,
-                           margin = margin(b = half_line)
-                         ),
-    plot.caption =       element_text( # font size "small"
-                           size = rel(0.8),
-                           hjust = 1, vjust = 1,
-                           margin = margin(t = half_line)
-                         ),
+    plot.subtitle = element_text(
+      # font size "regular"
+      hjust = 0,
+      vjust = 1,
+      margin = margin(b = half_line)
+    ),
+    plot.caption = element_text(
+      # font size "small"
+      size = rel(0.8),
+      hjust = 1,
+      vjust = 1,
+      margin = margin(t = half_line)
+    ),
     plot.caption.position = "panel",
-    plot.tag =           element_text(
-                           size = rel(1.2),
-                           hjust = 0.5, vjust = 0.5
-                         ),
-    plot.tag.position =  'topleft',
-    plot.margin =        NULL,
+    plot.tag = element_text(
+      size = rel(1.2),
+      hjust = 0.5,
+      vjust = 0.5
+    ),
+    plot.tag.position = 'topleft',
+    plot.margin = NULL,
 
     complete = TRUE
   )
@@ -285,11 +341,16 @@ theme_gray <- theme_grey
 
 #' @export
 #' @rdname ggtheme
-theme_bw <- function(base_size = 11, base_family = "",
-                     header_family = NULL,
-                     base_line_size = base_size / 22,
-                     base_rect_size = base_size / 22,
-                     ink = "black", paper = "white", accent = "#3366FF") {
+theme_bw <- function(
+  base_size = 11,
+  base_family = "",
+  header_family = NULL,
+  base_line_size = base_size / 22,
+  base_rect_size = base_size / 22,
+  ink = "black",
+  paper = "white",
+  accent = "#3366FF"
+) {
   # Starts with theme_grey and then modify some parts
   theme_grey(
     base_size = base_size,
@@ -297,18 +358,20 @@ theme_bw <- function(base_size = 11, base_family = "",
     header_family = header_family,
     base_line_size = base_line_size,
     base_rect_size = base_rect_size,
-    ink = ink, paper = paper, accent = accent
+    ink = ink,
+    paper = paper,
+    accent = accent
   ) %+replace%
     theme(
       # white background and dark border
       panel.background = element_rect(fill = paper, colour = NA),
-      panel.border     = element_rect(colour = col_mix(ink, paper, 0.2)),
+      panel.border = element_rect(colour = col_mix(ink, paper, 0.2)),
       # make gridlines dark, same contrast with white as in theme_grey
       panel.grid = element_line(colour = col_mix(ink, paper, 0.92)),
       panel.grid.minor = element_line(linewidth = rel(0.5)),
       # contour strips to match panel contour
       strip.background = element_rect(
-        fill   = col_mix(ink, paper, 0.851),
+        fill = col_mix(ink, paper, 0.851),
         colour = col_mix(ink, paper, 0.2)
       ),
 
@@ -318,11 +381,16 @@ theme_bw <- function(base_size = 11, base_family = "",
 
 #' @export
 #' @rdname ggtheme
-theme_linedraw <- function(base_size = 11, base_family = "",
-                           header_family = NULL,
-                           base_line_size = base_size / 22,
-                           base_rect_size = base_size / 22,
-                           ink = "black", paper = "white", accent = "#3366FF") {
+theme_linedraw <- function(
+  base_size = 11,
+  base_family = "",
+  header_family = NULL,
+  base_line_size = base_size / 22,
+  base_rect_size = base_size / 22,
+  ink = "black",
+  paper = "white",
+  accent = "#3366FF"
+) {
   half_line <- base_size / 2
 
   # Starts with theme_bw and then modify some parts
@@ -333,28 +401,30 @@ theme_linedraw <- function(base_size = 11, base_family = "",
     header_family = header_family,
     base_line_size = base_line_size,
     base_rect_size = base_rect_size,
-    ink = ink, paper = paper, accent = accent
+    ink = ink,
+    paper = paper,
+    accent = accent
   ) %+replace%
     theme(
       # black text and ticks on the axes
-      axis.text        = element_text(colour = ink, size = rel(0.8)),
-      axis.ticks       = element_line(colour = ink, linewidth = rel(0.5)),
+      axis.text = element_text(colour = ink, size = rel(0.8)),
+      axis.ticks = element_line(colour = ink, linewidth = rel(0.5)),
       # NB: match the *visual* thickness of axis ticks to the panel border
       #     0.5 clipped looks like 0.25
 
       # pure black panel border and grid lines, but thinner
-      panel.border     = element_rect(colour = ink, linewidth = rel(1)),
-      panel.grid       = element_line(colour = ink),
+      panel.border = element_rect(colour = ink, linewidth = rel(1)),
+      panel.grid = element_line(colour = ink),
       panel.grid.major = element_line(linewidth = rel(0.1)),
       panel.grid.minor = element_line(linewidth = rel(0.05)),
 
       # strips with black background and white text
       strip.background = element_rect(fill = ink),
-      strip.text       = element_text(
-                           colour = paper,
-                           size = rel(0.8),
-                           margin = margin_auto(0.8 * half_line)
-                         ),
+      strip.text = element_text(
+        colour = paper,
+        size = rel(0.8),
+        margin = margin_auto(0.8 * half_line)
+      ),
 
       complete = TRUE
     )
@@ -362,11 +432,16 @@ theme_linedraw <- function(base_size = 11, base_family = "",
 
 #' @export
 #' @rdname ggtheme
-theme_light <- function(base_size = 11, base_family = "",
-                        header_family = NULL,
-                        base_line_size = base_size / 22,
-                        base_rect_size = base_size / 22,
-                        ink = "black", paper = "white", accent = "#3366FF") {
+theme_light <- function(
+  base_size = 11,
+  base_family = "",
+  header_family = NULL,
+  base_line_size = base_size / 22,
+  base_rect_size = base_size / 22,
+  ink = "black",
+  paper = "white",
+  accent = "#3366FF"
+) {
   half_line <- base_size / 2
 
   # Starts with theme_grey and then modify some parts
@@ -376,41 +451,56 @@ theme_light <- function(base_size = 11, base_family = "",
     header_family = header_family,
     base_line_size = base_line_size,
     base_rect_size = base_rect_size,
-    ink = ink, paper = paper, accent = accent
+    ink = ink,
+    paper = paper,
+    accent = accent
   ) %+replace%
     theme(
       # white panel with light grey border
       panel.background = element_rect(fill = paper, colour = NA),
-      panel.border     = element_rect(colour = col_mix(ink, paper, 0.702), linewidth = rel(1)),
+      panel.border = element_rect(
+        colour = col_mix(ink, paper, 0.702),
+        linewidth = rel(1)
+      ),
       # light grey, thinner gridlines
       # => make them slightly darker to keep acceptable contrast
-      panel.grid       = element_line(colour = col_mix(ink, paper, 0.871)),
+      panel.grid = element_line(colour = col_mix(ink, paper, 0.871)),
       panel.grid.major = element_line(linewidth = rel(0.5)),
       panel.grid.minor = element_line(linewidth = rel(0.25)),
 
       # match axes ticks thickness to gridlines and colour to panel border
-      axis.ticks       = element_line(colour = col_mix(ink, paper, 0.702), linewidth = rel(0.5)),
+      axis.ticks = element_line(
+        colour = col_mix(ink, paper, 0.702),
+        linewidth = rel(0.5)
+      ),
 
       # dark strips with light text (inverse contrast compared to theme_grey)
-      strip.background = element_rect(fill = col_mix(ink, paper, 0.702), colour = NA),
-      strip.text       = element_text(
-                           colour = paper,
-                           size = rel(0.8),
-                           margin = margin_auto(0.8 * half_line)
-                         ),
+      strip.background = element_rect(
+        fill = col_mix(ink, paper, 0.702),
+        colour = NA
+      ),
+      strip.text = element_text(
+        colour = paper,
+        size = rel(0.8),
+        margin = margin_auto(0.8 * half_line)
+      ),
 
       complete = TRUE
     )
-
 }
 
 #' @export
 #' @rdname ggtheme
-theme_dark <- function(base_size = 11, base_family = "",
-                       header_family = NULL,
-                       base_line_size = base_size / 22,
-                       base_rect_size = base_size / 22,
-                       ink = "black", paper = "white", accent = "#3366FF") {
+theme_dark <- function(
+  base_size = 11,
+  base_family = "",
+  header_family = NULL,
+  base_line_size = base_size / 22,
+  base_rect_size = base_size / 22,
+  ink = "black",
+  paper = "white",
+  accent = "#3366FF"
+) {
   half_line <- base_size / 2
 
   # Starts with theme_grey and then modify some parts
@@ -420,27 +510,38 @@ theme_dark <- function(base_size = 11, base_family = "",
     header_family = header_family,
     base_line_size = base_line_size,
     base_rect_size = base_rect_size,
-    ink = ink, paper = paper, accent = accent
+    ink = ink,
+    paper = paper,
+    accent = accent
   ) %+replace%
     theme(
       # dark panel
-      panel.background = element_rect(fill = col_mix(ink, paper, 0.499), colour = NA),
+      panel.background = element_rect(
+        fill = col_mix(ink, paper, 0.499),
+        colour = NA
+      ),
       # inverse grid lines contrast compared to theme_grey
       # make them thinner and try to keep the same visual contrast as in theme_light
-      panel.grid       = element_line(colour = col_mix(ink, paper, 0.42)),
+      panel.grid = element_line(colour = col_mix(ink, paper, 0.42)),
       panel.grid.major = element_line(linewidth = rel(0.5)),
       panel.grid.minor = element_line(linewidth = rel(0.25)),
 
       # match axes ticks thickness to gridlines
-      axis.ticks       = element_line(colour = col_mix(ink, paper, 0.2), linewidth = rel(0.5)),
+      axis.ticks = element_line(
+        colour = col_mix(ink, paper, 0.2),
+        linewidth = rel(0.5)
+      ),
 
       # dark strips with light text (inverse contrast compared to theme_grey)
-      strip.background = element_rect(fill = col_mix(ink, paper, 0.15), colour = NA),
-      strip.text       = element_text(
-                           colour = col_mix(ink, paper, 0.899),
-                           size = rel(0.8),
-                           margin = margin_auto(0.8 * half_line)
-                         ),
+      strip.background = element_rect(
+        fill = col_mix(ink, paper, 0.15),
+        colour = NA
+      ),
+      strip.text = element_text(
+        colour = col_mix(ink, paper, 0.899),
+        size = rel(0.8),
+        margin = margin_auto(0.8 * half_line)
+      ),
 
       complete = TRUE
     )
@@ -448,11 +549,16 @@ theme_dark <- function(base_size = 11, base_family = "",
 
 #' @export
 #' @rdname ggtheme
-theme_minimal <- function(base_size = 11, base_family = "",
-                          header_family = NULL,
-                          base_line_size = base_size / 22,
-                          base_rect_size = base_size / 22,
-                          ink = "black", paper = "white", accent = "#3366FF") {
+theme_minimal <- function(
+  base_size = 11,
+  base_family = "",
+  header_family = NULL,
+  base_line_size = base_size / 22,
+  base_rect_size = base_size / 22,
+  ink = "black",
+  paper = "white",
+  accent = "#3366FF"
+) {
   # Starts with theme_bw and remove most parts
   theme_bw(
     base_size = base_size,
@@ -460,20 +566,22 @@ theme_minimal <- function(base_size = 11, base_family = "",
     header_family = header_family,
     base_line_size = base_line_size,
     base_rect_size = base_rect_size,
-    ink = ink, paper = paper, accent = accent
+    ink = ink,
+    paper = paper,
+    accent = accent
   ) %+replace%
     theme(
-      axis.ticks         = element_blank(), # Extra margins due to absence ticks
+      axis.ticks = element_blank(), # Extra margins due to absence ticks
       axis.text.x.bottom = element_text(margin = margin(t = 0.45 * base_size)),
-      axis.text.x.top    = element_text(margin = margin(b = 0.45 * base_size)),
-      axis.text.y.left   = element_text(margin = margin(r = 0.45 * base_size)),
-      axis.text.y.right  = element_text(margin = margin(l = 0.45 * base_size)),
+      axis.text.x.top = element_text(margin = margin(b = 0.45 * base_size)),
+      axis.text.y.left = element_text(margin = margin(r = 0.45 * base_size)),
+      axis.text.y.right = element_text(margin = margin(l = 0.45 * base_size)),
       legend.background = element_blank(),
-      legend.key        = element_blank(),
-      panel.background  = element_blank(),
-      panel.border      = element_blank(),
-      strip.background  = element_blank(),
-      plot.background   = element_rect(fill = paper, colour = NA),
+      legend.key = element_blank(),
+      panel.background = element_blank(),
+      panel.border = element_blank(),
+      strip.background = element_blank(),
+      plot.background = element_rect(fill = paper, colour = NA),
 
       complete = TRUE
     )
@@ -481,27 +589,34 @@ theme_minimal <- function(base_size = 11, base_family = "",
 
 #' @export
 #' @rdname ggtheme
-theme_classic <- function(base_size = 11, base_family = "",
-                          header_family = NULL,
-                          base_line_size = base_size / 22,
-                          base_rect_size = base_size / 22,
-                          ink = "black", paper = "white", accent = "#3366FF") {
+theme_classic <- function(
+  base_size = 11,
+  base_family = "",
+  header_family = NULL,
+  base_line_size = base_size / 22,
+  base_rect_size = base_size / 22,
+  ink = "black",
+  paper = "white",
+  accent = "#3366FF"
+) {
   theme_bw(
     base_size = base_size,
     base_family = base_family,
     header_family = header_family,
     base_line_size = base_line_size,
     base_rect_size = base_rect_size,
-    ink = ink, paper = paper, accent = accent
+    ink = ink,
+    paper = paper,
+    accent = accent
   ) %+replace%
     theme(
       # no background and no grid
       panel.border = element_blank(),
-      panel.grid   = element_blank(),
+      panel.grid = element_blank(),
 
       # show axes
-      axis.text  = element_text(size = rel(0.8)),
-      axis.line  = element_line(lineend = "square"),
+      axis.text = element_text(size = rel(0.8)),
+      axis.line = element_line(lineend = "square"),
       axis.ticks = element_line(),
 
       # simple, black and white strips
@@ -514,41 +629,62 @@ theme_classic <- function(base_size = 11, base_family = "",
 
 #' @export
 #' @rdname ggtheme
-theme_void <- function(base_size = 11, base_family = "",
-                       header_family = NULL,
-                       base_line_size = base_size / 22,
-                       base_rect_size = base_size / 22,
-                       ink = "black", paper = alpha(ink, 0), accent = "#3366FF") {
+theme_void <- function(
+  base_size = 11,
+  base_family = "",
+  header_family = NULL,
+  base_line_size = base_size / 22,
+  base_rect_size = base_size / 22,
+  ink = "black",
+  paper = alpha(ink, 0),
+  accent = "#3366FF"
+) {
   half_line <- base_size / 2
 
   # Only keep indispensable text: legend and plot titles
   t <- theme(
-    line =               element_blank(),
-    rect =               element_rect(
-                           fill = paper, colour = NA, linewidth = 0, linetype = 1,
-                           inherit.blank = FALSE, linejoin = "round"
-                         ),
-    polygon =            element_blank(),
-    point =              element_blank(),
-    text =               element_text(
-                            family = base_family, face = "plain",
-                            colour = ink, size = base_size,
-                            lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0,
-                            margin = margin(), debug = FALSE
-                         ),
-    title =              element_text(family = header_family),
-    spacing =            unit(half_line, "pt"),
-    margins =            margin_auto(half_line),
-    geom =               element_geom(
-                           ink = ink, paper = paper, accent = accent,
-                           linewidth = base_line_size, borderwidth = base_line_size,
-                           linetype = 1L, bordertype = 1L,
-                           family = base_family, fontsize = base_size,
-                           pointsize = (base_size / 11) * 1.5, pointshape = 19
-                         ),
-    axis.text =          element_blank(),
-    axis.title =         element_blank(),
-    axis.ticks.length =  rel(0),
+    line = element_blank(),
+    rect = element_rect(
+      fill = paper,
+      colour = NA,
+      linewidth = 0,
+      linetype = 1,
+      inherit.blank = FALSE,
+      linejoin = "round"
+    ),
+    polygon = element_blank(),
+    point = element_blank(),
+    text = element_text(
+      family = base_family,
+      face = "plain",
+      colour = ink,
+      size = base_size,
+      lineheight = 0.9,
+      hjust = 0.5,
+      vjust = 0.5,
+      angle = 0,
+      margin = margin(),
+      debug = FALSE
+    ),
+    title = element_text(family = header_family),
+    spacing = unit(half_line, "pt"),
+    margins = margin_auto(half_line),
+    geom = element_geom(
+      ink = ink,
+      paper = paper,
+      accent = accent,
+      linewidth = base_line_size,
+      borderwidth = base_line_size,
+      linetype = 1L,
+      bordertype = 1L,
+      family = base_family,
+      fontsize = base_size,
+      pointsize = (base_size / 11) * 1.5,
+      pointshape = 19
+    ),
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    axis.ticks.length = rel(0),
     axis.ticks.length.x = NULL,
     axis.ticks.length.x.top = NULL,
     axis.ticks.length.x.bottom = NULL,
@@ -556,51 +692,55 @@ theme_void <- function(base_size = 11, base_family = "",
     axis.ticks.length.y.left = NULL,
     axis.ticks.length.y.right = NULL,
     axis.minor.ticks.length = NULL,
-    legend.box =         NULL,
-    legend.key.size =    unit(1.2, "lines"),
-    legend.position =    "right",
-    legend.text =        element_text(size = rel(0.8)),
-    legend.title =       element_text(hjust = 0),
+    legend.box = NULL,
+    legend.key.size = unit(1.2, "lines"),
+    legend.position = "right",
+    legend.text = element_text(size = rel(0.8)),
+    legend.title = element_text(hjust = 0),
     legend.key.spacing = rel(1),
-    legend.margin =      margin_auto(0),
-    legend.box.margin =  margin_auto(0),
+    legend.margin = margin_auto(0),
+    legend.box.margin = margin_auto(0),
     legend.box.spacing = unit(0.2, "cm"),
     legend.ticks.length = rel(0.2),
-    legend.background =  element_blank(),
-    legend.frame =       element_blank(),
+    legend.background = element_blank(),
+    legend.frame = element_blank(),
     legend.box.background = element_blank(),
-    strip.clip =         "on",
-    strip.text =         element_text(size = rel(0.8)),
+    strip.clip = "on",
+    strip.text = element_text(size = rel(0.8)),
     strip.switch.pad.grid = rel(0.5),
     strip.switch.pad.wrap = rel(0.5),
-    strip.background =   element_blank(),
-    panel.ontop =        FALSE,
-    panel.spacing =      NULL,
-    panel.background =   element_blank(),
-    panel.border =       element_blank(),
-    plot.margin =        margin_auto(0),
-    plot.title =         element_text(
-                           size = rel(1.2),
-                           hjust = 0, vjust = 1,
-                           margin = margin(t = half_line)
-                         ),
+    strip.background = element_blank(),
+    panel.ontop = FALSE,
+    panel.spacing = NULL,
+    panel.background = element_blank(),
+    panel.border = element_blank(),
+    plot.margin = margin_auto(0),
+    plot.title = element_text(
+      size = rel(1.2),
+      hjust = 0,
+      vjust = 1,
+      margin = margin(t = half_line)
+    ),
     plot.title.position = "panel",
-    plot.subtitle =      element_text(
-                           hjust = 0, vjust = 1,
-                           margin = margin(t = half_line)
-                         ),
-    plot.caption =       element_text(
-                           size = rel(0.8),
-                           hjust = 1, vjust = 1,
-                           margin = margin(t = half_line)
-                         ),
+    plot.subtitle = element_text(
+      hjust = 0,
+      vjust = 1,
+      margin = margin(t = half_line)
+    ),
+    plot.caption = element_text(
+      size = rel(0.8),
+      hjust = 1,
+      vjust = 1,
+      margin = margin(t = half_line)
+    ),
     plot.caption.position = "panel",
-    plot.tag =           element_text(
-                           size = rel(1.2),
-                           hjust = 0.5, vjust = 0.5
-                         ),
-    plot.tag.position =  'topleft',
-    plot.background =    element_rect(),
+    plot.tag = element_text(
+      size = rel(1.2),
+      hjust = 0.5,
+      vjust = 0.5
+    ),
+    plot.tag.position = 'topleft',
+    plot.background = element_rect(),
 
     complete = TRUE
   )
@@ -612,58 +752,100 @@ theme_void <- function(base_size = 11, base_family = "",
 
 #' @export
 #' @rdname ggtheme
-theme_test <- function(base_size = 11, base_family = "",
-                       header_family = NULL,
-                       base_line_size = base_size / 22,
-                       base_rect_size = base_size / 22,
-                       ink = "black", paper = "white", accent = "#3366FF") {
+theme_test <- function(
+  base_size = 11,
+  base_family = "",
+  header_family = NULL,
+  base_line_size = base_size / 22,
+  base_rect_size = base_size / 22,
+  ink = "black",
+  paper = "white",
+  accent = "#3366FF"
+) {
   half_line <- base_size / 2
 
   t <- theme(
-    line =               element_line(
-                           colour = ink, linewidth = base_line_size,
-                           linetype = 1, lineend = "butt", linejoin = "round"
-                         ),
-    rect =               element_rect(
-                           fill = paper, colour = ink,
-                           linewidth = base_rect_size, linetype = 1, linejoin = "round"
-                         ),
-    text =               element_text(
-                            family = base_family, face = "plain",
-                            colour = ink, size = base_size,
-                            lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0,
-                            margin = margin(), debug = FALSE
-                         ),
-    point =              element_point(
-                           colour = ink, shape = 19, fill = paper,
-                           size = (base_size / 11) * 1.5,
-                           stroke = base_line_size
-                         ),
-    polygon =            element_polygon(
-                           fill = paper, colour = ink,
-                           linewidth = base_rect_size, linetype = 1, linejoin = "round"
-                         ),
-    title =              element_text(family = header_family),
+    line = element_line(
+      colour = ink,
+      linewidth = base_line_size,
+      linetype = 1,
+      lineend = "butt",
+      linejoin = "round"
+    ),
+    rect = element_rect(
+      fill = paper,
+      colour = ink,
+      linewidth = base_rect_size,
+      linetype = 1,
+      linejoin = "round"
+    ),
+    text = element_text(
+      family = base_family,
+      face = "plain",
+      colour = ink,
+      size = base_size,
+      lineheight = 0.9,
+      hjust = 0.5,
+      vjust = 0.5,
+      angle = 0,
+      margin = margin(),
+      debug = FALSE
+    ),
+    point = element_point(
+      colour = ink,
+      shape = 19,
+      fill = paper,
+      size = (base_size / 11) * 1.5,
+      stroke = base_line_size
+    ),
+    polygon = element_polygon(
+      fill = paper,
+      colour = ink,
+      linewidth = base_rect_size,
+      linetype = 1,
+      linejoin = "round"
+    ),
+    title = element_text(family = header_family),
     spacing = unit(half_line, "pt"),
     margins = margin_auto(half_line),
-    geom =               element_geom(
-                           ink = ink, paper = paper, accent = accent,
-                           linewidth = base_line_size, borderwidth = base_line_size,
-                           family = base_family, fontsize = base_size,
-                           linetype = 1L,
-                           pointsize = (base_size / 11) * 1.5, pointshape = 19
-                         ),
+    geom = element_geom(
+      ink = ink,
+      paper = paper,
+      accent = accent,
+      linewidth = base_line_size,
+      borderwidth = base_line_size,
+      family = base_family,
+      fontsize = base_size,
+      linetype = 1L,
+      pointsize = (base_size / 11) * 1.5,
+      pointshape = 19
+    ),
 
-    axis.line =          element_blank(),
-    axis.line.x =        NULL,
-    axis.line.y =        NULL,
-    axis.text =          element_text(size = rel(0.8), colour = col_mix(ink, paper, 0.302)),
-    axis.text.x =        element_text(margin = margin(t = 0.8 * half_line / 2), vjust = 1),
-    axis.text.x.top =    element_text(margin = margin(b = 0.8 * half_line / 2), vjust = 0),
-    axis.text.y =        element_text(margin = margin(r = 0.8 * half_line / 2), hjust = 1),
-    axis.text.y.right =  element_text(margin = margin(l = 0.8 * half_line / 2), hjust = 0),
-    axis.ticks =         element_line(colour = col_mix(ink, paper, 0.2)),
-    axis.ticks.length =  rel(0.5),
+    axis.line = element_blank(),
+    axis.line.x = NULL,
+    axis.line.y = NULL,
+    axis.text = element_text(
+      size = rel(0.8),
+      colour = col_mix(ink, paper, 0.302)
+    ),
+    axis.text.x = element_text(
+      margin = margin(t = 0.8 * half_line / 2),
+      vjust = 1
+    ),
+    axis.text.x.top = element_text(
+      margin = margin(b = 0.8 * half_line / 2),
+      vjust = 0
+    ),
+    axis.text.y = element_text(
+      margin = margin(r = 0.8 * half_line / 2),
+      hjust = 1
+    ),
+    axis.text.y.right = element_text(
+      margin = margin(l = 0.8 * half_line / 2),
+      hjust = 0
+    ),
+    axis.ticks = element_line(colour = col_mix(ink, paper, 0.2)),
+    axis.ticks.length = rel(0.5),
     axis.ticks.length.x = NULL,
     axis.ticks.length.x.top = NULL,
     axis.ticks.length.x.bottom = NULL,
@@ -671,99 +853,103 @@ theme_test <- function(base_size = 11, base_family = "",
     axis.ticks.length.y.left = NULL,
     axis.ticks.length.y.right = NULL,
     axis.minor.ticks.length = rel(0.75),
-    axis.title.x =       element_text(
-                           margin = margin(t = half_line / 2),
-                           vjust = 1
-                         ),
-    axis.title.x.top =   element_text(
-                           margin = margin(b = half_line / 2),
-                           vjust = 0
-                         ),
-    axis.title.y =       element_text(
-                           angle = 90,
-                           margin = margin(r = half_line / 2),
-                           vjust = 1
-                         ),
+    axis.title.x = element_text(
+      margin = margin(t = half_line / 2),
+      vjust = 1
+    ),
+    axis.title.x.top = element_text(
+      margin = margin(b = half_line / 2),
+      vjust = 0
+    ),
+    axis.title.y = element_text(
+      angle = 90,
+      margin = margin(r = half_line / 2),
+      vjust = 1
+    ),
     axis.title.y.right = element_text(
-                           angle = -90,
-                           margin = margin(l = half_line / 2),
-                           vjust = 1
-                         ),
+      angle = -90,
+      margin = margin(l = half_line / 2),
+      vjust = 1
+    ),
 
-    legend.background =  element_rect(colour = NA),
-    legend.spacing =     rel(2),
-    legend.spacing.x =   NULL,
-    legend.spacing.y =   NULL,
-    legend.margin =      margin_auto(0, unit = "cm"),
-    legend.key =         NULL,
-    legend.key.size =    unit(1.2, "lines"),
-    legend.key.height =  NULL,
-    legend.key.width =   NULL,
+    legend.background = element_rect(colour = NA),
+    legend.spacing = rel(2),
+    legend.spacing.x = NULL,
+    legend.spacing.y = NULL,
+    legend.margin = margin_auto(0, unit = "cm"),
+    legend.key = NULL,
+    legend.key.size = unit(1.2, "lines"),
+    legend.key.height = NULL,
+    legend.key.width = NULL,
     legend.key.spacing = NULL,
     legend.key.spacing.x = NULL,
     legend.key.spacing.y = NULL,
-    legend.text =        element_text(size = rel(0.8)),
-    legend.title =       element_text(hjust = 0),
+    legend.text = element_text(size = rel(0.8)),
+    legend.title = element_text(hjust = 0),
     legend.ticks.length = rel(0.2),
-    legend.position =    "right",
-    legend.direction =   NULL,
+    legend.position = "right",
+    legend.direction = NULL,
     legend.justification = "center",
-    legend.box =         NULL,
-    legend.box.margin =  margin_auto(0, unit = "cm"),
+    legend.box = NULL,
+    legend.box.margin = margin_auto(0, unit = "cm"),
     legend.box.background = element_blank(),
     legend.box.spacing = rel(2),
 
-    panel.background =   element_rect(fill = paper, colour = NA),
-    panel.border =       element_rect(colour = col_mix(ink, paper, 0.2)),
-    panel.grid.major =   element_blank(),
-    panel.grid.minor =   element_blank(),
-    panel.spacing =      NULL,
-    panel.spacing.x =    NULL,
-    panel.spacing.y =    NULL,
-    panel.ontop    =     FALSE,
+    panel.background = element_rect(fill = paper, colour = NA),
+    panel.border = element_rect(colour = col_mix(ink, paper, 0.2)),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.spacing = NULL,
+    panel.spacing.x = NULL,
+    panel.spacing.y = NULL,
+    panel.ontop = FALSE,
 
-    strip.background =   element_rect(
-                           fill   = col_mix(ink, paper, 0.85),
-                           colour = col_mix(ink, paper, 0.2)
-                         ),
-    strip.clip =         "on",
-    strip.text =         element_text(
-                           colour = col_mix(ink, paper, 0.1),
-                           size = rel(0.8),
-                           margin = margin_auto(0.8 * half_line)
-                         ),
-    strip.text.x =       NULL,
-    strip.text.y =       element_text(angle = -90),
-    strip.text.y.left =  element_text(angle = 90),
-    strip.placement =    "inside",
-    strip.placement.x =  NULL,
-    strip.placement.y =  NULL,
+    strip.background = element_rect(
+      fill = col_mix(ink, paper, 0.85),
+      colour = col_mix(ink, paper, 0.2)
+    ),
+    strip.clip = "on",
+    strip.text = element_text(
+      colour = col_mix(ink, paper, 0.1),
+      size = rel(0.8),
+      margin = margin_auto(0.8 * half_line)
+    ),
+    strip.text.x = NULL,
+    strip.text.y = element_text(angle = -90),
+    strip.text.y.left = element_text(angle = 90),
+    strip.placement = "inside",
+    strip.placement.x = NULL,
+    strip.placement.y = NULL,
     strip.switch.pad.grid = rel(0.5),
     strip.switch.pad.wrap = rel(0.5),
 
-    plot.background =    element_rect(colour = paper),
-    plot.title =         element_text(
-                           size = rel(1.2),
-                           hjust = 0, vjust = 1,
-                           margin = margin(b = half_line)
-                         ),
+    plot.background = element_rect(colour = paper),
+    plot.title = element_text(
+      size = rel(1.2),
+      hjust = 0,
+      vjust = 1,
+      margin = margin(b = half_line)
+    ),
     plot.title.position = "panel",
-    plot.subtitle =      element_text(
-                           hjust = 0, vjust = 1,
-                           margin = margin(b = half_line)
-                         ),
-    plot.caption =       element_text(
-                           size = rel(0.8),
-                           hjust = 1, vjust = 1,
-                           margin = margin(t = half_line)
-                         ),
+    plot.subtitle = element_text(
+      hjust = 0,
+      vjust = 1,
+      margin = margin(b = half_line)
+    ),
+    plot.caption = element_text(
+      size = rel(0.8),
+      hjust = 1,
+      vjust = 1,
+      margin = margin(t = half_line)
+    ),
     plot.caption.position = "panel",
-    plot.tag =           element_text(
-                           size = rel(1.2),
-                           hjust = 0.5, vjust = 0.5
-                         ),
-    plot.tag.position =  'topleft',
-    plot.margin =        NULL,
+    plot.tag = element_text(
+      size = rel(1.2),
+      hjust = 0.5,
+      vjust = 0.5
+    ),
+    plot.tag.position = 'topleft',
+    plot.margin = NULL,
 
     complete = TRUE
   )
@@ -781,7 +967,8 @@ theme_all_null <- function() {
   elements <- sapply(
     names(.element_tree),
     function(x) NULL,
-    simplify = FALSE, USE.NAMES = TRUE
+    simplify = FALSE,
+    USE.NAMES = TRUE
   )
 
   args <- c(elements, list(complete = TRUE))

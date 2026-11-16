@@ -3,10 +3,18 @@
 #' @usage NULL
 #' @export
 StatFunction <- ggproto(
-  "StatFunction", Stat,
+  "StatFunction",
+  Stat,
   default_aes = aes(x = NULL, y = after_scale(y)),
 
-  compute_group = function(data, scales, fun, xlim = NULL, n = 101, args = list()) {
+  compute_group = function(
+    data,
+    scales,
+    fun,
+    xlim = NULL,
+    n = 101,
+    args = list()
+  ) {
     if (is.null(scales$x)) {
       range <- xlim %||% c(0, 1)
       xseq <- seq(range[1], range[2], length.out = n)
@@ -24,7 +32,9 @@ StatFunction <- ggproto(
       }
     }
 
-    if (is_formula(fun)) fun <- as_function(fun)
+    if (is_formula(fun)) {
+      fun <- as_function(fun)
+    }
 
     y_out <- inject(fun(x_trans, !!!args))
     if (!is.null(scales$y) && !scales$y$is_discrete()) {
@@ -51,7 +61,9 @@ StatFunction <- ggproto(
 #' @export
 #' @rdname geom_function
 stat_function <- make_constructor(
-  StatFunction, geom = "function", fun = ,
+  StatFunction,
+  geom = "function",
+  fun = ,
   checks = exprs(data <- data %||% ensure_nonempty_data)
 )
 

@@ -93,7 +93,7 @@ mapping used for that aesthetic. If \code{NULL}, the legend title will be
 omitted.}
 
 \item{...}{
-  Arguments passed on to \code{\link[=binned_scale]{binned_scale}}
+  Arguments passed on to \code{\link{binned_scale}}
   \describe{
     \item{\code{n.breaks}}{The number of break points to create if breaks are not given
 directly.}
@@ -107,10 +107,10 @@ breaks are given explicitly.}
 \item Function that handles limits outside of the scale limits
 (out of bounds). Also accepts rlang \link[rlang:as_function]{lambda}
 function notation.
-\item The default (\code{\link[scales:oob]{scales::squish()}}) squishes out of
+\item The default (\code{\link[scales:squish]{scales::squish()}}) squishes out of
 bounds values into range.
-\item \link[scales:oob]{scales::censor} for replacing out of bounds values with \code{NA}.
-\item \code{\link[scales:oob]{scales::squish_infinite()}} for squishing infinite values into range.
+\item \link[scales:censor]{scales::censor} for replacing out of bounds values with \code{NA}.
+\item \code{\link[scales:squish_infinite]{scales::squish_infinite()}} for squishing infinite values into range.
 }}
     \item{\code{right}}{Should the intervals be closed on the right (\code{TRUE}, default) or
 should the intervals be closed on the left (\code{FALSE})? 'Closed on the right'
@@ -125,7 +125,7 @@ the left (open on the right).}
 \link[scales:new_transform]{transformation object}
 \item A numeric vector of positions
 \item A function that takes the limits as input and returns breaks
-as output (e.g., a function returned by \code{\link[scales:breaks_extended]{scales::extended_breaks()}}).
+as output (e.g., a function returned by \code{\link[scales:extended_breaks]{scales::extended_breaks()}}).
 Note that for position scales, limits are provided after scale expansion.
 Also accepts rlang \link[rlang:as_function]{lambda} function notation.
 }}
@@ -245,16 +245,16 @@ The documentation on \link[=aes_colour_fill_alpha]{colour aesthetics}.
 
 The \href{https://ggplot2-book.org/scales-colour#sec-binned-colour}{binned colour scales section} of the online ggplot2 book.
 
-Other colour scales: 
-\code{\link{scale_alpha}()},
-\code{\link{scale_colour_brewer}()},
-\code{\link{scale_colour_continuous}()},
-\code{\link{scale_colour_discrete}()},
-\code{\link{scale_colour_gradient}()},
-\code{\link{scale_colour_grey}()},
-\code{\link{scale_colour_hue}()},
-\code{\link{scale_colour_identity}()},
-\code{\link{scale_colour_manual}()},
-\code{\link{scale_colour_viridis_d}()}
+Other colour scales:
+\code{\link[=scale_alpha]{scale_alpha()}},
+\code{\link[=scale_colour_brewer]{scale_colour_brewer()}},
+\code{\link[=scale_colour_continuous]{scale_colour_continuous()}},
+\code{\link[=scale_colour_discrete]{scale_colour_discrete()}},
+\code{\link[=scale_colour_gradient]{scale_colour_gradient()}},
+\code{\link[=scale_colour_grey]{scale_colour_grey()}},
+\code{\link[=scale_colour_hue]{scale_colour_hue()}},
+\code{\link[=scale_colour_identity]{scale_colour_identity()}},
+\code{\link[=scale_colour_manual]{scale_colour_manual()}},
+\code{\link[=scale_colour_viridis_d]{scale_colour_viridis_d()}}
 }
 \concept{colour scales}

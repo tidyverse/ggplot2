@@ -37,10 +37,17 @@ NULL
 #' ggplot(mtcars, aes(mpg, wt)) +
 #'   annotation_raster(rainbow2, -Inf, Inf, -Inf, Inf, interpolate = TRUE) +
 #'   geom_point()
-annotation_raster <- function(raster, xmin, xmax, ymin, ymax,
-                              interpolate = FALSE) {
-  if (!inherits(raster, 'nativeRaster'))
+annotation_raster <- function(
+  raster,
+  xmin,
+  xmax,
+  ymin,
+  ymax,
+  interpolate = FALSE
+) {
+  if (!inherits(raster, 'nativeRaster')) {
     raster <- grDevices::as.raster(raster)
+  }
 
   layer(
     data = dummy_data(),
@@ -58,28 +65,49 @@ annotation_raster <- function(raster, xmin, xmax, ymin, ymax,
       interpolate = interpolate
     )
   )
-
 }
 
 #' @rdname Geom
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomRasterAnn <- ggproto("GeomRasterAnn", Geom,
+GeomRasterAnn <- ggproto(
+  "GeomRasterAnn",
+  Geom,
   extra_params = "",
   handle_na = function(data, params) {
     data
   },
 
-  draw_panel = function(data, panel_params, coord, raster, xmin, xmax,
-                        ymin, ymax, interpolate = FALSE) {
+  draw_panel = function(
+    data,
+    panel_params,
+    coord,
+    raster,
+    xmin,
+    xmax,
+    ymin,
+    ymax,
+    interpolate = FALSE
+  ) {
     range <- ranges_annotation(
-      coord, panel_params, xmin, xmax, ymin, ymax,
+      coord,
+      panel_params,
+      xmin,
+      xmax,
+      ymin,
+      ymax,
       fun = "annotation_raster"
     )
-    rasterGrob(raster, range$x[1], range$y[1],
-      diff(range$x), diff(range$y), default.units = "native",
-      just = c("left","bottom"), interpolate = interpolate
+    rasterGrob(
+      raster,
+      range$x[1],
+      range$y[1],
+      diff(range$x),
+      diff(range$y),
+      default.units = "native",
+      just = c("left", "bottom"),
+      interpolate = interpolate
     )
   }
 )

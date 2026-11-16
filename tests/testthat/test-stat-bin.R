@@ -19,7 +19,7 @@ test_that("stat_bin works in both directions", {
 
   x$flipped_aes <- NULL
   y$flipped_aes <- NULL
-  expect_identical(x, flip_data(y, TRUE)[,names(x)])
+  expect_identical(x, flip_data(y, TRUE)[, names(x)])
 })
 
 test_that("bins specifies the number of bins", {
@@ -34,7 +34,9 @@ test_that("bins specifies the number of bins", {
 
 test_that("binwidth computes widths for function input", {
   df <- data_frame(x = 1:100)
-  out <- get_layer_data(ggplot(df, aes(x)) + geom_histogram(binwidth = function(x) 5))
+  out <- get_layer_data(
+    ggplot(df, aes(x)) + geom_histogram(binwidth = function(x) 5)
+  )
 
   expect_equal(nrow(out), 21)
 })
@@ -55,15 +57,19 @@ test_that("geom_freqpoly defaults to pad = TRUE", {
 
 test_that("can use breaks argument", {
   df <- data_frame(x = 1:3)
-  out <- get_layer_data(ggplot(df, aes(x)) + geom_histogram(breaks = c(0, 1.5, 5)))
+  out <- get_layer_data(
+    ggplot(df, aes(x)) + geom_histogram(breaks = c(0, 1.5, 5))
+  )
 
   expect_equal(out$count, c(1, 2))
 })
 
 test_that("breaks computes bin boundaries for function input", {
   df <- data.frame(x = c(0, 0, 0, 1:3))
-  out <- layer_data(ggplot(df, aes(x)) +
-                      geom_histogram(breaks = function(x) c(0, 0.5, 2.5, 7.5)))
+  out <- layer_data(
+    ggplot(df, aes(x)) +
+      geom_histogram(breaks = function(x) c(0, 0.5, 2.5, 7.5))
+  )
 
   expect_equal(out$count, c(3, 2, 1))
 })
@@ -78,13 +84,13 @@ test_that("fuzzy breaks are used when cutting", {
 })
 
 test_that("breaks are transformed by the scale", {
-   df <- data_frame(x = rep(1:4, 1:4))
-   base <- ggplot(df, aes(x)) + geom_histogram(breaks = c(1, 2.5, 4))
+  df <- data_frame(x = rep(1:4, 1:4))
+  base <- ggplot(df, aes(x)) + geom_histogram(breaks = c(1, 2.5, 4))
 
-   out1 <- get_layer_data(base)
-   out2 <- get_layer_data(base + scale_x_sqrt())
-   expect_equal(out1$xmin, c(1, 2.5))
-   expect_equal(out2$xmin, sqrt(c(1, 2.5)))
+  out1 <- get_layer_data(base)
+  out2 <- get_layer_data(base + scale_x_sqrt())
+  expect_equal(out1$xmin, c(1, 2.5))
+  expect_equal(out2$xmin, sqrt(c(1, 2.5)))
 })
 
 test_that("geom_histogram() can be drawn over a 0-width range (#3043)", {
@@ -132,128 +138,10 @@ test_that("stat_bin(drop) options work as intended", {
   expect_equal(ld$x, c(1:3, 5:7))
 })
 
-# Underlying binning algorithm --------------------------------------------
-
-test_that("bins() computes fuzz with non-finite breaks", {
-  test <- bins(breaks = c(-Inf, 1, Inf))
-  expect_equal(test$fuzzy, test$breaks, tolerance = 1e-10)
-  difference <- test$fuzzy - test$breaks
-  expect_equal(difference[2], 1000 * .Machine$double.eps, tolerance = 0)
-})
-
-test_that("bins is strictly adhered to", {
-
-  nbins <- c(1, 2, 3, 4, 5, 10, 20, 30, 40, 50)
-
-  # Default case
-  nbreaks <- vapply(nbins, function(bins) {
-    length(compute_bins(c(0, 10), bins = bins)$breaks)
-  }, numeric(1))
-  expect_equal(nbreaks, nbins + 1)
-
-  # Center is provided
-  nbreaks <- vapply(nbins, function(bins) {
-    length(compute_bins(c(0, 10), bins = bins, center = 0)$breaks)
-  }, numeric(1))
-  expect_equal(nbreaks, nbins + 1)
-
-  # Boundary is provided
-  nbreaks <- vapply(nbins, function(bins) {
-    length(compute_bins(c(0, 10), bins = bins, boundary = 0)$breaks)
-  }, numeric(1))
-  expect_equal(nbreaks, nbins + 1)
-
-})
-
-comp_bin <- function(df, ...) {
-  plot <- ggplot(df, aes(x = x)) + stat_bin(...)
-  get_layer_data(plot)
-}
-
-test_that("inputs to binning are checked", {
-  dat <- data_frame(x = c(0, 10))
-  expect_snapshot_error(compute_bins(dat, breaks = letters))
-  expect_snapshot_error(compute_bins(dat, binwidth = letters))
-  expect_snapshot_error(compute_bins(dat, binwidth = -4))
-  expect_snapshot_error(compute_bins(dat, bins = -4))
-})
-
-test_that("closed left or right", {
-  dat <- data_frame(x = c(0, 10))
-
-  res <- comp_bin(dat, binwidth = 10, pad = FALSE)
-  expect_identical(res$count, c(1, 1))
-  res <- comp_bin(dat, binwidth = 10, boundary = 5, pad = FALSE)
-  expect_identical(res$count, c(1, 1))
-  res <- comp_bin(dat, binwidth = 10, boundary = 0, pad = FALSE)
-  expect_identical(res$count, 2)
-  res <- comp_bin(dat, binwidth = 5, boundary = 0, pad = FALSE)
-  expect_identical(res$count, c(1, 1))
-
-  res <- comp_bin(dat, binwidth = 10, pad = FALSE, closed = "left")
-  expect_identical(res$count, c(1, 1))
-  res <- comp_bin(dat, binwidth = 10, boundary = 5, pad = FALSE, closed = "left")
-  expect_identical(res$count, c(1, 1))
-  res <- comp_bin(dat, binwidth = 10, boundary = 0, pad = FALSE, closed = "left")
-  expect_identical(res$count, c(2))
-  res <- comp_bin(dat, binwidth = 5, boundary = 0, pad = FALSE, closed = "left")
-  expect_identical(res$count, c(1, 1))
-})
-
-test_that("setting boundary and center", {
-  # numeric
-  df <- data_frame(x = c(0, 30))
-
-  # Error if both boundary and center are specified
-  expect_snapshot_warning(comp_bin(df, boundary = 5, center = 0, bins = 30))
-
-  res <- comp_bin(df, binwidth = 10, boundary = 0, pad = FALSE)
-  expect_identical(res$count, c(1, 0, 1))
-  expect_identical(res$xmin[1], 0)
-  expect_identical(res$xmax[3], 30)
-
-  res <- comp_bin(df, binwidth = 10, center = 0, boundary = NULL, pad = FALSE)
-  expect_identical(res$count, c(1, 0, 0, 1))
-  expect_identical(res$xmin[1], df$x[1] - 5)
-  expect_identical(res$xmax[4], df$x[2] + 5)
-})
-
 test_that("weights are added", {
   df <- data_frame(x = 1:10, y = 1:10)
   p <- ggplot(df, aes(x = x, weight = y)) + geom_histogram(binwidth = 1)
   out <- get_layer_data(p)
 
   expect_equal(out$count, df$y)
-})
-
-test_that("bin errors at high bin counts", {
-  expect_snapshot(compute_bins(c(1, 2e6), binwidth =  1), error = TRUE)
-})
-
-# stat_count --------------------------------------------------------------
-
-test_that("stat_count throws error when both x and y aesthetic present", {
-  dat <- data_frame(x = c("a", "b", "c"), y = c(1, 5, 10))
-
-  expect_snapshot_error(ggplot_build(ggplot(dat, aes(x, y)) + stat_count()))
-})
-
-test_that("stat_count preserves x order for continuous and discrete", {
-  # x is numeric
-  b <- ggplot_build(ggplot(mtcars, aes(carb)) + geom_bar())
-  expect_identical(b@data[[1]]$x, c(1,2,3,4,6,8))
-  expect_identical(b@data[[1]]$y, c(7,10,3,10,1,1))
-
-  # x is factor where levels match numeric order
-  mtcars$carb2 <- factor(mtcars$carb)
-  b <- ggplot_build(ggplot(mtcars, aes(carb2)) + geom_bar())
-  expect_identical(b@data[[1]]$x, mapped_discrete(1:6))
-  expect_identical(b@data[[1]]$y, c(7,10,3,10,1,1))
-
-  # x is factor levels differ from numeric order
-  mtcars$carb3 <- factor(mtcars$carb, levels = c(4,1,2,3,6,8))
-  b <- ggplot_build(ggplot(mtcars, aes(carb3)) + geom_bar())
-  expect_identical(b@data[[1]]$x, mapped_discrete(1:6))
-  expect_identical(b@layout$panel_params[[1]]$x$get_labels(), c("4","1","2","3","6","8"))
-  expect_identical(b@data[[1]]$y, c(10,7,10,3,1,1))
 })

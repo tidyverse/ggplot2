@@ -20,7 +20,7 @@ If \code{NULL}, the title is not shown. By default
 (\code{\link[=waiver]{waiver()}}), the name of the scale object or the name
 specified in \code{\link[=labs]{labs()}} is used for the title.}
 
-\item{theme}{A \code{\link[=theme]{theme}} object to style the guide individually or
+\item{theme}{A \code{\link{theme}} object to style the guide individually or
 differently from the plot's theme settings. The \code{theme} argument in the
 guide partially overrides, and is combined with, the plot's theme.}
 

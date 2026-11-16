@@ -29,3 +29,5 @@ visual_test
 ^vignettes/articles$
 ^CRAN-SUBMISSION$
 ^docs$
+^[.]?air[.]toml$
+^\.vscode$

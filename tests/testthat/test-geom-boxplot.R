@@ -1,7 +1,7 @@
 # thanks wch for providing the test code
 test_that("geom_boxplot range includes all outliers", {
-  dat <- data_frame(x = 1, y = c(-(1:20) ^ 3, (1:20) ^ 3) )
-  p <- ggplot_build(ggplot(dat, aes(x,y)) + geom_boxplot())
+  dat <- data_frame(x = 1, y = c(-(1:20)^3, (1:20)^3))
+  p <- ggplot_build(ggplot(dat, aes(x, y)) + geom_boxplot())
 
   miny <- p@layout$panel_params[[1]]$y.range[1]
   maxy <- p@layout$panel_params[[1]]$y.range[2]
@@ -20,7 +20,7 @@ test_that("geom_boxplot range includes all outliers", {
 })
 
 test_that("geom_boxplot works in both directions", {
-  dat <- data_frame(x = 1, y = c(-(1:20) ^ 3, (1:20) ^ 3) )
+  dat <- data_frame(x = 1, y = c(-(1:20)^3, (1:20)^3))
 
   p <- ggplot(dat, aes(x, y)) + geom_boxplot()
   x <- get_layer_data(p)
@@ -36,7 +36,7 @@ test_that("geom_boxplot works in both directions", {
 })
 
 test_that("geom_boxplot for continuous x gives warning if more than one x (#992)", {
-  dat <- expand.grid(x = 1:2, y = c(-(1:5) ^ 3, (1:5) ^ 3) )
+  dat <- expand.grid(x = 1:2, y = c(-(1:5)^3, (1:5)^3))
 
   bplot <- function(aes = NULL, extra = list()) {
     ggplot_build(ggplot(dat, aes) + geom_boxplot(aes) + extra)
@@ -90,11 +90,15 @@ test_that("boxplots with a group size >1 error", {
 # Visual tests ------------------------------------------------------------
 
 test_that("boxplot draws correctly", {
-  expect_doppelganger("outlier colours",
-    ggplot(mtcars, aes(x = factor(cyl), y = drat, colour = factor(cyl))) + geom_boxplot(outlier.size = 5)
+  expect_doppelganger(
+    "outlier colours",
+    ggplot(mtcars, aes(x = factor(cyl), y = drat, colour = factor(cyl))) +
+      geom_boxplot(outlier.size = 5)
   )
-  expect_doppelganger("staples",
-    ggplot(mtcars, aes(x = factor(cyl), y = drat, colour = factor(cyl))) + geom_boxplot(staplewidth = 0.5)
+  expect_doppelganger(
+    "staples",
+    ggplot(mtcars, aes(x = factor(cyl), y = drat, colour = factor(cyl))) +
+      geom_boxplot(staplewidth = 0.5)
   )
   expect_doppelganger(
     "customised style",
@@ -103,7 +107,7 @@ test_that("boxplot draws correctly", {
         outlier.shape = 6,
         whisker.linetype = 2,
         median.colour = "red",
-        box.colour    = "black",
+        box.colour = "black",
         staple.linewidth = 1,
         staplewidth = 0.25
       )

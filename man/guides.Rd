@@ -74,10 +74,10 @@ ggplot(mpg, aes(displ, cty)) +
 }
 }
 \seealso{
-Other guides: 
-\code{\link{guide_bins}()},
-\code{\link{guide_colourbar}()},
-\code{\link{guide_coloursteps}()},
-\code{\link{guide_legend}()}
+Other guides:
+\code{\link[=guide_bins]{guide_bins()}},
+\code{\link[=guide_colourbar]{guide_colourbar()}},
+\code{\link[=guide_coloursteps]{guide_coloursteps()}},
+\code{\link[=guide_legend]{guide_legend()}}
 }
 \concept{guides}

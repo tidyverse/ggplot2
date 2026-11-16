@@ -28,7 +28,6 @@ test_that("nudging works in both dimensions simultaneously", {
   expect_equal(data$y, c(1, 3, 3))
   expect_equal(data$ymin, c(1, 3, 3))
   expect_equal(data$ymax, c(1, 3, 3))
-
 })
 
 test_that("nudging works in individual dimensions", {
@@ -47,14 +46,17 @@ test_that("nudging works in individual dimensions", {
 
   # multiple nudge values, including zero
   p <- ggplot(df, aes(x = x, xmax = x, xmin = x)) +
-    layer(geom = Geom, stat = StatIdentity, position = position_nudge(x = c(0, -1, -2)))
+    layer(
+      geom = Geom,
+      stat = StatIdentity,
+      position = position_nudge(x = c(0, -1, -2))
+    )
 
   data <- get_layer_data(p)
 
   expect_equal(data$x, c(1, 1, 1))
   expect_equal(data$xmin, c(1, 1, 1))
   expect_equal(data$xmax, c(1, 1, 1))
-
 
   # nudging in y
   # use an empty layer so can test individual aesthetics
@@ -69,12 +71,15 @@ test_that("nudging works in individual dimensions", {
 
   # multiple nudge values, including zero
   p <- ggplot(df, aes(y = x, ymax = x, ymin = x)) +
-    layer(geom = Geom, stat = StatIdentity, position = position_nudge(y = c(0, -1, -2)))
+    layer(
+      geom = Geom,
+      stat = StatIdentity,
+      position = position_nudge(y = c(0, -1, -2))
+    )
 
   data <- get_layer_data(p)
 
   expect_equal(data$y, c(1, 1, 1))
   expect_equal(data$ymin, c(1, 1, 1))
   expect_equal(data$ymax, c(1, 1, 1))
-
 })

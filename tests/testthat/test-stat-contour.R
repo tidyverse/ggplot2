@@ -27,14 +27,14 @@ test_that("contouring irregularly spaced data works", {
   # we're testing for set equality here because contour lines are not
   # guaranteed to start and end at the same point on all architectures
   d <- get_layer_data(p)
-  d4 <- d[d$level == 4,]
+  d4 <- d[d$level == 4, ]
   expect_equal(nrow(d4), 7)
   expect_setequal(d4$x, c(4, 10, 100, 700))
-  expect_setequal(d4$y, c(2, 8/3, 4/3))
-  d8 <- d[d$level == 8,]
+  expect_setequal(d4$y, c(2, 8 / 3, 4 / 3))
+  d8 <- d[d$level == 8, ]
   expect_equal(nrow(d8), 7)
   expect_setequal(d8$x, c(8, 10, 100, 300))
-  expect_setequal(d8$y, c(2, 20/9, 16/9))
+  expect_setequal(d8$y, c(2, 20 / 9, 16 / 9))
 })
 
 test_that("contour breaks can be set manually and by bins and binwidth and a function", {
@@ -46,7 +46,10 @@ test_that("contour breaks can be set manually and by bins and binwidth and a fun
   expect_length(contour_breaks(range + 0.2, bins = 5), 6)
   expect_equal(resolution(contour_breaks(range, binwidth = 0.3)), 0.3)
   expect_equal(contour_breaks(range), contour_breaks(range, breaks = fullseq))
-  expect_equal(contour_breaks(range), contour_breaks(range, breaks = ~fullseq(.x, .y)))
+  expect_equal(
+    contour_breaks(range),
+    contour_breaks(range, breaks = ~ fullseq(.x, .y))
+  )
 })
 
 test_that("geom_contour_filled() and stat_contour_filled() result in identical layer data", {
@@ -82,7 +85,6 @@ test_that("basic stat_contour_filled() plot builds", {
 })
 
 test_that("stat_contour() removes duplicated coordinates", {
-
   df <- data_frame0(
     x = c(1, 1, 2, 2, 1, 1, 2, 2),
     y = c(1, 2, 1, 2, 1, 2, 1, 2),
@@ -96,7 +98,7 @@ test_that("stat_contour() removes duplicated coordinates", {
   expect_snapshot_warning(
     new <- layer$stat$setup_data(transform(df, group = 1))
   )
-  expect_equal(new, df[1:4,], ignore_attr = TRUE)
+  expect_equal(new, df[1:4, ], ignore_attr = TRUE)
 })
 
 test_that("stat_contour() can infer rotations", {

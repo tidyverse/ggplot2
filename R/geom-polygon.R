@@ -5,12 +5,24 @@ NULL
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomPolygon <- ggproto("GeomPolygon", Geom,
-  draw_panel = function(self, data, panel_params, coord, rule = "evenodd",
-                        lineend = "butt", linejoin = "round", linemitre = 10) {
+GeomPolygon <- ggproto(
+  "GeomPolygon",
+  Geom,
+  draw_panel = function(
+    self,
+    data,
+    panel_params,
+    coord,
+    rule = "evenodd",
+    lineend = "butt",
+    linejoin = "round",
+    linemitre = 10
+  ) {
     data <- fix_linewidth(data, snake_class(self))
     n <- nrow(data)
-    if (n == 1) return(zeroGrob())
+    if (n == 1) {
+      return(zeroGrob())
+    }
 
     munched <- coord_munch(coord, data, panel_params, is_closed = TRUE)
 
@@ -27,7 +39,9 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
       ggname(
         "geom_polygon",
         polygonGrob(
-          munched$x, munched$y, default.units = "native",
+          munched$x,
+          munched$y,
+          default.units = "native",
           id = munched$group,
           gp = gg_par(
             col = first_rows$colour,
@@ -54,8 +68,11 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
       ggname(
         "geom_polygon",
         pathGrob(
-          munched$x, munched$y, default.units = "native",
-          id = id, pathId = munched$group,
+          munched$x,
+          munched$y,
+          default.units = "native",
+          id = id,
+          pathId = munched$group,
           rule = rule,
           gp = gg_par(
             col = first_rows$colour,
@@ -76,7 +93,8 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
     fill = from_theme(fill %||% col_mix(ink, paper, 0.2)),
     linewidth = from_theme(borderwidth),
     linetype = from_theme(bordertype),
-    alpha = NA, subgroup = NULL
+    alpha = NA,
+    subgroup = NULL
   ),
 
   handle_na = function(data, params) {
@@ -105,11 +123,7 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
 #'  [geom_path()] for an unfilled polygon,
 #'  [geom_ribbon()] for a polygon anchored on the x-axis
 #' @export
-#' @inheritParams layer
-#' @inheritParams geom_point
-#' @param lineend Line end style (round, butt, square).
-#' @param linejoin Line join style (round, mitre, bevel).
-#' @param linemitre Line mitre limit (number greater than 1).
+#' @inheritParams shared_layer_parameters
 #' @param rule Either `"evenodd"` or `"winding"`. If polygons with holes are
 #' being drawn (using the `subgroup` aesthetic) this argument defines how the
 #' hole coordinates are interpreted. See the examples in [grid::pathGrob()] for

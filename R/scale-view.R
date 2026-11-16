@@ -1,4 +1,3 @@
-
 #' View scale constructor
 #'
 #' View scales are an implementation of `Scale` objects that have fixed
@@ -12,22 +11,29 @@
 #' @param continuous_range The final dimensions of the scale
 #'
 #' @noRd
-view_scale_primary <- function(scale, limits = scale$get_limits(),
-                               continuous_range = scale$dimension(limits = limits)) {
-
+view_scale_primary <- function(
+  scale,
+  limits = scale$get_limits(),
+  continuous_range = scale$dimension(limits = limits)
+) {
   # continuous_range can be specified in arbitrary order, but
   # scales expect the one in ascending order.
   continuous_scale_sorted <- sort(continuous_range)
-  if(!scale$is_discrete()) {
+  if (!scale$is_discrete()) {
     breaks <- scale$get_breaks(continuous_scale_sorted)
     breaks <- censor(breaks, continuous_scale_sorted, only.finite = FALSE)
   } else {
     breaks <- scale$get_breaks(limits)
   }
-  minor_breaks <- scale$get_breaks_minor(b = breaks, limits = continuous_scale_sorted)
+  minor_breaks <- scale$get_breaks_minor(
+    b = breaks,
+    limits = continuous_scale_sorted
+  )
   minor_breaks <- censor(minor_breaks, continuous_range, only.finite = FALSE)
 
-  ggproto(NULL, ViewScale,
+  ggproto(
+    NULL,
+    ViewScale,
     scale = scale,
     guide = scale$guide,
     position = scale$position,
@@ -42,10 +48,16 @@ view_scale_primary <- function(scale, limits = scale$get_limits(),
 }
 
 # this function is a hack that is difficult to avoid given the complex implementation of second axes
-view_scale_secondary <- function(scale, limits = scale$get_limits(),
-                                 continuous_range = scale$dimension(limits = limits)) {
-
-  if (is.null(scale$secondary.axis) || is_waiver(scale$secondary.axis) || scale$secondary.axis$empty()) {
+view_scale_secondary <- function(
+  scale,
+  limits = scale$get_limits(),
+  continuous_range = scale$dimension(limits = limits)
+) {
+  if (
+    is.null(scale$secondary.axis) ||
+      is_waiver(scale$secondary.axis) ||
+      scale$secondary.axis$empty()
+  ) {
     # if there is no second axis, return the primary scale with no guide
     # this guide can be overridden using guides()
     primary_scale <- view_scale_primary(scale, limits, continuous_range)
@@ -59,7 +71,8 @@ view_scale_secondary <- function(scale, limits = scale$get_limits(),
 
     # flip position from the original scale by default
     # this can (should) be overridden in the guide
-    position <- switch(scale$position,
+    position <- switch(
+      scale$position,
       top = "bottom",
       bottom = "top",
       left = "right",
@@ -67,7 +80,9 @@ view_scale_secondary <- function(scale, limits = scale$get_limits(),
       scale$position
     )
 
-    ggproto(NULL, ViewScale,
+    ggproto(
+      NULL,
+      ViewScale,
       scale = scale,
       guide = scale$secondary.axis$guide,
       position = position,
@@ -84,13 +99,17 @@ view_scale_secondary <- function(scale, limits = scale$get_limits(),
       get_breaks_minor = function(self) self$break_info$minor_source,
       break_positions = function(self) self$break_info$major,
       break_positions_minor = function(self) self$break_info$minor,
-      get_labels = function(self, breaks = self$get_breaks()) self$break_info$labels,
+      get_labels = function(self, breaks = self$get_breaks()) {
+        self$break_info$labels
+      },
       rescale = function(x) rescale(x, from = break_info$range, to = c(0, 1))
     )
   }
 }
 
-ViewScale <- ggproto("ViewScale", NULL,
+ViewScale <- ggproto(
+  "ViewScale",
+  NULL,
   # map, rescale, and make_title need a reference
   # to the original scale
   scale = ggproto(NULL, Scale),
@@ -167,7 +186,7 @@ ViewScale <- ggproto("ViewScale", NULL,
   },
   make_fixed_copy = function(self) {
     breaks <- self$get_breaks()
-    minor  <- self$get_breaks_minor()
+    minor <- self$get_breaks_minor()
     transform <- self$scale$get_transformation()
 
     if (self$scale$is_discrete()) {
@@ -178,17 +197,18 @@ ViewScale <- ggproto("ViewScale", NULL,
 
     if (!is.null(transform)) {
       breaks <- transform$inverse(breaks)
-      minor  <- transform$inverse(minor)
+      minor <- transform$inverse(minor)
     }
 
     ggproto(
-      NULL, self$scale,
+      NULL,
+      self$scale,
       breaks = breaks,
       minor_breaks = minor,
       limits = limits,
       expand = c(0, 0, 0, 0),
       continuous_limits = self$continuous_range,
-      train = function (...) NULL
+      train = function(...) NULL
     )
   }
 )

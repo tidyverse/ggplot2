@@ -3,15 +3,21 @@
 #' @usage NULL
 #' @export
 StatQq <- ggproto(
-  "StatQq", Stat,
+  "StatQq",
+  Stat,
   default_aes = aes(y = after_stat(sample), x = after_stat(theoretical)),
 
   required_aes = c("sample"),
 
-  compute_group = function(self, data, scales, quantiles = NULL,
-                           distribution = stats::qnorm, dparams = list(),
-                           na.rm = FALSE) {
-
+  compute_group = function(
+    self,
+    data,
+    scales,
+    quantiles = NULL,
+    distribution = stats::qnorm,
+    dparams = list(),
+    na.rm = FALSE
+  ) {
     sample <- sort(data$sample)
     n <- length(sample)
 
@@ -19,7 +25,9 @@ StatQq <- ggproto(
     if (is.null(quantiles)) {
       quantiles <- stats::ppoints(n)
     } else if (length(quantiles) != n) {
-      cli::cli_abort("The length of {.arg quantiles} must match the length of the data.")
+      cli::cli_abort(
+        "The length of {.arg quantiles} must match the length of the data."
+      )
     }
 
     theoretical <- inject(distribution(p = quantiles, !!!dparams))
@@ -39,8 +47,7 @@ StatQq <- ggproto(
 #' @param distribution Distribution function to use, if x not specified
 #' @param dparams Additional parameters passed on to `distribution`
 #'   function.
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @eval rd_computed_vars(
 #'  .details = "\\cr Variables computed by `stat_qq()`:",
 #'  sample      = "Sample quantiles.",

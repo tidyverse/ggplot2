@@ -3,7 +3,8 @@
 #' @usage NULL
 #' @export
 StatEllipse <- ggproto(
-  "StatEllipse", Stat,
+  "StatEllipse",
+  Stat,
   required_aes = c("x", "y"),
   optional_aes = "weight",
   dropped_aes = "weight",
@@ -16,10 +17,21 @@ StatEllipse <- ggproto(
     params
   },
 
-  compute_group = function(data, scales, type = "t", level = 0.95,
-                           segments = 51, na.rm = FALSE) {
-    calculate_ellipse(data = data, vars = c("x", "y"), type = type,
-                      level = level, segments = segments)
+  compute_group = function(
+    data,
+    scales,
+    type = "t",
+    level = 0.95,
+    segments = 51,
+    na.rm = FALSE
+  ) {
+    calculate_ellipse(
+      data = data,
+      vars = c("x", "y"),
+      type = type,
+      level = level,
+      segments = segments
+    )
   }
 )
 
@@ -36,15 +48,16 @@ StatEllipse <- ggproto(
 #'
 #' @param level The level at which to draw an ellipse,
 #'   or, if `type="euclid"`, the radius of the circle to be drawn.
-#' @param type The type of ellipse.
-#'   The default `"t"` assumes a multivariate t-distribution, and
-#'   `"norm"` assumes a multivariate normal distribution.
-#'   `"euclid"` draws a circle with the radius equal to `level`,
-#'   representing the euclidean distance from the center.
-#'   This ellipse probably won't appear circular unless `coord_fixed()` is applied.
+#' @param type The type of ellipse. One of the following:
+#'   * `"t"` assuming a multivariate t-distribution based on [MASS::cov.trob()].
+#'   * `"norm"` assuming a multivariate normal distribution.
+#'   * `"euclid"` drawing a circle with the radius equal to `level`,
+#'     representing the euclidean distance from the center. This ellipse
+#'     probably won't appear circular unless `coord_fixed()` is applied.
+#'
+#'   The `"norm"` and `"euclid"` options are based on [stats::cov.wt()].
 #' @param segments The number of segments to be used in drawing the ellipse.
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @aesthetics StatEllipse
 #' @export
 #' @examples
@@ -71,7 +84,7 @@ StatEllipse <- ggproto(
 #'   stat_ellipse(geom = "polygon")
 stat_ellipse <- make_constructor(StatEllipse, geom = "path")
 
-calculate_ellipse <- function(data, vars, type, level, segments){
+calculate_ellipse <- function(data, vars, type, level, segments) {
   dfn <- 2
   dfd <- nrow(data) - 1
 
@@ -87,22 +100,22 @@ calculate_ellipse <- function(data, vars, type, level, segments){
   } else {
     if (type == "t") {
       # Prone to convergence problems when `sum(weight) != nrow(data)`
-      v <- MASS::cov.trob(data[,vars], wt = weight * nrow(data))
+      v <- MASS::cov.trob(data[, vars], wt = weight * nrow(data))
     } else if (type == "norm") {
-      v <- stats::cov.wt(data[,vars], wt = weight)
+      v <- stats::cov.wt(data[, vars], wt = weight)
     } else if (type == "euclid") {
-      v <- stats::cov.wt(data[,vars], wt = weight)
+      v <- stats::cov.wt(data[, vars], wt = weight)
       v$cov <- diag(rep(min(diag(v$cov)), 2))
     }
     shape <- v$cov
     center <- v$center
     chol_decomp <- chol(shape)
     if (type == "euclid") {
-      radius <- level/max(chol_decomp)
+      radius <- level / max(chol_decomp)
     } else {
       radius <- sqrt(dfn * stats::qf(level, dfn, dfd))
     }
-    angles <- (0:segments) * 2 * pi/segments
+    angles <- (0:segments) * 2 * pi / segments
     unit.circle <- cbind(cos(angles), sin(angles))
     ellipse <- t(center + radius * t(unit.circle %*% chol_decomp))
   }

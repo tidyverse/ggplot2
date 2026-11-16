@@ -2,11 +2,21 @@
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomRug <- ggproto("GeomRug", Geom,
+GeomRug <- ggproto(
+  "GeomRug",
+  Geom,
   optional_aes = c("x", "y"),
 
-  draw_panel = function(self, data, panel_params, coord, lineend = "butt",
-                        sides = "bl", outside = FALSE, length = unit(0.03, "npc")) {
+  draw_panel = function(
+    self,
+    data,
+    panel_params,
+    coord,
+    lineend = "butt",
+    sides = "bl",
+    outside = FALSE,
+    length = unit(0.03, "npc")
+  ) {
     data <- fix_linewidth(data, snake_class(self))
     check_inherits(length, "unit")
     rugs <- list()
@@ -34,16 +44,20 @@ GeomRug <- ggproto("GeomRug", Geom,
     if (!is.null(data$x)) {
       if (grepl("b", sides)) {
         rugs$x_b <- segmentsGrob(
-          x0 = unit(data$x, "native"), x1 = unit(data$x, "native"),
-          y0 = unit(0, "npc"), y1 = rug_length$min,
+          x0 = unit(data$x, "native"),
+          x1 = unit(data$x, "native"),
+          y0 = unit(0, "npc"),
+          y1 = rug_length$min,
           gp = gp
         )
       }
 
       if (grepl("t", sides)) {
         rugs$x_t <- segmentsGrob(
-          x0 = unit(data$x, "native"), x1 = unit(data$x, "native"),
-          y0 = unit(1, "npc"), y1 = rug_length$max,
+          x0 = unit(data$x, "native"),
+          x1 = unit(data$x, "native"),
+          y0 = unit(1, "npc"),
+          y1 = rug_length$max,
           gp = gp
         )
       }
@@ -52,16 +66,20 @@ GeomRug <- ggproto("GeomRug", Geom,
     if (!is.null(data$y)) {
       if (grepl("l", sides)) {
         rugs$y_l <- segmentsGrob(
-          y0 = unit(data$y, "native"), y1 = unit(data$y, "native"),
-          x0 = unit(0, "npc"), x1 = rug_length$min,
+          y0 = unit(data$y, "native"),
+          y1 = unit(data$y, "native"),
+          x0 = unit(0, "npc"),
+          x1 = rug_length$min,
           gp = gp
         )
       }
 
       if (grepl("r", sides)) {
         rugs$y_r <- segmentsGrob(
-          y0 = unit(data$y, "native"), y1 = unit(data$y, "native"),
-          x0 = unit(1, "npc"), x1 = rug_length$max,
+          y0 = unit(data$y, "native"),
+          y1 = unit(data$y, "native"),
+          x0 = unit(1, "npc"),
+          x1 = rug_length$max,
           gp = gp
         )
       }
@@ -97,7 +115,8 @@ GeomRug <- ggproto("GeomRug", Geom,
         sides_aes,
         function(axis) {
           remove_missing(
-            data, params$na.rm,
+            data,
+            params$na.rm,
             c(axis, self$required_aes, self$non_missing_aes),
             snake_class(self)
           )
@@ -111,7 +130,8 @@ GeomRug <- ggproto("GeomRug", Geom,
       )
     } else {
       data <- remove_missing(
-        data, params$na.rm,
+        data,
+        params$na.rm,
         c(self$required_aes, self$non_missing_aes),
         snake_class(self)
       )
@@ -133,14 +153,12 @@ GeomRug <- ggproto("GeomRug", Geom,
 #' any data points under the default settings.
 #'
 #' @aesthetics GeomRug
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @param sides A string that controls which sides of the plot the rugs appear on.
 #'   It can be set to a string containing any of `"trbl"`, for top, right,
 #'   bottom, and left.
 #' @param outside logical that controls whether to move the rug tassels outside of the plot area. Default is off (FALSE). You will also need to use `coord_cartesian(clip = "off")`. When set to TRUE, also consider changing the sides argument to "tr". See examples.
 #' @param length A [grid::unit()] object that sets the length of the rug lines. Use scale expansion to avoid overplotting of data.
-#' @param lineend Line end style (round, butt, square).
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(wt, mpg)) +

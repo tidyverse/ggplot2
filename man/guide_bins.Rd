@@ -23,7 +23,7 @@ If \code{NULL}, the title is not shown. By default
 (\code{\link[=waiver]{waiver()}}), the name of the scale object or the name
 specified in \code{\link[=labs]{labs()}} is used for the title.}
 
-\item{theme}{A \code{\link[=theme]{theme}} object to style the guide individually or
+\item{theme}{A \code{\link{theme}} object to style the guide individually or
 differently from the plot's theme settings. The \code{theme} argument in the
 guide partially overrides, and is combined with, the plot's theme.
 Arguments that apply to a single legend are respected, most of which have
@@ -114,10 +114,10 @@ ggplot(mtcars) +
 
 }
 \seealso{
-Other guides: 
-\code{\link{guide_colourbar}()},
-\code{\link{guide_coloursteps}()},
-\code{\link{guide_legend}()},
-\code{\link{guides}()}
+Other guides:
+\code{\link[=guide_colourbar]{guide_colourbar()}},
+\code{\link[=guide_coloursteps]{guide_coloursteps()}},
+\code{\link[=guide_legend]{guide_legend()}},
+\code{\link[=guides]{guides()}}
 }
 \concept{guides}

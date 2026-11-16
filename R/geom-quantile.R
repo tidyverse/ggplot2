@@ -4,11 +4,14 @@
 #' @export
 #' @include geom-path.R
 GeomQuantile <- ggproto(
-  "GeomQuantile", GeomPath,
-  default_aes = aes(!!!defaults(
-    aes(weight = 1, colour = from_theme(colour %||% accent)),
-    GeomPath$default_aes
-  ))
+  "GeomQuantile",
+  GeomPath,
+  default_aes = aes(
+    !!!defaults(
+      aes(weight = 1, colour = from_theme(colour %||% accent)),
+      GeomPath$default_aes
+    )
+  )
 )
 
 #' Quantile regression
@@ -18,9 +21,7 @@ GeomQuantile <- ggproto(
 #'
 #' @aesthetics GeomQuantile
 #' @export
-#' @inheritParams layer
-#' @inheritParams geom_point
-#' @inheritParams geom_path
+#' @inheritParams shared_layer_parameters
 #' @param method.args List of additional arguments passed on to the modelling
 #'   function defined by `method`.
 #' @param geom,stat Use to override the default connection between

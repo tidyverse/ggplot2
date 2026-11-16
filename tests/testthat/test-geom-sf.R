@@ -1,63 +1,95 @@
 test_that("geom_sf() determines the legend type automatically", {
   skip_if_not_installed("sf")
-  if (packageVersion("sf") < "0.5.3") skip("Need sf 0.5.3")
+  if (packageVersion("sf") < "0.5.3") {
+    skip("Need sf 0.5.3")
+  }
 
   mp <- sf::st_sf(
-    geometry = sf::st_sfc(sf::st_multipoint(rbind(c(1,1), c(2,2), c(3,3)))),
-    v = "a")
+    geometry = sf::st_sfc(sf::st_multipoint(rbind(c(1, 1), c(2, 2), c(3, 3)))),
+    v = "a"
+  )
 
-  s1 <- rbind(c(0,3),c(0,4),c(1,5),c(2,5))
-  s2 <- rbind(c(0.2,3), c(0.2,4), c(1,4.8), c(2,4.8))
-  s3 <- rbind(c(0,4.4), c(0.6,5))
+  s1 <- rbind(c(0, 3), c(0, 4), c(1, 5), c(2, 5))
+  s2 <- rbind(c(0.2, 3), c(0.2, 4), c(1, 4.8), c(2, 4.8))
+  s3 <- rbind(c(0, 4.4), c(0.6, 5))
 
   mls <- sf::st_sf(
-    geometry = sf::st_sfc(sf::st_multilinestring(list(s1,s2,s3))),
-    v = "a")
+    geometry = sf::st_sfc(sf::st_multilinestring(list(s1, s2, s3))),
+    v = "a"
+  )
 
-  p1 <- rbind(c(0,0), c(1,0), c(3,2), c(2,4), c(1,4), c(0,0))
-  p2 <- rbind(c(1,1), c(1,2), c(2,2), c(1,1))
-  p3 <- rbind(c(3,0), c(4,0), c(4,1), c(3,1), c(3,0))
-  p4 <- rbind(c(3.3,0.3), c(3.8,0.3), c(3.8,0.8), c(3.3,0.8), c(3.3,0.3))[5:1,]
-  p5 <- rbind(c(3,3), c(4,2), c(4,3), c(3,3))
+  p1 <- rbind(c(0, 0), c(1, 0), c(3, 2), c(2, 4), c(1, 4), c(0, 0))
+  p2 <- rbind(c(1, 1), c(1, 2), c(2, 2), c(1, 1))
+  p3 <- rbind(c(3, 0), c(4, 0), c(4, 1), c(3, 1), c(3, 0))
+  p4 <- rbind(c(3.3, 0.3), c(3.8, 0.3), c(3.8, 0.8), c(3.3, 0.8), c(3.3, 0.3))[
+    5:1,
+  ]
+  p5 <- rbind(c(3, 3), c(4, 2), c(4, 3), c(3, 3))
 
   mpol <- sf::st_sf(
-    geometry = sf::st_sfc(sf::st_multipolygon(list(list(p1,p2), list(p3,p4), list(p5)))),
-    v = "a")
+    geometry = sf::st_sfc(sf::st_multipolygon(list(
+      list(p1, p2),
+      list(p3, p4),
+      list(p5)
+    ))),
+    v = "a"
+  )
 
   fun_geom_sf <- function(sf, show.legend) {
-    p <- ggplot() + geom_sf(aes(colour = v), data = sf, show.legend = show.legend)
+    p <- ggplot() +
+      geom_sf(aes(colour = v), data = sf, show.legend = show.legend)
     ggplot_build(p)
   }
 
   # test the automatic choice
   expect_true(fun_geom_sf(mp, TRUE)@plot@layers[[1]]$show.legend)
-  expect_identical(fun_geom_sf(mp, TRUE)@plot@layers[[1]]$computed_geom_params$legend, "point")
+  expect_identical(
+    fun_geom_sf(mp, TRUE)@plot@layers[[1]]$computed_geom_params$legend,
+    "point"
+  )
 
   expect_true(fun_geom_sf(mls, TRUE)@plot@layers[[1]]$show.legend)
-  expect_identical(fun_geom_sf(mls, TRUE)@plot@layers[[1]]$computed_geom_params$legend, "line")
+  expect_identical(
+    fun_geom_sf(mls, TRUE)@plot@layers[[1]]$computed_geom_params$legend,
+    "line"
+  )
 
   expect_true(fun_geom_sf(mpol, TRUE)@plot@layers[[1]]$show.legend)
-  expect_identical(fun_geom_sf(mpol, TRUE)@plot@layers[[1]]$computed_geom_params$legend, "other")
+  expect_identical(
+    fun_geom_sf(mpol, TRUE)@plot@layers[[1]]$computed_geom_params$legend,
+    "other"
+  )
 
   # test that automatic choice can be overridden manually
   expect_true(fun_geom_sf(mp, "point")@plot@layers[[1]]$show.legend)
-  expect_identical(fun_geom_sf(mp, "point")@plot@layers[[1]]$computed_geom_params$legend, "point")
+  expect_identical(
+    fun_geom_sf(mp, "point")@plot@layers[[1]]$computed_geom_params$legend,
+    "point"
+  )
 
   expect_true(fun_geom_sf(mls, "point")@plot@layers[[1]]$show.legend)
-  expect_identical(fun_geom_sf(mls, "point")@plot@layers[[1]]$computed_geom_params$legend, "point")
+  expect_identical(
+    fun_geom_sf(mls, "point")@plot@layers[[1]]$computed_geom_params$legend,
+    "point"
+  )
 
   expect_true(fun_geom_sf(mpol, "point")@plot@layers[[1]]$show.legend)
-  expect_identical(fun_geom_sf(mpol, "point")@plot@layers[[1]]$computed_geom_params$legend, "point")
+  expect_identical(
+    fun_geom_sf(mpol, "point")@plot@layers[[1]]$computed_geom_params$legend,
+    "point"
+  )
 })
 
 test_that("geom_sf() determines the legend type from mapped geometry column", {
   skip_if_not_installed("sf")
-  if (packageVersion("sf") < "0.5.3") skip("Need sf 0.5.3")
+  if (packageVersion("sf") < "0.5.3") {
+    skip("Need sf 0.5.3")
+  }
 
-  p1 <- rbind(c(1,1), c(2,2), c(3,3))
-  s1 <- rbind(c(0,3), c(0,4), c(1,5), c(2,5))
-  s2 <- rbind(c(0.2,3), c(0.2,4), c(1,4.8), c(2,4.8))
-  s3 <- rbind(c(0,4.4), c(0.6,5))
+  p1 <- rbind(c(1, 1), c(2, 2), c(3, 3))
+  s1 <- rbind(c(0, 3), c(0, 4), c(1, 5), c(2, 5))
+  s2 <- rbind(c(0.2, 3), c(0.2, 4), c(1, 4.8), c(2, 4.8))
+  s3 <- rbind(c(0, 4.4), c(0.6, 5))
 
   d_sf <- sf::st_sf(
     g_point = sf::st_sfc(sf::st_multipoint(p1)),
@@ -78,7 +110,9 @@ test_that("geom_sf() determines the legend type from mapped geometry column", {
 
 test_that("geom_sf() removes rows containing missing aes", {
   skip_if_not_installed("sf")
-  if (packageVersion("sf") < "0.5.3") skip("Need sf 0.5.3")
+  if (packageVersion("sf") < "0.5.3") {
+    skip("Need sf 0.5.3")
+  }
 
   grob_xy_length <- function(x) {
     g <- get_layer_grob(x)[[1]]
@@ -101,14 +135,20 @@ test_that("geom_sf() removes rows containing missing aes", {
   )
   # default colour scale maps a colour even to a NA, so identity scale is needed to see if NA is removed
   expect_snapshot_warning(
-    expect_identical(grob_xy_length(p + geom_sf(aes(colour = colour)) + scale_colour_identity()),
-                     c(1L, 1L))
+    expect_identical(
+      grob_xy_length(
+        p + geom_sf(aes(colour = colour)) + scale_colour_identity()
+      ),
+      c(1L, 1L)
+    )
   )
 })
 
 test_that("geom_sf() handles alpha properly", {
   skip_if_not_installed("sf")
-  if (packageVersion("sf") < "0.5.3") skip("Need sf 0.5.3")
+  if (packageVersion("sf") < "0.5.3") {
+    skip("Need sf 0.5.3")
+  }
 
   sfc <- sf::st_sfc(
     sf::st_point(0:1),
@@ -155,11 +195,27 @@ test_that("errors are correctly triggered", {
 
 test_that("geom_sf draws correctly", {
   skip_if_not_installed("sf")
-  if (packageVersion("sf") < "0.5.3") skip("Need sf 0.5.3")
+  if (packageVersion("sf") < "0.5.3") {
+    skip("Need sf 0.5.3")
+  }
 
   nc_tiny_coords <- matrix(
-    c(-81.473, -81.741, -81.67, -81.345, -81.266, -81.24, -81.473,
-      36.234, 36.392, 36.59, 36.573, 36.437, 36.365, 36.234),
+    c(
+      -81.473,
+      -81.741,
+      -81.67,
+      -81.345,
+      -81.266,
+      -81.24,
+      -81.473,
+      36.234,
+      36.392,
+      36.59,
+      36.573,
+      36.437,
+      36.365,
+      36.234
+    ),
     ncol = 2
   )
 
@@ -170,20 +226,24 @@ test_that("geom_sf draws correctly", {
     )
   )
 
-
   # Perform minimal tests
-  pts <- sf::st_sf(a = 1:2, geometry = sf::st_sfc(sf::st_point(0:1), sf::st_point(1:2)))
+  pts <- sf::st_sf(
+    a = 1:2,
+    geometry = sf::st_sfc(sf::st_point(0:1), sf::st_point(1:2))
+  )
   plot <- ggplot() + geom_sf(data = pts)
   expect_no_error(ggplot_build(plot))
 
-  expect_doppelganger("North Carolina county boundaries",
+  expect_doppelganger(
+    "North Carolina county boundaries",
     ggplot() + geom_sf(data = nc, linetype = 2) + coord_sf(datum = 4326)
   )
 
-  pts <- sf::st_sf(a = 1:2, geometry = sf::st_sfc(sf::st_point(0:1), sf::st_point(1:2)))
-  expect_doppelganger("spatial points",
-    ggplot() + geom_sf(data = pts)
+  pts <- sf::st_sf(
+    a = 1:2,
+    geometry = sf::st_sfc(sf::st_point(0:1), sf::st_point(1:2))
   )
+  expect_doppelganger("spatial points", ggplot() + geom_sf(data = pts))
 })
 
 test_that("geom_sf data type renders appropriate legends", {
@@ -230,7 +290,7 @@ test_that("geom_sf data type renders appropriate legends", {
 test_that("geom_sf uses combinations of geometry correctly", {
   skip_if_not_installed("sf")
 
-  t <- seq(0, 2 *pi, length.out = 10)
+  t <- seq(0, 2 * pi, length.out = 10)
   data <- sf::st_sf(sf::st_sfc(
     sf::st_multipoint(cbind(1:2, 3:4)),
     sf::st_multilinestring(list(
@@ -241,10 +301,12 @@ test_that("geom_sf uses combinations of geometry correctly", {
       cbind(cos(t), zapsmall(sin(t))),
       cbind(cos(t), zapsmall(sin(t))) + 5
     )),
-    sf::st_geometrycollection(x = list(
-      sf::st_point(x = c(3, 2)),
-      sf::st_linestring(cbind(c(2, 4, 4), c(1, 1, 3)))
-    )),
+    sf::st_geometrycollection(
+      x = list(
+        sf::st_point(x = c(3, 2)),
+        sf::st_linestring(cbind(c(2, 4, 4), c(1, 1, 3)))
+      )
+    ),
     sf::st_linestring(x = cbind(c(2, 6), c(-1, 3))),
     sf::st_point(c(5, 0))
   ))
@@ -255,7 +317,7 @@ test_that("geom_sf uses combinations of geometry correctly", {
 
   withr::defer({
     update_geom_defaults("point", NULL)
-    update_geom_defaults("line",  NULL)
+    update_geom_defaults("line", NULL)
   })
 
   expect_doppelganger(
@@ -266,11 +328,27 @@ test_that("geom_sf uses combinations of geometry correctly", {
 
 test_that("geom_sf_text() and geom_sf_label() draws correctly", {
   skip_if_not_installed("sf")
-  if (packageVersion("sf") < "0.5.3") skip("Need sf 0.5.3")
+  if (packageVersion("sf") < "0.5.3") {
+    skip("Need sf 0.5.3")
+  }
 
   nc_tiny_coords <- matrix(
-    c(-81.473, -81.741, -81.67, -81.345, -81.266, -81.24, -81.473,
-      36.234, 36.392, 36.59, 36.573, 36.437, 36.365, 36.234),
+    c(
+      -81.473,
+      -81.741,
+      -81.67,
+      -81.345,
+      -81.266,
+      -81.24,
+      -81.473,
+      36.234,
+      36.392,
+      36.59,
+      36.573,
+      36.437,
+      36.365,
+      36.234
+    ),
     ncol = 2
   )
 
@@ -284,18 +362,22 @@ test_that("geom_sf_text() and geom_sf_label() draws correctly", {
   # In order to avoid warning, transform to a projected coordinate system
   nc_3857 <- sf::st_transform(nc, 3857)
 
-  expect_doppelganger("Texts for North Carolina",
+  expect_doppelganger(
+    "Texts for North Carolina",
     ggplot() + geom_sf_text(data = nc_3857, aes(label = NAME))
   )
 
-  expect_doppelganger("Labels for North Carolina",
+  expect_doppelganger(
+    "Labels for North Carolina",
     ggplot() + geom_sf_label(data = nc_3857, aes(label = NAME))
   )
 })
 
 test_that("geom_sf draws arrows correctly", {
   skip_if_not_installed("sf")
-  if (packageVersion("sf") < "0.5.3") skip("Need sf 0.5.3")
+  if (packageVersion("sf") < "0.5.3") {
+    skip("Need sf 0.5.3")
+  }
 
   nc_tiny_coords <- data_frame(
     x = c(-81.473, -81.741, -81.67, -81.345, -81.266, -81.24, -81.473),
@@ -303,27 +385,35 @@ test_that("geom_sf draws arrows correctly", {
   )
 
   nc <- sf::st_linestring(
-      sf::st_coordinates(sf::st_as_sf(nc_tiny_coords, coords = c("x", "y"), crs = 4326))
-    )
+    sf::st_coordinates(sf::st_as_sf(
+      nc_tiny_coords,
+      coords = c("x", "y"),
+      crs = 4326
+    ))
+  )
 
   nc2 <- sf::st_cast(
     sf::st_sfc(
       sf::st_multilinestring(lapply(
         1:(length(sf::st_coordinates(nc)[, 1]) - 1),
-          function(x) rbind(
+        function(x) {
+          rbind(
             as.numeric(sf::st_coordinates(nc)[x, 1:2]),
             as.numeric(sf::st_coordinates(nc)[x + 1, 1:2])
-            )
-        )
-      )
-    ), "LINESTRING"
+          )
+        }
+      ))
+    ),
+    "LINESTRING"
   )
 
-  expect_doppelganger("North Carolina county boundaries with arrow",
+  expect_doppelganger(
+    "North Carolina county boundaries with arrow",
     ggplot() + geom_sf(data = nc, arrow = arrow()) + coord_sf(datum = 4326)
   )
 
-  expect_doppelganger("North Carolina county boundaries with more than one arrow",
+  expect_doppelganger(
+    "North Carolina county boundaries with more than one arrow",
     ggplot() + geom_sf(data = nc2, arrow = arrow()) + coord_sf(datum = 4326)
   )
 })

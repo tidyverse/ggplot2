@@ -65,7 +65,7 @@ id_var <- function(x, drop = FALSE) {
   if (length(x) == 0) {
     id <- integer()
     n <- 0L
-  } else if (!is.null(attr(x, "n")) && !drop) {
+  } else if (!is.null(attr(x, "n", exact = TRUE)) && !drop) {
     return(x)
   } else if (is.factor(x) && !drop) {
     x <- addNA(x, ifany = TRUE)
@@ -119,16 +119,14 @@ id <- function(.variables, drop = FALSE) {
   if (n > 2^31) {
     char_id <- inject(paste(!!!ids, sep = "\r"))
     res <- match(char_id, unique0(char_id))
-  }
-  else {
+  } else {
     combs <- c(1, cumprod(ndistinct[-p]))
     mat <- inject(cbind(!!!ids))
     res <- c((mat - 1L) %*% combs + 1L)
   }
   if (drop) {
     id_var(res, drop = TRUE)
-  }
-  else {
+  } else {
     res <- as.integer(res)
     attr(res, "n") <- n
     res
@@ -158,7 +156,7 @@ count <- function(df, vars = NULL, wt_var = NULL) {
   labels <- df2[u_id, , drop = FALSE]
   labels <- labels[order(id[u_id]), , drop = FALSE]
   if (is.null(wt_var)) {
-    freq <- tabulate(id, attr(id, "n"))
+    freq <- tabulate(id, attr(id, "n", exact = TRUE))
   } else {
     wt <- .subset2(df, wt_var)
     freq <- vapply(split(wt, id), sum, numeric(1))
@@ -173,14 +171,17 @@ join_keys <- function(x, y, by) {
   keys <- id(joint, drop = TRUE)
   n_x <- nrow(x)
   n_y <- nrow(y)
-  list(x = keys[seq_len(n_x)], y = keys[n_x + seq_len(n_y)],
-       n = attr(keys, "n"))
+  list(
+    x = keys[seq_len(n_x)],
+    y = keys[n_x + seq_len(n_y)],
+    n = attr(keys, "n", exact = TRUE)
+  )
 }
 
 # round a number to a given precision
 round_any <- function(x, accuracy, f = round) {
   check_numeric(x)
-  f(x/accuracy) * accuracy
+  f(x / accuracy) * accuracy
 }
 
 #' Apply function to unique subsets of a data.frame
@@ -203,16 +204,29 @@ round_any <- function(x, accuracy, f = round) {
 #' @keywords internal
 #' @noRd
 dapply <- function(df, by, fun, ..., drop = TRUE) {
+  if (empty(df)) {
+    return(data_frame0())
+  }
   grouping_cols <- .subset(df, by)
   fallback_order <- unique0(c(by, names(df)))
   apply_fun <- function(x) {
     res <- fun(x, ...)
-    if (is.null(res)) return(res)
-    if (length(res) == 0) return(data_frame0())
+    if (is.null(res)) {
+      return(res)
+    }
+    if (length(res) == 0) {
+      return(data_frame0())
+    }
     vars <- lapply(setNames(by, by), function(col) .subset2(x, col)[1])
-    if (is.matrix(res)) res <- split_matrix(res)
-    if (is.null(names(res))) names(res) <- paste0("V", seq_along(res))
-    if (all(by %in% names(res))) return(data_frame0(!!!unclass(res)))
+    if (is.matrix(res)) {
+      res <- split_matrix(res)
+    }
+    if (is.null(names(res))) {
+      names(res) <- paste0("V", seq_along(res))
+    }
+    if (all(by %in% names(res))) {
+      return(data_frame0(!!!unclass(res)))
+    }
     res <- modify_list(unclass(vars), unclass(res))
     res <- res[intersect(c(fallback_order, names(res)), names(res))]
     data_frame0(!!!res)
@@ -221,7 +235,8 @@ dapply <- function(df, by, fun, ..., drop = TRUE) {
   # Shortcut when only one group
   has_single_group <- all(vapply(
     grouping_cols,
-    function(x) identical(as.character(levels(x) %||% attr(x, "n")), "1"),
+    function(x)
+      identical(as.character(levels(x) %||% attr(x, "n", exact = TRUE)), "1"),
     logical(1)
   ))
   if (has_single_group) {

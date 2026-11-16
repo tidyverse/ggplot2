@@ -4,14 +4,22 @@
 #' @usage NULL
 #' @export
 StatBin2d <- ggproto(
-  "StatBin2d", StatSummary2d,
+  "StatBin2d",
+  StatSummary2d,
   default_aes = aes(weight = 1, fill = after_stat(count)),
   required_aes = c("x", "y"),
 
-  compute_group = function(data, scales, binwidth = NULL, bins = 30,
-                           breaks = NULL, drop = TRUE,
-                           boundary = NULL, closed = NULL, center = NULL) {
-
+  compute_group = function(
+    data,
+    scales,
+    binwidth = NULL,
+    bins = 30,
+    breaks = NULL,
+    drop = TRUE,
+    boundary = NULL,
+    closed = NULL,
+    center = NULL
+  ) {
     data$z <- data$weight %||% 1
     data$weight <- NULL
 
@@ -19,8 +27,15 @@ StatBin2d <- ggproto(
     boundary <- boundary %||% if (is.null(center)) list(x = 0, y = 0)
 
     out <- StatSummary2d$compute_group(
-      data, scales, binwidth = binwidth, bins = bins, breaks = breaks,
-      drop = drop, fun = "sum", boundary = boundary, closed = closed,
+      data,
+      scales,
+      binwidth = binwidth,
+      bins = bins,
+      breaks = breaks,
+      drop = drop,
+      fun = "sum",
+      boundary = boundary,
+      closed = closed,
       center = center
     )
 

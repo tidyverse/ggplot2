@@ -5,66 +5,7 @@
 #' calls but it can also be created directly using this function.
 #'
 #' @export
-#' @param mapping Set of aesthetic mappings created by [aes()]. If specified and
-#'   `inherit.aes = TRUE` (the default), it is combined with the default mapping
-#'   at the top level of the plot. You must supply `mapping` if there is no plot
-#'   mapping.
-#' @param data The data to be displayed in this layer. There are three
-#'    options:
-#'
-#'    If `NULL`, the default, the data is inherited from the plot
-#'    data as specified in the call to [ggplot()].
-#'
-#'    A `data.frame`, or other object, will override the plot
-#'    data. All objects will be fortified to produce a data frame. See
-#'    [fortify()] for which variables will be created.
-#'
-#'    A `function` will be called with a single argument,
-#'    the plot data. The return value must be a `data.frame`, and
-#'    will be used as the layer data. A `function` can be created
-#'    from a `formula` (e.g. `~ head(.x, 10)`).
-#'
-#' @param geom The geometric object to use to display the data for this layer.
-#'   When using a `stat_*()` function to construct a layer, the `geom` argument
-#'   can be used to override the default coupling between stats and geoms. The
-#'   `geom` argument accepts the following:
-#'   * A `Geom` ggproto subclass, for example `GeomPoint`.
-#'   * A string naming the geom. To give the geom as a string, strip the
-#'     function name of the `geom_` prefix. For example, to use `geom_point()`,
-#'     give the geom as `"point"`.
-#'   * For more information and other ways to specify the geom, see the
-#'     [layer geom][layer_geoms] documentation.
-#' @param stat The statistical transformation to use on the data for this layer.
-#'   When using a `geom_*()` function to construct a layer, the `stat`
-#'   argument can be used to override the default coupling between geoms and
-#'   stats. The `stat` argument accepts the following:
-#'   * A `Stat` ggproto subclass, for example `StatCount`.
-#'   * A string naming the stat. To give the stat as a string, strip the
-#'     function name of the `stat_` prefix. For example, to use `stat_count()`,
-#'     give the stat as `"count"`.
-#'   * For more information and other ways to specify the stat, see the
-#'     [layer stat][layer_stats] documentation.
-#' @param position A position adjustment to use on the data for this layer. This
-#'   can be used in various ways, including to prevent overplotting and
-#'   improving the display. The `position` argument accepts the following:
-#'   * The result of calling a position function, such as `position_jitter()`.
-#'     This method allows for passing extra arguments to the position.
-#'   * A string naming the position adjustment. To give the position as a
-#'     string, strip the function name of the `position_` prefix. For example,
-#'     to use `position_jitter()`, give the position as `"jitter"`.
-#'   * For more information and other ways to specify the position, see the
-#'     [layer position][layer_positions] documentation.
-#' @param show.legend logical. Should this layer be included in the legends?
-#'   `NA`, the default, includes if any aesthetics are mapped.
-#'   `FALSE` never includes, and `TRUE` always includes.
-#'   It can also be a named logical vector to finely select the aesthetics to
-#'   display. To include legend keys for all levels, even
-#'   when no data exists, use `TRUE`.  If `NA`, all levels are shown in legend,
-#'   but unobserved levels are omitted.
-#' @param inherit.aes If `FALSE`, overrides the default aesthetics,
-#'   rather than combining with them. This is most useful for helper functions
-#'   that define both data and aesthetics and shouldn't inherit behaviour from
-#'   the default plot specification, e.g. [annotation_borders()].
+#' @inheritParams shared_layer_parameters
 #' @param check.aes,check.param If `TRUE`, the default, will check that
 #'   supplied parameters and aesthetics are understood by the `geom` or
 #'   `stat`. Use `FALSE` to suppress the checks.
@@ -96,18 +37,30 @@
 #'     data = head, params = list(na.rm = FALSE)
 #'   )
 #'
-layer <- function(geom = NULL, stat = NULL,
-                  data = NULL, mapping = NULL,
-                  position = NULL, params = list(),
-                  inherit.aes = TRUE, check.aes = TRUE, check.param = TRUE,
-                  show.legend = NA, key_glyph = NULL, layout = NULL, layer_class = Layer) {
+layer <- function(
+  geom = NULL,
+  stat = NULL,
+  data = NULL,
+  mapping = NULL,
+  position = NULL,
+  params = list(),
+  inherit.aes = TRUE,
+  check.aes = TRUE,
+  check.param = TRUE,
+  show.legend = NA,
+  key_glyph = NULL,
+  layout = NULL,
+  layer_class = Layer
+) {
   call_env <- caller_env()
   user_env <- caller_env(2)
 
   # Handle show_guide/show.legend
   if (!is.null(params$show_guide)) {
-    lifecycle::deprecate_stop(
-      "2.0.0", "layer(show_guide)", "layer(show.legend)"
+    deprecate(
+      "2.0.0",
+      "layer(show_guide)",
+      "layer(show.legend)"
     )
   }
 
@@ -118,24 +71,35 @@ layer <- function(geom = NULL, stat = NULL,
   if (!is.null(mapping)) {
     mapping <- validate_mapping(mapping, call_env)
   }
+  mapped_aes <- mapped_aesthetics(mapping)
 
   data <- fortify(data)
 
   geom <- validate_subclass(geom, "Geom", env = parent.frame(), call = call_env)
   stat <- validate_subclass(stat, "Stat", env = parent.frame(), call = call_env)
-  position <- validate_subclass(position, "Position", env = parent.frame(), call = call_env)
+  position <- validate_subclass(
+    position,
+    "Position",
+    env = parent.frame(),
+    call = call_env
+  )
 
   # Special case for na.rm parameter needed by all layers
   params$na.rm <- params$na.rm %||% FALSE
 
   # Split up params between aesthetics, geom, and stat
+  all_aes <- unique(c(
+    geom$aesthetics(),
+    position$aesthetics(),
+    stat$aesthetics()
+  ))
   params <- rename_aes(params)
-  aes_params  <- params[intersect(names(params), union(geom$aesthetics(), position$aesthetics()))]
+  aes_params <- params[intersect(names(params), all_aes)]
   geom_params <- params[intersect(names(params), geom$parameters(TRUE))]
   stat_params <- params[intersect(names(params), stat$parameters(TRUE))]
 
   ignore <- c("key_glyph", "name", "layout")
-  all <- c(geom$parameters(TRUE), stat$parameters(TRUE), geom$aesthetics(), position$aesthetics(), ignore)
+  all <- c(geom$parameters(TRUE), stat$parameters(TRUE), all_aes, ignore)
 
   # Take care of plain patterns provided as aesthetic
   pattern <- vapply(aes_params, is_pattern, logical(1))
@@ -146,36 +110,70 @@ layer <- function(geom = NULL, stat = NULL,
   # Warn about extra params and aesthetics
   extra_param <- setdiff(names(params), all)
   # Take care of size->linewidth renaming in layer params
-  if (geom$rename_size && "size" %in% extra_param && !"linewidth" %in% mapped_aesthetics(mapping)) {
+  if (
+    geom$rename_size && "size" %in% extra_param && !"linewidth" %in% mapped_aes
+  ) {
     aes_params <- c(aes_params, params["size"])
     extra_param <- setdiff(extra_param, "size")
-    deprecate_warn0("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"), user_env = user_env)
+    deprecate(
+      "3.4.0",
+      I("Using `size` aesthetic for lines"),
+      I("`linewidth`"),
+      user_env = user_env
+    )
   }
-  if (check.param && length(extra_param) > 0) {
-    cli::cli_warn("Ignoring unknown parameters: {.arg {extra_param}}", call = call_env)
+  if (check.param) {
+    if (length(extra_param) > 0) {
+      cli::cli_warn(
+        "Ignoring unknown parameters: {.arg {extra_param}}",
+        call = call_env
+      )
+    }
+    double_defined <- intersect(mapped_aes, names(aes_params))
+    if (length(double_defined) > 0) {
+      cli::cli_warn(
+        c(
+          "The {.and {.field {double_defined}}} aesthetic{?s} {?is/are} \\
+          defined twice: once in {.arg mapping} and once as a static aesthetic.",
+          "i" = "The static aesthetic overrules the mapped aesthetic."
+        ),
+        call = call_env
+      )
+    }
   }
 
-  extra_aes <- setdiff(
-    mapped_aesthetics(mapping),
-    c(geom$aesthetics(), stat$aesthetics(), position$aesthetics())
-  )
+  extra_aes <- setdiff(mapped_aes, all_aes)
   # Take care of size->linewidth aes renaming
-  if (geom$rename_size && "size" %in% extra_aes && !"linewidth" %in% mapped_aesthetics(mapping)) {
+  if (
+    geom$rename_size && "size" %in% extra_aes && !"linewidth" %in% mapped_aes
+  ) {
     extra_aes <- setdiff(extra_aes, "size")
-    deprecate_warn0("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"), user_env = user_env)
+    deprecate(
+      "3.4.0",
+      I("Using `size` aesthetic for lines"),
+      I("`linewidth`"),
+      user_env = user_env
+    )
   }
   if (check.aes && length(extra_aes) > 0) {
-    cli::cli_warn("Ignoring unknown aesthetics: {.field {extra_aes}}", call = call_env)
+    cli::cli_warn(
+      "Ignoring unknown aesthetics: {.field {extra_aes}}",
+      call = call_env
+    )
   }
   aes_params[["label"]] <- normalise_label(aes_params[["label"]])
 
   # adjust the legend draw key if requested
   geom <- set_draw_key(geom, key_glyph %||% params$key_glyph)
 
-  fr_call <- layer_class$constructor %||% frame_call(call_env) %||% current_call()
+  fr_call <- layer_class$constructor %||%
+    frame_call(call_env) %||%
+    current_call()
   attr(fr_call, "srcref") <- NULL
 
-  ggproto("LayerInstance", layer_class,
+  ggproto(
+    "LayerInstance",
+    layer_class,
     constructor = fr_call,
     geom = geom,
     geom_params = geom_params,
@@ -208,7 +206,10 @@ validate_mapping <- function(mapping, call = caller_env()) {
     # Native pipe have higher precedence than + so any type of gg object can be
     # expected here, not just ggplot
     if (S7::S7_inherits(mapping, class_gg)) {
-      msg <- c(msg, "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?")
+      msg <- c(
+        msg,
+        "i" = "Did you use {.code %>%} or {.code |>} instead of {.code +}?"
+      )
     }
 
     cli::cli_abort(msg, call = call)
@@ -378,7 +379,9 @@ validate_mapping <- function(mapping, call = caller_env()) {
 #' @keywords internal
 #' @examples
 #' # None: Layer is not intended to be extended
-Layer <- ggproto("Layer", NULL,
+Layer <- ggproto(
+  "Layer",
+  NULL,
 
   # Fields ------------------------------------------------------------------
 
@@ -487,15 +490,24 @@ Layer <- ggproto("Layer", NULL,
   setup_layer = function(self, data, plot) {
     # For annotation geoms, it is useful to be able to ignore the default aes
     if (isTRUE(self$inherit.aes)) {
-      self$computed_mapping <- class_mapping(defaults(self$mapping, plot@mapping))
+      self$computed_mapping <- class_mapping(defaults(
+        self$mapping,
+        plot@mapping
+      ))
 
       # Inherit size as linewidth from global mapping
-      if (self$geom$rename_size &&
+      if (
+        self$geom$rename_size &&
           "size" %in% names(plot@mapping) &&
           !"linewidth" %in% names(self$computed_mapping) &&
-          "linewidth" %in% self$geom$aesthetics()) {
+          "linewidth" %in% self$geom$aesthetics()
+      ) {
         self$computed_mapping$size <- plot@mapping$size
-        deprecate_warn0("3.4.0", I("Using `size` aesthetic for lines"), I("`linewidth`"))
+        deprecate(
+          "3.4.0",
+          I("Using `size` aesthetic for lines"),
+          I("`linewidth`")
+        )
       }
     } else {
       self$computed_mapping <- self$mapping
@@ -552,9 +564,10 @@ Layer <- ggproto("Layer", NULL,
 
     # Check aesthetic values
     check_nondata_cols(
-      evaled, aesthetics,
+      evaled,
+      aesthetics,
       problem = "Aesthetics are not valid data columns.",
-      hint    = "Did you mistype the name of a data column or forget to add {.fn after_stat}?"
+      hint = "Did you mistype the name of a data column or forget to add {.fn after_stat}?"
     )
 
     n <- nrow(data)
@@ -567,13 +580,20 @@ Layer <- ggproto("Layer", NULL,
         n <- if (min(aes_n) == 0) 0L else max(aes_n)
       }
     }
-    if ((self$geom$check_constant_aes %||% TRUE)
-        && length(aes_n) > 0 && all(aes_n == 1) && n > 1) {
-      cli::cli_warn(c(
-        "All aesthetics have length 1, but the data has {n} rows.",
-        i = "Please consider using {.fn annotate} or provide this layer \\
+    if (
+      (self$geom$check_constant_aes %||% TRUE) &&
+        length(aes_n) > 0 &&
+        all(aes_n == 1) &&
+        n > 1
+    ) {
+      cli::cli_warn(
+        c(
+          "All aesthetics have length 1, but the data has {n} rows.",
+          i = "Please consider using {.fn annotate} or provide this layer \\
         with data containing a single row."
-      ), call = self$constructor)
+        ),
+        call = self$constructor
+      )
     }
     check_aesthetics(evaled, n)
 
@@ -610,7 +630,9 @@ Layer <- ggproto("Layer", NULL,
   #' A data frame with layer data. As a side effect the `computed_stat_params`
   #' field is populated.
   compute_statistic = function(self, data, layout) {
-    if (empty(data)) return(data_frame0())
+    if (empty(data)) {
+      return(data_frame0())
+    }
 
     ptype <- vec_ptype(data)
     self$computed_stat_params <- self$stat$setup_params(data, self$stat_params)
@@ -644,7 +666,9 @@ Layer <- ggproto("Layer", NULL,
   #'
   #' A data frame with layer data
   map_statistic = function(self, data, plot) {
-    if (empty(data)) return(data_frame0())
+    if (empty(data)) {
+      return(data_frame0())
+    }
 
     # Make sure data columns are converted to correct names. If not done, a
     # column with e.g. a color name will not be found in an after_stat()
@@ -656,22 +680,28 @@ Layer <- ggproto("Layer", NULL,
     aesthetics <- defaults(aesthetics, self$stat$default_aes)
     aesthetics <- compact(aesthetics)
 
-    new <- strip_dots(aesthetics[is_calculated_aes(aesthetics) | is_staged_aes(aesthetics)])
-    if (length(new) == 0) return(data)
+    new <- strip_dots(aesthetics[
+      is_calculated_aes(aesthetics) | is_staged_aes(aesthetics)
+    ])
+    if (length(new) == 0) {
+      return(data)
+    }
 
     # data needs to be non-scaled
     data_orig <- plot@scales$backtransform_df(data)
 
     # Add map stat output to aesthetics
     stat_data <- eval_aesthetics(
-      substitute_aes(new), data_orig,
+      substitute_aes(new),
+      data_orig,
       mask = list(stage = stage_calculated)
     )
     # Check that all columns in aesthetic stats are valid data
     check_nondata_cols(
-      stat_data, aesthetics,
+      stat_data,
+      aesthetics,
       problem = "Aesthetics must be valid computed stats.",
-      hint    = "Did you map your stat in the wrong layer?"
+      hint = "Did you map your stat in the wrong layer?"
     )
 
     stat_data <- data_frame0(!!!stat_data)
@@ -709,7 +739,9 @@ Layer <- ggproto("Layer", NULL,
   #' A data frame with layer data. As a side effect the `computed_geom_params`
   #' field is populated.
   compute_geom_1 = function(self, data) {
-    if (empty(data)) return(data_frame0())
+    if (empty(data)) {
+      return(data_frame0())
+    }
     ptype <- vec_ptype(data)
 
     check_required_aesthetics(
@@ -717,7 +749,10 @@ Layer <- ggproto("Layer", NULL,
       c(names(data), names(self$aes_params)),
       snake_class(self$geom)
     )
-    self$computed_geom_params <- self$geom$setup_params(data, c(self$geom_params, self$aes_params))
+    self$computed_geom_params <- self$geom$setup_params(
+      data,
+      c(self$geom_params, self$aes_params)
+    )
     data <- self$geom$setup_data(data, self$computed_geom_params)
     merge_attrs(data, ptype)
   },
@@ -742,7 +777,9 @@ Layer <- ggproto("Layer", NULL,
   #'
   #' A data frame with layer data.
   compute_position = function(self, data, layout) {
-    if (empty(data)) return(data_frame0())
+    if (empty(data)) {
+      return(data_frame0())
+    }
     ptype <- vec_ptype(data)
     data <- self$position$use_defaults(data, self$aes_params)
     params <- self$position$setup_params(data)
@@ -773,9 +810,17 @@ Layer <- ggproto("Layer", NULL,
   #' **Value**
   #'
   #' A data frame with layer data.
-  compute_geom_2 = function(self, data, params = self$aes_params, theme = NULL, ...) {
+  compute_geom_2 = function(
+    self,
+    data,
+    params = self$aes_params,
+    theme = NULL,
+    ...
+  ) {
     # Combine aesthetics, defaults, & params
-    if (empty(data)) return(data)
+    if (empty(data)) {
+      return(data)
+    }
 
     # Drop empty aesthetics
     empty_aes <- names(params)[lengths(params) == 0]
@@ -788,7 +833,11 @@ Layer <- ggproto("Layer", NULL,
     }
 
     aesthetics <- self$computed_mapping
-    modifiers <- aesthetics[is_scaled_aes(aesthetics) | is_staged_aes(aesthetics) | is_themed_aes(aesthetics)]
+    modifiers <- aesthetics[
+      is_scaled_aes(aesthetics) |
+        is_staged_aes(aesthetics) |
+        is_themed_aes(aesthetics)
+    ]
 
     self$geom$use_defaults(data, params, modifiers, theme = theme, ...)
   },
@@ -864,10 +913,20 @@ Layer <- ggproto("Layer", NULL,
     if (!is.null(self$mapping)) {
       cat("mapping:", clist(self$mapping), "\n")
     }
-    cat(snakeize(class(self$geom)[[1]]), ": ", clist(self$geom_params), "\n",
-        sep = "")
-    cat(snakeize(class(self$stat)[[1]]), ": ", clist(self$stat_params), "\n",
-        sep = "")
+    cat(
+      snakeize(class(self$geom)[[1]]),
+      ": ",
+      clist(self$geom_params),
+      "\n",
+      sep = ""
+    )
+    cat(
+      snakeize(class(self$stat)[[1]]),
+      ": ",
+      clist(self$stat_params),
+      "\n",
+      sep = ""
+    )
     cat(snakeize(class(self$position)[[1]]), "\n")
   }
 )
@@ -877,19 +936,27 @@ Layer <- ggproto("Layer", NULL,
 #' @export
 #' @rdname is_tests
 is_layer <- function(x) inherits(x, "Layer")
-is.layer <- function(x) lifecycle::deprecate_stop("3.5.2", "is.layer()", "is_layer()")
+is.layer <- function(x) {
+  deprecate("3.5.2", "is.layer()", "is_layer()", escalate = "abort")
+}
 
-validate_subclass <- function(x, subclass,
-                              argname = to_lower_ascii(subclass),
-                              x_arg = caller_arg(x),
-                              env = parent.frame(),
-                              call = caller_env()) {
-
+validate_subclass <- function(
+  x,
+  subclass,
+  argname = to_lower_ascii(subclass),
+  x_arg = caller_arg(x),
+  env = parent.frame(),
+  call = caller_env()
+) {
   if (inherits(x, subclass)) {
     return(x)
   }
   if (!is_scalar_character(x)) {
-    stop_input_type(x, as_cli("either a string or a {.cls {subclass}} object"), arg = x_arg)
+    stop_input_type(
+      x,
+      as_cli("either a string or a {.cls {subclass}} object"),
+      arg = x_arg
+    )
   }
 
   # Try getting class object directly
@@ -910,9 +977,11 @@ validate_subclass <- function(x, subclass,
         cnd$call <- call(name)
         cli::cli_abort(
           "Failed to retrieve a {.cls {subclass}} object from {.fn {name}}.",
-          parent = cnd, call = call
+          parent = cnd,
+          call = call
         )
-      })
+      }
+    )
   }
   # Position constructors return classes directly
   if (inherits(obj, subclass)) {

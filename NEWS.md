@@ -1,30 +1,32 @@
 # ggplot2 (development version)
 
-# ggplot2 4.0.4
+* Updates for compatibility with S7 > 0.2.2.
+ 
+* Faceting by a named vector no longer partially matches the `names` attribute
+  in place of the `n` attribute (@taekop, #6891).
 
-This is a hotfix release anticipating the upcoming changes in the S7 package.
+* Layers whose data is entirely removed by scale limits no longer error when
+  the plot has multiple panels (@GuangchuangYu, #6899).
 
-* Updates for compatibility with S7 > 0.2.2 (#6914).
-* S7 subclasses now inherit legacy 'compatibility names' in their
-  class definitions (#6915).
-* Fixed NOTE on CRAN in R-devel.
-
-# ggplot2 4.0.3
-
-This is a hotfix release fixing a test, a bug and introducing a feature.
-
-* Adapt to changes in `rlang::warn_dots_used()` (@lionel-, #6830).
-* Fixed bug where `guide_axis_theta()` didn't anticipate old-style text elements (#6803).
-* `geom_boxplot()`/`stat_boxplot()` gain a `quantile.type` parameter (default `7`)
-   to control the percentile definition used for hinges and median; set `quantile.type = 2`
-   to match SAS's default `PCTLDEF = 5`, enabling parity with SAS boxplots out-of-the-box.
-   (@munoztd0, #6819)
-
-# ggplot2 4.0.2
-
-This hotfix release makes ggplot2 more interoperable between rlang versions.
-
+* `annotate()` now treats the `group` argument as a per-observation aesthetic
+  instead of a fixed parameter, fixing an error when combined with facets
+  (@taekop, #6862).
+* New `theme(axis.ontop)` theme setting to control axis drawing order relative
+  to panel (@teunbrand, #6456).
+* New `stat_boxplot(min.group.n)` argument, which skips drawing the box and 
+  whiskers for small groups (@teunbrand based on code by @dicook, #6776)
+* Fixed wording of warning emitted by `remove missing()` when non-finite values
+  are removed: it now reads "non-finite values or values outside the scale 
+  range" instead of "non-finite outside the scale range" (@osorensen).
+* (internal) Secondary axis tests now meaningfully assert break positions.
+  Misplaced parentheses previously made the tolerance checks one-sided, and
+  four position checks were tautological self-comparisons (@sims1253).
 * `make_constructor()` no longer captures `rlang::list2()` at build time.
+* The `arrow` and `arrow.fill` arguments are now available in 
+  `geom_linerange()` and `geom_pointrange()` layers (@teunbrand, #6481).
+* (internal) `zeroGrob()` now returns a `grid::nullGrob()` (#6390).
+* `stat_ydensity()` now only requires the `x` or `y` aesthetic. The other will
+  be populated with 0, similar to `stat_boxplot()` (@teunbrand, #6600)
 * Implemented `as.list()` and `S7::convert()` methods for lists and classes in ggplot2 
   (@teunbrand, #6695)
 * The default linetype in `geom_sf()` is derived from `geom_polygon()` for 
@@ -45,18 +47,58 @@ This hotfix release makes ggplot2 more interoperable between rlang versions.
 * Added `preserve` argument to `position_jitterdodge()` (@teunbrand, #6584).
 * Fixed `position_jitterdodge(jitter.height, jitter.width)` applying to the 
   wrong dimension with flipped geoms (@teunbrand, #6535).
+* New `geom_smooth(band.colour, band.linetype, band.linewidth)` arguments 
+  control graphical parameters of the (confidence) band (@teunbrand, #6551)
 * New `position_dodge2(group.row)` argument that can be set to `"many"` to
   dodge groups with more than one row, such as in `geom_violin()` 
   (@teunbrand, #6663)
+* `theme(strip.placement.x)` and `theme(strip.placement.y)` can be used for more
+  granular control of strip placement when facetting. These have existed for some
+  time but were not previously documented (@arcresu, #6827).
+* Added support for weighted quantiles in `geom_violin()` (@hughjonesd, #6853)
+* The `dir` argument of `facet_wrap()` is now documented with all
+  eight two-letter codes, clarifying their starting corner and fill
+  order (@CuiweiG, #6837).
+* Fixed bug in `width` computation when `position_dodge(preserve = "single")` 
+  had duplicated `order` aesthetic values (@teunbrand, #6775).
+* New `stat_chain()` to combine multiple stat computations. It comes with a 
+  `link_stat()` helper to feed parameters and mappings (@teunbrand, #6325).
+  
+# ggplot2 4.0.4
+
+This is a hotfix release anticipating the upcoming changes in the S7 package.
+
+* Updates for compatibility with S7 > 0.2.2 (#6914).
+* S7 subclasses now inherit legacy 'compatibility names' in their
+  class definitions (#6915).
+* Fixed NOTE on CRAN in R-devel.
+
+# ggplot2 4.0.3
+
+This is a hotfix release fixing a test, a bug and introducing a feature.
+
+* Adapt to changes in `rlang::warn_dots_used()` (@lionel-, #6830).
+* Fixed bug where `guide_axis_theta()` didn't anticipate old-style text elements (#6803).
+* `geom_boxplot()`/`stat_boxplot()` gain a `quantile.type` parameter (default `7`)
+  to control the percentile definition used for hinges and median; set `quantile.type = 2`
+  to match SAS's default `PCTLDEF = 5`, enabling parity with SAS boxplots out-of-the-box.
+  (@munoztd0, #6819)
+
+# ggplot2 4.0.2
+
+This hotfix release makes ggplot2 more interoperable between rlang versions.
+
+* `make_constructor()` no longer captures `rlang::list2()` at build time.
 
 # ggplot2 4.0.1
 
-This is a smaller patch release focussed on fixing regressions from 4.0.0 and
+This is a smaller patch release focussed on fixing regressions from 4.0.0 and 
 polishing the recent features.
 
 ## Bug fixes
 
 * Fixed regression where `geom_area()` didn't draw panels with single groups
+* Fixed regression where `geom_area()` didn't draw panels with single groups 
   when `stat = "align"` (@teunbrand, #6680)
 * Fixed regression where `position_stack(vjust)` was ignored when there are
   only single groups (#6692)
@@ -69,6 +111,7 @@ polishing the recent features.
 * Fixed regression where `scale_{x,y}_*()` threw an error when an expression
   object is set to `labels` argument (@yutannihilation, #6617).
 * Fixed regression where the first (unnamed) argument to colour/fill scales was
+* Fixed regression where the first (unnamed) argument to colour/fill scales was 
   not passed as the `name` argument (@teunbrand, #6623)
 * Fixed issue where vectorised `arrow()`s caused errors in drawing the
   legend glyphs (@teunbrand, #6594)
@@ -77,6 +120,34 @@ polishing the recent features.
 * Fixed regression where empty arguments to colour/fill scale caused errors
   (@jmbarbone, #6710)
 * Fixed axis misplacement in `coor_radial()` when labels are blank (@teunbrand, #6574)
+
+## Improvements
+
+* Improved palette fallback mechanism in scales (@teunbrand, #6669).
+* Allow `stat` in `geom_hline`, `geom_vline`, and `geom_abline`. (@sierrajohnson, #6559)
+* `stat_boxplot()` treats `width` as an optional aesthetic (@Yunuuuu, #6575)
+* The `theme(panel.widths, panel.heights)` setting attempts to preserve the
+  plot's aspect ratio when only one of the two settings is given, and the plot 
+  has a single panel (@teunbrand, #6701).
+* Logical values for the linetype aesthetic will be interpreted numerically,
+  so that `linetype = FALSE` becomes 0/'blank' and `linetype = TRUE` becomes 
+  1/'solid' (@teunbrand, #6641)
+* Out-of-bounds datapoints used as padding by `stat_align()` now get removed
+  silently rather than verbosely (@teunbrand, #6667)
+
+## Improvements
+
+* Improved palette fallback mechanism in scales (@teunbrand, #6669).
+* Allow `stat` in `geom_hline`, `geom_vline`, and `geom_abline`. (@sierrajohnson, #6559)
+* `stat_boxplot()` treats `width` as an optional aesthetic (@Yunuuuu, #6575)
+* The `theme(panel.widths, panel.heights)` setting attempts to preserve the
+  plot's aspect ratio when only one of the two settings is given, and the plot
+  has a single panel (@teunbrand, #6701).
+* Logical values for the linetype aesthetic will be interpreted numerically,
+  so that `linetype = FALSE` becomes 0/'blank' and `linetype = TRUE` becomes
+  1/'solid' (@teunbrand, #6641)
+* Out-of-bounds datapoints used as padding by `stat_align()` now get removed
+  silently rather than verbosely (@teunbrand, #6667)
 
 ## Improvements
 

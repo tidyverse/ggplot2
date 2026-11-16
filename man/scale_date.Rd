@@ -164,8 +164,8 @@ optionally followed by 's'.}
 \item{limits}{One of:
 \itemize{
 \item \code{NULL} to use the default scale range
-\item A numeric vector of length two providing limits of the scale.
-Use \code{NA} to refer to the existing minimum or maximum
+\item A date vector of length two providing limits of the scale.
+\item To refer to the existing minimum or maximum use \code{lubridate::NA_Date_} or \code{lubridate::NA_POSIXct_}
 \item A function that accepts the existing (automatic) limits and returns
 new limits. Also accepts rlang \link[rlang:as_function]{lambda} function
 notation.
@@ -186,10 +186,10 @@ expand the scale by 5\% on each side for continuous variables, and by
 \item Function that handles limits outside of the scale limits
 (out of bounds). Also accepts rlang \link[rlang:as_function]{lambda}
 function notation.
-\item The default (\code{\link[scales:oob]{scales::censor()}}) replaces out of
+\item The default (\code{\link[scales:censor]{scales::censor()}}) replaces out of
 bounds values with \code{NA}.
-\item \code{\link[scales:oob]{scales::squish()}} for squishing out of bounds values into range.
-\item \code{\link[scales:oob]{scales::squish_infinite()}} for squishing infinite values into range.
+\item \code{\link[scales:squish]{scales::squish()}} for squishing out of bounds values into range.
+\item \code{\link[scales:squish_infinite]{scales::squish_infinite()}} for squishing infinite values into range.
 }}
 
 \item{guide}{A function used to create a guide or its name. See
@@ -240,9 +240,9 @@ The \href{https://ggplot2-book.org/scales-position#sec-date-scales}{date-time po
 
 The \link[=aes_position]{position documentation}.
 
-Other position scales: 
-\code{\link{scale_x_binned}()},
-\code{\link{scale_x_continuous}()},
-\code{\link{scale_x_discrete}()}
+Other position scales:
+\code{\link[=scale_x_binned]{scale_x_binned()}},
+\code{\link[=scale_x_continuous]{scale_x_continuous()}},
+\code{\link[=scale_x_discrete]{scale_x_discrete()}}
 }
 \concept{position scales}

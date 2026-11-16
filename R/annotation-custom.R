@@ -41,7 +41,13 @@ NULL
 #'   theme(plot.background = element_rect(colour = "black")))
 #' base +
 #'   annotation_custom(grob = g, xmin = 1, xmax = 10, ymin = 8, ymax = 10)
-annotation_custom <- function(grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf) {
+annotation_custom <- function(
+  grob,
+  xmin = -Inf,
+  xmax = Inf,
+  ymin = -Inf,
+  ymax = Inf
+) {
   layer(
     data = dummy_data(),
     stat = StatIdentity,
@@ -62,21 +68,40 @@ annotation_custom <- function(grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax =
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomCustomAnn <- ggproto("GeomCustomAnn", Geom,
+GeomCustomAnn <- ggproto(
+  "GeomCustomAnn",
+  Geom,
   extra_params = "",
   handle_na = function(data, params) {
     data
   },
 
-  draw_panel = function(data, panel_params, coord, grob, xmin, xmax,
-                        ymin, ymax) {
+  draw_panel = function(
+    data,
+    panel_params,
+    coord,
+    grob,
+    xmin,
+    xmax,
+    ymin,
+    ymax
+  ) {
     range <- ranges_annotation(
-      coord, panel_params, xmin, xmax, ymin, ymax,
+      coord,
+      panel_params,
+      xmin,
+      xmax,
+      ymin,
+      ymax,
       fun = "annotation_custom"
     )
-    vp <- viewport(x = mean(range$x), y = mean(range$y),
-                   width = diff(range$x), height = diff(range$y),
-                   just = c("center","center"))
+    vp <- viewport(
+      x = mean(range$x),
+      y = mean(range$y),
+      width = diff(range$x),
+      height = diff(range$y),
+      just = c("center", "center")
+    )
     editGrob(grob, vp = vp, name = paste(grob$name, annotation_id()))
   },
 
@@ -91,7 +116,15 @@ annotation_id <- local({
   }
 })
 
-ranges_annotation <- function(coord, panel_params, xmin, xmax, ymin, ymax, fun) {
+ranges_annotation <- function(
+  coord,
+  panel_params,
+  xmin,
+  xmax,
+  ymin,
+  ymax,
+  fun
+) {
   if (!inherits(coord, "CoordCartesian")) {
     cli::cli_abort("{.fn {fun}} only works with {.fn coord_cartesian}.")
   }

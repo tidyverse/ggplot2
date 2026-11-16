@@ -4,7 +4,8 @@
 #' @export
 #' @include geom-path.R
 GeomContour <- ggproto(
-  "GeomContour", GeomPath,
+  "GeomContour",
+  GeomPath,
   default_aes = aes(
     weight = 1,
     colour = from_theme(colour %||% accent),
@@ -36,9 +37,7 @@ GeomContourFilled <- ggproto("GeomContourFilled", GeomPolygon)
 #'
 #' @aesthetics GeomContour
 #' @aesthetics GeomContourFilled
-#' @inheritParams layer
-#' @inheritParams geom_point
-#' @inheritParams geom_path
+#' @inheritParams shared_layer_parameters
 #' @param binwidth The width of the contour bins. Overridden by `bins`.
 #' @param bins Number of contour bins. Overridden by `breaks`.
 #' @param breaks One of:
@@ -84,15 +83,21 @@ GeomContourFilled <- ggproto("GeomContourFilled", GeomPolygon)
 #'   geom_contour(colour = "white")
 #' }
 geom_contour <- make_constructor(
-  GeomContour, stat = "contour",
+  GeomContour,
+  stat = "contour",
   # Passed to contour stat:
-  bins = NULL, binwidth = NULL, breaks = NULL
+  bins = NULL,
+  binwidth = NULL,
+  breaks = NULL
 )
 
 #' @rdname geom_contour
 #' @export
 geom_contour_filled <- make_constructor(
-  GeomContourFilled, stat = "contour_filled",
+  GeomContourFilled,
+  stat = "contour_filled",
   # Passed to contour_filled stat:
-  bins = NULL, binwidth = NULL, breaks = NULL
+  bins = NULL,
+  binwidth = NULL,
+  breaks = NULL
 )

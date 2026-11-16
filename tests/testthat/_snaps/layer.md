@@ -47,6 +47,11 @@
 
     Ignoring empty aesthetics: `fill` and `shape`.
 
+# aesthetics defined twice create warning
+
+    The size aesthetic is defined twice: once in `mapping` and once as a static aesthetic.
+    i The static aesthetic overrules the mapped aesthetic.
+
 # invalid aesthetics throws errors
 
     Problem while computing aesthetics.
@@ -144,4 +149,31 @@
 # layer_data returns a data.frame
 
     `layer_data()` must return a <data.frame>.
+
+# layers with empty data are silently omitted with facet_wrap
+
+    Code
+      get_layer_data(d)
+    Condition
+      Error in `combine_vars()`:
+      ! Faceting variables must have at least one value.
+
+# layers with empty data are silently omitted with facet_grid
+
+    Code
+      get_layer_data(d)
+    Condition
+      Error in `combine_vars()`:
+      ! Faceting variables must have at least one value.
+
+# empty data overrides plot defaults
+
+    Code
+      get_layer_data(d)
+    Condition
+      Error in `geom_point()`:
+      ! Problem while computing aesthetics.
+      i Error occurred in the 2nd layer.
+      Caused by error:
+      ! object 'wt' not found
 

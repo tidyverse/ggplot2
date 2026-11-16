@@ -24,7 +24,7 @@ scale_fill_discrete(
 }
 \arguments{
 \item{...}{
-  Arguments passed on to \code{\link[=discrete_scale]{discrete_scale}}
+  Arguments passed on to \code{\link{discrete_scale}}
   \describe{
     \item{\code{breaks}}{One of:
 \itemize{
@@ -121,16 +121,16 @@ theme_set(old)
 
 The \href{https://ggplot2-book.org/scales-colour#sec-colour-discrete}{discrete colour scales section} of the online ggplot2 book.
 
-Other colour scales: 
-\code{\link{scale_alpha}()},
-\code{\link{scale_colour_brewer}()},
-\code{\link{scale_colour_continuous}()},
-\code{\link{scale_colour_gradient}()},
-\code{\link{scale_colour_grey}()},
-\code{\link{scale_colour_hue}()},
-\code{\link{scale_colour_identity}()},
-\code{\link{scale_colour_manual}()},
-\code{\link{scale_colour_steps}()},
-\code{\link{scale_colour_viridis_d}()}
+Other colour scales:
+\code{\link[=scale_alpha]{scale_alpha()}},
+\code{\link[=scale_colour_brewer]{scale_colour_brewer()}},
+\code{\link[=scale_colour_continuous]{scale_colour_continuous()}},
+\code{\link[=scale_colour_gradient]{scale_colour_gradient()}},
+\code{\link[=scale_colour_grey]{scale_colour_grey()}},
+\code{\link[=scale_colour_hue]{scale_colour_hue()}},
+\code{\link[=scale_colour_identity]{scale_colour_identity()}},
+\code{\link[=scale_colour_manual]{scale_colour_manual()}},
+\code{\link[=scale_colour_steps]{scale_colour_steps()}},
+\code{\link[=scale_colour_viridis_d]{scale_colour_viridis_d()}}
 }
 \concept{colour scales}

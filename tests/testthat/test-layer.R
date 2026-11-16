@@ -5,8 +5,18 @@ test_that("layer() checks its input", {
   expect_snapshot_error(layer(geom = "point", position = "identity"))
   expect_snapshot_error(layer(geom = "point", stat = "identity"))
 
-  expect_snapshot_error(layer("point", "identity", mapping = 1:4, position = "identity"))
-  expect_snapshot_error(layer("point", "identity", mapping = ggplot(), position = "identity"))
+  expect_snapshot_error(layer(
+    "point",
+    "identity",
+    mapping = 1:4,
+    position = "identity"
+  ))
+  expect_snapshot_error(layer(
+    "point",
+    "identity",
+    mapping = ggplot(),
+    position = "identity"
+  ))
 
   expect_snapshot_error(validate_subclass("test", "geom"))
   expect_snapshot_error(validate_subclass(environment(), "geom"))
@@ -29,8 +39,13 @@ test_that("unknown aesthetics create warning", {
 })
 
 test_that("empty aesthetics create warning", {
-  p <- ggplot(mtcars) + geom_point(aes(disp, mpg), fill = NULL, shape = character())
+  p <- ggplot(mtcars) +
+    geom_point(aes(disp, mpg), fill = NULL, shape = character())
   expect_snapshot_warning(ggplot_build(p))
+})
+
+test_that("aesthetics defined twice create warning", {
+  expect_snapshot_warning(geom_point(aes(size = foo), size = 12))
 })
 
 test_that("invalid aesthetics throws errors", {
@@ -80,7 +95,13 @@ test_that("function aesthetics are wrapped with after_stat()", {
 test_that("computed stats are in appropriate layer", {
   df <- data_frame(x = 1:10)
   expect_snapshot_error(
-    ggplot_build(ggplot(df, aes(colour = after_stat(density), fill = after_stat(density))) + geom_point())
+    ggplot_build(
+      ggplot(
+        df,
+        aes(colour = after_stat(density), fill = after_stat(density))
+      ) +
+        geom_point()
+    )
   )
 })
 
@@ -96,9 +117,15 @@ test_that("layers are stateless except for the computed params", {
   p <- ggplot(df) +
     geom_col(aes(x = x, y = y), width = 0.8, fill = "red")
   col_layer <- as.list(p@layers[[1]])
-  stateless_names <- setdiff(names(col_layer), c("computed_geom_params", "computed_stat_params", "computed_mapping"))
+  stateless_names <- setdiff(
+    names(col_layer),
+    c("computed_geom_params", "computed_stat_params", "computed_mapping")
+  )
   invisible(ggplotGrob(p))
-  expect_identical(as.list(p@layers[[1]])[stateless_names], col_layer[stateless_names])
+  expect_identical(
+    as.list(p@layers[[1]])[stateless_names],
+    col_layer[stateless_names]
+  )
 })
 
 test_that("inherit.aes works", {
@@ -109,11 +136,14 @@ test_that("inherit.aes works", {
     geom_col(aes(x = x, y = y), inherit.aes = FALSE)
   invisible(ggplotGrob(p1))
   invisible(ggplotGrob(p2))
-  expect_identical(p1@layers[[1]]$computed_mapping, p2@layers[[1]]$computed_mapping)
+  expect_identical(
+    p1@layers[[1]]$computed_mapping,
+    p2@layers[[1]]$computed_mapping
+  )
 })
 
 test_that("retransform works on computed aesthetics in `map_statistic`", {
-  df <- data.frame(x = rep(c(1,2), c(9, 25)))
+  df <- data.frame(x = rep(c(1, 2), c(9, 25)))
   p <- ggplot(df, aes(x)) + geom_bar() + scale_y_sqrt()
   expect_equal(get_layer_data(p)$y, c(3, 5))
 
@@ -147,7 +177,6 @@ test_that("layer warns for constant aesthetics", {
 })
 
 test_that("layer names can be resolved", {
-
   p <- ggplot() + geom_point() + geom_point()
   expect_named(p@layers, c("geom_point", "geom_point...2"))
 
@@ -159,7 +188,6 @@ test_that("layer names can be resolved", {
 })
 
 test_that("validate_subclass can resolve classes via constructors", {
-
   env <- new_environment(list(
     geom_foobar = geom_point,
     stat_foobar = stat_boxplot,
@@ -169,9 +197,14 @@ test_that("validate_subclass can resolve classes via constructors", {
 
   expect_s3_class(validate_subclass("foobar", "Geom", env = env), "GeomPoint")
   expect_s3_class(validate_subclass("foobar", "Stat", env = env), "StatBoxplot")
-  expect_s3_class(validate_subclass("foobar", "Position", env = env), "PositionNudge")
-  expect_s3_class(validate_subclass("foobar", "Guide", env = env), "GuideAxisTheta")
-
+  expect_s3_class(
+    validate_subclass("foobar", "Position", env = env),
+    "PositionNudge"
+  )
+  expect_s3_class(
+    validate_subclass("foobar", "Guide", env = env),
+    "GuideAxisTheta"
+  )
 })
 
 test_that("attributes on layer data are preserved", {
@@ -182,7 +215,9 @@ test_that("attributes on layer data are preserved", {
   # * It has an `after_stat()` so it enters the map_statistic method
   old <- stat_summary(
     aes(fill = after_stat(y)),
-    fun = mean, geom = "col", position = "dodge"
+    fun = mean,
+    geom = "col",
+    position = "dodge"
   )
   # We modify the compute aesthetics method to append a test attribute
   new <- ggproto(NULL, old, compute_aesthetics = function(self, data, plot) {
@@ -192,10 +227,12 @@ test_that("attributes on layer data are preserved", {
   })
   # At the end of plot building, we want to retrieve that metric
   ld <- layer_data(
-    ggplot(mpg, aes(drv, hwy, colour = factor(year))) + new + facet_grid(~year) +
+    ggplot(mpg, aes(drv, hwy, colour = factor(year))) +
+      new +
+      facet_grid(~year) +
       scale_y_sqrt()
   )
-  expect_equal(attr(ld, "test"), "preserve me")
+  expect_equal(attr(ld, "test", TRUE), "preserve me")
 })
 
 # Data extraction ---------------------------------------------------------
@@ -226,6 +263,30 @@ test_that("layer_data returns a data.frame", {
   expect_snapshot_error(l$layer_data(mtcars))
 })
 
+test_that("get_layer_data works with layer names", {
+  p <- ggplot() +
+    annotate("point", x = 1, y = 1, name = "foo") +
+    annotate("line", x = 1:2, y = 1:2, name = "bar")
+
+  # name has higher precedence than index
+  expect_identical(
+    get_layer_data(p, i = "bar"),
+    get_layer_data(p, i = 2L)
+  )
+})
+
+test_that("get_layer_grob works with layer names", {
+  p <- ggplot() +
+    annotate("point", x = 1, y = 1, name = "foo") +
+    annotate("line", x = 1:2, y = 1:2, name = "bar")
+
+  # name has higher precedence than index
+  named <- get_layer_grob(p, i = "bar")
+  nummed <- get_layer_grob(p, i = 2L)
+  named[[1]]$name <- nummed[[1]]$name <- NULL # ignore grid's unique names
+  expect_identical(named, nummed)
+})
+
 test_that("data.frames and matrix aesthetics survive the build stage", {
   df <- data_frame0(
     x = 1:2,
@@ -240,5 +301,113 @@ test_that("data.frames and matrix aesthetics survive the build stage", {
       scale_shape_identity()
   )
   expect_vector(p$colour, matrix(NA_integer_, nrow = 0, ncol = 2), size = 2)
-  expect_vector(p$shape,  data_frame0(a = integer(), b = character()), size = 2)
+  expect_vector(p$shape, data_frame0(a = integer(), b = character()), size = 2)
+})
+
+# Empty data --------------------------------------------------------------
+
+df0 <- data_frame(
+  mpg = numeric(0),
+  wt = numeric(0),
+  am = numeric(0),
+  cyl = numeric(0)
+)
+
+test_that("layers with empty data are silently omitted", {
+  # Empty data (no visible points)
+  d <- ggplot(df0, aes(mpg, wt)) + geom_point()
+  expect_equal(nrow(get_layer_data(d)), 0)
+
+  d <- ggplot() + geom_point(data = df0, aes(mpg, wt))
+  expect_equal(nrow(get_layer_data(d)), 0)
+
+  # Regular mtcars data, x=mpg, y=wt, normal points and points from empty data frame
+  d <- ggplot(mtcars, aes(mpg, wt)) + geom_point() + geom_point(data = df0)
+  expect_equal(nrow(get_layer_data(d, 1)), nrow(mtcars))
+  expect_equal(nrow(get_layer_data(d, 2)), 0)
+
+  # Regular mtcars data, but points only from empty data frame
+  d <- ggplot(mtcars, aes(mpg, wt)) + geom_point(data = df0)
+  expect_equal(nrow(get_layer_data(d, 1)), 0)
+})
+
+test_that("plots with empty data and vectors for aesthetics work", {
+  d <- ggplot(NULL, aes(1:5, 1:5)) + geom_point()
+  expect_equal(nrow(get_layer_data(d)), 5)
+
+  d <- ggplot(data_frame(), aes(1:5, 1:5)) + geom_point()
+  expect_equal(nrow(get_layer_data(d)), 5)
+
+  d <- ggplot() + geom_point(aes(1:5, 1:5))
+  expect_equal(nrow(get_layer_data(d)), 5)
+})
+
+test_that("layers with empty data are silently omitted with facet_wrap", {
+  # Empty data, facet_wrap, throws error
+  d <- ggplot(df0, aes(mpg, wt)) +
+    geom_point() +
+    facet_wrap(~cyl)
+  expect_snapshot(get_layer_data(d), error = TRUE)
+
+  d <- d + geom_point(data = mtcars)
+  expect_equal(nrow(get_layer_data(d, 1)), 0)
+  expect_equal(nrow(get_layer_data(d, 2)), nrow(mtcars))
+})
+
+test_that("layers with empty data are silently omitted with facet_grid", {
+  d <- ggplot(df0, aes(mpg, wt)) +
+    geom_point() +
+    facet_grid(am ~ cyl)
+  expect_snapshot(get_layer_data(d), error = TRUE)
+
+  d <- d + geom_point(data = mtcars)
+  expect_equal(nrow(get_layer_data(d, 1)), 0)
+  expect_equal(nrow(get_layer_data(d, 2)), nrow(mtcars))
+})
+
+test_that("empty data overrides plot defaults", {
+  # No extra points when x and y vars don't exist but are set
+  d <- ggplot(mtcars, aes(mpg, wt)) +
+    geom_point() +
+    geom_point(data = data_frame(), x = 20, y = 3)
+  expect_equal(nrow(get_layer_data(d, 1)), nrow(mtcars))
+  expect_equal(nrow(get_layer_data(d, 2)), 0)
+
+  # No extra points when x and y vars are empty, even when aesthetics are set
+  d <- ggplot(mtcars, aes(mpg, wt)) +
+    geom_point() +
+    geom_point(data = df0, x = 20, y = 3)
+  expect_equal(nrow(get_layer_data(d, 1)), nrow(mtcars))
+  expect_equal(nrow(get_layer_data(d, 2)), 0)
+
+  skip_if(getRversion() <= "4.4.0")
+  d <- ggplot(mtcars, aes(mpg, wt)) +
+    geom_point() +
+    geom_point(data = data_frame())
+  expect_snapshot(get_layer_data(d), error = TRUE)
+})
+
+test_that("layer inherits data from plot when data = NULL", {
+  d <- ggplot(mtcars, aes(mpg, wt)) +
+    geom_point(data = NULL)
+  expect_equal(nrow(get_layer_data(d)), nrow(mtcars))
+})
+
+test_that("empty layers still generate one grob per panel", {
+  df <- data_frame(x = 1:3, y = c("a", "b", "c"))
+
+  d <- ggplot(df, aes(x, y)) +
+    geom_point(data = df[0, ]) +
+    geom_point() +
+    facet_wrap(~y)
+
+  expect_length(get_layer_grob(d), 3)
+})
+
+test_that("missing layers generate one grob per panel", {
+  df <- data_frame(x = 1:4, y = rep(1:2, 2), g = rep(1:2, 2))
+  base <- ggplot(df, aes(x, y)) + geom_point(shape = NA, na.rm = TRUE)
+
+  expect_length(get_layer_grob(base), 1)
+  expect_length(get_layer_grob(base + facet_wrap(~g)), 2)
 })

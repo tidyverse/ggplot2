@@ -1,6 +1,8 @@
 .onAttach <- function(...) {
   withr::with_preserve_seed({
-    if (!interactive() || stats::runif(1) > 0.1) return()
+    if (!interactive() || stats::runif(1) > 0.1) {
+      return()
+    }
 
     tip <- random_tip()
     packageStartupMessage(paste(strwrap(tip), collapse = "\n"))
@@ -14,6 +16,7 @@ random_tip <- function() {
     "Keep up to date with changes at https://tidyverse.org/blog/",
     "Use suppressPackageStartupMessages() to eliminate package startup messages",
     "Need help? Try Stackoverflow: https://stackoverflow.com/tags/ggplot2",
+    "Explore the ggplot2 extension gallery to extend your plotting capabilities: https://exts.ggplot2.tidyverse.org/",
     "Need help getting started? Try the R Graphics Cookbook: https://r-graphics.org",
     "Want to understand how all the pieces fit together? Read R for Data Science: https://r4ds.hadley.nz/"
   )

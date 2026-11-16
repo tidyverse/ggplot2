@@ -6,8 +6,7 @@
 #' overplotting caused by discreteness in smaller datasets.
 #'
 #' @aesthetics GeomPoint
-#' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @inheritParams position_jitter
 #' @seealso
 #'  [geom_point()] for regular, unjittered points,
@@ -33,14 +32,18 @@
 #'   geom_jitter()
 #' ggplot(mpg, aes(cty, hwy)) +
 #'   geom_jitter(width = 0.5, height = 0.5)
-geom_jitter <- function(mapping = NULL, data = NULL,
-                        stat = "identity", position = "jitter",
-                        ...,
-                        width = NULL,
-                        height = NULL,
-                        na.rm = FALSE,
-                        show.legend = NA,
-                        inherit.aes = TRUE) {
+geom_jitter <- function(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "jitter",
+  ...,
+  width = NULL,
+  height = NULL,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+) {
   if (!missing(width) || !missing(height)) {
     if (!missing(position)) {
       cli::cli_abort(c(

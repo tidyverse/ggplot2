@@ -48,19 +48,24 @@
 #' }
 #'
 #' @export
-#' @inheritParams stat_identity
-#' @inheritParams geom_point
+#' @inheritParams shared_layer_parameters
 #' @param fun.geometry
 #'   A function that takes a `sfc` object and returns a `sfc_POINT` with the
 #'   same length as the input. If `NULL`, `function(x) sf::st_point_on_surface(sf::st_zm(x))`
 #'   will be used. Note that the function may warn about the incorrectness of
 #'   the result if the data is not projected, but you can ignore this except
 #'   when you really care about the exact locations.
-stat_sf_coordinates <- function(mapping = aes(), data = NULL, geom = "point",
-                                position = "identity", na.rm = FALSE,
-                                show.legend = NA, inherit.aes = TRUE,
-                                fun.geometry = NULL,
-                                ...) {
+stat_sf_coordinates <- function(
+  mapping = aes(),
+  data = NULL,
+  geom = "point",
+  position = "identity",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  fun.geometry = NULL,
+  ...
+) {
   layer_sf(
     stat = StatSfCoordinates,
     data = data,
@@ -82,7 +87,8 @@ stat_sf_coordinates <- function(mapping = aes(), data = NULL, geom = "point",
 #' @format NULL
 #' @export
 StatSfCoordinates <- ggproto(
-  "StatSfCoordinates", Stat,
+  "StatSfCoordinates",
+  Stat,
 
   compute_layer = function(self, data, params, layout) {
     # add coord to the params, so it can be forwarded to compute_group()
@@ -102,14 +108,19 @@ StatSfCoordinates <- ggproto(
       bbox <- sf::st_bbox(points_sfc)
 
       coord$record_bbox(
-        xmin = bbox[["xmin"]], xmax = bbox[["xmax"]],
-        ymin = bbox[["ymin"]], ymax = bbox[["ymax"]]
+        xmin = bbox[["xmin"]],
+        xmax = bbox[["xmax"]],
+        ymin = bbox[["ymin"]],
+        ymax = bbox[["ymax"]]
       )
 
       # transform to the coord's default crs if possible
       default_crs <- coord$get_default_crs()
-      if (!(is.null(default_crs) || is.na(default_crs) ||
-            is.na(sf::st_crs(points_sfc)))) {
+      if (
+        !(is.null(default_crs) ||
+          is.na(default_crs) ||
+          is.na(sf::st_crs(points_sfc)))
+      ) {
         points_sfc <- sf::st_transform(points_sfc, default_crs)
       }
     }
