@@ -64,6 +64,15 @@
 * New `stat_chain()` to combine multiple stat computations. It comes with a 
   `link_stat()` helper to feed parameters and mappings (@teunbrand, #6325).
   
+# ggplot2 4.0.4
+
+This is a hotfix release anticipating the upcoming changes in the S7 package.
+
+* Updates for compatibility with S7 > 0.2.2 (#6914).
+* S7 subclasses now inherit legacy 'compatibility names' in their
+  class definitions (#6915).
+* Fixed NOTE on CRAN in R-devel.
+
 # ggplot2 4.0.3
 
 This is a hotfix release fixing a test, a bug and introducing a feature.
@@ -83,15 +92,11 @@ This hotfix release makes ggplot2 more interoperable between rlang versions.
 
 # ggplot2 4.0.1
 
-This is a smaller patch release focussed on fixing regressions from 4.0.0 and
-# ggplot2 4.0.1
-
 This is a smaller patch release focussed on fixing regressions from 4.0.0 and 
 polishing the recent features.
 
 ## Bug fixes
 
-* Fixed regression where `geom_area()` didn't draw panels with single groups
 * Fixed regression where `geom_area()` didn't draw panels with single groups 
   when `stat = "align"` (@teunbrand, #6680)
 * Fixed regression where `position_stack(vjust)` was ignored when there are
@@ -104,7 +109,6 @@ polishing the recent features.
   (@mitchelloharawild, #6609).
 * Fixed regression where `scale_{x,y}_*()` threw an error when an expression
   object is set to `labels` argument (@yutannihilation, #6617).
-* Fixed regression where the first (unnamed) argument to colour/fill scales was
 * Fixed regression where the first (unnamed) argument to colour/fill scales was 
   not passed as the `name` argument (@teunbrand, #6623)
 * Fixed issue where vectorised `arrow()`s caused errors in drawing the
@@ -125,20 +129,6 @@ polishing the recent features.
   has a single panel (@teunbrand, #6701).
 * Logical values for the linetype aesthetic will be interpreted numerically,
   so that `linetype = FALSE` becomes 0/'blank' and `linetype = TRUE` becomes 
-  1/'solid' (@teunbrand, #6641)
-* Out-of-bounds datapoints used as padding by `stat_align()` now get removed
-  silently rather than verbosely (@teunbrand, #6667)
-
-## Improvements
-
-* Improved palette fallback mechanism in scales (@teunbrand, #6669).
-* Allow `stat` in `geom_hline`, `geom_vline`, and `geom_abline`. (@sierrajohnson, #6559)
-* `stat_boxplot()` treats `width` as an optional aesthetic (@Yunuuuu, #6575)
-* The `theme(panel.widths, panel.heights)` setting attempts to preserve the
-  plot's aspect ratio when only one of the two settings is given, and the plot
-  has a single panel (@teunbrand, #6701).
-* Logical values for the linetype aesthetic will be interpreted numerically,
-  so that `linetype = FALSE` becomes 0/'blank' and `linetype = TRUE` becomes
   1/'solid' (@teunbrand, #6641)
 * Out-of-bounds datapoints used as padding by `stat_align()` now get removed
   silently rather than verbosely (@teunbrand, #6667)

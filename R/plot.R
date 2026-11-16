@@ -173,10 +173,13 @@ is.ggplot <- function(x) {
 #' to call `print()` explicitly if you want to draw a plot inside a
 #' function or for loop.
 #'
-#' @param x plot to display
-#' @param newpage draw new (empty) page first?
-#' @param vp viewport to draw plot in
-#' @param ... other arguments not used by this method
+#' @section Arguments:
+#' \describe{
+#'   \item{x}{plot to display}
+#'   \item{newpage}{draw new (empty) page first?}
+#'   \item{vp}{viewport to draw plot in}
+#'   \item{...}{other arguments not used by this method}
+#' }
 #' @keywords hplot
 #' @return Invisibly returns the original plot.
 #' @name print.ggplot

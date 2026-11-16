@@ -4,15 +4,6 @@
 \alias{print.ggplot}
 \alias{plot.ggplot}
 \title{Explicitly draw plot}
-\arguments{
-\item{x}{plot to display}
-
-\item{newpage}{draw new (empty) page first?}
-
-\item{vp}{viewport to draw plot in}
-
-\item{...}{other arguments not used by this method}
-}
 \value{
 Invisibly returns the original plot.
 }
@@ -22,6 +13,16 @@ default top-level print method will do it for you. You will, however, need
 to call \code{print()} explicitly if you want to draw a plot inside a
 function or for loop.
 }
+\section{Arguments}{
+
+\describe{
+\item{x}{plot to display}
+\item{newpage}{draw new (empty) page first?}
+\item{vp}{viewport to draw plot in}
+\item{...}{other arguments not used by this method}
+}
+}
+
 \examples{
 colours <- c("class", "drv", "fl")
 

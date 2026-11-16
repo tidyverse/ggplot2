@@ -1,180 +1,54 @@
 ## revdepcheck results
 
-We checked 6300 reverse dependencies (6276 from CRAN + 24 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
+We checked 7188 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 2 new problems
- * We failed to check 160 packages
+ * We saw 8 new problems
+ * We failed to check 16 packages
 
 Issues with CRAN packages are summarised below.
 
 ### New problems
 (This reports the first line of each new failure)
 
-* ggdibbler
-  checking for code/documentation mismatches ... WARNING
+* constructive
+  checking tests ... ERROR
 
-* simRestore
+* irelink
+  checking tests ... ERROR
+
+* NHSRplotthedots
+  checking tests ... ERROR
+
+* nycOpenData
+  checking re-building of vignette outputs ... ERROR
+
+* PGRdup
+  checking re-building of vignette outputs ... ERROR
+
+* PSAboot
+  checking re-building of vignette outputs ... ERROR
+
+* wjake
+  checking examples ... ERROR
+
+* xpose.xtras
   checking tests ... ERROR
 
 ### Failed to check
 
-* apsimx                (NA)
-* aridagri              (NA)
-* autovi                (NA)
-* AVGAS                 (NA)
+* b3gbi                 (NA)
 * bayesdfa              (NA)
-* BGGM                  (NA)
-* BGmisc                (NA)
-* bmm                   (NA)
-* boinet                (NA)
-* brms                  (NA)
-* BSL                   (NA)
-* bullseye              (NA)
-* cases                 (NA)
-* cassowaryr            (NA)
-* cdcatR                (NA)
-* cheem                 (NA)
-* ChillModels           (NA)
-* chouca                (NA)
-* cinaR                 (NA)
-* ClustAssess           (NA)
-* ClusterGVis           (NA)
-* clusterMI             (NA)
-* ClustImpute           (NA)
-* CompAREdesign         (NA)
-* copulaSim             (NA)
-* correlation           (NA)
 * ctsem                 (NA)
-* cylcop                (NA)
-* daltoolbox            (NA)
-* decisionSupport       (NA)
 * deepSTRAPP            (NA)
-* DFD                   (NA)
-* dimRed                (NA)
-* dMrs                  (NA)
-* DstarM                (NA)
-* easybgm               (NA)
-* eda4treeR             (NA)
-* EFDR                  (NA)
-* EGAnet                (NA)
-* ER                    (NA)
-* FAfA                  (NA)
-* fastei                (NA)
-* fastqrs               (NA)
-* FCPS                  (NA)
-* fddm                  (NA)
-* FeatureImpCluster     (NA)
-* ferrn                 (NA)
-* ffp                   (NA)
-* fio                   (NA)
-* gasmodel              (NA)
-* GDINA                 (NA)
-* gemR                  (NA)
-* genekitr              (NA)
 * GeneralizedUmatrixGPU (NA)
-* ggpicrust2            (NA)
-* ggsem                 (NA)
-* GJRM                  (NA)
-* grandR                (NA)
-* gratia                (NA)
-* GRIDCOPULA            (NA)
-* harbinger             (NA)
-* hbsaems               (NA)
-* heimdall              (NA)
-* IndGenErrors          (NA)
-* ivolcano              (NA)
-* jmv                   (NA)
-* latentFactoR          (NA)
-* lcsm                  (NA)
-* linkspotter           (NA)
-* lionfish              (NA)
-* LMMstar               (NA)
-* LongDecompHE          (NA)
-* manymome              (NA)
-* MD2sample             (NA)
-* MDgof                 (NA)
-* measureR              (NA)
-* metrica               (NA)
-* mgc                   (NA)
-* micemd                (NA)
-* MiscMetabar           (NA)
-* MixedIndTests         (NA)
-* MixMashNet            (NA)
-* modelbased            (NA)
-* ModStatR              (NA)
-* morepls               (NA)
-* mulgar                (NA)
 * multinma              (NA)
-* MVN                   (NA)
-* negligible            (NA)
-* numbat                (NA)
-* OlinkAnalyze          (NA)
-* OpenMx                (NA)
-* outstandR             (NA)
-* pandemonium           (NA)
-* parameters            (NA)
-* pctax                 (NA)
-* pcutils               (NA)
-* phylosem              (NA)
-* polarisR              (NA)
-* predictionInterval    (NA)
-* prefviz               (NA)
-* projectLSA            (NA)
-* psychonetrics         (NA)
-* pvars                 (NA)
-* qad                   (NA)
-* qmd                   (NA)
-* QuadratiK             (NA)
-* quollr                (NA)
-* rattle                (NA)
-* RCTrep                (NA)
-* ReporterScore         (NA)
-* Revticulate           (NA)
-* RGENERATEPREC         (NA)
-* ridgetorus            (NA)
-* rmedsem               (NA)
-* RMOPI                 (NA)
+* NMF                   (NA)
 * rmsb                  (NA)
-* rSDR                  (NA)
-* rshift                (NA)
-* RSP                   (NA)
-* rstanarm              (NA)
-* RulesTools            (NA)
-* SCpubr                (NA)
-* semtree               (NA)
-* Signac                (NA)
-* simcausal             (NA)
-* SimDesign             (NA)
-* spareg                (NA)
-* spinebil              (NA)
-* spinifex              (NA)
-* Spower                (NA)
-* sprtt                 (NA)
-* SRscore               (NA)
-* STCCGEV               (NA)
-* STCYP                 (NA)
+* scoper                (NA)
+* shazam                (NA)
+* ss3sim                (NA)
 * streamDAG             (NA)
-* SurprisalAnalysis     (NA)
-* Surrogate             (NA)
-* svars                 (NA)
-* TCIU                  (NA)
-* TDAkit                (NA)
-* TELP                  (NA)
-* tepr                  (NA)
-* TestAnaAPP            (NA)
-* tidybins              (NA)
-* tidycomm              (NA)
-* tidylearn             (NA)
-* tidySEM               (NA)
-* tinyarray             (NA)
-* tourr                 (NA)
-* TransProR             (NA)
+* tigger                (NA)
 * TriDimRegression      (NA)
-* ufs                   (NA)
-* VecDep                (NA)
-* WINS                  (NA)
-* wmwAUC                (NA)
-* woylier               (NA)
-* WQM                   (NA)
-* XYomics               (NA)
+* valr                  (NA)
 * zenplots              (NA)
