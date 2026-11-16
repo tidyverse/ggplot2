@@ -679,6 +679,10 @@ Guides <- ggproto(
 
     # setting that is different for vertical and horizontal guide-boxes.
     if (identical(theme$legend.box, "horizontal")) {
+      if (stretch_y) {
+        heights <- align_null_units(heights, margin, "height")
+      }
+      heights <- lapply(heights, sum)
       # Set justification for each legend within the box
       for (i in seq_along(grobs)) {
         grobs[[i]] <- editGrob(
@@ -687,7 +691,7 @@ Guides <- ggproto(
             x = box_xjust,
             y = box_yjust,
             just = box_just,
-            height = heightDetails(grobs[[i]])
+            height = heights[[i]]
           )
         )
       }
@@ -697,7 +701,7 @@ Guides <- ggproto(
         spacing <- convertWidth(spacing, "cm")
       }
 
-      total_height <- max(inject(unit.c(!!!lapply(heights, sum))))
+      total_height <- max(inject(unit.c(!!!heights)))
 
       if (stretch_x || stretch_spacing) {
         widths <- redistribute_null_units(widths, spacing, margin, "width")
@@ -729,6 +733,10 @@ Guides <- ggproto(
       guides <- gtable_add_col_space(guides, spacing)
     } else {
       # theme$legend.box == "vertical"
+      if (stretch_x) {
+        widths <- align_null_units(widths, margin, "width")
+      }
+      widths <- lapply(widths, sum)
       # Set justification for each legend within the box
       for (i in seq_along(grobs)) {
         grobs[[i]] <- editGrob(
@@ -737,7 +745,7 @@ Guides <- ggproto(
             x = box_xjust,
             y = box_yjust,
             just = box_just,
-            width = widthDetails(grobs[[i]])
+            width = widths[[i]]
           )
         )
       }
@@ -747,7 +755,8 @@ Guides <- ggproto(
       if (!stretch_spacing) {
         spacing <- convertWidth(spacing, "cm")
       }
-      total_width <- max(inject(unit.c(!!!lapply(widths, sum))))
+
+      total_width <- max(inject(unit.c(!!!widths)))
 
       if (stretch_y || stretch_spacing) {
         heights <- redistribute_null_units(heights, spacing, margin, "height")
@@ -1044,4 +1053,41 @@ redistribute_null_units <- function(units, spacing, margin, type = "width") {
   available_space <- unit(1, "npc") - unit(absolute_sum, "cm")
   relative_space <- available_space * relative
   relative_space + unit(absolute, "cm")
+}
+
+# Like redistribute_null_units but instead of expressing the null units as
+# fraction of the sum, they're expressed as fraction of the maximum.
+# Used for interpreting null units when the stack direction
+# isn't the stretch direction.
+align_null_units <- function(units, margin, type = "width") {
+  has_null <- vapply(units, function(x) any(unitType(x) == "null"), logical(1))
+
+  # Early exit when we needn't bother with null units
+  if (!any(has_null)) {
+    return(apply(units, sum))
+  }
+
+  size <- switch(type, width = width_cm, height = height_cm)
+  margin <- switch(type, width = margin[c(2, 4)], height = margin[c(1, 3)])
+  margin <- sum(size(margin))
+
+  # Get absolute part of unit
+  absolute <- vapply(units, function(u) sum(size(absolute.size(u))), numeric(1))
+  absolute_max <- max(0, absolute) + margin
+
+  # Get null parts of the unit
+  num_null <- function(x) sum(as.numeric(x)[unitType(x) == "null"])
+  relative <- rep(0, length(units))
+  relative[has_null] <- vapply(units[has_null], num_null, numeric(1))
+  relative_max <- max(0, relative)
+
+  if (relative_max == 0) {
+    return(lapply(absolute, unit, units = "cm"))
+  }
+
+  relative <- relative / relative_max
+  available_space <- unit(1, "npc") - unit(absolute_max, "cm")
+  relative_space <- available_space * relative
+  out_units <- relative_space + unit(absolute, "cm")
+  lapply(seq_along(out_units), function(i) out_units[i])
 }

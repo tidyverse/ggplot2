@@ -419,3 +419,40 @@ test_that("guides title and text are positioned correctly", {
     )
   expect_doppelganger("legends with all title justifications", p)
 })
+
+test_that("guides stretch correctly in non-stack direction", {
+  p <- ggplot(mtcars, aes(disp, mpg, colour = hp, fill = drat)) +
+    geom_point()
+
+  p1 <- p +
+    guides(
+      colour = guide_colourbar(
+        theme = theme(legend.key.height = unit(1, "null"))
+      ),
+      fill = guide_colourbar(
+        theme = theme(legend.key.height = unit(0.5, "null"))
+      )
+    ) +
+    theme(
+      legend.box = "horizontal",
+      legend.position = "right"
+    )
+
+  expect_doppelganger("horizontal stack", p1)
+
+  p2 <- p +
+    guides(
+      colour = guide_colourbar(
+        theme = theme(legend.key.width = unit(1, "null"))
+      ),
+      fill = guide_colourbar(
+        theme = theme(legend.key.width = unit(0.5, "null"))
+      )
+    ) +
+    theme(
+      legend.box = "vertical",
+      legend.position = "bottom"
+    )
+
+  expect_doppelganger("vertical stack", p2)
+})
