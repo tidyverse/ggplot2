@@ -4,6 +4,7 @@ In order to continuously monitor the performance of ggplot2 the
 following piece of code is used to generate a profile and inspect it:
 
 ``` r
+
 library(ggplot2)
 library(profvis)
 
@@ -38,7 +39,7 @@ improvements to performance over time.
 To keep track of changes focused on improving the performance of gtable
 they are summarised below:
 
-### v4.0.3
+### v4.0.4
 
 - **Avoid costly factor construction in scale_apply** This issue only
   really appeared when plotting huge datasets (\>1e6 rows). In order to

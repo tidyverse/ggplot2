@@ -17,6 +17,7 @@ is most commonly used to facet by a plot by a single categorical
 variable.
 
 ``` r
+
 ggplot(mpg, aes(x = cty)) +
   geom_histogram() +
   facet_wrap(~ drv)
@@ -32,6 +33,7 @@ And
 is commonly used to facet by a plot by two categorical variables.
 
 ``` r
+
 ggplot(mpg, aes(x = cty)) +
   geom_histogram() +
   facet_grid(cyl ~ drv)
@@ -54,6 +56,7 @@ with to facet by two categorical variables. This will only create facets
 for combinations of the levels of variables for which data exists.
 
 ``` r
+
 ggplot(mpg, aes(x = cty)) +
   geom_histogram() +
   facet_wrap(cyl ~ drv)
@@ -81,6 +84,7 @@ along that axis, i.e. `cyl ~ .` facets across the y-axis (within a
 column) while `. ~ cyl` facets across the x-axis (within a row).
 
 ``` r
+
 ggplot(mpg, aes(x = cty)) +
   geom_histogram() +
   facet_grid(cyl ~ .)
@@ -92,6 +96,7 @@ has four panels in a 4-row, 1-column layout, showing four numbers of
 cylinders.](faq-faceting_files/figure-html/unnamed-chunk-5-1.png)
 
 ``` r
+
 
 ggplot(mpg, aes(x = cty)) +
   geom_histogram() +
@@ -116,6 +121,7 @@ Suppose you have the following plot, and you want to add a vertical line
 at the mean value of `hwy` (highway mileage) for each pane.
 
 ``` r
+
 ggplot(mpg, aes(x = hwy)) +
   geom_histogram(binwidth = 5) +
   facet_wrap(~ drv)
@@ -128,6 +134,7 @@ layout.](faq-faceting_files/figure-html/unnamed-chunk-6-1.png)
 First, calculate these means and save them in a new data frame.
 
 ``` r
+
 library(dplyr)
 #> 
 #> Attaching package: 'dplyr'
@@ -156,6 +163,7 @@ Then, add a
 layer to your plot that uses the summary data.
 
 ``` r
+
 ggplot(mpg, aes(x = hwy)) +
   geom_histogram(binwidth = 5) +
   facet_wrap(~ drv) +
@@ -186,6 +194,7 @@ Suppose you have the following faceted plot. By default, both x and y
 scales are shared across the facets.
 
 ``` r
+
 ggplot(mpg, aes(x = cty, y = hwy)) +
   geom_point() +
   facet_grid(cyl ~ drv)
@@ -204,6 +213,7 @@ functions: varying scales across rows (`"free_x"`), columns
 (`"free_y"`), or both rows and columns (`"free"`), e.g.
 
 ``` r
+
 ggplot(mpg, aes(x = cty, y = hwy)) +
   geom_point() +
   facet_grid(cyl ~ drv, scales = "free") 
@@ -224,6 +234,7 @@ e.g. ensure that 10 is included in the x-axis and values between 20 to
 25 are included in the y-axis:
 
 ``` r
+
 ggplot(mpg, aes(x = cty, y = hwy)) +
   geom_point() +
   facet_grid(cyl ~ drv, scales = "free") +
@@ -254,6 +265,7 @@ Setting `strip.text` to
 will remove all facet labels.
 
 ``` r
+
 ggplot(mpg, aes(x = cty, y = hwy)) +
   geom_point() +
   facet_grid(cyl ~ drv) +
@@ -270,6 +282,7 @@ You can also remove the labels across rows only with `strip.x.text` or
 across columns only with `strip.y.text`.
 
 ``` r
+
 ggplot(mpg, aes(x = cty, y = hwy)) +
   geom_point() +
   facet_grid(cyl ~ drv) +
@@ -297,6 +310,7 @@ one group and 50 from another. These groups have very long names, and so
 when you facet the ploy by group, the facet labels (strips) get cut off.
 
 ``` r
+
 df <- data.frame(
   x = rnorm(100),
   group = c(rep("A long group name for the first group", 50),
@@ -322,6 +336,7 @@ function, which is then passed to the `labeller` argument of your
 faceting function.
 
 ``` r
+
 ggplot(df, aes(x = x)) +
   geom_histogram(binwidth = 0.5) +
   facet_wrap(~ group, labeller = labeller(group = label_wrap_gen(width = 25)))
@@ -351,6 +366,7 @@ Suppose you have data price data on a given item over a few years from
 two countries with very different currency scales.
 
 ``` r
+
 df <- data.frame(
   year = rep(2016:2021, 2),
   price = c(10, 10, 13, 12, 14, 15, 1000, 1010, 1200, 1050, 1105, 1300),
@@ -378,6 +394,7 @@ resulting plot can be a bit difficult to read due to the shared y-axis
 label.
 
 ``` r
+
 ggplot(df, aes(x = year, y = price)) +
   geom_smooth() +
   facet_wrap(~ country, ncol = 1, scales = "free_y") +
@@ -395,6 +412,7 @@ turn off the default y-axis label, and then place the facet labels where
 the y-axis label goes (`"outside"` and on the `"left"`).
 
 ``` r
+
 ggplot(df, aes(x = year, y = price)) +
   geom_smooth() +
   facet_wrap(~ country, ncol = 1, scales = "free_y", 

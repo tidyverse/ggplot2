@@ -68,6 +68,7 @@ Other aesthetics documentation:
 ## Examples
 
 ``` r
+
 df <- data.frame(x = 1:10 , y = 1:10)
 p <- ggplot(df, aes(x, y))
 p + geom_line(linetype = 2)

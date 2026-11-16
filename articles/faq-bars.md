@@ -17,6 +17,7 @@ You can set all bars to be a given color with the `fill` argument of
 [`geom_bar()`](https://ggplot2.tidyverse.org/reference/geom_bar.md).
 
 ``` r
+
 ggplot(mpg, aes(x = drv)) +
   geom_bar(fill = "blue")
 ```
@@ -30,6 +31,7 @@ be should happen in the
 [`aes()`](https://ggplot2.tidyverse.org/reference/aes.md) mapping.
 
 ``` r
+
 ggplot(mpg, aes(x = drv, fill = drv)) +
   geom_bar()
 ```
@@ -44,6 +46,7 @@ which allows you to manually assign colors to each bar. See other
 `scale_fill_*()` functions for more options for color choices.
 
 ``` r
+
 ggplot(mpg, aes(x = drv, fill = drv)) +
   geom_bar() +
   scale_fill_manual(values = c("purple", "orange", "darkblue"))
@@ -68,6 +71,7 @@ data). You can set this argument to a lower value to get bars that are
 narrower with more space between them.
 
 ``` r
+
 ggplot(mpg, aes(x = drv)) +
   geom_bar(width = 0.5)
 ```
@@ -77,6 +81,7 @@ drive train. The bars are somewhat narrower than the
 default.](faq-bars_files/figure-html/unnamed-chunk-5-1.png)
 
 ``` r
+
 
 ggplot(mpg, aes(x = drv)) +
   geom_bar(width = 0.1)
@@ -101,6 +106,7 @@ By default ggplot2 expands the axes so the geoms aren’t flush against
 the edges of the plot.
 
 ``` r
+
 ggplot(mpg, aes(x = drv)) +
   geom_bar()
 ```
@@ -113,6 +119,7 @@ To remove the spacing between the bars and the x-axis, but keep the
 spacing between the bars and the top of the plot, use the following.
 
 ``` r
+
 ggplot(mpg, aes(x = drv)) +
   geom_bar() +
   scale_y_continuous(expand = expansion(mult = c(0, 0.05)))
@@ -126,6 +133,7 @@ To achieve the opposite, switch the values in `mult`. Note that the
 tallest bar is now flush against top of the plot.
 
 ``` r
+
 ggplot(mpg, aes(x = drv)) +
   geom_bar() +
   scale_y_continuous(expand = expansion(mult = c(0.05, 0)))
@@ -141,6 +149,7 @@ Note that this places the bars flush against the left side and leaves
 some space on the right side.
 
 ``` r
+
 ggplot(mpg, aes(x = drv)) +
   geom_bar() +
   scale_x_discrete(expand = expansion(add = c(0, 0.6)))
@@ -153,6 +162,7 @@ y-axis.](faq-bars_files/figure-html/unnamed-chunk-9-1.png)
 The default look of a bar plot can be achieved with the following.
 
 ``` r
+
 ggplot(mpg, aes(x = drv)) +
   geom_bar() +
   scale_x_discrete(expand = expansion(add = 0.6)) +
@@ -174,6 +184,7 @@ In the following plot the bars have differing widths within each level
 of `drv` as there are differing levels of `class` represented.
 
 ``` r
+
 ggplot(mpg, aes(x = drv, fill = class)) +
   geom_bar(position = "dodge")
 ```
@@ -188,6 +199,7 @@ You can use
 with `preserve = "single"` to address this.
 
 ``` r
+
 ggplot(mpg, aes(x = drv, fill = class)) +
   geom_bar(position = position_dodge2(preserve = "single"))
 ```
@@ -216,6 +228,7 @@ two-seater car that has rear-wheel drive than an SUV that has rear-wheel
 drive”.
 
 ``` r
+
 ggplot(mpg, aes(y = class, fill = drv)) +
   geom_bar()
 ```
@@ -229,6 +242,7 @@ and the stacks in each bar will show the proportion of `drv` for that
 particular `class`.
 
 ``` r
+
 ggplot(mpg, aes(y = class, fill = drv)) +
   geom_bar(position = "fill")
 ```
@@ -245,6 +259,7 @@ with
 [`scales::label_percent()`](https://scales.r-lib.org/reference/label_percent.html).
 
 ``` r
+
 ggplot(mpg, aes(y = class, fill = drv)) +
   geom_bar(position = "fill") +
   scale_x_continuous(name = "percentage", labels = scales::label_percent(accuracy = 1))
@@ -271,6 +286,7 @@ numbers in the cells represent the number of responses for each
 party/opinion combination.
 
 ``` r
+
 poll <- tribble(
   ~party,       ~agree, ~disagree, ~no_opinion,
   "Democrat",    20,    30,        20,
@@ -284,6 +300,7 @@ per party/opinion combination and a new column, `n`, for the number of
 responses that fall into that category.
 
 ``` r
+
 poll_longer <- poll |>
   pivot_longer(
     cols = -party,
@@ -313,6 +330,7 @@ bars) axis and fill the bars in with number of responses for each
 `opinion`.
 
 ``` r
+
 ggplot(poll_longer, aes(y = party, fill = opinion, x = n)) +
   geom_col()
 ```
@@ -326,6 +344,7 @@ To plot proportions (relative frequencies) instead of counts, use
 [`geom_col()`](https://ggplot2.tidyverse.org/reference/geom_bar.md).
 
 ``` r
+
 ggplot(poll_longer, aes(y = party, fill = opinion, x = n)) +
   geom_col(position = "fill") +
   xlab("proportion")
@@ -349,6 +368,7 @@ Suppose you have data from a survey with three questions, where
 respondents select “Agree” or “Disagree” for each question.
 
 ``` r
+
 survey <- tibble::tribble(
   ~respondent, ~q1,        ~q2,        ~q3,
   1,           "Agree",    "Agree",    "Disagree",
@@ -366,6 +386,7 @@ Then, pass the resulting longer data frame to
 responses for each question together.
 
 ``` r
+
 survey |>
   tidyr::pivot_longer(
     cols = -respondent,
@@ -400,6 +421,7 @@ bars using
 [`geom_col()`](https://ggplot2.tidyverse.org/reference/geom_bar.md).
 
 ``` r
+
 mpg |>
   group_by(drv) |>
   summarise(mean_hwy = mean(hwy)) |>
@@ -416,6 +438,7 @@ Alternatively, you can use
 to let ggplot2 calculate and plot the means.
 
 ``` r
+
 ggplot(mpg, aes(x = drv, y = hwy)) +
   stat_summary(fun = "mean", geom = "bar")
 ```
@@ -445,6 +468,7 @@ In the following plot the y-axis is limited to 20 to 120, and hence the
 bars are not showing up.
 
 ``` r
+
 ggplot(mpg, aes(x = drv)) +
   geom_bar() +
   ylim(c(20, 120))
@@ -460,6 +484,7 @@ set the limits in
 [`coord_cartesian()`](https://ggplot2.tidyverse.org/reference/coord_cartesian.md).
 
 ``` r
+
 ggplot(mpg, aes(x = drv)) +
   geom_bar() +
   coord_cartesian(ylim = c(20,110))
@@ -474,6 +499,7 @@ values that could not take the value of 0, you might choose a different
 geom instead. For example, if you have the following data and plot.
 
 ``` r
+
 df <- tibble::tribble(
   ~x,  ~y,
   "A", 1050,
@@ -496,6 +522,7 @@ know that the variable you’re plotting cannot take a value less than
 instead.
 
 ``` r
+
 # don't do this
 ggplot(df, aes(x = x, y = y)) +
   geom_col() +
@@ -508,6 +535,7 @@ recommended way of plotting this
 data.](faq-bars_files/figure-html/unnamed-chunk-27-1.png)
 
 ``` r
+
 
 # do this
 ggplot(df, aes(x = x, y = y)) +

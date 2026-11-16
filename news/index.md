@@ -1,5 +1,19 @@
 # Changelog
 
+## ggplot2 4.0.4
+
+CRAN release: 2026-11-13
+
+This is a hotfix release anticipating the upcoming changes in the S7
+package.
+
+- Updates for compatibility with S7 \> 0.2.2
+  ([\#6914](https://github.com/tidyverse/ggplot2/issues/6914)).
+- S7 subclasses now inherit legacy ‘compatibility names’ in their class
+  definitions
+  ([\#6915](https://github.com/tidyverse/ggplot2/issues/6915)).
+- Fixed NOTE on CRAN in R-devel.
+
 ## ggplot2 4.0.3
 
 CRAN release: 2026-04-22
@@ -32,6 +46,59 @@ versions.
   no longer captures
   [`rlang::list2()`](https://rlang.r-lib.org/reference/list2.html) at
   build time.
+- Implemented [`as.list()`](https://rdrr.io/r/base/list.html) and
+  [`S7::convert()`](https://rconsortium.github.io/S7/reference/convert.html)
+  methods for lists and classes in ggplot2
+  ([@teunbrand](https://github.com/teunbrand),
+  [\#6695](https://github.com/tidyverse/ggplot2/issues/6695))
+- The default linetype in
+  [`geom_sf()`](https://ggplot2.tidyverse.org/reference/ggsf.md) is
+  derived from
+  [`geom_polygon()`](https://ggplot2.tidyverse.org/reference/geom_polygon.md)
+  for polygons and from
+  [`geom_line()`](https://ggplot2.tidyverse.org/reference/geom_path.md)
+  for (multi)linestrings ([@teunbrand](https://github.com/teunbrand),
+  [\#6543](https://github.com/tidyverse/ggplot2/issues/6543)).
+- Using infinite `radius` aesthetic in
+  [`geom_spoke()`](https://ggplot2.tidyverse.org/reference/geom_spoke.md)
+  now throws a warning
+  ([\#6671](https://github.com/tidyverse/ggplot2/issues/6671))
+- Scales and guides specified by a string can now use package name
+  prefixes to indicate a namespace wherein to look for the scale/guide.
+  For example, one can use
+  `scale_x_continuous(guide = "legendry::axis_base")`
+  ([@teunbrand](https://github.com/teunbrand),
+  [\#4705](https://github.com/tidyverse/ggplot2/issues/4705)).
+- [`get_layer_data()`](https://ggplot2.tidyverse.org/reference/ggplot_build.md)
+  and
+  [`get_layer_grob()`](https://ggplot2.tidyverse.org/reference/ggplot_build.md)
+  now accept layer names as index
+  ([@lgaborini](https://github.com/lgaborini),
+  [\#6724](https://github.com/tidyverse/ggplot2/issues/6724))
+- Added new argument `geom_curve(shape)` that will be passed down to
+  [`grid::curveGrob()`](https://rdrr.io/r/grid/grid.curve.html)
+  ([@fmarotta](https://github.com/fmarotta),
+  [\#5998](https://github.com/tidyverse/ggplot2/issues/5998)).
+- Fixed a regression where default `width` was miscalculated when some
+  panels are empty ([@teunbrand](https://github.com/teunbrand),
+  [\#6758](https://github.com/tidyverse/ggplot2/issues/6758))
+- [`geom_hex()`](https://ggplot2.tidyverse.org/reference/geom_hex.md)
+  has a new `radius` aesthetic, representing the relative size of the
+  hexagons ([@teunbrand](https://github.com/teunbrand),
+  [\#6727](https://github.com/tidyverse/ggplot2/issues/6727))
+- Added `preserve` argument to
+  [`position_jitterdodge()`](https://ggplot2.tidyverse.org/reference/position_jitterdodge.md)
+  ([@teunbrand](https://github.com/teunbrand),
+  [\#6584](https://github.com/tidyverse/ggplot2/issues/6584)).
+- Fixed `position_jitterdodge(jitter.height, jitter.width)` applying to
+  the wrong dimension with flipped geoms
+  ([@teunbrand](https://github.com/teunbrand),
+  [\#6535](https://github.com/tidyverse/ggplot2/issues/6535)).
+- New `position_dodge2(group.row)` argument that can be set to `"many"`
+  to dodge groups with more than one row, such as in
+  [`geom_violin()`](https://ggplot2.tidyverse.org/reference/geom_violin.md)
+  ([@teunbrand](https://github.com/teunbrand),
+  [\#6663](https://github.com/tidyverse/ggplot2/issues/6663))
 
 ## ggplot2 4.0.1
 
@@ -220,15 +287,15 @@ CRAN release: 2025-09-11
   ([@teunbrand](https://github.com/teunbrand),
   [\#5568](https://github.com/tidyverse/ggplot2/issues/5568)).
 
-  | New name                                                                        | Old name                                                                    |
-  |---------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
-  | [`get_theme()`](https://ggplot2.tidyverse.org/reference/get_theme.md)           | [`theme_get()`](https://ggplot2.tidyverse.org/reference/get_theme.md)       |
-  | [`set_theme()`](https://ggplot2.tidyverse.org/reference/get_theme.md)           | [`theme_set()`](https://ggplot2.tidyverse.org/reference/get_theme.md)       |
-  | [`replace_theme()`](https://ggplot2.tidyverse.org/reference/get_theme.md)       | [`theme_replace()`](https://ggplot2.tidyverse.org/reference/get_theme.md)   |
-  | [`update_theme()`](https://ggplot2.tidyverse.org/reference/get_theme.md)        | [`theme_update()`](https://ggplot2.tidyverse.org/reference/get_theme.md)    |
-  | [`get_last_plot()`](https://ggplot2.tidyverse.org/reference/get_last_plot.md)   | [`last_plot()`](https://ggplot2.tidyverse.org/reference/get_last_plot.md)   |
-  | [`get_layer_data()`](https://ggplot2.tidyverse.org/reference/ggplot_build.md)   | [`layer_data()`](https://ggplot2.tidyverse.org/reference/ggplot_build.md)   |
-  | [`get_layer_grob()`](https://ggplot2.tidyverse.org/reference/ggplot_build.md)   | [`layer_grob()`](https://ggplot2.tidyverse.org/reference/ggplot_build.md)   |
+  | New name | Old name |
+  |----|----|
+  | [`get_theme()`](https://ggplot2.tidyverse.org/reference/get_theme.md) | [`theme_get()`](https://ggplot2.tidyverse.org/reference/get_theme.md) |
+  | [`set_theme()`](https://ggplot2.tidyverse.org/reference/get_theme.md) | [`theme_set()`](https://ggplot2.tidyverse.org/reference/get_theme.md) |
+  | [`replace_theme()`](https://ggplot2.tidyverse.org/reference/get_theme.md) | [`theme_replace()`](https://ggplot2.tidyverse.org/reference/get_theme.md) |
+  | [`update_theme()`](https://ggplot2.tidyverse.org/reference/get_theme.md) | [`theme_update()`](https://ggplot2.tidyverse.org/reference/get_theme.md) |
+  | [`get_last_plot()`](https://ggplot2.tidyverse.org/reference/get_last_plot.md) | [`last_plot()`](https://ggplot2.tidyverse.org/reference/get_last_plot.md) |
+  | [`get_layer_data()`](https://ggplot2.tidyverse.org/reference/ggplot_build.md) | [`layer_data()`](https://ggplot2.tidyverse.org/reference/ggplot_build.md) |
+  | [`get_layer_grob()`](https://ggplot2.tidyverse.org/reference/ggplot_build.md) | [`layer_grob()`](https://ggplot2.tidyverse.org/reference/ggplot_build.md) |
   | [`get_panel_scales()`](https://ggplot2.tidyverse.org/reference/ggplot_build.md) | [`layer_scales()`](https://ggplot2.tidyverse.org/reference/ggplot_build.md) |
 
 - [`facet_wrap()`](https://ggplot2.tidyverse.org/reference/facet_wrap.md)
@@ -3558,6 +3625,7 @@ CRAN release: 2018-07-03
   method signature.
 
   ``` r
+
   # old
   guide_train.legend <- function(guide, scale) {...}
 
@@ -3570,6 +3638,7 @@ CRAN release: 2018-07-03
   in the rlang package).
 
   ``` r
+
   # old
   setNames(list(scale$map(breaks)), scale$aesthetics[1])
 
@@ -3630,6 +3699,7 @@ CRAN release: 2018-07-03
   [`coord_sf()`](https://ggplot2.tidyverse.org/reference/ggsf.md):
 
   ``` r
+
   nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
   ggplot(nc) +
     geom_sf(aes(fill = AREA))
@@ -3743,6 +3813,7 @@ CRAN release: 2018-07-03
   leave some (automatically calculated amount of) space above them:
 
   ``` r
+
   ggplot(mtcars) +
       geom_bar(aes(x = factor(cyl))) +
       scale_y_continuous(expand = expand_scale(mult = c(0, .1)))
@@ -5055,6 +5126,7 @@ All defunct functions have been removed.
   [`guide_legend()`](https://ggplot2.tidyverse.org/reference/guide_legend.md)
 
   ``` r
+
   p <- ggplot(mpg, aes(displ,hwy, colour = model)) + geom_point()
   p
   p + theme(legend.position = "bottom")

@@ -17,6 +17,7 @@ The following bar plot shows the number of cars that fall into each
 them to be ordered by the number of cars in each class.
 
 ``` r
+
 ggplot(mpg, aes(y = class)) +
   geom_bar()
 ```
@@ -30,6 +31,7 @@ To do this, you can use
 [`forcats::fct_infreq()`](https://forcats.tidyverse.org/reference/fct_inorder.html).
 
 ``` r
+
 ggplot(mpg, aes(y = forcats::fct_infreq(class))) +
   geom_bar()
 ```
@@ -45,6 +47,7 @@ order with
 You might also want to simplify the axis label.
 
 ``` r
+
 ggplot(mpg, aes(y = forcats::fct_rev(forcats::fct_infreq(class)))) +
   geom_bar() +
   labs(y = "class")
@@ -71,6 +74,7 @@ Suppose you have the following stacked bar plot of `clarity` of
 `diamonds` by their `cut`.
 
 ``` r
+
 ggplot(diamonds, aes(x = cut, fill = clarity)) +
   geom_bar()
 ```
@@ -89,6 +93,7 @@ This will also change the order they’re presented in the legend so the
 two orders match.
 
 ``` r
+
 ggplot(diamonds, aes(x = cut, fill = forcats::fct_rev(clarity))) +
   geom_bar() +
   labs(fill = "clarity")
@@ -120,6 +125,7 @@ variable you’re grouping by. If the faceting variable is character, this
 order is alphabetical by default.
 
 ``` r
+
 ggplot(mpg, aes(x = class, y = hwy)) +
   geom_boxplot()
 ```
@@ -137,6 +143,7 @@ or you can do it directly in the plotting code as shown below. You might
 then want to customize the x-axis label as well.
 
 ``` r
+
 ggplot(mpg, aes(x = forcats::fct_reorder(class, hwy, .fun = median), y = hwy)) +
   geom_boxplot() +
   labs(x = "class")
@@ -163,6 +170,7 @@ variable you’re faceting by. If the faceting variable is character, this
 order is alphabetical by default.
 
 ``` r
+
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
   facet_wrap(~drv)
@@ -183,6 +191,7 @@ step prior to plotting (e.g. with
 or you can do it directly in the plotting code as shown below.
 
 ``` r
+
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point() +
   facet_wrap(~forcats::fct_relevel(drv, "r", "f", "4"))
@@ -207,6 +216,7 @@ See example
 Suppose you have the following data frame.
 
 ``` r
+
 df <- tibble::tribble(
   ~id, ~x,   ~y, ~shape,            ~fill,
   1,   0.01, 0,  "circle filled",   "blue",
@@ -222,6 +232,7 @@ observation comes later in the dataset. Similarly the black asterisk
 appears on top of the red square.
 
 ``` r
+
 ggplot(df, aes(x = x, y = y, fill = fill, shape = shape)) +
   geom_point(size = 8) +
   scale_shape_identity() +
@@ -240,6 +251,7 @@ and plotted again. Now the blue circle is over the yellow triangle since
 asterisk since 1 comes after 0.99.
 
 ``` r
+
 df_arranged <- df |> dplyr::arrange(x)
 
 df_arranged |>
@@ -261,6 +273,7 @@ arranged in the data frame, you can create an additional layer for that
 observation.
 
 ``` r
+
 ggplot(mapping = aes(x = x, y = y, fill = fill, shape = shape)) +
   geom_point(data = df |> filter(shape != "asterisk"), size = 8) +
   geom_point(data = df |> filter(shape == "asterisk"), size = 8) +
@@ -275,6 +288,7 @@ A black asterisk is plotted on top of a red
 square.](faq-reordering_files/figure-html/unnamed-chunk-14-1.png)
 
 ``` r
+
 
 ggplot(mapping = aes(x = x, y = y, fill = fill, shape = shape)) +
   geom_point(data = df_arranged |> filter(shape != "asterisk"), size = 8) +

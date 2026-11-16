@@ -263,17 +263,17 @@ for general polygons
 aesthetics are displayed in bold and defaults are displayed for optional
 aesthetics:
 
-|     |                                                                                                                                              |                                                                     |
-|-----|----------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------|
-| •   | **[`x`](https://ggplot2.tidyverse.org/reference/aes_position.md) *or* [`y`](https://ggplot2.tidyverse.org/reference/aes_position.md)**       |                                                                     |
-| •   | **[`ymin`](https://ggplot2.tidyverse.org/reference/aes_position.md) *or* [`xmin`](https://ggplot2.tidyverse.org/reference/aes_position.md)** |                                                                     |
-| •   | **[`ymax`](https://ggplot2.tidyverse.org/reference/aes_position.md) *or* [`xmax`](https://ggplot2.tidyverse.org/reference/aes_position.md)** |                                                                     |
-| •   | [`alpha`](https://ggplot2.tidyverse.org/reference/aes_colour_fill_alpha.md)                                                                  | → `NA`                                                              |
-| •   | [`colour`](https://ggplot2.tidyverse.org/reference/aes_colour_fill_alpha.md)                                                                 | → via [`theme()`](https://ggplot2.tidyverse.org/reference/theme.md) |
-| •   | [`fill`](https://ggplot2.tidyverse.org/reference/aes_colour_fill_alpha.md)                                                                   | → via [`theme()`](https://ggplot2.tidyverse.org/reference/theme.md) |
-| •   | [`group`](https://ggplot2.tidyverse.org/reference/aes_group_order.md)                                                                        | → inferred                                                          |
-| •   | [`linetype`](https://ggplot2.tidyverse.org/reference/aes_linetype_size_shape.md)                                                             | → via [`theme()`](https://ggplot2.tidyverse.org/reference/theme.md) |
-| •   | [`linewidth`](https://ggplot2.tidyverse.org/reference/aes_linetype_size_shape.md)                                                            | → via [`theme()`](https://ggplot2.tidyverse.org/reference/theme.md) |
+|  |  |  |
+|----|----|----|
+| • | **[`x`](https://ggplot2.tidyverse.org/reference/aes_position.md) *or* [`y`](https://ggplot2.tidyverse.org/reference/aes_position.md)** |  |
+| • | **[`ymin`](https://ggplot2.tidyverse.org/reference/aes_position.md) *or* [`xmin`](https://ggplot2.tidyverse.org/reference/aes_position.md)** |  |
+| • | **[`ymax`](https://ggplot2.tidyverse.org/reference/aes_position.md) *or* [`xmax`](https://ggplot2.tidyverse.org/reference/aes_position.md)** |  |
+| • | [`alpha`](https://ggplot2.tidyverse.org/reference/aes_colour_fill_alpha.md) | → `NA` |
+| • | [`colour`](https://ggplot2.tidyverse.org/reference/aes_colour_fill_alpha.md) | → via [`theme()`](https://ggplot2.tidyverse.org/reference/theme.md) |
+| • | [`fill`](https://ggplot2.tidyverse.org/reference/aes_colour_fill_alpha.md) | → via [`theme()`](https://ggplot2.tidyverse.org/reference/theme.md) |
+| • | [`group`](https://ggplot2.tidyverse.org/reference/aes_group_order.md) | → inferred |
+| • | [`linetype`](https://ggplot2.tidyverse.org/reference/aes_linetype_size_shape.md) | → via [`theme()`](https://ggplot2.tidyverse.org/reference/theme.md) |
+| • | [`linewidth`](https://ggplot2.tidyverse.org/reference/aes_linetype_size_shape.md) | → via [`theme()`](https://ggplot2.tidyverse.org/reference/theme.md) |
 
 Learn more about setting these aesthetics in
 [`vignette("ggplot2-specs")`](https://ggplot2.tidyverse.org/articles/ggplot2-specs.md).

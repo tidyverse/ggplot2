@@ -13,6 +13,7 @@ line and red text to mark the mean. Note that both the line and the text
 appears pixellated/fuzzy.
 
 ``` r
+
 mean_hwy <- round(mean(mpg$hwy), 2)
 
 ggplot(mpg, aes(x = hwy)) +
@@ -43,6 +44,7 @@ using text as geometric objects to represent each observation) use
 instead.
 
 ``` r
+
 ggplot(mpg, aes(x = hwy)) +
   geom_histogram(binwidth = 2) +
   annotate("segment",
@@ -72,6 +74,7 @@ Suppose you have the following data frame and visualization. The labels
 at the edges of the plot are cut off slightly.
 
 ``` r
+
 df <- tibble::tribble(
   ~x, ~y, ~name,
   2,  2,  "two",
@@ -94,6 +97,7 @@ straightforward approach is to set `vjust = "inward"` and
 [`geom_text()`](https://ggplot2.tidyverse.org/reference/geom_text.md).
 
 ``` r
+
 ggplot(df, aes(x = x, y = y, label = name)) +
   geom_text(size = 10, vjust = "inward", hjust = "inward")
 ```
@@ -118,6 +122,7 @@ Suppose you have the following bar plot and you want to add the number
 of cars that fall into each `drv` level on their respective bars.
 
 ``` r
+
 ggplot(mpg, aes(x = drv)) +
   geom_bar()
 ```
@@ -133,6 +138,7 @@ Note that we expanded the y axis limit to get the numbers to fit on the
 plot.
 
 ``` r
+
 mpg |>
   dplyr::count(drv) |>
   ggplot(aes(x = drv, y = n)) +
@@ -152,6 +158,7 @@ is mapped to the labels to be placed on the plot with
 [`stat_count()`](https://ggplot2.tidyverse.org/reference/geom_bar.md).
 
 ``` r
+
 ggplot(mpg, aes(x = drv)) +
   geom_bar() + 
   stat_count(geom = "text", aes(label = ..count..), vjust = -0.5) +
@@ -178,6 +185,7 @@ See example
 Suppose you have the following stacked bar plot.
 
 ``` r
+
 ggplot(mpg, aes(x = class, fill = drv)) +
   geom_bar()
 ```
@@ -191,6 +199,7 @@ You can first calculate the counts for each segment with
 which will place these values in a column called `n`.
 
 ``` r
+
 mpg |>
   count(class, drv) 
 #> # A tibble: 12 × 3
@@ -219,6 +228,7 @@ draw the bars, and finally place the counts on the plot with
 [`geom_text()`](https://ggplot2.tidyverse.org/reference/geom_text.md).
 
 ``` r
+
 mpg |>
   count(class, drv) |>
   ggplot(aes(x = class, fill = drv, y = n)) +
@@ -248,6 +258,7 @@ proportion of cars that fall into each `drv` level, instead of the
 count.
 
 ``` r
+
 ggplot(mpg, aes(x = drv)) +
   geom_bar()
 ```
@@ -262,6 +273,7 @@ then use
 draw the bars
 
 ``` r
+
 mpg |>
   dplyr::count(drv) |>
   mutate(prop = n / sum(n)) |>
@@ -279,6 +291,7 @@ calculation of proportions for you, and access these counts with
 option.
 
 ``` r
+
 ggplot(mpg, aes(x = drv, y = ..prop.., group = 1)) +
   geom_bar()
 ```

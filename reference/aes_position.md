@@ -67,6 +67,7 @@ Other aesthetics documentation:
 ## Examples
 
 ``` r
+
 # Generate data: means and standard errors of means for prices
 # for each type of cut
 dmod <- lm(price ~ cut, data = diamonds)

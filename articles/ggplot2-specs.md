@@ -28,6 +28,7 @@ can be specified in the following ways:
   aesthetically pleasing colours.
 
   ``` r
+
   munsell::mnsl("5PB 5/10")
   #> [1] "#447DBF"
   ```
@@ -45,6 +46,7 @@ Line types can be specified with:
   dotted, 4 = dotdash, 5 = longdash, 6 = twodash, as shown below:
 
   ``` r
+
   lty <- c("solid", "dashed", "dotted", "dotdash", "longdash", "twodash")
   linetypes <- data.frame(
     y = seq_along(lty),
@@ -70,6 +72,7 @@ Line types can be specified with:
   followed by three off followed by one on and finally three off.
 
   ``` r
+
   lty <- c("11", "18", "1f", "81", "88", "8f", "f1", "f8", "ff")
   linetypes <- data.frame(
     y = seq_along(lty),
@@ -104,6 +107,7 @@ plots, so we’re stuck with this mistake.
   “square”.
 
   ``` r
+
   df <- data.frame(x = 1:3, y = c(4, 1, 9))
   base <- ggplot(df, aes(x, y)) + xlim(0.5, 3.5) + ylim(0, 10)
   base +
@@ -137,6 +141,7 @@ plots, so we’re stuck with this mistake.
   one of “round” (the default), “mitre”, or “bevel”.
 
   ``` r
+
   df <- data.frame(x = 1:3, y = c(9, 1, 9))
   base <- ggplot(df, aes(x, y)) + ylim(0, 10)
   base +
@@ -182,9 +187,10 @@ The border of the polygon is controlled by the `colour`, `linetype`, and
 
 Shapes take five types of values:
 
-- An **integer** in $\lbrack 0,25\rbrack$:
+- An **integer** in $`[0, 25]`$:
 
   ``` r
+
   shapes <- data.frame(
     shape = c(0:19, 22, 21, 24, 23, 20),
     x = 0:24 %/% 5,
@@ -207,6 +213,7 @@ Shapes take five types of values:
 - The **name** of the shape:
 
   ``` r
+
   shape_names <- c(
     "circle", paste("circle", c("open", "filled", "cross", "plus", "small")), "bullet",
     "square", paste("square", c("open", "filled", "cross", "plus", "triangle")),
@@ -252,6 +259,7 @@ Note that the size is constant along the diagonal in the following
 figure.
 
 ``` r
+
 sizes <- expand.grid(size = (0:3) * 2, stroke = (0:3) * 2)
 ggplot(sizes, aes(size, stroke, size = size, stroke = stroke)) +
   geom_abline(slope = -1, intercept = 6, colour = "white", linewidth = 6) +
@@ -282,6 +290,7 @@ are guaranteed to work everywhere: “sans” (the default), “serif”, or
 “mono”:
 
 ``` r
+
 df <- data.frame(x = 1, y = 3:1, family = c("sans", "serif", "mono"))
 ggplot(df, aes(x, y)) +
   geom_text(aes(label = family, family = family))
@@ -325,6 +334,7 @@ them and see which works best for your needs.
 ### Font face
 
 ``` r
+
 df <- data.frame(x = 1:4, fontface = c("plain", "bold", "italic", "bold.italic"))
 ggplot(df, aes(1, x)) +
   geom_text(aes(label = fontface, fontface = fontface))
@@ -370,6 +380,7 @@ or a number between 0 and 1:
 - left = 0, center = 0.5, right = 1
 
 ``` r
+
 just <- expand.grid(hjust = c(0, 0.5, 1), vjust = c(0, 0.5, 1))
 just$label <- paste0(just$hjust, ", ", just$vjust)
 
