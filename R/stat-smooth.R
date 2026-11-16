@@ -121,7 +121,7 @@ StatSmooth <- ggproto(
           formula,
           data = data,
           weights = weight,
-          !!!method.args
+          !!!adjust_method_args(method, method.args, se, nrow(data))
         ))
         predictdf(model, xseq, se, level)
       },
@@ -192,6 +192,20 @@ StatSmooth <- ggproto(
 #' @export
 #' @rdname geom_smooth
 stat_smooth <- make_constructor(StatSmooth, geom = "smooth", orientation = NA)
+
+# `loess()` computes statistics at fit time that are only needed for standard
+# errors, and its default exact trace takes O(n^2) time. Without a band we skip
+# them like `loess.smooth()` does, unless the user set them. The fit is the same.
+# Small groups, where `method = NULL` picks loess, are left as they are.
+adjust_method_args <- function(method, method.args, se, n_obs) {
+  if (!isFALSE(se) || n_obs < 1000 || !identical(method, stats::loess)) {
+    return(method.args)
+  }
+  if (!any(c("control", "statistics", "trace.hat") %in% names(method.args))) {
+    method.args$statistics <- "none"
+  }
+  method.args
+}
 
 # This function exists to silence an undeclared import warning
 gam_method <- function() {
