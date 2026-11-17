@@ -859,7 +859,11 @@ calc_element <- function(
     }
 
     # if we have null properties, try to fill in from ggplot_global$theme_default
-    el_out <- combine_elements(el_out, ggplot_global$theme_default[[element]])
+    el_out <- merge_element(
+      el_out,
+      ggplot_global$theme_default[[element]],
+      inherit = TRUE
+    )
     if (is_theme_element(el_out)) {
       nullprops <- lengths(S7::props(el_out)) == 0
     } else {
@@ -901,7 +905,7 @@ calc_element <- function(
   )
 
   # Combine the properties of this element with all parents
-  Reduce(combine_elements, parents, el_out)
+  Reduce(\(x, y) merge_element(x, y, inherit = TRUE), parents, el_out)
 }
 
 #' Merge a parent element into a child element
@@ -911,6 +915,9 @@ calc_element <- function(
 #'
 #' @param new The child element in the theme hierarchy
 #' @param old The parent element in the theme hierarchy
+#' @param ... Optional arguments, not currently used.
+#' @param inherit Boolean whether to replace (`FALSE`, default) or inherit
+#'   (`TRUE`) parent values. Relevant for [`rel()`] and [`margin()`] values.
 #' @return A modified version of `new` updated with the properties of
 #' `old`
 #' @keywords internal
@@ -925,9 +932,9 @@ calc_element <- function(
 merge_element <- S7::new_generic(
   "merge_element",
   dispatch_args = c("new", "old"),
-  fun = function(new, old, ...) {
-    # If old is NULL or element_blank, then just return new
-    if (is.null(old) || is_theme_element(old, "blank")) {
+  fun = function(new, old, ..., inherit = FALSE) {
+    # If old is NULL then just return new
+    if (is.null(old)) {
       return(new)
     }
     S7::S7_dispatch()
@@ -935,16 +942,15 @@ merge_element <- S7::new_generic(
 )
 
 S7::method(merge_element, list(S7::class_any, S7::class_any)) <-
-  function(new, old, ...) {
+  function(new, old, ..., inherit = FALSE) {
     if (
-      is.null(new) ||
-        is.character(new) ||
+      is.character(new) ||
         is.numeric(new) ||
         is.unit(new) ||
         is.logical(new) ||
         is.function(new)
     ) {
-      # If new is NULL, or a string, numeric vector, unit, or logical, just return it
+      # If new is a string, numeric vector, unit, or logical, just return it
       return(new)
     }
 
@@ -954,35 +960,98 @@ S7::method(merge_element, list(S7::class_any, S7::class_any)) <-
     )
   }
 
+S7::method(merge_element, list(NULL, S7::class_any)) <-
+  function(new, old, ..., inherit = FALSE) {
+    if (isTRUE(inherit)) {
+      return(old)
+    }
+    new
+  }
+
 S7::method(merge_element, list(element_blank, S7::class_any)) <-
-  function(new, old, ...) {
+  function(new, old, ..., inherit = FALSE) {
     # If new is element_blank, just return it
     new
   }
 
 S7::method(merge_element, list(element, S7::class_any)) <-
-  function(new, old, ...) {
+  function(new, old, ..., inherit = FALSE) {
     # actual merging can only happen if classes match
-    if (!inherits(new, class(old)[1])) {
+    old_class <- setdiff(class(old), .root_element_classes)
+    if (!inherits(new, old_class)) {
       cli::cli_abort("Only elements of the same class can be merged.")
     }
 
+    old_props <- if (S7::S7_inherits(old)) S7::props(old) else unclass(old)
+    new_props <- S7::props(new)
+
     # Override NULL properties of new with the values in old
-    # Get logical vector of NULL properties in new
-    idx <- lengths(S7::props(new)) == 0
-    # Get the names of TRUE items
-    idx <- names(idx[idx])
+    missing <- names(which(lengths(new_props) == 0))
+    new_props[missing] <- old_props[missing]
 
-    # Update non-NULL items
-    S7::props(new)[idx] <- S7::props(old, idx)
+    if (isTRUE(inherit)) {
+      fields <- intersect(names(new_props), .inheriting_props)
+      for (field in fields) {
+        new_props[[field]] <- merge_element(
+          new_props[[field]],
+          old_props[[field]],
+          inherit = TRUE
+        )
+      }
 
+      # If old is 'richer' than new, fill old with new parameters
+      if (is_subclass(old, new, TRUE)) {
+        replace <- defaults(new_props, old_props)
+        if (is_theme_element(old)) {
+          S7::props(old)[names(replace)] <- replace
+        } else {
+          # Backwards compatibility
+          old[names(replace)] <- replace
+        }
+        return(old)
+      }
+    }
+
+    S7::props(new) <- new_props
+    new
+  }
+
+S7::method(merge_element, list(element, element_blank)) <-
+  function(new, old, ..., inherit = FALSE) {
+    # Honour the `inherit.blank` setting of inheriting elements
+    if (isTRUE(inherit) && isTRUE(try_prop(new, "inherit.blank"))) {
+      return(old)
+    }
     new
   }
 
 S7::method(merge_element, list(margin, S7::class_any)) <-
-  function(new, old, ...) {
-    if (anyNA(new) && is_margin(old)) {
+  function(new, old, ..., inherit = FALSE) {
+    if (!is_margin(old)) {
+      return(new)
+    }
+    if (isTRUE(inherit) && anyNA(old)) {
+      # If inheriting, make sure there old margin is complete
+      old[is.na(old)] <- unit(0, "pt")
+    }
+    if (anyNA(new)) {
       new[is.na(new)] <- old[is.na(new)]
+    }
+    new
+  }
+
+S7::method(merge_element, list(class_rel, S7::class_any)) <-
+  function(new, old, ..., inherit = FALSE) {
+    if (!isTRUE(inherit)) {
+      return(new)
+    }
+    if (is_rel(old)) {
+      # Combined `rel` objects accumulate as product
+      return(rel(unclass(new) * unclass(old)))
+    }
+    if (is.numeric(old) || is.unit(old)) {
+      # Return modified number
+      return(unclass(new) * old)
     }
     new
   }
@@ -990,13 +1059,38 @@ S7::method(merge_element, list(margin, S7::class_any)) <-
 # For backward compatibility
 # TODO: in subsequent release cycle, start deprecation
 S7::method(merge_element, list(S7::new_S3_class("element"), S7::class_any)) <-
-  function(new, old, ...) {
+  function(new, old, ..., inherit = FALSE) {
+    old_orig <- old
     if (S7::S7_inherits(old)) {
       old <- S7::props(old)
     }
-    idx <- lengths(new) == 0
-    idx <- names(idx[idx])
+    idx <- names(which(lengths(new) == 0))
     new[idx] <- old[idx]
+
+    if (!isTRUE(inherit)) {
+      return(new)
+    }
+
+    fields <- intersect(names(new), .inheriting_props)
+    for (field in fields) {
+      new[[field]] <- merge_element(
+        new[[field]],
+        old[[field]],
+        inherit = TRUE
+      )
+    }
+
+    if (is_subclass(old_orig, new, trim_s7 = TRUE)) {
+      replace <- defaults(new, old)
+      if (is_theme_element(old_orig)) {
+        S7::props(old_orig)[names(replace)] <- replace
+        old <- old_orig
+      } else {
+        old[names(replace)] <- replace
+      }
+      return(old)
+    }
+
     new
   }
 
@@ -1008,111 +1102,31 @@ S7::method(merge_element, list(S7::new_S3_class("element"), S7::class_any)) <-
 #' @noRd
 #'
 combine_elements <- function(e1, e2) {
-  # If e2 is NULL, nothing to inherit
-  if (is.null(e2) || is_theme_element(e1, "blank")) {
-    return(e1)
-  }
-
-  # If e1 is NULL inherit everything from e2
-  if (is.null(e1)) {
-    return(e2)
-  }
-
-  # Inheritance of rel objects
-  if (is_rel(e1)) {
-    # Both e1 and e2 are rel, give product as another rel
-    if (is_rel(e2)) {
-      return(rel(unclass(e1) * unclass(e2)))
-    }
-    # If e2 is a unit/numeric, return modified unit/numeric
-    # Note that unit objects are considered numeric
-    if (is.numeric(e2) || is.unit(e2)) {
-      return(unclass(e1) * e2)
-    }
-    return(e1)
-  }
-
-  if (is_margin(e1) && is_margin(e2)) {
-    if (anyNA(e2)) {
-      e2[is.na(e2)] <- unit(0, "pt")
-    }
-    if (anyNA(e1)) {
-      e1[is.na(e1)] <- e2[is.na(e1)]
-    }
-  }
-
-  # Backward compatbility
-  # TODO: deprecate next release cycle
-  is_old_element <- !S7::S7_inherits(e1) && inherits(e1, "element")
-  if (is_old_element && (is_theme_element(e2) || inherits(e2, "element"))) {
-    return(combine_s3_elements(e1, e2))
-  }
-
-  # If neither of e1 or e2 are element_* objects, return e1
-  if (!is_theme_element(e1) && !is_theme_element(e2)) {
-    return(e1)
-  }
-
-  # If e2 is element_blank, and e1 inherits blank inherit everything from e2,
-  # otherwise ignore e2
-  if (is_theme_element(e2, "blank")) {
-    if (isTRUE(try_prop(e1, "inherit.blank"))) {
-      return(e2)
-    } else {
-      return(e1)
-    }
-  }
-
-  parent_props <- if (S7::S7_inherits(e2)) S7::props(e2) else unclass(e2)
-
-  # If e1 has any NULL properties, inherit them from e2
-  n <- S7::prop_names(e1)[lengths(S7::props(e1)) == 0]
-  S7::props(e1)[n] <- parent_props[n]
-
-  # Calculate relative sizes
-  if (is_rel(try_prop(e1, "size"))) {
-    e1@size <- parent_props$size * unclass(e1@size)
-  }
-
-  # Calculate relative linewidth
-  if (is_rel(try_prop(e1, "linewidth"))) {
-    e1@linewidth <- parent_props$linewidth * unclass(e1@linewidth)
-  }
-
-  if (is_theme_element(e1, "text")) {
-    e1@margin <- combine_elements(e1@margin, parent_props$margin)
-  }
-
-  # If e2 is 'richer' than e1, fill e2 with e1 parameters
-  is_subclass <- !any(inherits(e2, class(e1), which = TRUE) == 0)
-  is_subclass <- is_subclass && length(setdiff(class(e2), class(e1))) > 0
-  if (is_subclass) {
-    new <- defaults(S7::props(e1), S7::props(e2))
-    S7::props(e2)[names(new)] <- new
-    return(e2)
-  }
-
-  e1
+  deprecate(
+    "combine_elements()",
+    I("`merge_element(..., inherit = TRUE)`"),
+    when = "4.1.0"
+  )
+  merge_element(e1, e2, inherit = TRUE)
 }
 
-# For backward compatibility
-# TODO: in subsequent release cycle, start deprecation
-combine_s3_elements <- function(e1, e2) {
-  e1 <- merge_element(e1, e2)
-  if (S7::S7_inherits(e2)) {
-    e2 <- S7::props(e2)
+is_subclass <- function(x, y, trim_s7 = TRUE) {
+  cx <- class(x)
+  cy <- class(y)
+  if (trim_s7) {
+    # Strip S7 class prefixes, `ggplot2::` from `ggplot2::element_text`.
+    # Our base S7 classes also have S3 class for backward compatibility (`element_text`)
+    # Extended S7 classes may lack that backward compatibility class.
+    # Extended S3 classes do not list our base S7 classes.
+    # Best to compare by stripping the S7 bit and taking unique classes.
+    cx <- setdiff(unique(gsub("^\\w+::", "", cx)), "S7_object")
+    cy <- setdiff(unique(gsub("^\\w+::", "", cy)), "S7_object")
   }
-  if (is_rel(e1$size)) {
-    e1$size <- e2$size * unclass(e1$size)
-  }
-  if (is_rel(e1$linewidth)) {
-    e1$linewidth <- e2$linewidth * unclass(e1$linewidth)
-  }
-  if (inherits(e1, "element_text")) {
-    e1$margin <- combine_elements(e1$margin, e2$margin)
-  }
-  return(e1)
+  length(cx) > length(cy) && all(cy %in% cx)
 }
+
+.inheriting_props <- c("size", "linewidth", "margin")
+.root_element_classes <- c("ggplot2::element", "element", "S7_object")
 
 local({
   S7::method(`$`, class_theme) <- function(x, ...) {
