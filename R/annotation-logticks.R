@@ -335,7 +335,7 @@ calc_logticks <- function(
   tickend <- rep(shortend, length(ticks))
 
   # Get the position within each cycle, 0, 1, 2, ..., 8, 0, 1, 2. ...
-  cycleIdx <- ticknums - 1
+  cycleIdx <- c(ticknums, 1) - 1
 
   # Set the "major" ticks long
   tickend[cycleIdx == 0] <- longend

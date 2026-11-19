@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `annotation_logticks()` no longer warns about a logical index of the wrong
+  length on R-devel (@SAY-5, #6906).
 * Updates for compatibility with S7 > 0.2.2.
  
 * Faceting by a named vector no longer partially matches the `names` attribute
