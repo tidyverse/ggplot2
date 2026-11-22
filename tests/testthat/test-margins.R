@@ -91,6 +91,32 @@ test_that("titleGrob() and margins() work correctly", {
   expect_equal(width_cm(g10), width_cm(g1) + 2)
 })
 
+test_that("a low-resolution preview does not change a high-resolution export", {
+  skip_if_not_installed("ragg")
+
+  plot <- ggplot(mtcars, aes(wt, mpg)) + geom_point() + labs(title = "Title gjpqy")
+
+  export <- function(preview) {
+    local_mocked_bindings(descent_cache = new.env(parent = emptyenv()))
+    if (preview) {
+      ggsave(
+        withr::local_tempfile(fileext = ".png"),
+        plot,
+        device = ragg::agg_png,
+        width = 4,
+        height = 3,
+        dpi = 72
+      )
+    }
+
+    file <- withr::local_tempfile(fileext = ".png")
+    ggsave(file, plot, device = ragg::agg_png, width = 4, height = 3, dpi = 300)
+    readBin(file, "raw", n = file.size(file))
+  }
+
+  expect_true(identical(export(preview = TRUE), export(preview = FALSE)))
+})
+
 test_that("margins() warn against wrong input lengths", {
   expect_snapshot(margin(c(1, 2), 3, 4, c(5, 6, 7)))
 })
