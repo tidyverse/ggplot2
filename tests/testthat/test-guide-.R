@@ -19,7 +19,10 @@ test_that("plotting does not induce state changes in guides", {
 
   grob <- ggplotGrob(p)
 
-  expect_identical(as.list(p@guides), unserialize(snapshot))
+  expect_identical(
+    as.list(p@guides), unserialize(snapshot),
+    ignore_function_env = TRUE
+  )
 })
 
 test_that("adding guides doesn't change plot state", {
