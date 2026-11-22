@@ -15,11 +15,23 @@ test_that("plotting does not induce state changes in guides", {
     geom_point() +
     guides
 
-  snapshot <- serialize(as.list(p@guides), NULL)
+  # Preserve S7 class references while copying the mutable guide state.
+  # Serializing these references also copies installation-specific environments.
+  class_refs <- list()
+  snapshot <- serialize(as.list(p@guides), NULL, refhook = function(x) {
+    if (!inherits(x, "S7_class_ref")) {
+      return(NULL)
+    }
+    class_refs[[length(class_refs) + 1L]] <<- x
+    as.character(length(class_refs))
+  })
 
   grob <- ggplotGrob(p)
 
-  expect_identical(as.list(p@guides), unserialize(snapshot))
+  expect_identical(
+    as.list(p@guides),
+    unserialize(snapshot, refhook = function(x) class_refs[[as.integer(x)]])
+  )
 })
 
 test_that("adding guides doesn't change plot state", {

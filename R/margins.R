@@ -307,12 +307,13 @@ descent_cache <- new.env(parent = emptyenv())
 # font descents at once.
 font_descent <- function(family = "", face = "plain", size = 12, cex = 1) {
   cur_dev <- names(grDevices::dev.cur())
-  if (cur_dev == "null device") {
-    cache <- FALSE # don't cache if no device open
-  } else {
-    cache <- TRUE
+  cache <- cur_dev != "null device"
+  if (cache) {
+    # Raster devices can measure the same font differently at different DPIs.
+    dpi <- grDevices::dev.size("px") / grDevices::dev.size("in")
+    cur_dev <- paste(cur_dev, dpi[1], dpi[2], sep = ":")
   }
-  key <- paste0(cur_dev, ':', family, ':', face, ":", size, ":", cex)
+  key <- paste(cur_dev, family, face, size, cex, sep = ":")
   # we only look up the first result; this function is not vectorized
   key <- key[1]
 
