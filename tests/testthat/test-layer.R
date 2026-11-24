@@ -284,6 +284,7 @@ test_that("get_layer_grob works with layer names", {
   named <- get_layer_grob(p, i = "bar")
   nummed <- get_layer_grob(p, i = 2L)
   named[[1]]$name <- nummed[[1]]$name <- NULL # ignore grid's unique names
+  named[[1]]$vp$name <- nummed[[1]]$vp$name <- NULL
   expect_identical(named, nummed)
 })
 

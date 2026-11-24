@@ -22,7 +22,7 @@ GeomSmooth <- ggproto(
     params
   },
 
-  extra_params = c("na.rm", "orientation"),
+  extra_params = c("na.rm", "orientation", "clip"),
 
   setup_data = function(data, params) {
     GeomLine$setup_data(data, params)

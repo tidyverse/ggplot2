@@ -240,7 +240,7 @@ GeomBoxplot <- ggproto(
   "GeomBoxplot",
   Geom,
 
-  extra_params = c("na.rm", "orientation", "outliers"),
+  extra_params = c("na.rm", "orientation", "outliers", "clip"),
 
   setup_params = function(data, params) {
     if ("fatten" %in% names(params)) {

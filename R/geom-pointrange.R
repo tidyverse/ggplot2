@@ -30,7 +30,7 @@ GeomPointrange <- ggproto(
     GeomLinerange$setup_params(data, params)
   },
 
-  extra_params = c("na.rm", "orientation"),
+  extra_params = c("na.rm", "orientation", "clip"),
 
   setup_data = function(data, params) {
     GeomLinerange$setup_data(data, params)

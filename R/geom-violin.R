@@ -175,7 +175,14 @@ GeomViolin <- ggproto(
     params
   },
 
-  extra_params = c("na.rm", "orientation", "lineend", "linejoin", "linemitre"),
+  extra_params = c(
+    "na.rm",
+    "orientation",
+    "lineend",
+    "linejoin",
+    "linemitre",
+    "clip"
+  ),
 
   setup_data = function(self, data, params) {
     data$flipped_aes <- params$flipped_aes
