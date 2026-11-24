@@ -282,7 +282,7 @@ FacetWrap <- ggproto(
 
     base <- combine_vars(data, params$plot_env, vars, drop = params$drop)
 
-    id <- id(base, drop = TRUE)
+    id <- id(base)
     n <- attr(id, "n", exact = TRUE)
 
     dims <- wrap_dims(n, params$nrow, params$ncol)

@@ -320,18 +320,18 @@ FacetGrid <- ggproto(
     base <- unique0(base)
 
     # Create panel info dataset
-    panel <- id(base, drop = TRUE)
+    panel <- id(base)
     panel <- factor(panel, levels = seq_len(attr(panel, "n", exact = TRUE)))
 
     rows <- if (!length(names(rows))) {
       rep(1L, length(panel))
     } else {
-      id(base[names(rows)], drop = TRUE)
+      id(base[names(rows)])
     }
     cols <- if (!length(names(cols))) {
       rep(1L, length(panel))
     } else {
-      id(base[names(cols)], drop = TRUE)
+      id(base[names(cols)])
     }
 
     panels <- data_frame0(PANEL = panel, ROW = rows, COL = cols, base)
