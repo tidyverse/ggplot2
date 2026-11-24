@@ -35,6 +35,12 @@ for more details:
 \item \code{\link[Hmisc:smedian.hilow]{Hmisc::smedian.hilow()}}
 }
 }
+\details{
+\code{median_hilow()} uses the 2.5th and 97.5th sample percentiles as its
+limits by default. Set \code{conf.int = 1} to use the sample minimum and maximum.
+In \code{\link[=stat_summary]{stat_summary()}}, use \code{fun.data = median_hilow} with
+\code{fun.args = list(conf.int = 1)}.
+}
 \examples{
 if (requireNamespace("Hmisc", quietly = TRUE)) {
 set.seed(1)
@@ -43,5 +49,6 @@ mean_cl_boot(x)
 mean_cl_normal(x)
 mean_sdl(x)
 median_hilow(x)
+median_hilow(x, conf.int = 1)
 }
 }
