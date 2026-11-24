@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Plots and layers again accept aesthetic mappings reclassed as `uneval`
+  by extensions when using S7 1.0.0 (@t-kalinowski).
+
 * Updates for compatibility with S7 > 0.2.2.
  
 * Faceting by a named vector no longer partially matches the `names` attribute

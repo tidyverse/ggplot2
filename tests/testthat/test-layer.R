@@ -25,6 +25,22 @@ test_that("layer() checks its input", {
   expect_snapshot_error(layer("foo", "identity", position = "identity"))
 })
 
+test_that("plots and layers accept mappings reclassed as uneval", {
+  mapping <- aes(mpg, wt)
+  legacy_mapping <- mapping
+  class(legacy_mapping) <- "uneval"
+
+  expected <- get_layer_data(ggplot(mtcars, mapping) + geom_point())
+  expect_identical(
+    get_layer_data(ggplot(mtcars, legacy_mapping) + geom_point()),
+    expected
+  )
+  expect_identical(
+    get_layer_data(ggplot(mtcars) + geom_point(legacy_mapping)),
+    expected
+  )
+})
+
 test_that("aesthetics go in aes_params", {
   l <- geom_point(size = "red")
   expect_equal(l$aes_params, list(size = "red"))
