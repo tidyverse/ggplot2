@@ -14,8 +14,8 @@ A data frame with 234 rows and 11 variables:
 \item{cyl}{number of cylinders}
 \item{trans}{type of transmission}
 \item{drv}{the type of drive train, where f = front-wheel drive, r = rear wheel drive, 4 = 4wd}
-\item{cty}{city miles per gallon}
-\item{hwy}{highway miles per gallon}
+\item{cty}{city miles per U.S. gallon}
+\item{hwy}{highway miles per U.S. gallon}
 \item{fl}{fuel type}
 \item{class}{"type" of car}
 }
@@ -24,8 +24,9 @@ A data frame with 234 rows and 11 variables:
 mpg
 }
 \description{
-This dataset contains a subset of the fuel economy data that the EPA makes
-available on \url{https://fueleconomy.gov/}. It contains only models which
+This dataset contains a subset of the fuel economy data from the U.S.
+Environmental Protection Agency (EPA), available at
+\url{https://fueleconomy.gov/}. It contains only models which
 had a new release every year between 1999 and 2008 - this was used as a
 proxy for the popularity of the car.
 }

@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* The `mpg` documentation identifies the U.S. Environmental Protection Agency
+  as the data source and specifies U.S. gallons for `cty` and `hwy`
+  (@M-Colley, #6898).
+
 * Updates for compatibility with S7 > 0.2.2.
  
 * Faceting by a named vector no longer partially matches the `names` attribute
