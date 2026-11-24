@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* The `median_hilow()` help page now explains how to use the full data range
+  (@M-Colley, #6877).
+
 * Updates for compatibility with S7 > 0.2.2.
  
 * Faceting by a named vector no longer partially matches the `names` attribute

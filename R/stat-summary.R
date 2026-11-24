@@ -266,6 +266,12 @@ uniquecols <- function(df) {
 #'
 #' @param x a numeric vector
 #' @param ... other arguments passed on to the respective Hmisc function.
+#' @details
+#' `median_hilow()` uses the 2.5th and 97.5th sample percentiles as its
+#' limits by default. Set `conf.int = 1` to use the sample minimum and maximum.
+#' In [stat_summary()], use `fun.data = median_hilow` with
+#' `fun.args = list(conf.int = 1)`.
+#'
 #' @return A data frame with columns `y`, `ymin`, and `ymax`.
 #' @name hmisc
 #' @examples
@@ -276,6 +282,7 @@ uniquecols <- function(df) {
 #' mean_cl_normal(x)
 #' mean_sdl(x)
 #' median_hilow(x)
+#' median_hilow(x, conf.int = 1)
 #' }
 NULL
 
