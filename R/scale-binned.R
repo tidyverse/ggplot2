@@ -5,6 +5,11 @@
 #' inputs before using it with a geom that requires discrete positions. An
 #' example is using `scale_x_binned()` with [geom_bar()] to create a histogram.
 #'
+#' Groups are determined from the original aesthetic mappings before the
+#' scales bin the positions. To draw a boxplot for each bin, map a factor
+#' created with `cut()`, [cut_interval()], [cut_number()], or [cut_width()]
+#' to the position aesthetic.
+#'
 #' @inheritParams binned_scale
 #'
 #' @family position scales
@@ -20,6 +25,10 @@
 #' ggplot(mtcars) +
 #'   geom_bar(aes(mpg)) +
 #'   scale_x_binned()
+#'
+#' # Map the bins as groups for boxplots
+#' ggplot(mtcars, aes(cut_interval(wt, 3), mpg)) +
+#'   geom_boxplot()
 NULL
 
 #' @rdname scale_binned
