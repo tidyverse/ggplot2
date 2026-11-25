@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `scale_x_binned()` and `scale_y_binned()` now explain how to group data
+  into bins for boxplots (@M-Colley, #6859).
+
 * Updates for compatibility with S7 > 0.2.2.
  
 * Faceting by a named vector no longer partially matches the `names` attribute

@@ -151,11 +151,21 @@ continuous position data. You can use these scales to transform continuous
 inputs before using it with a geom that requires discrete positions. An
 example is using \code{scale_x_binned()} with \code{\link[=geom_bar]{geom_bar()}} to create a histogram.
 }
+\details{
+Groups are determined from the original aesthetic mappings before the
+scales bin the positions. To draw a boxplot for each bin, map a factor
+created with \code{cut()}, \code{\link[=cut_interval]{cut_interval()}}, \code{\link[=cut_number]{cut_number()}}, or \code{\link[=cut_width]{cut_width()}}
+to the position aesthetic.
+}
 \examples{
 # Create a histogram by binning the x-axis
 ggplot(mtcars) +
   geom_bar(aes(mpg)) +
   scale_x_binned()
+
+# Map the bins as groups for boxplots
+ggplot(mtcars, aes(cut_interval(wt, 3), mpg)) +
+  geom_boxplot()
 }
 \seealso{
 The \link[=aes_position]{position documentation}.
