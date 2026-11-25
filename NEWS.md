@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `position_jitter()` now uses one random sequence across facets and retains
+  reproducible jitter when given a seed (@M-Colley, #6858).
+
 * Updates for compatibility with S7 > 0.2.2.
  
 * Faceting by a named vector no longer partially matches the `names` attribute

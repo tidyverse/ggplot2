@@ -72,6 +72,15 @@ PositionJitter <- ggproto(
     )
   },
 
+  compute_layer = function(self, data, params, layout) {
+    seed <- params$seed
+    params$seed <- NULL
+    with_seed_null(
+      seed,
+      ggproto_parent(Position, self)$compute_layer(data, params, layout)
+    )
+  },
+
   compute_panel = function(self, data, params, scales) {
     compute_jitter(data, params$width, params$height, seed = params$seed)
   }
