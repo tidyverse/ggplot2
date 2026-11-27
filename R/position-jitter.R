@@ -72,12 +72,19 @@ PositionJitter <- ggproto(
     )
   },
 
+  compute_layer = function(self, data, params, layout) {
+    with_seed_null(
+      params$seed,
+      ggproto_parent(Position, self)$compute_layer(data, params, layout)
+    )
+  },
+
   compute_panel = function(self, data, params, scales) {
-    compute_jitter(data, params$width, params$height, seed = params$seed)
+    compute_jitter(data, params$width, params$height)
   }
 )
 
-compute_jitter <- function(data, width = NULL, height = NULL, seed = NA) {
+compute_jitter <- function(data, width = NULL, height = NULL) {
   width <- width %||% (resolution(data$x, zero = FALSE, TRUE) * 0.4)
   height <- height %||% (resolution(data$y, zero = FALSE, TRUE) * 0.4)
 
@@ -91,7 +98,7 @@ compute_jitter <- function(data, width = NULL, height = NULL, seed = NA) {
   y <- if (length(y_aes) == 0) 0 else data[[y_aes[1]]]
 
   jitter <- data_frame0(x = x, y = y, .size = nrow(data))
-  jitter <- with_seed_null(seed, transform_position(jitter, trans_x, trans_y))
+  jitter <- transform_position(jitter, trans_x, trans_y)
 
   x_jit <- jitter$x - x
   x_jit[is.infinite(x)] <- 0

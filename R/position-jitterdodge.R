@@ -89,6 +89,13 @@ PositionJitterdodge <- ggproto(
     PositionDodge$setup_data(data = data, params = params)
   },
 
+  compute_layer = function(self, data, params, layout) {
+    with_seed_null(
+      params$seed,
+      ggproto_parent(Position, self)$compute_layer(data, params, layout)
+    )
+  },
+
   compute_panel = function(data, params, scales) {
     data <- flip_data(data, params$flipped_aes)
     data <- collide(
@@ -101,6 +108,6 @@ PositionJitterdodge <- ggproto(
       reverse = !params$reverse # for consistency with `position_dodge2()`
     )
     data <- flip_data(data, params$flipped_aes)
-    compute_jitter(data, params$jitter.width, params$jitter.height, params$seed)
+    compute_jitter(data, params$jitter.width, params$jitter.height)
   }
 )
