@@ -22,12 +22,20 @@ test_that("faceted jitter uses one reproducible sequence per layer", {
     facet_wrap(vars(f))
 
   withr::local_seed(1)
-  seed <- .Random.seed
-  layers <- ggplot_build(plot)$data
+  current_seed <- .Random.seed
+
+  build <- ggplot_build(plot)
+  layer1 <- get_layer_data(build, i = 1)
+  layer2 <- get_layer_data(build, i = 2)
 
   # The panels draw consecutive offsets from the same seeded sequence.
   expected <- withr::with_seed(17, stats::runif(nrow(df), -0.2, 0.2))
-  expect_equal(layers[[1]]$y, expected)
-  expect_identical(layers[[2]]$y, layers[[1]]$y)
-  expect_identical(.Random.seed, seed)
+  expect_equal(layer1$y, expected)
+  expect_identical(layer2, layer1)
+
+  # Jitter should be applied separately across facets
+  expect_all_false(layer1$y[1:3] == layer1$y[4:6])
+
+  # Global seed has not been affected by jitter computation
+  expect_identical(.Random.seed, current_seed)
 })
